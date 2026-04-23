@@ -1,5 +1,5 @@
 using cCoder.Data.Models.Packaging;
-using EventLibrary.Models;
+using cCoder.Eventing.Models;
 using FluentAssertions;
 using Moq;
 using Xunit;
