@@ -40,9 +40,12 @@ internal class PackageItemService(
             Data = packageItem.Data,
         };
 
-        newPackageItem = await packageItemBroker.AddPackageItemAsync(newPackageItem);
-        newPackageItem.Package = packageItem.Package;
-        return newPackageItem;
+        PackageItem result = await packageItemBroker.AddPackageItemAsync(newPackageItem);
+        packageItem.Id = result.Id;
+        packageItem.PackageId = result.PackageId;
+        packageItem.Type = result.Type;
+        packageItem.Data = result.Data;
+        return packageItem;
     }
 
     public async ValueTask<PackageItem> UpdateAsync(PackageItem packageItem)
@@ -59,9 +62,12 @@ internal class PackageItemService(
             Data = packageItem.Data,
         };
 
-        updatePackageItem = await packageItemBroker.UpdatePackageItemAsync(updatePackageItem);
-        updatePackageItem.Package = packageItem.Package;
-        return updatePackageItem;
+        PackageItem result = await packageItemBroker.UpdatePackageItemAsync(updatePackageItem);
+        packageItem.Id = result.Id;
+        packageItem.PackageId = result.PackageId;
+        packageItem.Type = result.Type;
+        packageItem.Data = result.Data;
+        return packageItem;
     }
 
     public async ValueTask DeleteAsync(Guid id)

@@ -37,9 +37,13 @@ internal class PackageService(IPackageBroker packageBroker, IAuthorizationBroker
             SourceApi = package.SourceApi,
         };
 
-        newPackage = await packageBroker.AddPackageAsync(newPackage);
-        newPackage.Items = package.Items;
-        return newPackage;
+        Package result = await packageBroker.AddPackageAsync(newPackage);
+        package.Id = result.Id;
+        package.Name = result.Name;
+        package.Description = result.Description;
+        package.Category = result.Category;
+        package.SourceApi = result.SourceApi;
+        return package;
     }
 
     public async ValueTask<Package> UpdateAsync(Package package)
@@ -54,9 +58,13 @@ internal class PackageService(IPackageBroker packageBroker, IAuthorizationBroker
             SourceApi = package.SourceApi,
         };
 
-        updatePackage = await packageBroker.UpdatePackageAsync(updatePackage);
-        updatePackage.Items = package.Items;
-        return updatePackage;
+        Package result = await packageBroker.UpdatePackageAsync(updatePackage);
+        package.Id = result.Id;
+        package.Name = result.Name;
+        package.Description = result.Description;
+        package.Category = result.Category;
+        package.SourceApi = result.SourceApi;
+        return package;
     }
 
     public async ValueTask DeleteAsync(Guid id)

@@ -1,7 +1,7 @@
 using cCoder.Data;
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Brokers.Events;
-using EventLibrary.Models;
+using cCoder.Eventing.Models;
 
 
 namespace cCoder.Packaging.Services.Foundations.Events;

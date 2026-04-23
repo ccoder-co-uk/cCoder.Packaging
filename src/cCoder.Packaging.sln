@@ -1,13 +1,13 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", ".", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cCoder.Packaging", "src\cCoder.Packaging\cCoder.Packaging.csproj", "{3A8F3D1D-E66D-49DC-AE1C-C39C3F780ABF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cCoder.Packaging", "cCoder.Packaging\cCoder.Packaging.csproj", "{3A8F3D1D-E66D-49DC-AE1C-C39C3F780ABF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cCoder.Packaging.Tests", "src\cCoder.Packaging.Tests\cCoder.Packaging.Tests.csproj", "{3C2CCFD3-9A9F-42E0-B409-E5812D36C929}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cCoder.Packaging.Tests", "cCoder.Packaging.Tests\cCoder.Packaging.Tests.csproj", "{3C2CCFD3-9A9F-42E0-B409-E5812D36C929}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

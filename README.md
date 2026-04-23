@@ -12,13 +12,13 @@
 ## Build
 
 ```powershell
-dotnet build cCoder.Packaging.sln -v minimal
+dotnet build src/cCoder.Packaging.sln -v minimal
 ```
 
 ## Test
 
 ```powershell
-dotnet test cCoder.Packaging.sln -v minimal --no-build
+dotnet test src/cCoder.Packaging.sln -v minimal --no-build
 ```
 
 ## Package
