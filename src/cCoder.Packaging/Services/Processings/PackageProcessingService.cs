@@ -9,9 +9,6 @@ internal class PackageProcessingService(IPackageService service, IPackageItemPro
 {
     public cCoder.Data.Models.Packaging.Package ExportPackage(int appId, string packageName)
     {
-        if (1 == 0)
-        {
-        }
         cCoder.Data.Models.Packaging.Package result = packageName switch
         {
             "Roles" => service.ExportRoles(appId),
@@ -28,9 +25,7 @@ internal class PackageProcessingService(IPackageService service, IPackageItemPro
                 Items = Array.Empty<cCoder.Data.Models.Packaging.PackageItem>()
             },
         };
-        if (1 == 0)
-        {
-        }
+
         return result;
     }
 
