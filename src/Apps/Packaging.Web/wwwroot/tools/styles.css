@@ -1,0 +1,352 @@
+html,
+body {
+    height: 100%;
+}
+
+body.packaging-shell {
+    margin: 0;
+    overflow: hidden;
+    background: #eef2f7;
+    color: #17202a;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+}
+
+.packaging-header {
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 12px;
+    border-bottom: 1px solid #c8d2df;
+    background: #f8fafc;
+}
+
+.packaging-brand,
+.packaging-auth,
+.packaging-header-actions,
+.packaging-toolbar,
+.packaging-section-tabs,
+.packaging-tabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.packaging-brand h1,
+.packaging-toolbar h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.packaging-brand span,
+.packaging-toolbar span {
+    color: #607085;
+    font-size: 12px;
+}
+
+.packaging-logo {
+    width: 126px;
+    height: 42px;
+    object-fit: contain;
+    border-radius: 3px;
+    background: #000;
+}
+
+.packaging-auth input {
+    width: 150px;
+}
+
+.packaging-status {
+    max-width: 240px;
+    overflow: hidden;
+    color: #2f6f46;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.packaging-status-error {
+    color: #a33131;
+}
+
+button,
+a {
+    min-height: 30px;
+    padding: 5px 10px;
+    border: 1px solid #b6c4d4;
+    border-radius: 3px;
+    background: #fff;
+    color: #243b53;
+    font: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+button:hover,
+a:hover {
+    background: #edf4fb;
+}
+
+.packaging-workbench {
+    height: calc(100% - 58px);
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    overflow: auto;
+    padding: 10px;
+}
+
+.packaging-login-gate {
+    height: calc(100% - 58px);
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    text-align: center;
+}
+
+.packaging-login-gate h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.packaging-login-gate p {
+    margin: 0;
+    color: #607085;
+}
+
+body.packaging-shell:not(.is-authenticated) .packaging-workbench,
+body.packaging-shell:not(.is-authenticated) .packaging-header-actions {
+    display: none;
+}
+
+body.packaging-shell.is-authenticated .packaging-login-gate {
+    display: none;
+}
+
+.packaging-panel {
+    min-height: 100%;
+    border: 1px solid #c8d2df;
+    border-top: 0;
+    background: #fff;
+}
+
+.packaging-section-tabs,
+.packaging-tabs {
+    align-items: flex-end;
+    gap: 4px;
+    min-height: 38px;
+    border-bottom: 1px solid #c8d2df;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.packaging-section-tabs button,
+.packaging-tabs button {
+    min-height: 38px;
+    margin-bottom: -1px;
+    border-radius: 4px 4px 0 0;
+    background: #fff;
+}
+
+.packaging-section-tabs button.active,
+.packaging-tabs button.active {
+    border-color: #b6c4d4;
+    border-bottom-color: #fff;
+    background: #fff;
+    color: #0b5cab;
+    font-weight: 600;
+}
+
+.packaging-toolbar {
+    min-height: 54px;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border-bottom: 1px solid #d6dee8;
+    background: #f8fafc;
+}
+
+.packaging-grid {
+    overflow: auto;
+}
+
+.packaging-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.packaging-table th,
+.packaging-table td {
+    padding: 8px;
+    border-bottom: 1px solid #d6dee8;
+    border-right: 1px solid #edf1f5;
+    text-align: left;
+    vertical-align: top;
+}
+
+.packaging-table th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #f8fafc;
+    color: #26384c;
+    font-weight: 600;
+}
+
+.packaging-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+.packaging-table pre {
+    max-width: 620px;
+    max-height: 220px;
+    overflow: auto;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.packaging-expand-column {
+    width: 42px;
+    text-align: center;
+}
+
+.packaging-expand-toggle {
+    width: 32px;
+    min-height: 32px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.packaging-expand-toggle:hover {
+    background: transparent;
+}
+
+.packaging-expand-icon {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 6px solid #17202a;
+}
+
+.packaging-expand-toggle.expanded .packaging-expand-icon {
+    transform: rotate(90deg);
+}
+
+.packaging-actions {
+    width: 150px;
+}
+
+.packaging-empty {
+    color: #607085;
+}
+
+.packaging-detail-row > td {
+    padding: 8px 8px 8px 42px;
+    background: #f0f2f5;
+}
+
+.packaging-detail {
+    padding: 10px;
+    background: #fff;
+}
+
+.packaging-tab-panel {
+    display: none;
+    padding-top: 10px;
+}
+
+.packaging-tab-panel.active {
+    display: block;
+}
+
+.packaging-detail-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding-bottom: 8px;
+}
+
+.packaging-dialog {
+    width: min(720px, calc(100vw - 32px));
+    border: 1px solid #9fb0c3;
+    border-radius: 4px;
+    padding: 0;
+}
+
+.packaging-dialog header,
+.packaging-dialog footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px;
+    background: #f8fafc;
+}
+
+.packaging-dialog h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.packaging-editor-fields {
+    display: grid;
+    gap: 10px;
+    padding: 12px;
+}
+
+.packaging-editor-fields label {
+    display: grid;
+    gap: 4px;
+}
+
+.packaging-editor-fields span {
+    color: #384b5f;
+    font-weight: 600;
+}
+
+.packaging-editor-fields input,
+.packaging-editor-fields textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px;
+    border: 1px solid #b6c4d4;
+    border-radius: 3px;
+    font: inherit;
+}
+
+.packaging-editor-fields textarea {
+    min-height: 180px;
+    resize: vertical;
+    font-family: Consolas, "Courier New", monospace;
+}
+
+@media (max-width: 1000px) {
+    body.packaging-shell {
+        overflow: auto;
+    }
+
+    .packaging-header {
+        height: auto;
+        min-height: 58px;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 8px 12px;
+    }
+
+    .packaging-workbench {
+        height: auto;
+        min-height: calc(100vh - 58px);
+    }
+
+    .packaging-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

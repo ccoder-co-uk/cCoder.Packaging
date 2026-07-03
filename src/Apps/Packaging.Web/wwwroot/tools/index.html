@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Packaging</title>
+  <link rel="stylesheet" href="/tools/styles.css">
+</head>
+<body class="packaging-shell">
+  <header class="packaging-header">
+    <div class="packaging-brand">
+      <img class="packaging-logo" src="/tools/company-logo.png" alt="cCoder">
+      <div>
+        <h1>Packaging</h1>
+        <span>Packages and package item management</span>
+      </div>
+    </div>
+
+    <form id="loginForm" class="packaging-auth">
+      <strong id="authUser">Guest</strong>
+      <input id="usernameInput" autocomplete="username" placeholder="User">
+      <input id="passwordInput" autocomplete="current-password" placeholder="Password" type="password">
+      <button id="loginButton" type="submit">Login</button>
+      <button id="logoutButton" type="button">Logout</button>
+    </form>
+
+    <div class="packaging-header-actions">
+      <span id="statusText" class="packaging-status">Ready</span>
+      <a href="/swagger" target="_blank">Swagger</a>
+      <a href="/Health" target="_blank">Health</a>
+    </div>
+  </header>
+
+  <section class="packaging-login-gate">
+    <div>
+      <h2>Login required</h2>
+      <p>Sign in to manage packages and package items.</p>
+    </div>
+  </section>
+
+  <main class="packaging-workbench">
+    <section class="packaging-panel">
+      <nav class="packaging-section-tabs" aria-label="Packaging sections">
+        <button class="active" type="button">Packages</button>
+      </nav>
+
+      <section class="packaging-main-panel active">
+        <div class="packaging-toolbar">
+          <div>
+            <h2>Packages</h2>
+            <span>Expand a package to manage its package items.</span>
+          </div>
+          <button id="createPackageButton" type="button">Create Package</button>
+        </div>
+
+        <div id="packagesGrid" class="packaging-grid"></div>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="editorDialog" class="packaging-dialog">
+    <form method="dialog">
+      <header>
+        <h3 id="editorTitle">Edit</h3>
+        <button id="closeDialogButton" type="button">Close</button>
+      </header>
+      <div id="editorFields" class="packaging-editor-fields"></div>
+      <footer>
+        <button id="saveDialogButton" type="button">Save</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <script src="/tools/api.js"></script>
+  <script src="/tools/packaging.js"></script>
+</body>
+</html>
