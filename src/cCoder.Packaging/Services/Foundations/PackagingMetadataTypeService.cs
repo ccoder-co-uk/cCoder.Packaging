@@ -10,8 +10,8 @@ internal sealed class PackagingMetadataTypeService : IPackagingMetadataTypeServi
     [
         new MetadataContainerSet
         {
-            Name = "Core",
-            UriBase = "Core",
+            Name = "Packaging",
+            UriBase = "Packaging",
             Types =
             [
                 Entity<Package>(),
@@ -23,7 +23,7 @@ internal sealed class PackagingMetadataTypeService : IPackagingMetadataTypeServi
     private static ExtendedMetadataContainer Entity<T>() =>
         new(typeof(T), isEntity: true, hasEndpoint: true)
         {
-            Category = "Core",
+            Category = "Packaging",
         };
 }
 
