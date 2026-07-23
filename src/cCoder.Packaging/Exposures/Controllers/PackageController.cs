@@ -35,7 +35,8 @@ public partial class PackageController(IPackageOrchestrationService packageOrche
         MaxExpansionDepth = 5
     )]
     [ActionName("Get")]
-    public IActionResult GetAll(ODataQueryOptions<Package> queryOptions) => Ok(value: packageOrchestrationService.GetAll());
+    public IActionResult GetAll(ODataQueryOptions<Package> queryOptions) =>
+        Ok(value: packageOrchestrationService.GetAllPackages());
 
     [HttpGet]
     [AllowAnonymous]
@@ -51,7 +52,7 @@ public partial class PackageController(IPackageOrchestrationService packageOrche
     {
         try
         {
-            IQueryable<Package> result = packageOrchestrationService.GetAll()
+            IQueryable<Package> result = packageOrchestrationService.GetAllPackages()
                                              .Where(predicate: package => package.Id == key);
 
             return Ok(value: SingleResult.Create(queryable: result));
@@ -78,7 +79,8 @@ public partial class PackageController(IPackageOrchestrationService packageOrche
             return BadRequest(modelState: ModelState);
         }
 
-        return Ok(value: await packageOrchestrationService.AddAsync(entity: entity));
+        return Ok(value: await packageOrchestrationService
+            .AddPackageAsync(newPackage: entity));
     }
 
     [HttpPut]
@@ -97,13 +99,15 @@ public partial class PackageController(IPackageOrchestrationService packageOrche
             return BadRequest(modelState: ModelState);
         }
 
-        return Ok(value: await packageOrchestrationService.UpdateAsync(entity: entity));
+        return Ok(value: await packageOrchestrationService
+            .UpdatePackageAsync(updatedPackage: entity));
     }
 
     [AcceptVerbs("PATCH", "MERGE")]
     public async Task<IActionResult> Patch([FromRoute] Guid key, Delta<Package> delta)
     {
-        Package originalEntity = packageOrchestrationService.Get(id: key);
+        Package originalEntity = packageOrchestrationService
+            .GetPackage(packageId: key);
 
         if (originalEntity == null)
         {
@@ -111,13 +115,14 @@ public partial class PackageController(IPackageOrchestrationService packageOrche
         }
 
         delta.Patch(original: originalEntity);
-        return Ok(value: await packageOrchestrationService.UpdateAsync(entity: originalEntity));
+        return Ok(value: await packageOrchestrationService
+            .UpdatePackageAsync(updatedPackage: originalEntity));
     }
 
     [HttpDelete]
     public async Task<IActionResult> Delete([FromRoute] Guid key)
     {
-        await packageOrchestrationService.DeleteAsync(id: key);
+        await packageOrchestrationService.DeletePackageAsync(packageId: key);
         return Ok();
     }
 }

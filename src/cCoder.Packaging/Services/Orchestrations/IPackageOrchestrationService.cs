@@ -2,28 +2,24 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
+using cCoder.Packaging.Dependencies;
+using cCoder.Packaging.Models;
 
 namespace cCoder.Packaging.Services.Orchestrations;
 
 public interface IPackageOrchestrationService
 {
-    IEnumerable<Package> Export(int appId, string[] packageNames = null);
-
+    IEnumerable<Package> ExportPackages(int appId, string[] packageNames = null);
     ValueTask ImportPackageAsync(int appId, Package package);
+    Package GetPackage(Guid packageId);
+    IQueryable<Package> GetAllPackages(bool ignoreFilters = false);
+    ValueTask<Package> AddPackageAsync(Package newPackage);
+    ValueTask<Package> UpdatePackageAsync(Package updatedPackage);
+    ValueTask DeletePackageAsync(Guid packageId);
 
-    Package Get(Guid id);
+    ValueTask<IEnumerable<Result<Package>>> AddOrUpdatePackagesAsync(
+        IEnumerable<Package> packages);
 
-    IQueryable<Package> GetAll(bool ignoreFilters = false);
-
-    ValueTask<Package> AddAsync(Package entity);
-
-    ValueTask<Package> UpdateAsync(Package entity);
-
-    ValueTask DeleteAsync(Guid id);
-
-    ValueTask<IEnumerable<Result<Package>>> AddOrUpdate(IEnumerable<Package> items);
-
-    ValueTask DeleteAllAsync(IEnumerable<Package> items);
+    ValueTask DeleteAllPackagesAsync(IEnumerable<Package> deletedPackages);
 }

@@ -26,7 +26,7 @@ public partial class PackageOrchestrationServiceTests
                 [.. packageNames.Select(selector: packageName => new DataPackage(packageName) { Items = [] })]);
 
         // When
-        Package[] result = orchestrationService.Export(appId: appId, packageNames: [])
+        Package[] result = orchestrationService.ExportPackages(appId: appId, packageNames: [])
                                .ToArray();
 
         // Then

@@ -225,14 +225,14 @@ id: package.Id,
     }
 
     [Theory]
-    [InlineData(nameof(PackageService.ExportRoles))]
-    [InlineData(nameof(PackageService.ExportLayouts))]
-    [InlineData(nameof(PackageService.ExportTemplates))]
-    [InlineData(nameof(PackageService.ExportComponents))]
-    [InlineData(nameof(PackageService.ExportScripts))]
-    [InlineData(nameof(PackageService.ExportResources))]
-    [InlineData(nameof(PackageService.ExportPages))]
-    [InlineData(nameof(PackageService.ExportPageRoles))]
+    [InlineData(nameof(PackageService.ExportPackageRoles))]
+    [InlineData(nameof(PackageService.ExportPackageLayouts))]
+    [InlineData(nameof(PackageService.ExportPackageTemplates))]
+    [InlineData(nameof(PackageService.ExportPackageComponents))]
+    [InlineData(nameof(PackageService.ExportPackageScripts))]
+    [InlineData(nameof(PackageService.ExportPackageResources))]
+    [InlineData(nameof(PackageService.ExportPackagePages))]
+    [InlineData(nameof(PackageService.ExportPackagePageRoles))]
     public void ShouldAuthorizeAdminAndDelegateExportMethods(string methodName)
     {
         // Given
@@ -266,7 +266,7 @@ id: package.Id,
             .Returns(value: false);
 
         // When
-        Action act = () => service.ExportRoles(appId: appId);
+        Action act = () => service.ExportPackageRoles(appId: appId);
 
         // Then
         act.Should()
@@ -282,35 +282,35 @@ id: package.Id,
     {
         switch (methodName)
         {
-            case nameof(PackageService.ExportRoles):
+            case nameof(PackageService.ExportPackageRoles):
                 packageBrokerMock.Setup(expression: broker => broker.ExportRoles(appId: appId))
                     .Returns(value: package);
                 break;
-            case nameof(PackageService.ExportLayouts):
+            case nameof(PackageService.ExportPackageLayouts):
                 packageBrokerMock.Setup(expression: broker => broker.ExportLayouts(appId: appId))
                     .Returns(value: package);
                 break;
-            case nameof(PackageService.ExportTemplates):
+            case nameof(PackageService.ExportPackageTemplates):
                 packageBrokerMock.Setup(expression: broker => broker.ExportTemplates(appId: appId))
                     .Returns(value: package);
                 break;
-            case nameof(PackageService.ExportComponents):
+            case nameof(PackageService.ExportPackageComponents):
                 packageBrokerMock.Setup(expression: broker => broker.ExportComponents(appId: appId))
                     .Returns(value: package);
                 break;
-            case nameof(PackageService.ExportScripts):
+            case nameof(PackageService.ExportPackageScripts):
                 packageBrokerMock.Setup(expression: broker => broker.ExportScripts(appId: appId))
                     .Returns(value: package);
                 break;
-            case nameof(PackageService.ExportResources):
+            case nameof(PackageService.ExportPackageResources):
                 packageBrokerMock.Setup(expression: broker => broker.ExportResources(appId: appId))
                     .Returns(value: package);
                 break;
-            case nameof(PackageService.ExportPages):
+            case nameof(PackageService.ExportPackagePages):
                 packageBrokerMock.Setup(expression: broker => broker.ExportPages(appId: appId))
                     .Returns(value: package);
                 break;
-            case nameof(PackageService.ExportPageRoles):
+            case nameof(PackageService.ExportPackagePageRoles):
                 packageBrokerMock.Setup(expression: broker => broker.ExportPageRoles(appId: appId))
                     .Returns(value: package);
                 break;
@@ -322,14 +322,14 @@ id: package.Id,
     private Package InvokeExport(string methodName, int appId) =>
         methodName switch
         {
-            nameof(PackageService.ExportRoles) => service.ExportRoles(appId: appId),
-            nameof(PackageService.ExportLayouts) => service.ExportLayouts(appId: appId),
-            nameof(PackageService.ExportTemplates) => service.ExportTemplates(appId: appId),
-            nameof(PackageService.ExportComponents) => service.ExportComponents(appId: appId),
-            nameof(PackageService.ExportScripts) => service.ExportScripts(appId: appId),
-            nameof(PackageService.ExportResources) => service.ExportResources(appId: appId),
-            nameof(PackageService.ExportPages) => service.ExportPages(appId: appId),
-            nameof(PackageService.ExportPageRoles) => service.ExportPageRoles(appId: appId),
+            nameof(PackageService.ExportPackageRoles) => service.ExportPackageRoles(appId: appId),
+            nameof(PackageService.ExportPackageLayouts) => service.ExportPackageLayouts(appId: appId),
+            nameof(PackageService.ExportPackageTemplates) => service.ExportPackageTemplates(appId: appId),
+            nameof(PackageService.ExportPackageComponents) => service.ExportPackageComponents(appId: appId),
+            nameof(PackageService.ExportPackageScripts) => service.ExportPackageScripts(appId: appId),
+            nameof(PackageService.ExportPackageResources) => service.ExportPackageResources(appId: appId),
+            nameof(PackageService.ExportPackagePages) => service.ExportPackagePages(appId: appId),
+            nameof(PackageService.ExportPackagePageRoles) => service.ExportPackagePageRoles(appId: appId),
             _ => throw new ArgumentOutOfRangeException(nameof(methodName), methodName, null),
         };
 

@@ -87,7 +87,13 @@ connectionString: coreConnection);
             return;
         }
 
-        log.LogError(message: "{Message}\n{StackTrace}", args: exception.Message, exception.StackTrace);
+        log.LogError(
+            message: "{Message}\n{StackTrace}",
+            args:
+            [
+                exception.Message,
+                exception.StackTrace,
+            ]);
 
         await context.Response.WriteAsync(
 text: "{ \"error\": \"" + exception.Message.Replace(oldValue: "\"", newValue: "'") + "\" }");
