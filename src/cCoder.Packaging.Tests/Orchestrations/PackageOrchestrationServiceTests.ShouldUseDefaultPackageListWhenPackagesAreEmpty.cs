@@ -15,10 +15,11 @@ public partial class PackageOrchestrationServiceTests
     {
         // Given
         const int appId = 1;
-        const string domain = "app.local";
+        const string sourceApi = "https://app.local:443/Api/";
 
-        appDomainProviderMock.Setup(expression: x => x.GetDomain(appId: appId))
-            .Returns(value: domain);
+        packageExportProcessingServiceMock
+            .Setup(expression: service => service.GetPackageSourceApi(appId: appId))
+            .Returns(value: sourceApi);
 
         packageProcessingServiceMock
             .Setup(expression: x => x.ExportPackages(appId: appId, packageNames: It.IsAny<string[]>()))
@@ -34,8 +35,11 @@ public partial class PackageOrchestrationServiceTests
             .HaveCount(expected: 12);
 
         packageProcessingServiceMock.Verify(expression: x => x.ExportPackages(appId: appId, packageNames: It.IsAny<string[]>()), times: Times.Once);
-        appDomainProviderMock.Verify(expression: x => x.GetDomain(appId: appId), times: Times.Once);
-        appDomainProviderMock.VerifyNoOtherCalls();
+        packageExportProcessingServiceMock.Verify(
+            expression: service => service.GetPackageSourceApi(appId: appId),
+            times: Times.Once);
+
+        packageExportProcessingServiceMock.VerifyNoOtherCalls();
         packageProcessingServiceMock.VerifyNoOtherCalls();
     }
 

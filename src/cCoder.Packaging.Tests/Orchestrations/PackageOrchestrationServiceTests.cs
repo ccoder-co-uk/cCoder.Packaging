@@ -1,23 +1,22 @@
-using cCoder.Data;
-using cCoder.Packaging.Brokers;
+using cCoder.Packaging.Services.Aggregations;
 using cCoder.Packaging.Services.Processings;
 using Moq;
-using PackageOrchestrationService = cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService;
 
 
 namespace cCoder.Packaging.Tests.Orchestrations;
 
 public partial class PackageOrchestrationServiceTests
 {
-    private readonly Mock<IAppDomainProvider> appDomainProviderMock;
+    private readonly Mock<IPackageExportProcessingService> packageExportProcessingServiceMock;
     private readonly Mock<IPackageProcessingService> packageProcessingServiceMock;
     private readonly Mock<IPackageItemProcessingService> packageItemProcessingServiceMock;
     private readonly Mock<IPackageEventProcessingService> packageEventProcessingServiceMock;
-    private readonly PackageOrchestrationService orchestrationService;
+    private readonly PackageAggregationService orchestrationService;
 
     public PackageOrchestrationServiceTests()
     {
-        appDomainProviderMock = new Mock<IAppDomainProvider>(MockBehavior.Strict);
+        packageExportProcessingServiceMock =
+            new Mock<IPackageExportProcessingService>(MockBehavior.Strict);
         packageProcessingServiceMock = new Mock<IPackageProcessingService>(MockBehavior.Strict);
         packageItemProcessingServiceMock =
             new Mock<IPackageItemProcessingService>(MockBehavior.Strict);
@@ -26,16 +25,11 @@ public partial class PackageOrchestrationServiceTests
             MockBehavior.Loose
         );
 
-        orchestrationService = new PackageOrchestrationService(
-            appDomainProviderMock.Object,
+        orchestrationService = new PackageAggregationService(
             packageProcessingServiceMock.Object,
             packageItemProcessingServiceMock.Object,
             packageEventProcessingServiceMock.Object,
-            new Config
-            {
-                Settings = new Dictionary<string, string> { ["sslPort"] = "443" },
-                Services = new Dictionary<string, string>(),
-            }
+            packageExportProcessingServiceMock.Object
         );
     }
 }

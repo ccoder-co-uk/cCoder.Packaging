@@ -137,7 +137,7 @@ id: package.Id,
         authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: null, privilege: "Package_create"));
 
         packageBrokerMock
-            .Setup(expression: broker => broker.AddPackageAsync(entity: It.Is<Package>(match: item =>
+            .Setup(expression: broker => broker.AddPackageAsync(newPackage: It.Is<Package>(match: item =>
                 item.Id == Guid.Empty
                 && item.Name == package.Name
                 && item.Description == package.Description
@@ -176,7 +176,7 @@ id: package.Id,
         authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: null, privilege: "Package_update"));
 
         packageBrokerMock
-            .Setup(expression: broker => broker.UpdatePackageAsync(entity: It.Is<Package>(match: item =>
+            .Setup(expression: broker => broker.UpdatePackageAsync(updatedPackage: It.Is<Package>(match: item =>
                 item.Id == package.Id
                 && item.Name == package.Name
                 && item.Description == package.Description
@@ -210,7 +210,8 @@ id: package.Id,
 
         authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: null, privilege: "Package_delete"));
 
-        packageBrokerMock.Setup(expression: broker => broker.DeletePackageAsync(entity: package))
+        packageBrokerMock.Setup(
+            expression: broker => broker.DeletePackageAsync(deletedPackage: package))
             .ReturnsAsync(value: 1);
 
         // When
@@ -219,7 +220,9 @@ id: package.Id,
         // Then
         packageBrokerMock.Verify(expression: broker => broker.GetAllPackages(ignoreFilters: false), times: Times.Once);
         authorizationBrokerMock.Verify(expression: broker => broker.Authorize(appId: null, privilege: "Package_delete"), times: Times.Once);
-        packageBrokerMock.Verify(expression: broker => broker.DeletePackageAsync(entity: package), times: Times.Once);
+        packageBrokerMock.Verify(
+            expression: broker => broker.DeletePackageAsync(deletedPackage: package),
+            times: Times.Once);
         packageBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }

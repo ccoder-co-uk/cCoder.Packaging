@@ -18,11 +18,12 @@ namespace cCoder.Packaging.Brokers.Storages;
 
 public interface IPackageBroker
 {
+    IQueryable<Package> GetAllPackages();
     IQueryable<Package> GetAllPackages(bool ignoreFilters);
-    ValueTask<Package> AddPackageAsync(Package entity);
-    ValueTask<Package> UpdatePackageAsync(Package entity);
-    ValueTask<int> DeletePackageAsync(Package entity);
-    ValueTask DeleteAllPackagesAsync(IEnumerable<Package> items);
+    IQueryable<Package> GetAllPackagesIgnoringFilters();
+    ValueTask<Package> AddPackageAsync(Package newPackage);
+    ValueTask<Package> UpdatePackageAsync(Package updatedPackage);
+    ValueTask<int> DeletePackageAsync(Package deletedPackage);
     Package ExportRoles(int appId);
     Package ExportFolderRoles(int appId);
     Package ExportLayouts(int appId);
@@ -40,51 +41,58 @@ public interface IPackageBroker
 internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBroker
 {
 
-    public IQueryable<Package> GetAllPackages(bool ignoreFilters)
+    public IQueryable<Package> GetAllPackages()
     {
         CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
 
-        return ignoreFilters
-            ? coreDataContext.Packages.IgnoreQueryFilters()
-            : coreDataContext.Packages;
+        return coreDataContext.Packages;
     }
 
-    public async ValueTask<Package> AddPackageAsync(Package entity)
+    public IQueryable<Package> GetAllPackages(bool ignoreFilters)
+    {
+        Func<IQueryable<Package>>[] packageSelectors =
+        [
+            GetAllPackages,
+            GetAllPackagesIgnoringFilters,
+        ];
+
+        return packageSelectors[Convert.ToInt32(value: ignoreFilters)]();
+    }
+
+    public IQueryable<Package> GetAllPackagesIgnoringFilters()
+    {
+        CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
+
+        return coreDataContext.Packages.IgnoreQueryFilters();
+    }
+
+    public async ValueTask<Package> AddPackageAsync(Package newPackage)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        Package result = (await coreDataContext.Packages.AddAsync(entity: entity)).Entity;
+
+        Package result =
+            (await coreDataContext.Packages.AddAsync(entity: newPackage)).Entity;
+
         _ = await coreDataContext.SaveChangesAsync();
         return result;
     }
 
-    public async ValueTask<Package> UpdatePackageAsync(Package entity)
+    public async ValueTask<Package> UpdatePackageAsync(Package updatedPackage)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
 
-        Package result = coreDataContext.Packages.Update(entity: entity)
+        Package result = coreDataContext.Packages.Update(entity: updatedPackage)
                              .Entity;
 
         _ = await coreDataContext.SaveChangesAsync();
         return result;
     }
 
-    public async ValueTask<int> DeletePackageAsync(Package entity)
+    public async ValueTask<int> DeletePackageAsync(Package deletedPackage)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        coreDataContext.Packages.Remove(entity: entity);
+        coreDataContext.Packages.Remove(entity: deletedPackage);
         return await coreDataContext.SaveChangesAsync();
-    }
-
-    public async ValueTask DeleteAllPackagesAsync(IEnumerable<Package> items)
-    {
-        if (items == null || !items.Any())
-        {
-            return;
-        }
-
-        using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        coreDataContext.Packages.RemoveRange(entities: items);
-        _ = await coreDataContext.SaveChangesAsync();
     }
 
     public int? GetAppId(Package entity)
@@ -305,16 +313,13 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
 
         Dictionary<int, Page> pageDictionary = appPages.ToDictionary(keySelector: page => page.Id);
 
-        foreach (Page page in appPages)
-        {
-            if (
-            page.ParentId is not null
-            && pageDictionary.TryGetValue(key: page.ParentId.Value, out Page parent)
-        )
-            {
-                page.Parent = parent;
-            }
-        }
+        appPages
+            .Where(predicate: page =>
+                page.ParentId.HasValue
+                && pageDictionary.ContainsKey(key: page.ParentId.Value))
+            .ToList()
+            .ForEach(action: page =>
+                page.Parent = pageDictionary[key: page.ParentId.Value]);
 
         return new Package("Pages")
         {
@@ -326,15 +331,21 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
                     Data = appPages
                         .Select(selector:page =>
                         {
-                            Page rootPage = page;
+                            Page rootPage = Enumerable
+                                .Range(start: 0, count: appPages.Count)
+                                .Aggregate(
+                                    seed: page,
+                                    func: (currentPage, _) =>
+                                        currentPage.Parent ?? currentPage);
 
-                            while (rootPage.ParentId is not null)
-                                {                                rootPage = rootPage.Parent;
-}
+                            bool prefixPath =
+                                page.ParentId is not null
+                                && string.IsNullOrEmpty(value: rootPage.Path);
 
-                            if (page.ParentId is not null && string.IsNullOrEmpty(value:rootPage.Path))
-                                {                                page.Path = $"/{page.Path}";
-}
+                            page.Path =
+                                new[] { string.Empty, "/" }[
+                                    Convert.ToInt32(value: prefixPath)]
+                                + page.Path;
 
                             return new
                             {

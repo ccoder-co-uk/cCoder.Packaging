@@ -60,7 +60,7 @@ internal sealed partial class PackageService(
                 SourceApi = newPackage.SourceApi,
             };
 
-            Package savedPackage = await packageBroker.AddPackageAsync(entity: package);
+            Package savedPackage = await packageBroker.AddPackageAsync(newPackage: package);
             newPackage.Id = savedPackage.Id;
             newPackage.Name = savedPackage.Name;
             newPackage.Description = savedPackage.Description;
@@ -85,7 +85,9 @@ internal sealed partial class PackageService(
                 SourceApi = updatedPackage.SourceApi,
             };
 
-            Package savedPackage = await packageBroker.UpdatePackageAsync(entity: package);
+            Package savedPackage =
+                await packageBroker.UpdatePackageAsync(updatedPackage: package);
+
             updatedPackage.Id = savedPackage.Id;
             updatedPackage.Name = savedPackage.Name;
             updatedPackage.Description = savedPackage.Description;
@@ -101,7 +103,7 @@ internal sealed partial class PackageService(
             ValidatePackageOnDelete(packageId: packageId);
             Package deletedPackage = SelectPackage(packageId: packageId);
             authorizationBroker.Authorize(appId: null, privilege: $"{nameof(Package)}_delete");
-            _ = await packageBroker.DeletePackageAsync(entity: deletedPackage);
+            _ = await packageBroker.DeletePackageAsync(deletedPackage: deletedPackage);
         });
 
     public Package ExportPackageRoles(int appId) =>
@@ -197,8 +199,15 @@ internal sealed partial class PackageService(
         return null;
     }
 
-    private IQueryable<Package> SelectAllPackages(bool ignoreFilters = false) =>
-        packageBroker.GetAllPackages(ignoreFilters: ignoreFilters);
+    private IQueryable<Package> SelectAllPackages(bool ignoreFilters = false)
+    {
+        if (ignoreFilters)
+        {
+            return packageBroker.GetAllPackagesIgnoringFilters();
+        }
+
+        return packageBroker.GetAllPackages();
+    }
 
     private void EnsureAdmin(int appId)
     {

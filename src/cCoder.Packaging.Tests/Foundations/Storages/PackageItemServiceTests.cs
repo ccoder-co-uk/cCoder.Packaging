@@ -148,7 +148,8 @@ data: packageItem.Data);
         authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: 7, privilege: "PackageItem_create"));
 
         packageItemBrokerMock
-            .Setup(expression: broker => broker.AddPackageItemAsync(entity: It.Is<PackageItem>(match: item =>
+            .Setup(expression: broker => broker.AddPackageItemAsync(
+                newPackageItem: It.Is<PackageItem>(match: item =>
                 item.Id == Guid.Empty
                 && item.PackageId == packageItem.PackageId
                 && item.Type == packageItem.Type
@@ -190,7 +191,8 @@ data: packageItem.Data);
         authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: 7, privilege: "PackageItem_update"));
 
         packageItemBrokerMock
-            .Setup(expression: broker => broker.UpdatePackageItemAsync(entity: It.Is<PackageItem>(match: item =>
+            .Setup(expression: broker => broker.UpdatePackageItemAsync(
+                updatedPackageItem: It.Is<PackageItem>(match: item =>
                 item.Id == packageItem.Id
                 && item.PackageId == packageItem.PackageId
                 && item.Type == packageItem.Type
@@ -229,7 +231,9 @@ data: packageItem.Data);
 
         authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: 7, privilege: "PackageItem_delete"));
 
-        packageItemBrokerMock.Setup(expression: broker => broker.DeletePackageItemAsync(entity: packageItem))
+        packageItemBrokerMock.Setup(
+            expression: broker =>
+                broker.DeletePackageItemAsync(deletedPackageItem: packageItem))
             .ReturnsAsync(value: 1);
 
         // When
@@ -239,7 +243,10 @@ data: packageItem.Data);
         packageItemBrokerMock.Verify(expression: broker => broker.GetAllPackageItems(ignoreFilters: false), times: Times.Once);
         packageItemBrokerMock.Verify(expression: broker => broker.GetAppId(entity: packageItem), times: Times.Once);
         authorizationBrokerMock.Verify(expression: broker => broker.Authorize(appId: 7, privilege: "PackageItem_delete"), times: Times.Once);
-        packageItemBrokerMock.Verify(expression: broker => broker.DeletePackageItemAsync(entity: packageItem), times: Times.Once);
+        packageItemBrokerMock.Verify(
+            expression: broker =>
+                broker.DeletePackageItemAsync(deletedPackageItem: packageItem),
+            times: Times.Once);
         packageItemBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }

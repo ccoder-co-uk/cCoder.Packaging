@@ -2,23 +2,20 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Data;
 using cCoder.Data.Extensions;
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Dependencies;
 using cCoder.Packaging.Models;
 using cCoder.Packaging.Services.Processings;
 
-namespace cCoder.Packaging.Services.Orchestrations;
+namespace cCoder.Packaging.Services.Aggregations;
 
-internal sealed partial class PackageOrchestrationService(
-    IAppDomainProvider appDomainProvider,
+internal sealed partial class PackageAggregationService(
     IPackageProcessingService packageProcessingService,
     IPackageItemProcessingService packageItemProcessingService,
     IPackageEventProcessingService packageEventProcessingService,
-    Config config)
-    : IPackageOrchestrationService
+    IPackageExportProcessingService packageExportProcessingService)
+    : IPackageAggregationService
 {
     public IEnumerable<Package> ExportPackages(
         int appId,
@@ -51,14 +48,8 @@ internal sealed partial class PackageOrchestrationService(
                     packageNames: selectedPackageNames)
                 .ToList();
 
-            string sslPort = config.Settings.TryGetValue(
-                key: "sslPort",
-                value: out string configuredSslPort)
-                    ? configuredSslPort
-                    : "443";
-
-            string sourceApi =
-                $"https://{appDomainProvider.GetDomain(appId: appId)}:{sslPort}/Api/";
+            string sourceApi = packageExportProcessingService
+                .GetPackageSourceApi(appId: appId);
 
             packages.ForEach(action: package =>
             {
@@ -172,6 +163,7 @@ internal sealed partial class PackageOrchestrationService(
                 try
                 {
                     bool isNewPackage = package.Id == Guid.Empty;
+
                     Package savedPackage = isNewPackage
                         ? await packageProcessingService
                             .AddPackageAsync(newPackage: package)

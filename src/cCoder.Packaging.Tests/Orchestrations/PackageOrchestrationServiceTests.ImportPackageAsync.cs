@@ -35,6 +35,6 @@ times: Times.Once
         );
 
         packageProcessingServiceMock.VerifyNoOtherCalls();
-        appDomainProviderMock.VerifyNoOtherCalls();
+        packageExportProcessingServiceMock.VerifyNoOtherCalls();
     }
 }

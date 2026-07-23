@@ -607,27 +607,17 @@
           "Name": "AddPackageAsync",
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "newPackage",
               "Type": "Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
         },
         {
-          "Name": "DeleteAllPackagesAsync",
-          "Inputs": [
-            {
-              "Name": "items",
-              "Type": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
           "Name": "DeletePackageAsync",
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "deletedPackage",
               "Type": "Package"
             }
           ],
@@ -755,12 +745,22 @@
         },
         {
           "Name": "GetAllPackages",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+        },
+        {
+          "Name": "GetAllPackages",
           "Inputs": [
             {
               "Name": "ignoreFilters",
               "Type": "System.Boolean"
             }
           ],
+          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+        },
+        {
+          "Name": "GetAllPackagesIgnoringFilters",
+          "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
         },
         {
@@ -777,7 +777,7 @@
           "Name": "UpdatePackageAsync",
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "updatedPackage",
               "Type": "Package"
             }
           ],
@@ -809,31 +809,26 @@
           "Name": "AddPackageItemAsync",
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "newPackageItem",
               "Type": "PackageItem"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
         },
         {
-          "Name": "DeleteAllPackageItemsAsync",
-          "Inputs": [
-            {
-              "Name": "items",
-              "Type": "System.Collections.Generic.IEnumerable\u003CPackageItem\u003E"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
           "Name": "DeletePackageItemAsync",
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "deletedPackageItem",
               "Type": "PackageItem"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Int32\u003E"
+        },
+        {
+          "Name": "GetAllPackageItems",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
         },
         {
           "Name": "GetAllPackageItems",
@@ -843,6 +838,11 @@
               "Type": "System.Boolean"
             }
           ],
+          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+        },
+        {
+          "Name": "GetAllPackageItemsIgnoringFilters",
+          "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
         },
         {
@@ -859,7 +859,7 @@
           "Name": "UpdatePackageItemAsync",
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "updatedPackageItem",
               "Type": "PackageItem"
             }
           ],
@@ -909,6 +909,18 @@
             }
           ],
           "ReturnType": "cCoder.Packaging.Dependencies.Result\u003CTNew\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Exposures.Configuration.ConfigProvider",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetSettings",
+          "Inputs": [],
+          "ReturnType": "System.Collections.Generic.IDictionary\u003CSystem.String, System.String\u003E"
         }
       ]
     },
@@ -965,24 +977,10 @@
           "ReturnType": "IActionResult"
         },
         {
-          "Name": "Patch",
-          "Inputs": [
-            {
-              "Name": "key",
-              "Type": "System.Guid"
-            },
-            {
-              "Name": "delta",
-              "Type": "Delta\u003CPackage\u003E"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
-        },
-        {
           "Name": "Post",
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "newPackage",
               "Type": "Package"
             }
           ],
@@ -996,8 +994,22 @@
               "Type": "System.Guid"
             },
             {
-              "Name": "entity",
+              "Name": "updatedPackage",
               "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "PutPackagePatch",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            },
+            {
+              "Name": "updatedPackageDelta",
+              "Type": "Delta\u003CPackage\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
@@ -1045,24 +1057,10 @@
           "ReturnType": "IActionResult"
         },
         {
-          "Name": "Patch",
-          "Inputs": [
-            {
-              "Name": "key",
-              "Type": "System.Guid"
-            },
-            {
-              "Name": "delta",
-              "Type": "Delta\u003CPackageItem\u003E"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
-        },
-        {
           "Name": "Post",
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "newPackageItem",
               "Type": "PackageItem"
             }
           ],
@@ -1076,8 +1074,22 @@
               "Type": "System.Guid"
             },
             {
-              "Name": "entity",
+              "Name": "updatedPackageItem",
               "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "PutPackageItemPatch",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            },
+            {
+              "Name": "updatedPackageItemDelta",
+              "Type": "Delta\u003CPackageItem\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
@@ -1326,6 +1338,111 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddOrUpdatePackagesAsync",
+          "Inputs": [
+            {
+              "Name": "packages",
+              "Type": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Dependencies.Result\u003CPackage\u003E\u003E\u003E"
+        },
+        {
+          "Name": "AddPackageAsync",
+          "Inputs": [
+            {
+              "Name": "newPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+        },
+        {
+          "Name": "DeleteAllPackagesAsync",
+          "Inputs": [
+            {
+              "Name": "deletedPackages",
+              "Type": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "DeletePackageAsync",
+          "Inputs": [
+            {
+              "Name": "packageId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "ExportPackages",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageNames",
+              "Type": "System.String[]"
+            }
+          ],
+          "ReturnType": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
+        },
+        {
+          "Name": "GetAllPackages",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+        },
+        {
+          "Name": "GetPackage",
+          "Inputs": [
+            {
+              "Name": "packageId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "UpdatePackageAsync",
+          "Inputs": [
+            {
+              "Name": "updatedPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
       "StandardElementType": "AggregationService",
       "Properties": [],
@@ -1357,6 +1474,18 @@
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.Baselines.BaselineService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetBaselinePackages",
+          "Inputs": [],
+          "ReturnType": "Package[]"
         }
       ]
     },
@@ -1445,6 +1574,23 @@
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetPackageSourceApi",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "System.String"
         }
       ]
     },
@@ -1938,111 +2084,6 @@
       ]
     },
     {
-      "Name": "cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService",
-      "StandardElementType": "OrchestrationService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "AddOrUpdatePackagesAsync",
-          "Inputs": [
-            {
-              "Name": "packages",
-              "Type": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Dependencies.Result\u003CPackage\u003E\u003E\u003E"
-        },
-        {
-          "Name": "AddPackageAsync",
-          "Inputs": [
-            {
-              "Name": "newPackage",
-              "Type": "Package"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
-        },
-        {
-          "Name": "DeleteAllPackagesAsync",
-          "Inputs": [
-            {
-              "Name": "deletedPackages",
-              "Type": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
-          "Name": "DeletePackageAsync",
-          "Inputs": [
-            {
-              "Name": "packageId",
-              "Type": "System.Guid"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
-          "Name": "ExportPackages",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "packageNames",
-              "Type": "System.String[]"
-            }
-          ],
-          "ReturnType": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
-        },
-        {
-          "Name": "GetAllPackages",
-          "Inputs": [
-            {
-              "Name": "ignoreFilters",
-              "Type": "System.Boolean"
-            }
-          ],
-          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
-        },
-        {
-          "Name": "GetPackage",
-          "Inputs": [
-            {
-              "Name": "packageId",
-              "Type": "System.Guid"
-            }
-          ],
-          "ReturnType": "Package"
-        },
-        {
-          "Name": "ImportPackageAsync",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "package",
-              "Type": "Package"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        },
-        {
-          "Name": "UpdatePackageAsync",
-          "Inputs": [
-            {
-              "Name": "updatedPackage",
-              "Type": "Package"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Packaging.Services.Processings.PackageEventProcessingService",
       "StandardElementType": "ProcessingService",
       "Properties": [],
@@ -2090,6 +2131,23 @@
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Processings.PackageExportProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetPackageSourceApi",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "System.String"
         }
       ]
     },
@@ -2316,12 +2374,32 @@
   ],
   "Links": [
     {
+      "FromType": "cCoder.Packaging.Exposures.Controllers.BaselineController",
+      "ToType": "cCoder.Packaging.Services.Foundations.Baselines.BaselineService"
+    },
+    {
       "FromType": "cCoder.Packaging.Exposures.Controllers.PackageController",
-      "ToType": "cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService"
+      "ToType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService"
     },
     {
       "FromType": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
       "ToType": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
+      "ToType": "cCoder.Packaging.Services.Processings.PackageEventProcessingService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
+      "ToType": "cCoder.Packaging.Services.Processings.PackageExportProcessingService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
+      "ToType": "cCoder.Packaging.Services.Processings.PackageItemProcessingService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
+      "ToType": "cCoder.Packaging.Services.Processings.PackageProcessingService"
     },
     {
       "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
@@ -2364,6 +2442,14 @@
       "ToType": "cCoder.Packaging.Brokers.Events.PackageItemEventBroker"
     },
     {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService",
+      "ToType": "cCoder.Packaging.Brokers.AppDomainProvider"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService",
+      "ToType": "cCoder.Packaging.Exposures.Configuration.ConfigProvider"
+    },
+    {
       "FromType": "cCoder.Packaging.Services.Foundations.PackageManagers.PackageManagerTelemetryService",
       "ToType": "cCoder.Packaging.Brokers.AuthorizationBroker"
     },
@@ -2396,24 +2482,12 @@
       "ToType": "cCoder.Packaging.Services.Processings.PackageItemProcessingService"
     },
     {
-      "FromType": "cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService",
-      "ToType": "cCoder.Packaging.Brokers.AppDomainProvider"
-    },
-    {
-      "FromType": "cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService",
-      "ToType": "cCoder.Packaging.Services.Processings.PackageEventProcessingService"
-    },
-    {
-      "FromType": "cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService",
-      "ToType": "cCoder.Packaging.Services.Processings.PackageItemProcessingService"
-    },
-    {
-      "FromType": "cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService",
-      "ToType": "cCoder.Packaging.Services.Processings.PackageProcessingService"
-    },
-    {
       "FromType": "cCoder.Packaging.Services.Processings.PackageEventProcessingService",
       "ToType": "cCoder.Packaging.Services.Foundations.Events.PackageEventService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Processings.PackageExportProcessingService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService"
     },
     {
       "FromType": "cCoder.Packaging.Services.Processings.PackageItemEventProcessingService",
@@ -2514,144 +2588,102 @@
       "LineNumber": 146
     },
     {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Brokers.AuthorizationBroker",
-      "LineNumber": 55
-    },
-    {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Brokers.Storages.PackageBroker",
-      "LineNumber": 47
-    },
-    {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Brokers.Storages.PackageBroker",
-      "LineNumber": 80
-    },
-    {
-      "Code": "STXB003",
-      "Description": "A broker must not contain loops.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Brokers.Storages.PackageBroker",
-      "LineNumber": 308
-    },
-    {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Brokers.Storages.PackageBroker",
-      "LineNumber": 310
-    },
-    {
-      "Code": "STXFORMAT005",
-      "Description": "Method call arguments must declare their parameter names.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Brokers.Storages.PackageBroker",
-      "LineNumber": 312
-    },
-    {
-      "Code": "STXB003",
-      "Description": "A broker must not contain loops.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Brokers.Storages.PackageBroker",
-      "LineNumber": 331
-    },
-    {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Brokers.Storages.PackageBroker",
-      "LineNumber": 335
+      "LineNumber": 523
     },
     {
       "Code": "STXB004",
       "Description": "A broker must implement a local interface.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportPageRoleInfo",
-      "LineNumber": 507
+      "LineNumber": 518
     },
     {
       "Code": "STX0002",
       "Description": "Properties may only be declared on models.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportPageRoleInfo",
-      "LineNumber": 509
+      "LineNumber": 520
     },
     {
       "Code": "STX0002",
       "Description": "Properties may only be declared on models.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportPageRoleInfo",
-      "LineNumber": 510
+      "LineNumber": 521
     },
     {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
+      "Severity": "Warning",
+      "Type": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportPageRoleInfo",
+      "LineNumber": 523
+    },
+    {
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Brokers.Storages.PackageItemBroker",
-      "LineNumber": 29
+      "LineNumber": 84
     },
     {
-      "Code": "STXB002",
-      "Description": "A broker must not contain branching logic.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Brokers.Storages.PackageItemBroker",
-      "LineNumber": 62
-    },
-    {
-      "Code": "STXAPI001",
-      "Description": "An API controller must have exactly one business dependency.",
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.BaselineController",
-      "LineNumber": 10
+      "LineNumber": 18
     },
     {
-      "Code": "STXAPI004",
-      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageController",
-      "LineNumber": 106
+      "LineNumber": 137
     },
     {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Exposures.Controllers.PackageController",
-      "LineNumber": 118
-    },
-    {
-      "Code": "STXAPI004",
-      "Description": "API controller methods must use HTTP nouns: Get, Post, Put, or Delete.",
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
-      "LineNumber": 109
+      "LineNumber": 139
     },
     {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
       "Severity": "Warning",
-      "Type": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
-      "LineNumber": 121
+      "Type": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
+      "LineNumber": 207
     },
     {
-      "Code": "STXO001",
-      "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
       "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService",
-      "LineNumber": 15
+      "Type": "cCoder.Packaging.Services.Foundations.Baselines.BaselineService",
+      "LineNumber": 16
     },
     {
-      "Code": "STXFORMAT008",
-      "Description": "Wrapped statements must be separated from adjacent method statements by an empty line.",
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
       "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService",
-      "LineNumber": 175
+      "Type": "cCoder.Packaging.Services.Foundations.Baselines.BaselineService",
+      "LineNumber": 19
+    },
+    {
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
+      "Severity": "Warning",
+      "Type": "cCoder.Packaging.Services.Foundations.Baselines.BaselineService",
+      "LineNumber": 30
+    },
+    {
+      "Code": "STXFORMAT001",
+      "Description": "Source files must not contain newline characters after the final code token.",
+      "Severity": "Warning",
+      "Type": "cCoder.Packaging.Services.Foundations.Storages.PackageService",
+      "LineNumber": 219
     }
   ]
 }

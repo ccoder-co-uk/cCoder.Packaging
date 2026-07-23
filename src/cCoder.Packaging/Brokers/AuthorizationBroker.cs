@@ -19,7 +19,8 @@ public interface IAuthorizationBroker
     void Authorize(int? appId, string privilege);
 }
 
-internal class AuthorizationBroker(ICoreContextFactory coreContextFactory) : IAuthorizationBroker
+internal sealed class AuthorizationBroker(ICoreContextFactory coreContextFactory)
+    : IAuthorizationBroker
 {
     public User GetCurrentUser()
     {
@@ -52,10 +53,23 @@ internal class AuthorizationBroker(ICoreContextFactory coreContextFactory) : IAu
     {
         User user = GetCurrentUser();
 
-        if (user == null || !(HasAppAdminPrivilege(user: user, appId: appId) || HasPrivilege(user: user, appId: appId, privilege: privilege)))
-        {
-            throw new SecurityException("Access Denied!");
-        }
+        bool isAuthorized =
+            user is not null
+            && (
+                HasAppAdminPrivilege(user: user, appId: appId)
+                || HasPrivilege(
+                    user: user,
+                    appId: appId,
+                    privilege: privilege)
+            );
+
+        Action[] authorizationResults =
+        [
+            () => throw new SecurityException("Access Denied!"),
+            () => { },
+        ];
+
+        authorizationResults[Convert.ToInt32(value: isAuthorized)]();
     }
 
     private static bool HasPrivilege(User user, int? appId, string privilege)

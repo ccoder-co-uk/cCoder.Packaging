@@ -6,9 +6,9 @@ using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Dependencies;
 using cCoder.Packaging.Models;
 
-namespace cCoder.Packaging.Services.Orchestrations;
+namespace cCoder.Packaging.Services.Aggregations;
 
-public interface IPackageOrchestrationService
+public interface IPackageAggregationService
 {
     IEnumerable<Package> ExportPackages(int appId, string[] packageNames = null);
     ValueTask ImportPackageAsync(int appId, Package package);

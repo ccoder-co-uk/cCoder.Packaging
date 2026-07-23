@@ -6,13 +6,18 @@ using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Api.OData;
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Brokers.Events;
+using cCoder.Packaging.Brokers.Metadata;
 using cCoder.Packaging.Brokers.Storages;
+using cCoder.Packaging.Exposures.Configuration;
 using cCoder.Packaging.Services.Foundations.Events;
 using cCoder.Packaging.Services.Foundations;
 using cCoder.Packaging.Services.Foundations.Storages;
 using cCoder.Packaging.Services.Orchestrations;
 using cCoder.Packaging.Services.Aggregations;
 using cCoder.Packaging.Services.Foundations.PackageManagers;
+using cCoder.Packaging.Services.Foundations.PackageExports;
+using cCoder.Packaging.Services.Foundations.Baselines;
+using cCoder.Packaging.Services.Foundations.Metadata;
 using cCoder.Packaging.Services.Processings;
 using cCoder.Eventing;
 using Microsoft.AspNetCore.Http;
@@ -80,6 +85,7 @@ implementationInstance: builder => new PackagingModelBuilder(builder).Configure(
         services.TryAddTransient<IPackageItemEventBroker, PackageItemEventBroker>();
         services.TryAddTransient<IPackageBroker, PackageBroker>();
         services.TryAddTransient<IPackageItemBroker, PackageItemBroker>();
+        services.TryAddTransient<IMetadataBroker, MetadataBroker>();
         services.TryAddTransient<IPackageEventService, PackageEventService>();
         services.TryAddTransient<IPackageItemEventService, PackageItemEventService>();
         services.TryAddTransient<IPackagingMetadataTypeService, PackagingMetadataTypeService>();
@@ -90,7 +96,12 @@ implementationInstance: builder => new PackagingModelBuilder(builder).Configure(
         services.TryAddTransient<IPackageItemProcessingService, PackageItemProcessingService>();
         services.TryAddTransient<IPackageProcessingService, PackageProcessingService>();
         services.TryAddTransient<IPackageItemOrchestrationService, PackageItemOrchestrationService>();
-        services.TryAddTransient<IPackageOrchestrationService, PackageOrchestrationService>();
+        services.TryAddTransient<IPackageAggregationService, PackageAggregationService>();
+        services.TryAddTransient<IPackageExportService, PackageExportService>();
+        services.TryAddTransient<IPackageExportProcessingService, PackageExportProcessingService>();
+        services.TryAddTransient<IConfigProvider, ConfigProvider>();
+        services.TryAddTransient<IBaselineService, BaselineService>();
+        services.TryAddTransient<IMetadataService, MetadataService>();
 
         if (includePackageManagerServices)
         {

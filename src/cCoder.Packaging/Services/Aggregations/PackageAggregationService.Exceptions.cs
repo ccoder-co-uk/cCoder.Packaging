@@ -4,9 +4,9 @@
 
 using cCoder.Packaging.Models.Exceptions;
 
-namespace cCoder.Packaging.Services.Orchestrations;
+namespace cCoder.Packaging.Services.Aggregations;
 
-internal sealed partial class PackageOrchestrationService
+internal sealed partial class PackageAggregationService
 {
     private static T TryCatch<T>(Func<T> operation)
     {

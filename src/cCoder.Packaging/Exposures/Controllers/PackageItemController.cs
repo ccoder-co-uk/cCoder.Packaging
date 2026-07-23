@@ -8,6 +8,7 @@ using cCoder.Packaging.Models;
 using cCoder.Data.Extensions;
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Services.Orchestrations;
+using cCoder.Packaging.Services.Foundations.Metadata;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Deltas;
@@ -17,14 +18,21 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace cCoder.Packaging.Exposures.Controllers;
 
-public partial class PackageItemController(IPackageItemOrchestrationService packageItemOrchestrationService)
+public partial class PackageItemController(
+    IPackageItemOrchestrationService packageItemOrchestrationService,
+    IMetadataService metadataService)
     : ODataController
 {
 
     [HttpGet]
     public IActionResult GetMetadata()
     {
-        return Ok(value: new MetadataContainer(typeof(PackageItem), true, true));
+        MetadataContainer metadata = metadataService.CreateMetadataContainer(
+            type: typeof(PackageItem),
+            isEntity: true,
+            hasEndpoint: true);
+
+        return Ok(value: metadata);
     }
 
     [HttpGet]
@@ -75,7 +83,7 @@ public partial class PackageItemController(IPackageItemOrchestrationService pack
         MaxAnyAllExpressionDepth = 5,
         MaxExpansionDepth = 5
     )]
-    public async Task<IActionResult> Post([FromBody] PackageItem entity)
+    public async Task<IActionResult> Post([FromBody] PackageItem newPackageItem)
     {
         if (!ModelState.IsValid)
         {
@@ -83,7 +91,7 @@ public partial class PackageItemController(IPackageItemOrchestrationService pack
         }
 
         return Ok(value: await packageItemOrchestrationService
-            .AddPackageItemAsync(newPackageItem: entity));
+            .AddPackageItemAsync(newPackageItem: newPackageItem));
     }
 
     [HttpPut]
@@ -95,7 +103,9 @@ public partial class PackageItemController(IPackageItemOrchestrationService pack
         MaxAnyAllExpressionDepth = 5,
         MaxExpansionDepth = 5
     )]
-    public async Task<IActionResult> Put([FromRoute] Guid key, [FromBody] PackageItem entity)
+    public async Task<IActionResult> Put(
+        [FromRoute] Guid key,
+        [FromBody] PackageItem updatedPackageItem)
     {
         if (!ModelState.IsValid)
         {
@@ -103,11 +113,14 @@ public partial class PackageItemController(IPackageItemOrchestrationService pack
         }
 
         return Ok(value: await packageItemOrchestrationService
-            .UpdatePackageItemAsync(updatedPackageItem: entity));
+            .UpdatePackageItemAsync(updatedPackageItem: updatedPackageItem));
     }
 
     [AcceptVerbs("PATCH", "MERGE")]
-    public async Task<IActionResult> Patch([FromRoute] Guid key, Delta<PackageItem> delta)
+    [ActionName("Patch")]
+    public async Task<IActionResult> PutPackageItemPatch(
+        [FromRoute] Guid key,
+        Delta<PackageItem> updatedPackageItemDelta)
     {
         PackageItem originalEntity = packageItemOrchestrationService
             .GetPackageItem(packageItemId: key);
@@ -117,7 +130,8 @@ public partial class PackageItemController(IPackageItemOrchestrationService pack
             return NotFound();
         }
 
-        delta.Patch(original: originalEntity);
+        updatedPackageItemDelta.Patch(original: originalEntity);
+
         return Ok(value: await packageItemOrchestrationService
             .UpdatePackageItemAsync(updatedPackageItem: originalEntity));
     }

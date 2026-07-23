@@ -10,7 +10,7 @@ using Microsoft.OData.ModelBuilder;
 
 namespace cCoder.Packaging.Api.OData;
 
-public abstract class ODataModelBuilder
+public abstract class ODataModelBuilder : ODataConventionModelBuilder
 {
     protected ODataConventionModelBuilder Builder { get; }
 
