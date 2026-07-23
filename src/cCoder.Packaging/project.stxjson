@@ -1305,6 +1305,41 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Packaging.Services.AppSecurityPackageService",
       "StandardElementType": "Unknown",
       "Properties": [],
@@ -1781,41 +1816,6 @@
       ]
     },
     {
-      "Name": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "StandardElementType": "OrchestrationService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "ExportPackage",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "packageName",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "Package"
-        },
-        {
-          "Name": "ImportPackageAsync",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "package",
-              "Type": "Package"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService",
       "StandardElementType": "OrchestrationService",
       "Properties": [],
@@ -2272,6 +2272,30 @@
       "ToType": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService"
     },
     {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
+      "ToType": "cCoder.Packaging.Brokers.AuthorizationBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
+      "ToType": "cCoder.Packaging.Services.AppSecurityPackageService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
+      "ToType": "cCoder.Packaging.Services.ContentManagementPackageService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
+      "ToType": "cCoder.Packaging.Services.DocumentManagementPackageService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
+      "ToType": "cCoder.Packaging.Services.SchedulingPackageService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
+      "ToType": "cCoder.Packaging.Services.WorkflowPackageService"
+    },
+    {
       "FromType": "cCoder.Packaging.Services.Foundations.Events.PackageEventService",
       "ToType": "cCoder.Packaging.Brokers.AuthInfoBroker"
     },
@@ -2310,30 +2334,6 @@
     {
       "FromType": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService",
       "ToType": "cCoder.Packaging.Services.Processings.PackageItemProcessingService"
-    },
-    {
-      "FromType": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "ToType": "cCoder.Packaging.Brokers.AuthorizationBroker"
-    },
-    {
-      "FromType": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "ToType": "cCoder.Packaging.Services.AppSecurityPackageService"
-    },
-    {
-      "FromType": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "ToType": "cCoder.Packaging.Services.ContentManagementPackageService"
-    },
-    {
-      "FromType": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "ToType": "cCoder.Packaging.Services.DocumentManagementPackageService"
-    },
-    {
-      "FromType": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "ToType": "cCoder.Packaging.Services.SchedulingPackageService"
-    },
-    {
-      "FromType": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "ToType": "cCoder.Packaging.Services.WorkflowPackageService"
     },
     {
       "FromType": "cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService",
@@ -2580,18 +2580,18 @@
       "LineNumber": 121
     },
     {
-      "Code": "STXFORMAT001",
-      "Description": "Source files must not contain newline characters after the final code token.",
+      "Code": "STXA001",
+      "Description": "An aggregation service may have any number of dependencies, but they must share the same service variation.",
       "Severity": "Warning",
-      "Type": "cCoder.Packaging.Models.AuditResultByProperty",
-      "LineNumber": 41
+      "Type": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
+      "LineNumber": 11
     },
     {
-      "Code": "STXFORMAT001",
-      "Description": "Source files must not contain newline characters after the final code token.",
+      "Code": "STXA002",
+      "Description": "An aggregation service name must contain the Aggregation identifier.",
       "Severity": "Warning",
-      "Type": "cCoder.Packaging.Models.AuditResultsByUser",
-      "LineNumber": 41
+      "Type": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
+      "LineNumber": 11
     },
     {
       "Code": "STX0001",
@@ -2615,69 +2615,6 @@
       "LineNumber": 19
     },
     {
-      "Code": "STXFORMAT001",
-      "Description": "Source files must not contain newline characters after the final code token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService",
-      "LineNumber": 100
-    },
-    {
-      "Code": "STX0008",
-      "Description": "A service must declare its validations in a Validations partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0009",
-      "Description": "A service must declare TryCatch handling in an Exceptions partial.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0010",
-      "Description": "Every public service method must enter through a local TryCatch operation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STX0011",
-      "Description": "Every service input must be validated inside TryCatch before business work.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX001",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve validation exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX002",
-      "Description": "Every TryCatch overload must classify, wrap, and preserve dependency exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXEX003",
-      "Description": "Every TryCatch overload must wrap and preserve unclassified exceptions.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "LineNumber": 13
-    },
-    {
-      "Code": "STXO001",
-      "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Orchestrations.PackageManagerOrchestrationService",
-      "LineNumber": 13
-    },
-    {
       "Code": "STXO001",
       "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
       "Severity": "Warning",
@@ -2690,20 +2627,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService",
       "LineNumber": 175
-    },
-    {
-      "Code": "STXFORMAT001",
-      "Description": "Source files must not contain newline characters after the final code token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService",
-      "LineNumber": 215
-    },
-    {
-      "Code": "STXFORMAT001",
-      "Description": "Source files must not contain newline characters after the final code token.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Processings.PackageItemProcessingService",
-      "LineNumber": 112
     },
     {
       "Code": "STX0001",

@@ -6,7 +6,7 @@ using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
 
 
-namespace cCoder.Packaging.Services.Orchestrations;
+namespace cCoder.Packaging.Services.Aggregations;
 
 public interface IPackageManagerOrchestrationService
 {
