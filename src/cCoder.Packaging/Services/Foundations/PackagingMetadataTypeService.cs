@@ -8,21 +8,27 @@ using cCoder.Data.Models.Packaging;
 
 namespace cCoder.Packaging.Services.Foundations;
 
-internal sealed class PackagingMetadataTypeService : IPackagingMetadataTypeService
+internal sealed partial class PackagingMetadataTypeService : IPackagingMetadataTypeService
 {
     public IEnumerable<MetadataContainerSet> GetKnownMetadata() =>
-    [
-        new MetadataContainerSet
+        TryCatch(operation: () =>
         {
-            Name = "Packaging",
-            UriBase = "Packaging",
-            Types =
-            [
-                Entity<Package>(),
-                Entity<PackageItem>(),
-            ],
-        },
-    ];
+            ValidateKnownMetadataOnGet();
+
+            return new MetadataContainerSet[]
+            {
+                new MetadataContainerSet
+                {
+                    Name = "Packaging",
+                    UriBase = "Packaging",
+                    Types =
+                    [
+                        Entity<Package>(),
+                        Entity<PackageItem>(),
+                    ],
+                },
+            };
+        });
 
     private static ExtendedMetadataContainer Entity<T>() =>
         new(typeof(T), isEntity: true, hasEndpoint: true)
