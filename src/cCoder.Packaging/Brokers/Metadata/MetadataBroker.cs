@@ -51,12 +51,19 @@ internal sealed class MetadataBroker : IMetadataBroker
         bool isEntity,
         bool hasEndpoint)
     {
-        bool isValueType = type.IsValueType || type == typeof(string);
-        PropertyContainer[] properties = isValueType
-            ? []
-            : type.GetProperties()
+        bool isValueType = type.IsValueType | type == typeof(string);
+
+        Func<PropertyContainer[]>[] propertySelectors =
+        [
+            () => type.GetProperties()
                 .Select(selector: CreatePropertyContainer)
-                .ToArray();
+                .ToArray(),
+            () => [],
+        ];
+
+        PropertyContainer[] properties =
+            propertySelectors[Convert.ToInt32(value: isValueType)]
+                .Invoke();
 
         return new MetadataContainer
         {
@@ -69,44 +76,61 @@ internal sealed class MetadataBroker : IMetadataBroker
             ServerTypeName = type.GetCSharpTypeName(),
             Properties = properties,
             IsEntity = isEntity,
-            IsJoinEntity = isEntity && type.IsJoinType(),
+            IsJoinEntity = isEntity & type.IsJoinType(),
             HasEndpoint = hasEndpoint,
         };
     }
 
-    private static PropertyContainer CreatePropertyContainer(PropertyInfo property) =>
-        new()
+    private static PropertyContainer CreatePropertyContainer(PropertyInfo property)
+    {
+        Func<bool>[] nullableTypeSelectors =
+        [
+            () => false,
+            () => property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>),
+        ];
+
+        bool isNullableType =
+            nullableTypeSelectors[Convert.ToInt32(value: property.PropertyType.IsGenericType)]
+                .Invoke();
+
+        return new PropertyContainer
         {
             Name = property.Name,
             Type = GetTypeName(type: property.PropertyType),
             ServerType = property.PropertyType.ToString(),
             ServerTypeName = property.PropertyType.GetCSharpTypeName(),
-            IsValueType = property.PropertyType.IsValueType || property.PropertyType == typeof(string),
+            IsValueType = property.PropertyType.IsValueType | property.PropertyType == typeof(string),
             DisplayName = property.Name,
             ShortDisplayName = property.Name,
             Description = property.Name,
             IsReadOnly = !property.CanWrite,
-            Template = property.GetCustomAttribute<KeyAttribute>() != null || property.Name == "Id"
-                ? "key"
-                : property.Name,
-            IsRequired = (!(property.PropertyType.IsGenericType
-                    && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
-                && property.PropertyType.IsValueType)
-                || property.GetCustomAttribute<RequiredAttribute>() != null,
+            Template = new[]
+            {
+                property.Name,
+                "key",
+            }[
+                Convert.ToInt32(
+                    value: property.GetCustomAttribute<KeyAttribute>() != null
+                        | property.Name == "Id")],
+            IsRequired = (!isNullableType & property.PropertyType.IsValueType)
+                | property.GetCustomAttribute<RequiredAttribute>() != null,
         };
+    }
 
     private static string GetTypeName(Type type)
     {
         Func<string>[] typeNameSelectors =
         [
-            () => Lookup.TryGetValue(key: type, out string name) ? name : "object",
+            () => Lookup.GetValueOrDefault(key: type, defaultValue: "object"),
             () => "array",
             () => "string",
         ];
 
-        int selectorIndex = Convert.ToInt32(typeof(IEnumerable).IsAssignableFrom(c: type));
-        selectorIndex = Convert.ToInt32(type == typeof(string)) * 2 + selectorIndex;
+        bool isString = type == typeof(string);
+        bool isEnumerable = typeof(IEnumerable).IsAssignableFrom(c: type);
+        int selectorIndex = Convert.ToInt32(value: isString) * 2;
+        selectorIndex += Convert.ToInt32(value: isEnumerable & !isString);
 
-        return typeNameSelectors[selectorIndex]();
+        return typeNameSelectors[selectorIndex].Invoke();
     }
 }

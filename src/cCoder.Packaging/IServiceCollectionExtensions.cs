@@ -7,6 +7,7 @@ using cCoder.Packaging.Api.OData;
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Brokers.Events;
 using cCoder.Packaging.Brokers.Metadata;
+using cCoder.Packaging.Brokers.OData;
 using cCoder.Packaging.Brokers.Storages;
 using cCoder.Packaging.Exposures.Configuration;
 using cCoder.Packaging.Services.Foundations.Events;
@@ -73,7 +74,8 @@ public static class IServiceCollectionExtensions
         if (includeRouteContributor)
         {
             services.AddSingleton<Action<ODataConventionModelBuilder>>(
-implementationInstance: builder => new PackagingModelBuilder(builder).Configure());
+                implementationInstance: builder =>
+                    new ODataModelBroker().ConfigureODataModel(builder: builder));
         }
 
         services.AddEventingForType<Package>();
@@ -175,7 +177,7 @@ implementationInstance: builder => new PackagingModelBuilder(builder).Configure(
     private static IEdmModel BuildRouteModel()
     {
         ODataConventionModelBuilder builder = new();
-        new PackagingModelBuilder(builder).Configure();
+        new ODataModelBroker().ConfigureODataModel(builder: builder);
 
         return builder.GetEdmModel();
     }

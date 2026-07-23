@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
@@ -7,9 +11,9 @@ using FizzWare.NBuilder;
 using Moq;
 
 
-namespace cCoder.Packaging.Tests.Orchestrations;
+namespace cCoder.Packaging.Tests.Aggregations;
 
-public partial class PackageManagerOrchestrationServiceTests
+public partial class PackageManagerAggregationServiceTests
 {
     private readonly Mock<IAuthorizationBroker> authorizationBrokerMock = new();
     private readonly Mock<IAppSecurityPackageService> appSecurityPackageServiceMock = new();
@@ -17,16 +21,16 @@ public partial class PackageManagerOrchestrationServiceTests
     private readonly Mock<IWorkflowPackageService> workflowPackageServiceMock = new();
     private readonly Mock<IDocumentManagementPackageService> documentManagementPackageServiceMock = new();
     private readonly Mock<IContentManagementPackageService> contentManagementPackageServiceMock = new();
-    private readonly PackageManagerAggregationService packageManagerOrchestrationService;
+    private readonly PackageManagerAggregationService packageManagerAggregationService;
 
-    public PackageManagerOrchestrationServiceTests()
+    public PackageManagerAggregationServiceTests()
     {
         Mock<IPackageLoggerBroker> packageLoggerBrokerMock = new();
         PackageManagerTelemetryService packageManagerTelemetryService = new(
             authorizationBrokerMock.Object,
             packageLoggerBrokerMock.Object);
 
-        packageManagerOrchestrationService = new PackageManagerAggregationService(
+        packageManagerAggregationService = new PackageManagerAggregationService(
             packageManagerTelemetryService,
             appSecurityPackageServiceMock.Object,
             schedulingPackageServiceMock.Object,

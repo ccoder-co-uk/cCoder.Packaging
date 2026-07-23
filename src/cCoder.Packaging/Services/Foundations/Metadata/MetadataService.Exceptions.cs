@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Packaging.Models.Exceptions;
+
 namespace cCoder.Packaging.Services.Foundations.Metadata;
 
 internal sealed partial class MetadataService
@@ -12,15 +14,21 @@ internal sealed partial class MetadataService
         {
             return operation();
         }
-        catch (ArgumentException)
+        catch (ArgumentException innerException)
         {
-            throw;
+            throw new PackagingValidationException(innerException: innerException);
         }
-        catch (Exception exception)
+        catch (PackagingValidationException innerException)
         {
-            throw new InvalidOperationException(
-                message: "A metadata dependency error occurred.",
-                innerException: exception);
+            throw new PackagingValidationException(innerException: innerException);
+        }
+        catch (PackagingDependencyException innerException)
+        {
+            throw new PackagingDependencyException(innerException: innerException);
+        }
+        catch (Exception innerException)
+        {
+            throw new PackagingServiceException(innerException: innerException);
         }
     }
 }

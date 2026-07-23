@@ -9,7 +9,6 @@ using cCoder.Data.Extensions;
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Services.Orchestrations;
 using cCoder.Packaging.Services.Aggregations;
-using cCoder.Packaging.Services.Foundations.Metadata;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Deltas;
@@ -20,21 +19,9 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 namespace cCoder.Packaging.Exposures.Controllers;
 
 public partial class PackageController(
-    IPackageAggregationService packageOrchestrationService,
-    IMetadataService metadataService)
+    IPackageAggregationService packageOrchestrationService)
     : ODataController
 {
-    [HttpGet]
-    public IActionResult GetMetadata()
-    {
-        MetadataContainer metadata = metadataService.CreateMetadataContainer(
-            type: typeof(Package),
-            isEntity: true,
-            hasEndpoint: true);
-
-        return Ok(value: metadata);
-    }
-
     [HttpGet]
     [EnableQuery(
         AllowedArithmeticOperators = AllowedArithmeticOperators.All,

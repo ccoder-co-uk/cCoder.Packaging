@@ -16,7 +16,10 @@ internal sealed partial class MetadataService(IMetadataBroker metadataBroker)
         bool hasEndpoint) =>
         TryCatch(operation: () =>
         {
-            ValidateMetadataContainerOnCreate(type: type);
+            ValidateMetadataContainerOnCreate(
+                type: type,
+                isEntity: isEntity,
+                hasEndpoint: hasEndpoint);
 
             return metadataBroker.CreateMetadataContainer(
                 type: type,

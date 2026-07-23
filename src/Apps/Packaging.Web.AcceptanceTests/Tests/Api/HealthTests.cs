@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using Packaging.Web.AcceptanceTests.Infrastructure;
 
 namespace Packaging.Web.AcceptanceTests.Tests.Api;

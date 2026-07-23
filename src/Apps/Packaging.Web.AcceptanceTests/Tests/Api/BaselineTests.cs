@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using System.Net;
 using System.Text.Json;
 using FluentAssertions;
@@ -12,9 +16,14 @@ public sealed partial class BaselineTests(WebAcceptanceFixture fixture)
 
     private async Task<JsonElement> GetBaselineAsync()
     {
-        using HttpResponseMessage response = await client.GetAsync(requestUri: "/Api/Packaging/Baseline");
+        // Given
+        const string requestUri = "/Api/Packaging/Baseline";
+
+        // When
+        using HttpResponseMessage response = await client.GetAsync(requestUri: requestUri);
         string content = await response.Content.ReadAsStringAsync();
 
+        // Then
         response.StatusCode.Should()
             .Be(expected: HttpStatusCode.OK, because: content);
 

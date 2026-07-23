@@ -199,15 +199,8 @@ internal sealed partial class PackageService(
         return null;
     }
 
-    private IQueryable<Package> SelectAllPackages(bool ignoreFilters = false)
-    {
-        if (ignoreFilters)
-        {
-            return packageBroker.GetAllPackagesIgnoringFilters();
-        }
-
-        return packageBroker.GetAllPackages();
-    }
+    private IQueryable<Package> SelectAllPackages(bool ignoreFilters = false) =>
+        packageBroker.GetAllPackages(ignoreFilters: ignoreFilters);
 
     private void EnsureAdmin(int appId)
     {

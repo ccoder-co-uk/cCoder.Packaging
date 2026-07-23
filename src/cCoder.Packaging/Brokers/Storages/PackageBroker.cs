@@ -10,6 +10,7 @@ using cCoder.Data.Models.Packaging;
 using cCoder.Data.Models.Planning;
 using cCoder.Data.Models.Security;
 using cCoder.Data.Models.Workflow;
+using cCoder.Packaging.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -515,9 +516,4 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
         return serializerSettings;
     }
 
-    private class ExportPageRoleInfo
-    {
-        public string Path { get; set; }
-        public string Role { get; set; }
-    }
 }

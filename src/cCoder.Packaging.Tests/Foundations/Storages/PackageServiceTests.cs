@@ -1,8 +1,13 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using System.Security;
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Brokers.Storages;
 using cCoder.Packaging.Services.Foundations.Storages;
+using cCoder.Packaging.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -10,7 +15,7 @@ using Xunit;
 
 namespace cCoder.Packaging.Tests.Foundations.Storages;
 
-public class PackageServiceTests
+public partial class PackageServiceTests
 {
     private readonly Mock<IPackageBroker> packageBrokerMock;
     private readonly Mock<IAuthorizationBroker> authorizationBrokerMock;
@@ -63,9 +68,14 @@ public class PackageServiceTests
         Action act = () => service.GetPackage(packageId: packageId);
 
         // Then
-        act.Should()
-            .Throw<SecurityException>()
-            .WithMessage(expectedWildcardPattern: "Access Denied!");
+        PackagingServiceException exception = act.Should()
+            .Throw<PackagingServiceException>()
+            .Which;
+
+        exception.InnerException.Should()
+            .BeOfType<SecurityException>()
+            .Which.Message.Should()
+            .Be(expected: "Access Denied!");
 
         packageBrokerMock.Verify(expression: broker => broker.GetAllPackages(ignoreFilters: false), times: Times.Once);
         packageBrokerMock.Verify(expression: broker => broker.GetAllPackages(ignoreFilters: true), times: Times.Once);
@@ -220,9 +230,11 @@ id: package.Id,
         // Then
         packageBrokerMock.Verify(expression: broker => broker.GetAllPackages(ignoreFilters: false), times: Times.Once);
         authorizationBrokerMock.Verify(expression: broker => broker.Authorize(appId: null, privilege: "Package_delete"), times: Times.Once);
+
         packageBrokerMock.Verify(
             expression: broker => broker.DeletePackageAsync(deletedPackage: package),
             times: Times.Once);
+
         packageBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -272,9 +284,14 @@ id: package.Id,
         Action act = () => service.ExportPackageRoles(appId: appId);
 
         // Then
-        act.Should()
-            .Throw<SecurityException>()
-            .WithMessage(expectedWildcardPattern: "Access Denied!");
+        PackagingServiceException exception = act.Should()
+            .Throw<PackagingServiceException>()
+            .Which;
+
+        exception.InnerException.Should()
+            .BeOfType<SecurityException>()
+            .Which.Message.Should()
+            .Be(expected: "Access Denied!");
 
         authorizationBrokerMock.Verify(expression: broker => broker.IsAdminOfApp(appId: appId), times: Times.Once);
         packageBrokerMock.VerifyNoOtherCalls();

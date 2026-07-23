@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
 using FluentAssertions;
@@ -6,9 +10,9 @@ using Xunit;
 using DataPackage = cCoder.Data.Models.Packaging.Package;
 
 
-namespace cCoder.Packaging.Tests.Orchestrations;
+namespace cCoder.Packaging.Tests.Aggregations;
 
-public partial class PackageOrchestrationServiceTests
+public partial class PackageAggregationServiceTests
 {
     [Fact]
     public void ShouldUseDefaultPackageListWhenPackagesAreEmpty()
@@ -27,7 +31,7 @@ public partial class PackageOrchestrationServiceTests
                 [.. packageNames.Select(selector: packageName => new DataPackage(packageName) { Items = [] })]);
 
         // When
-        Package[] result = orchestrationService.ExportPackages(appId: appId, packageNames: [])
+        Package[] result = aggregationService.ExportPackages(appId: appId, packageNames: [])
                                .ToArray();
 
         // Then
@@ -35,6 +39,7 @@ public partial class PackageOrchestrationServiceTests
             .HaveCount(expected: 12);
 
         packageProcessingServiceMock.Verify(expression: x => x.ExportPackages(appId: appId, packageNames: It.IsAny<string[]>()), times: Times.Once);
+
         packageExportProcessingServiceMock.Verify(
             expression: service => service.GetPackageSourceApi(appId: appId),
             times: Times.Once);
@@ -42,5 +47,4 @@ public partial class PackageOrchestrationServiceTests
         packageExportProcessingServiceMock.VerifyNoOtherCalls();
         packageProcessingServiceMock.VerifyNoOtherCalls();
     }
-
 }

@@ -1,14 +1,20 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using System.Security;
 using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
 using cCoder.Data.Models.Security;
+using cCoder.Packaging.Models.Exceptions;
+using FluentAssertions;
 using Moq;
 using Xunit;
 
 
-namespace cCoder.Packaging.Tests.Orchestrations;
+namespace cCoder.Packaging.Tests.Aggregations;
 
-public partial class PackageManagerOrchestrationServiceTests
+public partial class PackageManagerAggregationServiceTests
 {
     [Fact]
     public async Task ShouldDelegateToSchedulingPackageServiceWhenImportPackageAsync()
@@ -25,7 +31,7 @@ public partial class PackageManagerOrchestrationServiceTests
             .Returns(value: ValueTask.CompletedTask);
 
         // When
-        await packageManagerOrchestrationService.ImportPackageAsync(appId: 1, package: package);
+        await packageManagerAggregationService.ImportPackageAsync(appId: 1, package: package);
 
         // Then
         authorizationBrokerMock.Verify(expression: x => x.IsAdminOfApp(appId: 1), times: Times.Once);
@@ -50,7 +56,7 @@ public partial class PackageManagerOrchestrationServiceTests
             .Returns(value: ValueTask.CompletedTask);
 
         // When
-        await packageManagerOrchestrationService.ImportPackageAsync(appId: 1, package: package);
+        await packageManagerAggregationService.ImportPackageAsync(appId: 1, package: package);
 
         // Then
         workflowPackageServiceMock.Verify(expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()), times: Times.Once);
@@ -71,7 +77,7 @@ public partial class PackageManagerOrchestrationServiceTests
             .Returns(value: ValueTask.CompletedTask);
 
         // When
-        await packageManagerOrchestrationService.ImportPackageAsync(appId: 1, package: package);
+        await packageManagerAggregationService.ImportPackageAsync(appId: 1, package: package);
 
         // Then
         documentManagementPackageServiceMock.Verify(expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()), times: Times.Once);
@@ -92,7 +98,7 @@ public partial class PackageManagerOrchestrationServiceTests
             .Returns(value: ValueTask.CompletedTask);
 
         // When
-        await packageManagerOrchestrationService.ImportPackageAsync(appId: 1, package: package);
+        await packageManagerAggregationService.ImportPackageAsync(appId: 1, package: package);
 
         // Then
         contentManagementPackageServiceMock.Verify(expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()), times: Times.Once);
@@ -106,7 +112,7 @@ public partial class PackageManagerOrchestrationServiceTests
         package.Items = [];
 
         // When
-        await packageManagerOrchestrationService.ImportPackageAsync(appId: 1, package: package);
+        await packageManagerAggregationService.ImportPackageAsync(appId: 1, package: package);
 
         // Then
         authorizationBrokerMock.VerifyNoOtherCalls();
@@ -128,10 +134,16 @@ public partial class PackageManagerOrchestrationServiceTests
             .Returns(value: false);
 
         // Then
-        await Assert.ThrowsAsync<SecurityException>(testCode: () =>
-            packageManagerOrchestrationService.ImportPackageAsync(appId: 1, package: package)
+        PackagingOrchestrationServiceException exception =
+            await Assert.ThrowsAsync<PackagingOrchestrationServiceException>(testCode: () =>
+            packageManagerAggregationService.ImportPackageAsync(appId: 1, package: package)
                 .AsTask()
         );
+
+        exception.InnerException.Should()
+            .BeOfType<PackagingServiceException>()
+            .Which.InnerException.Should()
+            .BeOfType<SecurityException>();
 
         authorizationBrokerMock.Verify(expression: x => x.IsAdminOfApp(appId: 1), times: Times.Once);
         schedulingPackageServiceMock.VerifyNoOtherCalls();

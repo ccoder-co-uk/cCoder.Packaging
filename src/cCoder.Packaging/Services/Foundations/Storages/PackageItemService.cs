@@ -27,12 +27,7 @@ internal sealed partial class PackageItemService(
         {
             ValidateAllPackageItemsOnGet(ignoreFilters: ignoreFilters);
 
-            if (ignoreFilters)
-            {
-                return packageItemBroker.GetAllPackageItemsIgnoringFilters();
-            }
-
-            return packageItemBroker.GetAllPackageItems();
+            return packageItemBroker.GetAllPackageItems(ignoreFilters: ignoreFilters);
         });
 
     public ValueTask<PackageItem> AddPackageItemAsync(PackageItem newPackageItem) =>
@@ -108,7 +103,7 @@ internal sealed partial class PackageItemService(
     private PackageItem SelectPackageItem(Guid packageItemId)
     {
         PackageItem packageItem = packageItemBroker
-            .GetAllPackageItems()
+            .GetAllPackageItems(ignoreFilters: false)
             .FirstOrDefault(predicate: item => item.Id == packageItemId);
 
         if (packageItem is not null)
@@ -117,7 +112,7 @@ internal sealed partial class PackageItemService(
         }
 
         PackageItem unrestrictedPackageItem = packageItemBroker
-            .GetAllPackageItemsIgnoringFilters()
+            .GetAllPackageItems(ignoreFilters: true)
             .FirstOrDefault(predicate: item => item.Id == packageItemId);
 
         if (unrestrictedPackageItem is not null)

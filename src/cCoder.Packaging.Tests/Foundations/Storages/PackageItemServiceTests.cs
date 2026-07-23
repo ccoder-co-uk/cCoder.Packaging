@@ -1,8 +1,13 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using System.Security;
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Brokers.Storages;
 using cCoder.Packaging.Services.Foundations.Storages;
+using cCoder.Packaging.Models.Exceptions;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -10,7 +15,7 @@ using Xunit;
 
 namespace cCoder.Packaging.Tests.Foundations.Storages;
 
-public class PackageItemServiceTests
+public partial class PackageItemServiceTests
 {
     private readonly Mock<IPackageItemBroker> packageItemBrokerMock;
     private readonly Mock<IAuthorizationBroker> authorizationBrokerMock;
@@ -69,9 +74,14 @@ public class PackageItemServiceTests
         Action act = () => service.GetPackageItem(packageItemId: packageItemId);
 
         // Then
-        act.Should()
-            .Throw<SecurityException>()
-            .WithMessage(expectedWildcardPattern: "Access Denied!");
+        PackagingServiceException exception = act.Should()
+            .Throw<PackagingServiceException>()
+            .Which;
+
+        exception.InnerException.Should()
+            .BeOfType<SecurityException>()
+            .Which.Message.Should()
+            .Be(expected: "Access Denied!");
 
         packageItemBrokerMock.Verify(expression: broker => broker.GetAllPackageItems(ignoreFilters: false), times: Times.Once);
         packageItemBrokerMock.Verify(expression: broker => broker.GetAllPackageItems(ignoreFilters: true), times: Times.Once);
@@ -243,10 +253,12 @@ data: packageItem.Data);
         packageItemBrokerMock.Verify(expression: broker => broker.GetAllPackageItems(ignoreFilters: false), times: Times.Once);
         packageItemBrokerMock.Verify(expression: broker => broker.GetAppId(entity: packageItem), times: Times.Once);
         authorizationBrokerMock.Verify(expression: broker => broker.Authorize(appId: 7, privilege: "PackageItem_delete"), times: Times.Once);
+
         packageItemBrokerMock.Verify(
             expression: broker =>
                 broker.DeletePackageItemAsync(deletedPackageItem: packageItem),
             times: Times.Once);
+
         packageItemBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
