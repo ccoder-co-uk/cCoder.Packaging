@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using System.Security;
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Brokers;
@@ -13,11 +17,15 @@ internal class PackageItemService(
 {
     public PackageItem Get(Guid id)
     {
-        PackageItem packageItem = GetAll().FirstOrDefault(i => i.Id == id);
+        PackageItem packageItem = GetAll()
+                                      .FirstOrDefault(predicate:i => i.Id == id);
+
         if (packageItem is not null)
             return packageItem;
 
-        PackageItem unrestrictedPackageItem = GetAll(true).FirstOrDefault(i => i.Id == id);
+        PackageItem unrestrictedPackageItem = GetAll(ignoreFilters:true)
+                                                  .FirstOrDefault(predicate:i => i.Id == id);
+
         if (unrestrictedPackageItem is not null)
             throw new SecurityException("Access Denied!");
 
@@ -25,14 +33,15 @@ internal class PackageItemService(
     }
 
     public IQueryable<PackageItem> GetAll(bool ignoreFilters = false) =>
-        packageItemBroker.GetAllPackageItems(ignoreFilters);
+        packageItemBroker.GetAllPackageItems(ignoreFilters:ignoreFilters);
 
     public async ValueTask<PackageItem> AddAsync(PackageItem packageItem)
     {
         authorizationBroker.Authorize(
-            packageItemBroker.GetAppId(packageItem),
-            $"{nameof(PackageItem)}_create"
+appId:            packageItemBroker.GetAppId(entity:packageItem),
+privilege:            $"{nameof(PackageItem)}_create"
         );
+
         PackageItem newPackageItem = new()
         {
             PackageId = packageItem.PackageId,
@@ -40,7 +49,7 @@ internal class PackageItemService(
             Data = packageItem.Data,
         };
 
-        PackageItem result = await packageItemBroker.AddPackageItemAsync(newPackageItem);
+        PackageItem result = await packageItemBroker.AddPackageItemAsync(entity:newPackageItem);
         packageItem.Id = result.Id;
         packageItem.PackageId = result.PackageId;
         packageItem.Type = result.Type;
@@ -51,9 +60,10 @@ internal class PackageItemService(
     public async ValueTask<PackageItem> UpdateAsync(PackageItem packageItem)
     {
         authorizationBroker.Authorize(
-            packageItemBroker.GetAppId(packageItem),
-            $"{nameof(PackageItem)}_update"
+appId:            packageItemBroker.GetAppId(entity:packageItem),
+privilege:            $"{nameof(PackageItem)}_update"
         );
+
         PackageItem updatePackageItem = new()
         {
             Id = packageItem.Id,
@@ -62,7 +72,7 @@ internal class PackageItemService(
             Data = packageItem.Data,
         };
 
-        PackageItem result = await packageItemBroker.UpdatePackageItemAsync(updatePackageItem);
+        PackageItem result = await packageItemBroker.UpdatePackageItemAsync(entity:updatePackageItem);
         packageItem.Id = result.Id;
         packageItem.PackageId = result.PackageId;
         packageItem.Type = result.Type;
@@ -72,23 +82,13 @@ internal class PackageItemService(
 
     public async ValueTask DeleteAsync(Guid id)
     {
-        PackageItem packageItem = Get(id);
+        PackageItem packageItem = Get(id:id);
+
         authorizationBroker.Authorize(
-            packageItemBroker.GetAppId(packageItem),
-            $"{nameof(PackageItem)}_delete"
+appId:            packageItemBroker.GetAppId(entity:packageItem),
+privilege:            $"{nameof(PackageItem)}_delete"
         );
-        _ = await packageItemBroker.DeletePackageItemAsync(packageItem);
+
+        _ = await packageItemBroker.DeletePackageItemAsync(entity:packageItem);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

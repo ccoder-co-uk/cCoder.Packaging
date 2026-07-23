@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Data;
 using cCoder.Data.Extensions;
 using cCoder.Data.Models.CMS;
@@ -39,6 +43,7 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
     public IQueryable<Package> GetAllPackages(bool ignoreFilters)
     {
         CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
+
         return ignoreFilters
             ? coreDataContext.Packages.IgnoreQueryFilters()
             : coreDataContext.Packages;
@@ -47,7 +52,7 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
     public async ValueTask<Package> AddPackageAsync(Package entity)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        Package result = (await coreDataContext.Packages.AddAsync(entity)).Entity;
+        Package result = (await coreDataContext.Packages.AddAsync(entity:entity)).Entity;
         _ = await coreDataContext.SaveChangesAsync();
         return result;
     }
@@ -55,7 +60,10 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
     public async ValueTask<Package> UpdatePackageAsync(Package entity)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        Package result = coreDataContext.Packages.Update(entity).Entity;
+
+        Package result = coreDataContext.Packages.Update(entity:entity)
+                             .Entity;
+
         _ = await coreDataContext.SaveChangesAsync();
         return result;
     }
@@ -63,7 +71,7 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
     public async ValueTask<int> DeletePackageAsync(Package entity)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        coreDataContext.Packages.Remove(entity);
+        coreDataContext.Packages.Remove(entity:entity);
         return await coreDataContext.SaveChangesAsync();
     }
 
@@ -73,7 +81,7 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
             return;
 
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        coreDataContext.Packages.RemoveRange(items);
+        coreDataContext.Packages.RemoveRange(entities:items);
         _ = await coreDataContext.SaveChangesAsync();
     }
 
@@ -88,9 +96,9 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         Role[] roles = coreDataContext.Roles
-            .Where(role => role.AppId == appId)
-            .Include(role => role.Users)
-                .ThenInclude(userRole => userRole.User)
+            .Where(predicate:role => role.AppId == appId)
+            .Include(navigationPropertyPath:role => role.Users)
+                .ThenInclude(navigationPropertyPath:userRole => userRole.User)
             .ToArray();
 
         return new Package("Roles")
@@ -100,7 +108,8 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                 new PackageItem
                 {
                     Type = "Core/Role",
-                    Data = roles.Select(role => new { role.Name, role.Privs }).ToJson(serializerSettings),
+                    Data = roles.Select(selector:role => new { role.Name, role.Privs })
+                               .ToJson(settings:serializerSettings),
                 },
             ],
         };
@@ -112,9 +121,9 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         Folder[] folders = coreDataContext.Folders
-            .Where(folder => folder.AppId == appId)
-            .Include(folder => folder.Roles)
-                .ThenInclude(folderRole => folderRole.Role)
+            .Where(predicate:folder => folder.AppId == appId)
+            .Include(navigationPropertyPath:folder => folder.Roles)
+                .ThenInclude(navigationPropertyPath:folderRole => folderRole.Role)
             .ToArray();
 
         return new Package("FolderRoles")
@@ -125,11 +134,11 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                 {
                     Type = "Core/FolderRole",
                     Data = folders.SelectMany(
-                        folder => folder.Roles,
-                        (folder, folderRole) => new { folder.Path, folderRole.Role.Name }
+collectionSelector:                        folder => folder.Roles,
+resultSelector:                        (folder, folderRole) => new { folder.Path, folderRole.Role.Name }
                     )
                     .ToArray()
-                    .ToJson(serializerSettings),
+                    .ToJson(settings:serializerSettings),
                 },
             ],
         };
@@ -149,8 +158,8 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                     Type = "Core/Layout",
                     Data = coreDataContext
                         .Layouts
-                        .Where(layout => layout.AppId == appId)
-                        .Select(layout => new
+                        .Where(predicate:layout => layout.AppId == appId)
+                        .Select(selector:layout => new
                         {
                             layout.Name,
                             layout.HeaderHtml,
@@ -158,7 +167,7 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                             layout.Script,
                             layout.LastUpdated,
                         })
-                        .ToJson(serializerSettings),
+                        .ToJson(settings:serializerSettings),
                 },
             ],
         };
@@ -178,15 +187,15 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                     Type = "Core/Template",
                     Data = coreDataContext
                         .Templates
-                        .Where(template => template.AppId == appId)
-                        .Select(template => new
+                        .Where(predicate:template => template.AppId == appId)
+                        .Select(selector:template => new
                         {
                             template.Name,
                             template.ResourceKey,
                             template.RawString,
                             template.LastUpdated,
                         })
-                        .ToJson(serializerSettings),
+                        .ToJson(settings:serializerSettings),
                 },
             ],
         };
@@ -206,8 +215,8 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                     Type = "Core/Component",
                     Data = coreDataContext
                         .Components
-                        .Where(component => component.AppId == appId)
-                        .Select(component => new
+                        .Where(predicate:component => component.AppId == appId)
+                        .Select(selector:component => new
                         {
                             component.Name,
                             component.Key,
@@ -216,7 +225,7 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                             component.Content,
                             component.LastUpdated,
                         })
-                        .ToJson(serializerSettings),
+                        .ToJson(settings:serializerSettings),
                 },
             ],
         };
@@ -236,14 +245,14 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                     Type = "Core/Script",
                     Data = coreDataContext
                         .Scripts
-                        .Where(script => script.AppId == appId)
-                        .Select(script => new
+                        .Where(predicate:script => script.AppId == appId)
+                        .Select(selector:script => new
                         {
                             script.Name,
                             script.Content,
                             script.LastUpdated,
                         })
-                        .ToJson(serializerSettings),
+                        .ToJson(settings:serializerSettings),
                 },
             ],
         };
@@ -263,8 +272,8 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                     Type = "Core/Resource",
                     Data = coreDataContext
                         .Resources
-                        .Where(resource => resource.AppId == appId)
-                        .Select(resource => new
+                        .Where(predicate:resource => resource.AppId == appId)
+                        .Select(selector:resource => new
                         {
                             resource.Culture,
                             resource.Key,
@@ -274,7 +283,7 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                             resource.Description,
                             resource.LastUpdated,
                         })
-                        .ToJson(serializerSettings),
+                        .ToJson(settings:serializerSettings),
                 },
             ],
         };
@@ -286,18 +295,18 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         List<Page> appPages = coreDataContext.Pages
-            .Where(page => page.AppId == appId)
-            .Include(page => page.Contents)
-            .Include(page => page.PageInfo)
+            .Where(predicate:page => page.AppId == appId)
+            .Include(navigationPropertyPath:page => page.Contents)
+            .Include(navigationPropertyPath:page => page.PageInfo)
             .AsNoTracking()
             .ToList();
 
-        Dictionary<int, Page> pageDictionary = appPages.ToDictionary(page => page.Id);
+        Dictionary<int, Page> pageDictionary = appPages.ToDictionary(keySelector:page => page.Id);
 
         foreach (Page page in appPages)
             if (
                 page.ParentId is not null
-                && pageDictionary.TryGetValue(page.ParentId.Value, out Page parent)
+                && pageDictionary.TryGetValue(key:page.ParentId.Value, out Page parent)
             )
                 page.Parent = parent;
 
@@ -309,13 +318,14 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                 {
                     Type = "Core/Page",
                     Data = appPages
-                        .Select(page =>
+                        .Select(selector:page =>
                         {
                             Page rootPage = page;
+
                             while (rootPage.ParentId is not null)
                                 rootPage = rootPage.Parent;
 
-                            if (page.ParentId is not null && string.IsNullOrEmpty(rootPage.Path))
+                            if (page.ParentId is not null && string.IsNullOrEmpty(value:rootPage.Path))
                                 page.Path = $"/{page.Path}";
 
                             return new
@@ -328,7 +338,7 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                                 page.LastUpdated,
                                 page.Layout,
                                 Contents = page
-                                    .Contents.Select(content => new
+                                    .Contents.Select(selector:content => new
                                     {
                                         content.CultureId,
                                         content.Name,
@@ -336,7 +346,7 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                                     })
                                     .ToArray(),
                                 PageInfo = page
-                                    .PageInfo.Select(info => new
+                                    .PageInfo.Select(selector:info => new
                                     {
                                         info.CultureId,
                                         info.Description,
@@ -346,7 +356,7 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                                     .ToArray(),
                             };
                         })
-                        .ToJson(serializerSettings),
+                        .ToJson(settings:serializerSettings),
                 },
             ],
         };
@@ -366,9 +376,9 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                     Type = "Core/FlowDefinition",
                     Data = coreDataContext
                         .FlowDefinitions
-                        .Include(flow => flow.App)
-                        .Where(flow => flow.AppId == appId)
-                        .Select(flow => new
+                        .Include(navigationPropertyPath:flow => flow.App)
+                        .Where(predicate:flow => flow.AppId == appId)
+                        .Select(selector:flow => new
                         {
                             ProcessName = flow.App.Name,
                             flow.Name,
@@ -379,7 +389,7 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                             flow.ConfigJson,
                             flow.LastUpdated,
                         })
-                        .ToJson(serializerSettings),
+                        .ToJson(settings:serializerSettings),
                 },
             ],
         };
@@ -391,22 +401,22 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         Role[] roleData = coreDataContext.Roles
-            .Where(role => role.AppId == appId)
+            .Where(predicate:role => role.AppId == appId)
             .ToArray();
 
-        Dictionary<Guid, string> roleNamesById = roleData.ToDictionary(role => role.Id, role => role.Name);
+        Dictionary<Guid, string> roleNamesById = roleData.ToDictionary(keySelector:role => role.Id, elementSelector:role => role.Name);
 
         Page[] pages = coreDataContext.Pages
-            .Where(page => page.AppId == appId)
-            .Include(page => page.Roles)
+            .Where(predicate:page => page.AppId == appId)
+            .Include(navigationPropertyPath:page => page.Roles)
             .ToArray();
 
         ExportPageRoleInfo[] pageRoles = pages
-            .Where(page => page.Roles != null)
-            .SelectMany(page =>
+            .Where(predicate:page => page.Roles != null)
+            .SelectMany(selector:page =>
                 page.Roles
-                    .Where(pageRole => roleNamesById.ContainsKey(pageRole.RoleId))
-                    .Select(pageRole => new ExportPageRoleInfo
+                    .Where(predicate:pageRole => roleNamesById.ContainsKey(key:pageRole.RoleId))
+                    .Select(selector:pageRole => new ExportPageRoleInfo
                     {
                         Path = page.Path,
                         Role = roleNamesById[pageRole.RoleId],
@@ -421,7 +431,7 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                 new PackageItem
                 {
                     Type = "Core/PageRole",
-                    Data = pageRoles.ToJson(serializerSettings),
+                    Data = pageRoles.ToJson(settings:serializerSettings),
                 },
             ],
         };
@@ -441,9 +451,9 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                     Type = "Core/Calendar",
                     Data = coreDataContext
                         .Calendars
-                        .Where(calendar => calendar.AppId == appId)
-                        .Select(calendar => new { calendar.Name, calendar.Description })
-                        .ToJson(serializerSettings),
+                        .Where(predicate:calendar => calendar.AppId == appId)
+                        .Select(selector:calendar => new { calendar.Name, calendar.Description })
+                        .ToJson(settings:serializerSettings),
                 },
             ],
         };
@@ -463,9 +473,9 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                     Type = "Core/CalendarEvent",
                     Data = coreDataContext
                         .Events
-                        .Include(calendarEvent => calendarEvent.Calendar)
-                        .Where(calendarEvent => calendarEvent.Calendar.AppId == appId)
-                        .Select(calendarEvent => new
+                        .Include(navigationPropertyPath:calendarEvent => calendarEvent.Calendar)
+                        .Where(predicate:calendarEvent => calendarEvent.Calendar.AppId == appId)
+                        .Select(selector:calendarEvent => new
                         {
                             CalendarName = calendarEvent.Calendar.Name,
                             calendarEvent.Name,
@@ -473,7 +483,7 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
                             calendarEvent.Description,
                             calendarEvent.DurationInTicks,
                         })
-                        .ToJson(serializerSettings),
+                        .ToJson(settings:serializerSettings),
                 },
             ],
         };
@@ -492,5 +502,3 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
         public string Role { get; set; }
     }
 }
-
-

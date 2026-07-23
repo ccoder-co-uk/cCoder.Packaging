@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Packaging.Api.OData;
 
 
@@ -7,4 +11,3 @@ internal interface IPackagingMetadataTypeService
 {
     IEnumerable<MetadataContainerSet> GetKnownMetadata();
 }
-

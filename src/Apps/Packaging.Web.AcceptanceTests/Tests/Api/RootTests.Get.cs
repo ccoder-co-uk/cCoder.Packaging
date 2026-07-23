@@ -8,9 +8,15 @@ public sealed partial class RootTests
     [Fact]
     public async Task ShouldRedirectToToolsUi()
     {
-        HttpResponseMessage response = await client.GetAsync("/");
+        // Given
+        HttpResponseMessage response = await client.GetAsync(requestUri:"/");
 
-        response.StatusCode.Should().Be(HttpStatusCode.Redirect);
-        response.Headers.Location?.OriginalString.Should().Be("/tools/index.html");
+        // When
+        response.StatusCode.Should()
+            .Be(expected:HttpStatusCode.Redirect);
+
+        // Then
+        response.Headers.Location?.OriginalString.Should()
+                                      .Be(expected:"/tools/index.html");
     }
 }

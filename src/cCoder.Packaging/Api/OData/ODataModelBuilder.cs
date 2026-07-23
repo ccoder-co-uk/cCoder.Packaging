@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using System.Linq.Expressions;
 using cCoder.Packaging.Api.OData;
 using cCoder.Packaging.Models;
@@ -21,15 +25,18 @@ public abstract class ODataModelBuilder
         where T : class
     {
         setName ??= typeof(T).Name;
-        return Builder.EntitySet<T>(setName);
+        return Builder.EntitySet<T>(name:setName);
     }
 
     protected virtual EntitySetConfiguration<T> AddJoinSet<T, TKey>(Expression<Func<T, TKey>> key)
         where T : class
     {
         string name = typeof(T).Name;
-        EntitySetConfiguration<T> result = Builder.EntitySet<T>(name);
-        Builder.EntityType<T>().HasKey(key);
+        EntitySetConfiguration<T> result = Builder.EntitySet<T>(name:name);
+
+        Builder.EntityType<T>()
+            .HasKey(keyDefinitionExpression:key);
+
         return result;
     }
 
@@ -42,5 +49,3 @@ public abstract class ODataModelBuilder
         Builder.ComplexType<AuditResultByProperty>();
     }
 }
-
-

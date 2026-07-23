@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
 using Microsoft.OData.Edm;

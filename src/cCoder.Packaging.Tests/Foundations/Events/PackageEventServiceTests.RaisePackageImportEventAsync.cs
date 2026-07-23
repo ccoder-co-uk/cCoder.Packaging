@@ -12,6 +12,7 @@ public partial class PackageEventServiceTests
     [Fact]
     public async Task ShouldRaisePackageImportEventWhenRaisePackageImportEventAsync()
     {
+        // Given
         Package package = new("Roles")
         {
             Items =
@@ -26,22 +27,34 @@ public partial class PackageEventServiceTests
         EventMessage<(int, Package)> actualMessage = null;
 
         packageEventBrokerMock
-            .Setup(x => x.RaisePackageImportEventAsync(It.IsAny<EventMessage<(int, Package)>>()))
-            .Callback<EventMessage<(int, Package)>>(message => actualMessage = message)
-            .Returns(ValueTask.CompletedTask);
+            .Setup(expression:x => x.RaisePackageImportEventAsync(message:It.IsAny<EventMessage<(int, Package)>>()))
+            .Callback<EventMessage<(int, Package)>>(action:message => actualMessage = message)
+            .Returns(value:ValueTask.CompletedTask);
 
-        await service.RaisePackageImportEventAsync(7, package);
+        // When
+        await service.RaisePackageImportEventAsync(appId:7, package:package);
 
-        actualMessage.Should().NotBeNull();
-        actualMessage!.Data.Item1.Should().Be(7);
-        actualMessage.Data.Item2.Should().BeSameAs(package);
-        actualMessage.AuthInfo.Should().NotBeNull();
-        actualMessage.AuthInfo.SSOUserId.Should().Be(CurrentUserId);
+        // Then
+        actualMessage.Should()
+            .NotBeNull();
+
+        actualMessage!.Data.Item1.Should()
+            .Be(expected:7);
+
+        actualMessage.Data.Item2.Should()
+            .BeSameAs(expected:package);
+
+        actualMessage.AuthInfo.Should()
+            .NotBeNull();
+
+        actualMessage.AuthInfo.SSOUserId.Should()
+            .Be(expected:CurrentUserId);
+
         packageEventBrokerMock.Verify(
-            x => x.RaisePackageImportEventAsync(It.IsAny<EventMessage<(int, Package)>>()),
-            Times.Once
+expression:            x => x.RaisePackageImportEventAsync(message:It.IsAny<EventMessage<(int, Package)>>()),
+times:            Times.Once
         );
+
         packageEventBrokerMock.VerifyNoOtherCalls();
     }
 }
-

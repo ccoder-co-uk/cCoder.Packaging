@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
 
@@ -10,5 +14,3 @@ public interface ISchedulingPackageManagerBroker
 
     Package ExportPackage(int appId, string packageName);
 }
-
-

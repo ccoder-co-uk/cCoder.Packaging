@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Data;
 using cCoder.Data.Models.Packaging;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +25,7 @@ public class PackageItemBroker(ICoreContextFactory coreContextFactory) : IPackag
     public IQueryable<PackageItem> GetAllPackageItems(bool ignoreFilters)
     {
         CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
+
         return ignoreFilters
             ? coreDataContext.PackageItems.IgnoreQueryFilters()
             : coreDataContext.PackageItems;
@@ -29,7 +34,7 @@ public class PackageItemBroker(ICoreContextFactory coreContextFactory) : IPackag
     public async ValueTask<PackageItem> AddPackageItemAsync(PackageItem entity)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        PackageItem result = (await coreDataContext.PackageItems.AddAsync(entity)).Entity;
+        PackageItem result = (await coreDataContext.PackageItems.AddAsync(entity:entity)).Entity;
         _ = await coreDataContext.SaveChangesAsync();
         return result;
     }
@@ -37,7 +42,10 @@ public class PackageItemBroker(ICoreContextFactory coreContextFactory) : IPackag
     public async ValueTask<PackageItem> UpdatePackageItemAsync(PackageItem entity)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        PackageItem result = coreDataContext.PackageItems.Update(entity).Entity;
+
+        PackageItem result = coreDataContext.PackageItems.Update(entity:entity)
+                                 .Entity;
+
         _ = await coreDataContext.SaveChangesAsync();
         return result;
     }
@@ -45,7 +53,7 @@ public class PackageItemBroker(ICoreContextFactory coreContextFactory) : IPackag
     public async ValueTask<int> DeletePackageItemAsync(PackageItem entity)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        coreDataContext.PackageItems.Remove(entity);
+        coreDataContext.PackageItems.Remove(entity:entity);
         return await coreDataContext.SaveChangesAsync();
     }
 
@@ -55,7 +63,7 @@ public class PackageItemBroker(ICoreContextFactory coreContextFactory) : IPackag
             return;
 
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        coreDataContext.PackageItems.RemoveRange(items);
+        coreDataContext.PackageItems.RemoveRange(entities:items);
         _ = await coreDataContext.SaveChangesAsync();
     }
 
@@ -64,10 +72,3 @@ public class PackageItemBroker(ICoreContextFactory coreContextFactory) : IPackag
         return null;
     }
 }
-
-
-
-
-
-
-

@@ -36,13 +36,8 @@ public partial class PackageManagerOrchestrationServiceTests
     private static Package CreateRandomPackage() =>
         Builder<Package>
             .CreateNew()
-            .With(x => x.Id = Guid.NewGuid())
-            .With(x => x.Name = $"Package-{Guid.NewGuid():N}")
-            .With(x => x.Items = [])
+            .With(func:x => x.Id = Guid.NewGuid())
+            .With(func:x => x.Name = $"Package-{Guid.NewGuid():N}")
+            .With(func:x => x.Items = [])
             .Build();
 }
-
-
-
-
-

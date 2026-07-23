@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Data.Models.Packaging;
 
 namespace cCoder.Packaging.Services.Foundations.Storages;
@@ -18,4 +22,3 @@ public interface IPackageService
     Package ExportPages(int appId);
     Package ExportPageRoles(int appId);
 }
-

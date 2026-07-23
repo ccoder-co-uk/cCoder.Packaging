@@ -7,11 +7,18 @@ public sealed partial class ODataMetadataTests
     [Fact]
     public async Task ShouldExposePackagingMetadata()
     {
-        HttpResponseMessage response = await client.GetAsync("/Api/Packaging/$metadata");
+        // Given
+        HttpResponseMessage response = await client.GetAsync(requestUri:"/Api/Packaging/$metadata");
 
         response.EnsureSuccessStatusCode();
+        // When
         string content = await response.Content.ReadAsStringAsync();
-        content.Should().Contain("Package");
-        content.Should().Contain("PackageItem");
+
+        // Then
+        content.Should()
+            .Contain(expected:"Package");
+
+        content.Should()
+            .Contain(expected:"PackageItem");
     }
 }

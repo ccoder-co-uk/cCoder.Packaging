@@ -7,12 +7,21 @@ public sealed partial class ToolsTests
     [Fact]
     public async Task ShouldServeToolsUi()
     {
-        HttpResponseMessage response = await client.GetAsync("/tools/index.html");
+        // Given
+        HttpResponseMessage response = await client.GetAsync(requestUri:"/tools/index.html");
 
         response.EnsureSuccessStatusCode();
+        // When
         string content = await response.Content.ReadAsStringAsync();
-        content.Should().Contain("Packaging");
-        content.Should().Contain("packaging-section-tabs");
-        content.Should().Contain("/tools/packaging.js");
+
+        // Then
+        content.Should()
+            .Contain(expected:"Packaging");
+
+        content.Should()
+            .Contain(expected:"packaging-section-tabs");
+
+        content.Should()
+            .Contain(expected:"/tools/packaging.js");
     }
 }

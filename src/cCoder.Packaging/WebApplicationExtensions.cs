@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using System;
 using System.Text.Json;
 using cCoder.Data.Exposures;
@@ -12,8 +16,8 @@ public static class WebApplicationExtensions
 
     public static WebApplication UsePackagingExposure(this WebApplication app, ILogger log = null)
     {
-        log?.LogInformation("Initialising Packaging");
-        PopulateMetadataTypeCache(app);
+        log?.LogInformation(message:"Initialising Packaging");
+        PopulateMetadataTypeCache(app:app);
         return app;
     }
 
@@ -21,14 +25,14 @@ public static class WebApplicationExtensions
     {
         IMetadataTypeCache metadataTypeCache = app.Services.GetRequiredService<IMetadataTypeCache>();
 
-        if (!metadataTypeCache.Contains(MetadataScope))
+        if (!metadataTypeCache.Contains(scope:MetadataScope))
         {
             metadataTypeCache.Set(
-                MetadataScope,
-                app.Services
+scope:                MetadataScope,
+typeSetPayloads:                app.Services
                     .GetRequiredService<IPackagingMetadataTypeService>()
                     .GetKnownMetadata()
-                    .Select(static metadata => JsonSerializer.Serialize(metadata)));
+                    .Select(selector:static metadata => JsonSerializer.Serialize(value:metadata)));
         }
     }
 }

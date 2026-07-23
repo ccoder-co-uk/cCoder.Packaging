@@ -12,26 +12,29 @@ public partial class PackageOrchestrationServiceTests
     [Fact]
     public async Task ShouldRaisePackageImportEventAsyncWhenImportPackageAsync()
     {
+        // Given
         Package package = new("Roles") { Items = [] };
 
         packageEventProcessingServiceMock
-            .Setup(x => x.RaisePackageImportEventAsync(
-                1,
-                It.Is<DataPackage>(p => p.Name == package.Name && p.Items != null && !p.Items.Any())
+            .Setup(expression:x => x.RaisePackageImportEventAsync(
+appId:                1,
+package:                It.Is<DataPackage>(match:p => p.Name == package.Name && p.Items != null && !p.Items.Any())
             ))
-            .Returns(ValueTask.CompletedTask);
+            .Returns(value:ValueTask.CompletedTask);
 
-        await orchestrationService.ImportPackageAsync(1, package);
+        // When
+        await orchestrationService.ImportPackageAsync(appId:1, package:package);
 
+        // Then
         packageEventProcessingServiceMock.Verify(
-            x => x.RaisePackageImportEventAsync(
-                1,
-                It.Is<DataPackage>(p => p.Name == package.Name && p.Items != null && !p.Items.Any())
+expression:            x => x.RaisePackageImportEventAsync(
+appId:                1,
+package:                It.Is<DataPackage>(match:p => p.Name == package.Name && p.Items != null && !p.Items.Any())
             ),
-            Times.Once
+times:            Times.Once
         );
+
         packageProcessingServiceMock.VerifyNoOtherCalls();
         appDomainProviderMock.VerifyNoOtherCalls();
     }
 }
-

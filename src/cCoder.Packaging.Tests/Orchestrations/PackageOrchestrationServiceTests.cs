@@ -18,9 +18,11 @@ public partial class PackageOrchestrationServiceTests
     {
         appDomainProviderMock = new Mock<IAppDomainProvider>(MockBehavior.Strict);
         packageProcessingServiceMock = new Mock<IPackageProcessingService>(MockBehavior.Strict);
+
         packageEventProcessingServiceMock = new Mock<IPackageEventProcessingService>(
             MockBehavior.Loose
         );
+
         orchestrationService = new PackageOrchestrationService(
             appDomainProviderMock.Object,
             packageProcessingServiceMock.Object,
@@ -33,11 +35,3 @@ public partial class PackageOrchestrationServiceTests
         );
     }
 }
-
-
-
-
-
-
-
-

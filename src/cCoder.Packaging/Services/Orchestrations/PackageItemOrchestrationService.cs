@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Services.Processings;
@@ -8,42 +12,42 @@ internal class PackageItemOrchestrationService(IPackageItemProcessingService pro
 {
     public cCoder.Data.Models.Packaging.PackageItem Get(Guid id)
     {
-        return processingService.Get(id);
+        return processingService.Get(id:id);
     }
 
     public IQueryable<cCoder.Data.Models.Packaging.PackageItem> GetAll(bool ignoreFilters = false)
     {
-        return processingService.GetAll(ignoreFilters);
+        return processingService.GetAll(ignoreFilters:ignoreFilters);
     }
 
     public async ValueTask<cCoder.Data.Models.Packaging.PackageItem> AddAsync(cCoder.Data.Models.Packaging.PackageItem entity)
     {
-        cCoder.Data.Models.Packaging.PackageItem result = await processingService.AddAsync(entity);
-        await eventService.RaisePackageItemAddEventAsync(result);
+        cCoder.Data.Models.Packaging.PackageItem result = await processingService.AddAsync(entity:entity);
+        await eventService.RaisePackageItemAddEventAsync(entity:result);
         return result;
     }
 
     public async ValueTask<cCoder.Data.Models.Packaging.PackageItem> UpdateAsync(cCoder.Data.Models.Packaging.PackageItem entity)
     {
-        cCoder.Data.Models.Packaging.PackageItem result = await processingService.UpdateAsync(entity);
-        await eventService.RaisePackageItemUpdateEventAsync(result);
+        cCoder.Data.Models.Packaging.PackageItem result = await processingService.UpdateAsync(entity:entity);
+        await eventService.RaisePackageItemUpdateEventAsync(entity:result);
         return result;
     }
 
     public async ValueTask DeleteAsync(Guid id)
     {
-        cCoder.Data.Models.Packaging.PackageItem entity = processingService.Get(id);
-        await eventService.RaisePackageItemDeleteEventAsync(entity);
-        await processingService.DeleteAsync(id);
+        cCoder.Data.Models.Packaging.PackageItem entity = processingService.Get(id:id);
+        await eventService.RaisePackageItemDeleteEventAsync(entity:entity);
+        await processingService.DeleteAsync(id:id);
     }
 
     public async ValueTask<IEnumerable<Result<cCoder.Data.Models.Packaging.PackageItem>>> AddOrUpdate(IEnumerable<cCoder.Data.Models.Packaging.PackageItem> items)
     {
-        return (await processingService.AddOrUpdate(items)).ToArray();
+        return (await processingService.AddOrUpdate(items:items)).ToArray();
     }
 
     public ValueTask DeleteAllAsync(IEnumerable<cCoder.Data.Models.Packaging.PackageItem> items)
     {
-        return processingService.DeleteAllAsync(items);
+        return processingService.DeleteAllAsync(items:items);
     }
 }

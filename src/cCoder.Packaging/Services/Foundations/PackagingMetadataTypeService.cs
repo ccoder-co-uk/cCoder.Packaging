@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Packaging.Api.OData;
 using cCoder.Data.Models.Packaging;
 
@@ -26,4 +30,3 @@ internal sealed class PackagingMetadataTypeService : IPackagingMetadataTypeServi
             Category = "Packaging",
         };
 }
-

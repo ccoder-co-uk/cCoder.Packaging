@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Data.Models.Packaging;
 
 
@@ -11,11 +15,3 @@ public interface IPackageItemService
     ValueTask<PackageItem> UpdateAsync(PackageItem packageItem);
     ValueTask DeleteAsync(Guid id);
 }
-
-
-
-
-
-
-
-

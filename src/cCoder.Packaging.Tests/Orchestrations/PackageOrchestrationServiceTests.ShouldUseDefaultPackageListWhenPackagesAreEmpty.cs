@@ -13,27 +13,30 @@ public partial class PackageOrchestrationServiceTests
     [Fact]
     public void ShouldUseDefaultPackageListWhenPackagesAreEmpty()
     {
+        // Given
         const int appId = 1;
         const string domain = "app.local";
 
-        appDomainProviderMock.Setup(x => x.GetDomain(appId)).Returns(domain);
+        appDomainProviderMock.Setup(expression:x => x.GetDomain(appId:appId))
+            .Returns(value:domain);
+
         packageProcessingServiceMock
-            .Setup(x => x.ExportPackages(appId, It.IsAny<string[]>()))
-            .Returns((int _, string[] packageNames) =>
-                [.. packageNames.Select(packageName => new DataPackage(packageName) { Items = [] })]);
+            .Setup(expression:x => x.ExportPackages(appId:appId, packageNames:It.IsAny<string[]>()))
+            .Returns(valueFunction:(int _, string[] packageNames) =>
+                [.. packageNames.Select(selector:packageName => new DataPackage(packageName) { Items = [] })]);
 
-        Package[] result = orchestrationService.Export(appId, []).ToArray();
+        // When
+        Package[] result = orchestrationService.Export(appId:appId, packageNames:[])
+                               .ToArray();
 
-        result.Should().HaveCount(12);
-        packageProcessingServiceMock.Verify(x => x.ExportPackages(appId, It.IsAny<string[]>()), Times.Once);
-        appDomainProviderMock.Verify(x => x.GetDomain(appId), Times.Once);
+        // Then
+        result.Should()
+            .HaveCount(expected:12);
+
+        packageProcessingServiceMock.Verify(expression:x => x.ExportPackages(appId:appId, packageNames:It.IsAny<string[]>()), times:Times.Once);
+        appDomainProviderMock.Verify(expression:x => x.GetDomain(appId:appId), times:Times.Once);
         appDomainProviderMock.VerifyNoOtherCalls();
         packageProcessingServiceMock.VerifyNoOtherCalls();
     }
 
 }
-
-
-
-
-
