@@ -1,75 +1,112 @@
-using cCoder.Packaging.Models;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Data.Models.Packaging;
+using cCoder.Packaging.Dependencies;
+using cCoder.Packaging.Models;
 using cCoder.Packaging.Services.Foundations.Storages;
 
 namespace cCoder.Packaging.Services.Processings;
 
-internal class PackageItemProcessingService(IPackageItemService service) : IPackageItemProcessingService
+internal sealed partial class PackageItemProcessingService(
+    IPackageItemService packageItemService)
+    : IPackageItemProcessingService
 {
-    public cCoder.Data.Models.Packaging.PackageItem Get(Guid id)
-    {
-        return service.Get(id);
-    }
-
-    public IQueryable<cCoder.Data.Models.Packaging.PackageItem> GetAll(bool ignoreFilters = false)
-    {
-        return service.GetAll(ignoreFilters);
-    }
-
-    public ValueTask<cCoder.Data.Models.Packaging.PackageItem> AddAsync(cCoder.Data.Models.Packaging.PackageItem entity)
-    {
-        return service.AddAsync(entity);
-    }
-
-    public ValueTask<cCoder.Data.Models.Packaging.PackageItem> UpdateAsync(cCoder.Data.Models.Packaging.PackageItem entity)
-    {
-        return service.UpdateAsync(entity);
-    }
-
-    public ValueTask DeleteAsync(Guid id)
-    {
-        return service.DeleteAsync(id);
-    }
-
-    public async ValueTask<IEnumerable<Result<cCoder.Data.Models.Packaging.PackageItem>>> AddOrUpdate(IEnumerable<cCoder.Data.Models.Packaging.PackageItem> items)
-    {
-        List<Result<cCoder.Data.Models.Packaging.PackageItem>> results = new List<Result<cCoder.Data.Models.Packaging.PackageItem>>();
-
-        foreach (cCoder.Data.Models.Packaging.PackageItem item in items)
+    public PackageItem GetPackageItem(Guid packageItemId) =>
+        TryCatch(operation: () =>
         {
-            try
-            {
-                cCoder.Data.Models.Packaging.PackageItem savedItem =
-                    item.Id == Guid.Empty
-                        ? await AddAsync(item)
-                        : await UpdateAsync(item);
+            ValidatePackageItemOnGet(packageItemId: packageItemId);
 
-                results.Add(new Result<cCoder.Data.Models.Packaging.PackageItem>
-                {
-                    Success = true,
-                    Item = savedItem,
-                    Message = item.Id == Guid.Empty ? "Added Successfully" : "Updated Successfully"
-                });
-            }
-            catch (Exception ex)
-            {
-                results.Add(new Result<cCoder.Data.Models.Packaging.PackageItem>
-                {
-                    Success = false,
-                    Item = item,
-                    Message = ex.Message
-                });
-            }
-        }
+            return packageItemService.GetPackageItem(packageItemId: packageItemId);
+        });
 
-        return results;
-    }
-
-    public async ValueTask DeleteAllAsync(IEnumerable<cCoder.Data.Models.Packaging.PackageItem> items)
-    {
-        foreach (cCoder.Data.Models.Packaging.PackageItem item in items)
+    public IQueryable<PackageItem> GetAllPackageItems(bool ignoreFilters = false) =>
+        TryCatch(operation: () =>
         {
-            await DeleteAsync(item.Id);
-        }
-    }
+            ValidatePackageItemsOnGet(ignoreFilters: ignoreFilters);
+
+            return packageItemService.GetAllPackageItems(ignoreFilters: ignoreFilters);
+        });
+
+    public ValueTask<PackageItem> AddPackageItemAsync(PackageItem newPackageItem) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePackageItemOnAdd(newPackageItem: newPackageItem);
+
+            return packageItemService
+                .AddPackageItemAsync(newPackageItem: newPackageItem);
+        });
+
+    public ValueTask<PackageItem> UpdatePackageItemAsync(PackageItem updatedPackageItem) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePackageItemOnUpdate(updatedPackageItem: updatedPackageItem);
+
+            return packageItemService
+                .UpdatePackageItemAsync(updatedPackageItem: updatedPackageItem);
+        });
+
+    public ValueTask DeletePackageItemAsync(Guid packageItemId) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePackageItemOnDelete(packageItemId: packageItemId);
+
+            return packageItemService
+                .DeletePackageItemAsync(packageItemId: packageItemId);
+        });
+
+    public ValueTask<IEnumerable<Result<PackageItem>>> AddOrUpdatePackageItemsAsync(
+        IEnumerable<PackageItem> packageItems) =>
+        TryCatch(operation: async () =>
+        {
+            ValidatePackageItemsOnAddOrUpdate(packageItems: packageItems);
+            List<Result<PackageItem>> results = [];
+
+            foreach (PackageItem packageItem in packageItems)
+            {
+                try
+                {
+                    bool isNewPackageItem = packageItem.Id == Guid.Empty;
+
+                    PackageItem savedPackageItem = isNewPackageItem
+                        ? await packageItemService
+                            .AddPackageItemAsync(newPackageItem: packageItem)
+                        : await packageItemService
+                            .UpdatePackageItemAsync(updatedPackageItem: packageItem);
+
+                    results.Add(item: new Result<PackageItem>
+                    {
+                        Success = true,
+                        Item = savedPackageItem,
+                        Message = isNewPackageItem
+                            ? "Added Successfully"
+                            : "Updated Successfully",
+                    });
+                }
+                catch (Exception exception)
+                {
+                    results.Add(item: new Result<PackageItem>
+                    {
+                        Success = false,
+                        Item = packageItem,
+                        Message = exception.Message,
+                    });
+                }
+            }
+
+            return results.AsEnumerable();
+        });
+
+    public ValueTask DeleteAllPackageItemsAsync(IEnumerable<PackageItem> deletedPackageItems) =>
+        TryCatch(operation: async () =>
+        {
+            ValidatePackageItemsOnDelete(deletedPackageItems: deletedPackageItems);
+
+            foreach (PackageItem packageItem in deletedPackageItems)
+            {
+                await packageItemService
+                    .DeletePackageItemAsync(packageItemId: packageItem.Id);
+            }
+        });
 }

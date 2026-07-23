@@ -1,55 +1,59 @@
-using cCoder.Data;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Data.Models.Packaging;
+using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Brokers.Events;
 using cCoder.Eventing.Models;
 
 
 namespace cCoder.Packaging.Services.Foundations.Events;
 
-internal class PackageItemEventService(
+internal sealed partial class PackageItemEventService(
     IPackageItemEventBroker packageItemEventBroker,
-    ICoreAuthInfo authInfo
+    IAuthInfoBroker authInfoBroker
 ) : IPackageItemEventService
 {
-    public async ValueTask RaisePackageItemAddEventAsync(PackageItem entity)
-    {
-        EventMessage<PackageItem> message = new()
+    public ValueTask RaisePackageItemAddEventAsync(PackageItem entity) =>
+        TryCatch(operation: async () =>
         {
-            AuthInfo = new EventAuthInfo { SSOUserId = authInfo.SSOUserId },
-            Data = entity,
-        };
+            ValidatePackageItemEventOnAdd(newPackageItem: entity);
 
-        await packageItemEventBroker.RaisePackageItemAddEventAsync(message);
-    }
+            EventMessage<PackageItem> message = new()
+            {
+                AuthInfo = new EventAuthInfo { SSOUserId = authInfoBroker.GetSSOUserId() },
+                Data = entity,
+            };
 
-    public async ValueTask RaisePackageItemUpdateEventAsync(PackageItem entity)
-    {
-        EventMessage<PackageItem> message = new()
+            await packageItemEventBroker.RaisePackageItemAddEventAsync(message: message);
+        });
+
+    public ValueTask RaisePackageItemUpdateEventAsync(PackageItem entity) =>
+        TryCatch(operation: async () =>
         {
-            AuthInfo = new EventAuthInfo { SSOUserId = authInfo.SSOUserId },
-            Data = entity,
-        };
+            ValidatePackageItemEventOnUpdate(updatedPackageItem: entity);
 
-        await packageItemEventBroker.RaisePackageItemUpdateEventAsync(message);
-    }
+            EventMessage<PackageItem> message = new()
+            {
+                AuthInfo = new EventAuthInfo { SSOUserId = authInfoBroker.GetSSOUserId() },
+                Data = entity,
+            };
 
-    public async ValueTask RaisePackageItemDeleteEventAsync(PackageItem entity)
-    {
-        EventMessage<PackageItem> message = new()
+            await packageItemEventBroker.RaisePackageItemUpdateEventAsync(message: message);
+        });
+
+    public ValueTask RaisePackageItemDeleteEventAsync(PackageItem entity) =>
+        TryCatch(operation: async () =>
         {
-            AuthInfo = new EventAuthInfo { SSOUserId = authInfo.SSOUserId },
-            Data = entity,
-        };
+            ValidatePackageItemEventOnDelete(deletedPackageItem: entity);
 
-        await packageItemEventBroker.RaisePackageItemDeleteEventAsync(message);
-    }
+            EventMessage<PackageItem> message = new()
+            {
+                AuthInfo = new EventAuthInfo { SSOUserId = authInfoBroker.GetSSOUserId() },
+                Data = entity,
+            };
+
+            await packageItemEventBroker.RaisePackageItemDeleteEventAsync(message: message);
+        });
 }
-
-
-
-
-
-
-
-
-

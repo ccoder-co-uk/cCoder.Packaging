@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using System.Security;
 using cCoder.Packaging.Api.OData;
 using cCoder.Packaging.Models;
@@ -13,15 +17,10 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace cCoder.Packaging.Exposures.Controllers;
 
-public partial class PackageItemController(IPackageItemOrchestrationService packageItemOrchestrationService)
+public partial class PackageItemController(
+    IPackageItemOrchestrationService packageItemOrchestrationService)
     : ODataController
 {
-
-    [HttpGet]
-    public IActionResult GetMetadata()
-    {
-        return Ok(new MetadataContainer(typeof(PackageItem), true, true));
-    }
 
     [HttpGet]
     [EnableQuery(
@@ -34,7 +33,7 @@ public partial class PackageItemController(IPackageItemOrchestrationService pack
     )]
     [ActionName("Get")]
     public IActionResult GetAll(ODataQueryOptions<PackageItem> queryOptions) =>
-        Ok(packageItemOrchestrationService.GetAll());
+        Ok(value: packageItemOrchestrationService.GetAllPackageItems());
 
     [HttpGet]
     [AllowAnonymous]
@@ -51,9 +50,10 @@ public partial class PackageItemController(IPackageItemOrchestrationService pack
         try
         {
             IQueryable<PackageItem> result =
-                packageItemOrchestrationService.GetAll().Where(packageItem => packageItem.Id == key);
+                packageItemOrchestrationService.GetAllPackageItems()
+                    .Where(predicate: packageItem => packageItem.Id == key);
 
-            return Ok(SingleResult.Create(result));
+            return Ok(value: SingleResult.Create(queryable: result));
         }
         catch (SecurityException)
         {
@@ -70,12 +70,15 @@ public partial class PackageItemController(IPackageItemOrchestrationService pack
         MaxAnyAllExpressionDepth = 5,
         MaxExpansionDepth = 5
     )]
-    public async Task<IActionResult> Post([FromBody] PackageItem entity)
+    public async Task<IActionResult> Post([FromBody] PackageItem newPackageItem)
     {
         if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+        {
+            return BadRequest(modelState: ModelState);
+        }
 
-        return Ok(await packageItemOrchestrationService.AddAsync(entity));
+        return Ok(value: await packageItemOrchestrationService
+            .AddPackageItemAsync(newPackageItem: newPackageItem));
     }
 
     [HttpPut]
@@ -87,32 +90,45 @@ public partial class PackageItemController(IPackageItemOrchestrationService pack
         MaxAnyAllExpressionDepth = 5,
         MaxExpansionDepth = 5
     )]
-    public async Task<IActionResult> Put([FromRoute] Guid key, [FromBody] PackageItem entity)
+    public async Task<IActionResult> Put(
+        [FromRoute] Guid key,
+        [FromBody] PackageItem updatedPackageItem)
     {
         if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+        {
+            return BadRequest(modelState: ModelState);
+        }
 
-        return Ok(await packageItemOrchestrationService.UpdateAsync(entity));
+        return Ok(value: await packageItemOrchestrationService
+            .UpdatePackageItemAsync(updatedPackageItem: updatedPackageItem));
     }
 
     [AcceptVerbs("PATCH", "MERGE")]
-    public async Task<IActionResult> Patch([FromRoute] Guid key, Delta<PackageItem> delta)
+    [ActionName("Patch")]
+    public async Task<IActionResult> PutPackageItemPatch(
+        [FromRoute] Guid key,
+        Delta<PackageItem> updatedPackageItemDelta)
     {
-        PackageItem originalEntity = packageItemOrchestrationService.Get(key);
+        PackageItem originalEntity = packageItemOrchestrationService
+            .GetPackageItem(packageItemId: key);
 
         if (originalEntity == null)
+        {
             return NotFound();
+        }
 
-        delta.Patch(originalEntity);
-        return Ok(await packageItemOrchestrationService.UpdateAsync(originalEntity));
+        updatedPackageItemDelta.Patch(original: originalEntity);
+
+        return Ok(value: await packageItemOrchestrationService
+            .UpdatePackageItemAsync(updatedPackageItem: originalEntity));
     }
 
     [HttpDelete]
     public async Task<IActionResult> Delete([FromRoute] Guid key)
     {
-        await packageItemOrchestrationService.DeleteAsync(key);
+        await packageItemOrchestrationService
+            .DeletePackageItemAsync(packageItemId: key);
 
         return Ok();
     }
 }
-

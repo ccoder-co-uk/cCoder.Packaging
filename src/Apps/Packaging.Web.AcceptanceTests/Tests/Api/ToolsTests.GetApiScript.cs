@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using FluentAssertions;
 
 namespace Packaging.Web.AcceptanceTests.Tests.Api;
@@ -7,12 +11,21 @@ public sealed partial class ToolsTests
     [Fact]
     public async Task ShouldPostSecurityAuthShapeForLogin()
     {
-        HttpResponseMessage response = await client.GetAsync("/tools/api.js");
+        // Given
+        HttpResponseMessage response = await client.GetAsync(requestUri: "/tools/api.js");
 
         response.EnsureSuccessStatusCode();
+        // When
         string content = await response.Content.ReadAsStringAsync();
-        content.Should().Contain("user: username");
-        content.Should().Contain("pass: password");
-        content.Should().NotContain("userName");
+
+        // Then
+        content.Should()
+            .Contain(expected: "user: username");
+
+        content.Should()
+            .Contain(expected: "pass: password");
+
+        content.Should()
+            .NotContain(unexpected: "userName");
     }
 }

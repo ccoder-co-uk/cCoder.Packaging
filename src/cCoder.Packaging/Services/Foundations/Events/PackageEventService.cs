@@ -1,56 +1,73 @@
-using cCoder.Data;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Data.Models.Packaging;
+using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Brokers.Events;
 using cCoder.Eventing.Models;
 
 
 namespace cCoder.Packaging.Services.Foundations.Events;
 
-internal class PackageEventService(IPackageEventBroker packageEventBroker, ICoreAuthInfo authInfo)
+internal sealed partial class PackageEventService(
+    IPackageEventBroker packageEventBroker,
+    IAuthInfoBroker authInfoBroker)
     : IPackageEventService
 {
-    public async ValueTask RaisePackageImportEventAsync(int appId, Package package)
-    {
-        EventMessage<(int, Package)> message = new()
+    public ValueTask RaisePackageImportEventAsync(int appId, Package package) =>
+        TryCatch(operation: async () =>
         {
-            AuthInfo = new EventAuthInfo { SSOUserId = authInfo.SSOUserId },
-            Data = (appId, package),
-        };
+            ValidatePackageEventOnImport(appId: appId, package: package);
 
-        await packageEventBroker.RaisePackageImportEventAsync(message);
-    }
+            EventMessage<(int, Package)> message = new()
+            {
+                AuthInfo = new EventAuthInfo { SSOUserId = authInfoBroker.GetSSOUserId() },
+                Data = (appId, package),
+            };
 
-    public async ValueTask RaisePackageAddEventAsync(Package package)
-    {
-        EventMessage<Package> message = new()
+            await packageEventBroker.RaisePackageImportEventAsync(message: message);
+        });
+
+    public ValueTask RaisePackageAddEventAsync(Package package) =>
+        TryCatch(operation: async () =>
         {
-            AuthInfo = new EventAuthInfo { SSOUserId = authInfo.SSOUserId },
-            Data = package,
-        };
+            ValidatePackageEventOnAdd(newPackage: package);
 
-        await packageEventBroker.RaisePackageAddEventAsync(message);
-    }
+            EventMessage<Package> message = new()
+            {
+                AuthInfo = new EventAuthInfo { SSOUserId = authInfoBroker.GetSSOUserId() },
+                Data = package,
+            };
 
-    public async ValueTask RaisePackageUpdateEventAsync(Package package)
-    {
-        EventMessage<Package> message = new()
+            await packageEventBroker.RaisePackageAddEventAsync(message: message);
+        });
+
+    public ValueTask RaisePackageUpdateEventAsync(Package package) =>
+        TryCatch(operation: async () =>
         {
-            AuthInfo = new EventAuthInfo { SSOUserId = authInfo.SSOUserId },
-            Data = package,
-        };
+            ValidatePackageEventOnUpdate(updatedPackage: package);
 
-        await packageEventBroker.RaisePackageUpdateEventAsync(message);
-    }
+            EventMessage<Package> message = new()
+            {
+                AuthInfo = new EventAuthInfo { SSOUserId = authInfoBroker.GetSSOUserId() },
+                Data = package,
+            };
 
-    public async ValueTask RaisePackageDeleteEventAsync(Package package)
-    {
-        EventMessage<Package> message = new()
+            await packageEventBroker.RaisePackageUpdateEventAsync(message: message);
+        });
+
+    public ValueTask RaisePackageDeleteEventAsync(Package package) =>
+        TryCatch(operation: async () =>
         {
-            AuthInfo = new EventAuthInfo { SSOUserId = authInfo.SSOUserId },
-            Data = package,
-        };
+            ValidatePackageEventOnDelete(deletedPackage: package);
 
-        await packageEventBroker.RaisePackageDeleteEventAsync(message);
-    }
+            EventMessage<Package> message = new()
+            {
+                AuthInfo = new EventAuthInfo { SSOUserId = authInfoBroker.GetSSOUserId() },
+                Data = package,
+            };
+
+            await packageEventBroker.RaisePackageDeleteEventAsync(message: message);
+        });
 }
-

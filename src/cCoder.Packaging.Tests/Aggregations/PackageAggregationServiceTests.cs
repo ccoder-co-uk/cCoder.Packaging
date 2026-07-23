@@ -1,0 +1,39 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using cCoder.Packaging.Services.Aggregations;
+using cCoder.Packaging.Services.Processings;
+using Moq;
+
+
+namespace cCoder.Packaging.Tests.Aggregations;
+
+public partial class PackageAggregationServiceTests
+{
+    private readonly Mock<IPackageExportProcessingService> packageExportProcessingServiceMock;
+    private readonly Mock<IPackageProcessingService> packageProcessingServiceMock;
+    private readonly Mock<IPackageItemProcessingService> packageItemProcessingServiceMock;
+    private readonly Mock<IPackageEventProcessingService> packageEventProcessingServiceMock;
+    private readonly PackageAggregationService aggregationService;
+
+    public PackageAggregationServiceTests()
+    {
+        packageExportProcessingServiceMock =
+            new Mock<IPackageExportProcessingService>(MockBehavior.Strict);
+        packageProcessingServiceMock = new Mock<IPackageProcessingService>(MockBehavior.Strict);
+        packageItemProcessingServiceMock =
+            new Mock<IPackageItemProcessingService>(MockBehavior.Strict);
+
+        packageEventProcessingServiceMock = new Mock<IPackageEventProcessingService>(
+            MockBehavior.Loose
+        );
+
+        aggregationService = new PackageAggregationService(
+            packageProcessingServiceMock.Object,
+            packageItemProcessingServiceMock.Object,
+            packageEventProcessingServiceMock.Object,
+            packageExportProcessingServiceMock.Object
+        );
+    }
+}

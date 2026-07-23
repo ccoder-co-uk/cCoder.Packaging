@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using FluentAssertions;
 
 namespace Packaging.Web.AcceptanceTests.Tests.Api;
@@ -7,11 +11,18 @@ public sealed partial class SwaggerTests
     [Fact]
     public async Task ShouldExposePackagingApiDocument()
     {
-        HttpResponseMessage response = await client.GetAsync("/swagger/Packaging/swagger.json");
+        // Given
+        HttpResponseMessage response = await client.GetAsync(requestUri: "/swagger/Packaging/swagger.json");
 
         response.EnsureSuccessStatusCode();
+        // When
         string content = await response.Content.ReadAsStringAsync();
-        content.Should().Contain("Package");
-        content.Should().Contain("PackageItem");
+
+        // Then
+        content.Should()
+            .Contain(expected: "Package");
+
+        content.Should()
+            .Contain(expected: "PackageItem");
     }
 }

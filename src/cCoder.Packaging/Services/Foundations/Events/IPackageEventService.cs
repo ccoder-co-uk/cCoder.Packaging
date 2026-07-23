@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Data.Models.Packaging;
 
 
@@ -10,6 +14,3 @@ public interface IPackageEventService
     ValueTask RaisePackageUpdateEventAsync(Package entity);
     ValueTask RaisePackageDeleteEventAsync(Package entity);
 }
-
-
-

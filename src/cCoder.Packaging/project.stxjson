@@ -1,0 +1,2574 @@
+{
+  "Classes": [
+    {
+      "Name": "cCoder.Packaging.Api.OData.CompositePropertyInfo",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "Attributes",
+          "Type": "System.Reflection.PropertyAttributes"
+        },
+        {
+          "Name": "CanRead",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "CanWrite",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "DeclaringType",
+          "Type": "System.Type"
+        },
+        {
+          "Name": "Name",
+          "Type": "System.String"
+        },
+        {
+          "Name": "PropertyType",
+          "Type": "System.Type"
+        },
+        {
+          "Name": "ReflectedType",
+          "Type": "System.Type"
+        }
+      ],
+      "Methods": [
+        {
+          "Name": "GetAccessors",
+          "Inputs": [
+            {
+              "Name": "nonPublic",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Reflection.MethodInfo[]"
+        },
+        {
+          "Name": "GetCustomAttributes",
+          "Inputs": [
+            {
+              "Name": "inherit",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Object[]"
+        },
+        {
+          "Name": "GetCustomAttributes",
+          "Inputs": [
+            {
+              "Name": "attributeType",
+              "Type": "System.Type"
+            },
+            {
+              "Name": "inherit",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Object[]"
+        },
+        {
+          "Name": "GetGetMethod",
+          "Inputs": [
+            {
+              "Name": "nonPublic",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Reflection.MethodInfo"
+        },
+        {
+          "Name": "GetIndexParameters",
+          "Inputs": [],
+          "ReturnType": "System.Reflection.ParameterInfo[]"
+        },
+        {
+          "Name": "GetSetMethod",
+          "Inputs": [
+            {
+              "Name": "nonPublic",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Reflection.MethodInfo"
+        },
+        {
+          "Name": "GetValue",
+          "Inputs": [
+            {
+              "Name": "obj",
+              "Type": "System.Object"
+            },
+            {
+              "Name": "invokeAttr",
+              "Type": "System.Reflection.BindingFlags"
+            },
+            {
+              "Name": "binder",
+              "Type": "System.Reflection.Binder"
+            },
+            {
+              "Name": "index",
+              "Type": "System.Object[]"
+            },
+            {
+              "Name": "culture",
+              "Type": "System.Globalization.CultureInfo"
+            }
+          ],
+          "ReturnType": "System.Object"
+        },
+        {
+          "Name": "IsDefined",
+          "Inputs": [
+            {
+              "Name": "attributeType",
+              "Type": "System.Type"
+            },
+            {
+              "Name": "inherit",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Boolean"
+        },
+        {
+          "Name": "SetValue",
+          "Inputs": [
+            {
+              "Name": "obj",
+              "Type": "System.Object"
+            },
+            {
+              "Name": "value",
+              "Type": "System.Object"
+            },
+            {
+              "Name": "invokeAttr",
+              "Type": "System.Reflection.BindingFlags"
+            },
+            {
+              "Name": "binder",
+              "Type": "System.Reflection.Binder"
+            },
+            {
+              "Name": "index",
+              "Type": "System.Object[]"
+            },
+            {
+              "Name": "culture",
+              "Type": "System.Globalization.CultureInfo"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Api.OData.ExtendedMetadataContainer",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Operations",
+          "Type": "System.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Api.OData.OperationContainer\u003E"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Api.OData.MetadataContainer",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Category",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Description",
+          "Type": "System.String"
+        },
+        {
+          "Name": "DisplayName",
+          "Type": "System.String"
+        },
+        {
+          "Name": "HasEndpoint",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "IsEntity",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "IsJoinEntity",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "IsSystemManaged",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "IsValueType",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "Name",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Properties",
+          "Type": "System.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Api.OData.PropertyContainer\u003E"
+        },
+        {
+          "Name": "ServerType",
+          "Type": "System.String"
+        },
+        {
+          "Name": "ServerTypeName",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Type",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Api.OData.MetadataContainerSet",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Name",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Types",
+          "Type": "cCoder.Packaging.Api.OData.ExtendedMetadataContainer[]"
+        },
+        {
+          "Name": "UriBase",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Api.OData.ODataCollectionExtensions",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Api.OData.ODataJsonExtensions",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Api.OData.ODataModel",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Context",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Description",
+          "Type": "System.String"
+        },
+        {
+          "Name": "EDMModel",
+          "Type": "IEdmModel"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Api.OData.ODataTypeExtensions",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Api.OData.OperationContainer",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Definition",
+          "Type": "System.String"
+        },
+        {
+          "Name": "HttpVerb",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Name",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Parameters",
+          "Type": "System.Collections.Generic.IDictionary\u003CSystem.String, System.String\u003E"
+        },
+        {
+          "Name": "Queryable",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "ReturnType",
+          "Type": "cCoder.Packaging.Api.OData.MetadataContainer"
+        },
+        {
+          "Name": "Url",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Api.OData.PropertyContainer",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Description",
+          "Type": "System.String"
+        },
+        {
+          "Name": "DisplayName",
+          "Type": "System.String"
+        },
+        {
+          "Name": "IsGeneric",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "IsReadOnly",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "IsRequired",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "IsSystemManaged",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "IsValueType",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "Name",
+          "Type": "System.String"
+        },
+        {
+          "Name": "ServerType",
+          "Type": "System.String"
+        },
+        {
+          "Name": "ServerTypeName",
+          "Type": "System.String"
+        },
+        {
+          "Name": "ShortDisplayName",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Template",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Type",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Brokers.AppDomainProvider",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetDomain",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Brokers.AuthInfoBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetSSOUserId",
+          "Inputs": [],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Brokers.AuthorizationBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Authorize",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32?"
+            },
+            {
+              "Name": "privilege",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "GetCurrentUser",
+          "Inputs": [],
+          "ReturnType": "User"
+        },
+        {
+          "Name": "IsAdmin",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "userName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Boolean"
+        },
+        {
+          "Name": "IsAdminOfApp",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32?"
+            }
+          ],
+          "ReturnType": "System.Boolean"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Brokers.Events.PackageEventBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "RaisePackageAddEventAsync",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "EventMessage\u003CPackage\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageDeleteEventAsync",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "EventMessage\u003CPackage\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageImportEventAsync",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "EventMessage\u003C(System.Int32, Package)\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageUpdateEventAsync",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "EventMessage\u003CPackage\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Brokers.Events.PackageItemEventBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "RaisePackageItemAddEventAsync",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "EventMessage\u003CPackageItem\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageItemDeleteEventAsync",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "EventMessage\u003CPackageItem\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageItemUpdateEventAsync",
+          "Inputs": [
+            {
+              "Name": "message",
+              "Type": "EventMessage\u003CPackageItem\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Brokers.Metadata.MetadataBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "CreateMetadataContainer",
+          "Inputs": [
+            {
+              "Name": "type",
+              "Type": "System.Type"
+            },
+            {
+              "Name": "isEntity",
+              "Type": "System.Boolean"
+            },
+            {
+              "Name": "hasEndpoint",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "cCoder.Packaging.Api.OData.MetadataContainer"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Brokers.OData.ODataModelBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ConfigureODataModel",
+          "Inputs": [
+            {
+              "Name": "builder",
+              "Type": "ODataConventionModelBuilder"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Brokers.PackageLoggerBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "LogPackageItemImport",
+          "Inputs": [
+            {
+              "Name": "packageItem",
+              "Type": "PackageItem"
+            },
+            {
+              "Name": "packageSource",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Brokers.Storages.PackageBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddPackageAsync",
+          "Inputs": [
+            {
+              "Name": "newPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+        },
+        {
+          "Name": "DeletePackageAsync",
+          "Inputs": [
+            {
+              "Name": "deletedPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Int32\u003E"
+        },
+        {
+          "Name": "ExportCalendarEvents",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportCalendars",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportComponents",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportFlowDefinitions",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportFolderRoles",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportLayouts",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportPageRoles",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportPages",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportResources",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportRoles",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportScripts",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportTemplates",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "GetAllPackages",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+        },
+        {
+          "Name": "GetAllPackages",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+        },
+        {
+          "Name": "GetAllPackagesIgnoringFilters",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+        },
+        {
+          "Name": "GetAppId",
+          "Inputs": [
+            {
+              "Name": "entity",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Int32?"
+        },
+        {
+          "Name": "UpdatePackageAsync",
+          "Inputs": [
+            {
+              "Name": "updatedPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Brokers.Storages.PackageItemBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddPackageItemAsync",
+          "Inputs": [
+            {
+              "Name": "newPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+        },
+        {
+          "Name": "DeletePackageItemAsync",
+          "Inputs": [
+            {
+              "Name": "deletedPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Int32\u003E"
+        },
+        {
+          "Name": "GetAllPackageItems",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+        },
+        {
+          "Name": "GetAllPackageItems",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+        },
+        {
+          "Name": "GetAllPackageItemsIgnoringFilters",
+          "Inputs": [],
+          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+        },
+        {
+          "Name": "GetAppId",
+          "Inputs": [
+            {
+              "Name": "entity",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Int32?"
+        },
+        {
+          "Name": "UpdatePackageItemAsync",
+          "Inputs": [
+            {
+              "Name": "updatedPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Dependencies.Result",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "Id",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Message",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Success",
+          "Type": "System.Boolean"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Dependencies.Result\u003CT\u003E",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "Id",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Item",
+          "Type": "T"
+        }
+      ],
+      "Methods": [
+        {
+          "Name": "ToNew",
+          "Inputs": [
+            {
+              "Name": "item",
+              "Type": "TNew"
+            }
+          ],
+          "ReturnType": "cCoder.Packaging.Dependencies.Result\u003CTNew\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Exposures.Configuration.ConfigProvider",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetSettings",
+          "Inputs": [],
+          "ReturnType": "System.Collections.Generic.IDictionary\u003CSystem.String, System.String\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Exposures.Controllers.BaselineController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Get",
+          "Inputs": [],
+          "ReturnType": "IActionResult"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Exposures.Controllers.PackageController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Delete",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "GetAll",
+          "Inputs": [
+            {
+              "Name": "queryOptions",
+              "Type": "ODataQueryOptions\u003CPackage\u003E"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "Post",
+          "Inputs": [
+            {
+              "Name": "newPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "Put",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            },
+            {
+              "Name": "updatedPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "PutPackagePatch",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            },
+            {
+              "Name": "updatedPackageDelta",
+              "Type": "Delta\u003CPackage\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "Delete",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "Get",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "GetAll",
+          "Inputs": [
+            {
+              "Name": "queryOptions",
+              "Type": "ODataQueryOptions\u003CPackageItem\u003E"
+            }
+          ],
+          "ReturnType": "IActionResult"
+        },
+        {
+          "Name": "Post",
+          "Inputs": [
+            {
+              "Name": "newPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "Put",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            },
+            {
+              "Name": "updatedPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
+        },
+        {
+          "Name": "PutPackageItemPatch",
+          "Inputs": [
+            {
+              "Name": "key",
+              "Type": "System.Guid"
+            },
+            {
+              "Name": "updatedPackageItemDelta",
+              "Type": "Delta\u003CPackageItem\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Exposures.Controllers.PackageItemMetadataController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetPackageItemMetadata",
+          "Inputs": [],
+          "ReturnType": "IActionResult"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Exposures.Controllers.PackageMetadataController",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetPackageMetadata",
+          "Inputs": [],
+          "ReturnType": "IActionResult"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Exposures.Setup.UIBaseline",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "Packages",
+          "Type": "Package[]"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.IServiceCollectionExtensions",
+      "StandardElementType": "App",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddPackaging",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            },
+            {
+              "Name": "includeRouteContributor",
+              "Type": "System.Boolean"
+            },
+            {
+              "Name": "includePackageManagerServices",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "IServiceCollection"
+        },
+        {
+          "Name": "AddPackagingWeb",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            }
+          ],
+          "ReturnType": "IServiceCollection"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Models.AuditResultByProperty",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "April",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "August",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "December",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "February",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "January",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "July",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "June",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "March",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "May",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "November",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "October",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "Property",
+          "Type": "System.String"
+        },
+        {
+          "Name": "September",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "Total",
+          "Type": "System.Int32"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.AuditResultsByUser",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "April",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "August",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "December",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "February",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "January",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "July",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "June",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "March",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "May",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "November",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "October",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "September",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "Total",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "UserName",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.Exceptions.PackagingProcessingDependencyException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.Exceptions.PackagingProcessingServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.Exceptions.PackagingProcessingValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.Exceptions.PackagingServiceException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.Exceptions.PackagingValidationException",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.ExportPageRoleInfo",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Path",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Role",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.ODataCollection\u003CTCollectionType\u003E",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "ODataContext",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Value",
+          "Type": "System.Collections.Generic.IEnumerable\u003CTCollectionType\u003E"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddOrUpdatePackagesAsync",
+          "Inputs": [
+            {
+              "Name": "packages",
+              "Type": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Dependencies.Result\u003CPackage\u003E\u003E\u003E"
+        },
+        {
+          "Name": "AddPackageAsync",
+          "Inputs": [
+            {
+              "Name": "newPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+        },
+        {
+          "Name": "DeleteAllPackagesAsync",
+          "Inputs": [
+            {
+              "Name": "deletedPackages",
+              "Type": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "DeletePackageAsync",
+          "Inputs": [
+            {
+              "Name": "packageId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "ExportPackages",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageNames",
+              "Type": "System.String[]"
+            }
+          ],
+          "ReturnType": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
+        },
+        {
+          "Name": "GetAllPackages",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+        },
+        {
+          "Name": "GetPackage",
+          "Inputs": [
+            {
+              "Name": "packageId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "UpdatePackageAsync",
+          "Inputs": [
+            {
+              "Name": "updatedPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
+      "StandardElementType": "AggregationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.Baselines.BaselineService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetBaselinePackages",
+          "Inputs": [],
+          "ReturnType": "Package[]"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.Events.PackageEventService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "RaisePackageAddEventAsync",
+          "Inputs": [
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageDeleteEventAsync",
+          "Inputs": [
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageImportEventAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageUpdateEventAsync",
+          "Inputs": [
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.Events.PackageItemEventService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "RaisePackageItemAddEventAsync",
+          "Inputs": [
+            {
+              "Name": "entity",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageItemDeleteEventAsync",
+          "Inputs": [
+            {
+              "Name": "entity",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageItemUpdateEventAsync",
+          "Inputs": [
+            {
+              "Name": "entity",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.Metadata.MetadataService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "CreateMetadataContainer",
+          "Inputs": [
+            {
+              "Name": "type",
+              "Type": "System.Type"
+            },
+            {
+              "Name": "isEntity",
+              "Type": "System.Boolean"
+            },
+            {
+              "Name": "hasEndpoint",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "cCoder.Packaging.Api.OData.MetadataContainer"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetPackageSourceApi",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageManagers.AppSecurityPackageService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageManagers.ContentManagementPackageService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageManagers.DocumentManagementPackageService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageManagers.PackageManagerTelemetryService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "EnsurePackageAdmin",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "LogPackageItemImport",
+          "Inputs": [
+            {
+              "Name": "packageItem",
+              "Type": "PackageItem"
+            },
+            {
+              "Name": "packageSource",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageManagers.SchedulingPackageService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageManagers.WorkflowPackageService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackagingMetadataTypeService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetKnownMetadata",
+          "Inputs": [],
+          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Api.OData.MetadataContainerSet\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.Storages.PackageItemService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddPackageItemAsync",
+          "Inputs": [
+            {
+              "Name": "newPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+        },
+        {
+          "Name": "DeletePackageItemAsync",
+          "Inputs": [
+            {
+              "Name": "packageItemId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllPackageItems",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+        },
+        {
+          "Name": "GetPackageItem",
+          "Inputs": [
+            {
+              "Name": "packageItemId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "PackageItem"
+        },
+        {
+          "Name": "UpdatePackageItemAsync",
+          "Inputs": [
+            {
+              "Name": "updatedPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.Storages.PackageService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddPackageAsync",
+          "Inputs": [
+            {
+              "Name": "newPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+        },
+        {
+          "Name": "DeletePackageAsync",
+          "Inputs": [
+            {
+              "Name": "packageId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "ExportPackageComponents",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportPackageLayouts",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportPackagePageRoles",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportPackagePages",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportPackageResources",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportPackageRoles",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportPackageScripts",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportPackageTemplates",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "GetAllPackages",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+        },
+        {
+          "Name": "GetPackage",
+          "Inputs": [
+            {
+              "Name": "packageId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "UpdatePackageAsync",
+          "Inputs": [
+            {
+              "Name": "updatedPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService",
+      "StandardElementType": "OrchestrationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddOrUpdatePackageItemsAsync",
+          "Inputs": [
+            {
+              "Name": "packageItems",
+              "Type": "System.Collections.Generic.IEnumerable\u003CPackageItem\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Dependencies.Result\u003CPackageItem\u003E\u003E\u003E"
+        },
+        {
+          "Name": "AddPackageItemAsync",
+          "Inputs": [
+            {
+              "Name": "newPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+        },
+        {
+          "Name": "DeleteAllPackageItemsAsync",
+          "Inputs": [
+            {
+              "Name": "deletedPackageItems",
+              "Type": "System.Collections.Generic.IEnumerable\u003CPackageItem\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "DeletePackageItemAsync",
+          "Inputs": [
+            {
+              "Name": "packageItemId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllPackageItems",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+        },
+        {
+          "Name": "GetPackageItem",
+          "Inputs": [
+            {
+              "Name": "packageItemId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "PackageItem"
+        },
+        {
+          "Name": "UpdatePackageItemAsync",
+          "Inputs": [
+            {
+              "Name": "updatedPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Processings.PackageEventProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "RaisePackageAddEventAsync",
+          "Inputs": [
+            {
+              "Name": "newPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageDeleteEventAsync",
+          "Inputs": [
+            {
+              "Name": "deletedPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageImportEventAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageUpdateEventAsync",
+          "Inputs": [
+            {
+              "Name": "updatedPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Processings.PackageExportProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "GetPackageSourceApi",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "System.String"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Processings.PackageItemEventProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "RaisePackageItemAddEventAsync",
+          "Inputs": [
+            {
+              "Name": "newPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageItemDeleteEventAsync",
+          "Inputs": [
+            {
+              "Name": "deletedPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "RaisePackageItemUpdateEventAsync",
+          "Inputs": [
+            {
+              "Name": "updatedPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Processings.PackageItemProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddOrUpdatePackageItemsAsync",
+          "Inputs": [
+            {
+              "Name": "packageItems",
+              "Type": "System.Collections.Generic.IEnumerable\u003CPackageItem\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Dependencies.Result\u003CPackageItem\u003E\u003E\u003E"
+        },
+        {
+          "Name": "AddPackageItemAsync",
+          "Inputs": [
+            {
+              "Name": "newPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+        },
+        {
+          "Name": "DeleteAllPackageItemsAsync",
+          "Inputs": [
+            {
+              "Name": "deletedPackageItems",
+              "Type": "System.Collections.Generic.IEnumerable\u003CPackageItem\u003E"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "DeletePackageItemAsync",
+          "Inputs": [
+            {
+              "Name": "packageItemId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "GetAllPackageItems",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+        },
+        {
+          "Name": "GetPackageItem",
+          "Inputs": [
+            {
+              "Name": "packageItemId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "PackageItem"
+        },
+        {
+          "Name": "UpdatePackageItemAsync",
+          "Inputs": [
+            {
+              "Name": "updatedPackageItem",
+              "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Processings.PackageProcessingService",
+      "StandardElementType": "ProcessingService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "AddPackageAsync",
+          "Inputs": [
+            {
+              "Name": "newPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+        },
+        {
+          "Name": "DeletePackageAsync",
+          "Inputs": [
+            {
+              "Name": "packageId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        },
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ExportPackages",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageNames",
+              "Type": "System.String[]"
+            }
+          ],
+          "ReturnType": "Package[]"
+        },
+        {
+          "Name": "GetAllPackages",
+          "Inputs": [
+            {
+              "Name": "ignoreFilters",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+        },
+        {
+          "Name": "GetPackage",
+          "Inputs": [
+            {
+              "Name": "packageId",
+              "Type": "System.Guid"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "UpdatePackageAsync",
+          "Inputs": [
+            {
+              "Name": "updatedPackage",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.WebApplicationExtensions",
+      "StandardElementType": "Dependency",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "UsePackagingExposure",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
+            },
+            {
+              "Name": "log",
+              "Type": "ILogger"
+            }
+          ],
+          "ReturnType": "WebApplication"
+        }
+      ]
+    }
+  ],
+  "Links": [
+    {
+      "FromType": "cCoder.Packaging.Exposures.Controllers.BaselineController",
+      "ToType": "cCoder.Packaging.Services.Foundations.Baselines.BaselineService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Exposures.Controllers.PackageController",
+      "ToType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
+      "ToType": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Exposures.Controllers.PackageItemMetadataController",
+      "ToType": "cCoder.Packaging.Services.Foundations.Metadata.MetadataService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Exposures.Controllers.PackageMetadataController",
+      "ToType": "cCoder.Packaging.Services.Foundations.Metadata.MetadataService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
+      "ToType": "cCoder.Packaging.Services.Processings.PackageEventProcessingService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
+      "ToType": "cCoder.Packaging.Services.Processings.PackageExportProcessingService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
+      "ToType": "cCoder.Packaging.Services.Processings.PackageItemProcessingService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
+      "ToType": "cCoder.Packaging.Services.Processings.PackageProcessingService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageManagers.AppSecurityPackageService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageManagers.ContentManagementPackageService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageManagers.DocumentManagementPackageService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageManagers.PackageManagerTelemetryService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageManagers.SchedulingPackageService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageManagers.WorkflowPackageService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.Events.PackageEventService",
+      "ToType": "cCoder.Packaging.Brokers.AuthInfoBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.Events.PackageEventService",
+      "ToType": "cCoder.Packaging.Brokers.Events.PackageEventBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.Events.PackageItemEventService",
+      "ToType": "cCoder.Packaging.Brokers.AuthInfoBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.Events.PackageItemEventService",
+      "ToType": "cCoder.Packaging.Brokers.Events.PackageItemEventBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.Metadata.MetadataService",
+      "ToType": "cCoder.Packaging.Brokers.Metadata.MetadataBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService",
+      "ToType": "cCoder.Packaging.Brokers.AppDomainProvider"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService",
+      "ToType": "cCoder.Packaging.Exposures.Configuration.ConfigProvider"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageManagers.PackageManagerTelemetryService",
+      "ToType": "cCoder.Packaging.Brokers.AuthorizationBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageManagers.PackageManagerTelemetryService",
+      "ToType": "cCoder.Packaging.Brokers.PackageLoggerBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackagingMetadataTypeService",
+      "ToType": "cCoder.Packaging.Brokers.Metadata.MetadataBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.Storages.PackageItemService",
+      "ToType": "cCoder.Packaging.Brokers.AuthorizationBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.Storages.PackageItemService",
+      "ToType": "cCoder.Packaging.Brokers.Storages.PackageItemBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.Storages.PackageService",
+      "ToType": "cCoder.Packaging.Brokers.AuthorizationBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.Storages.PackageService",
+      "ToType": "cCoder.Packaging.Brokers.Storages.PackageBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService",
+      "ToType": "cCoder.Packaging.Services.Processings.PackageItemEventProcessingService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService",
+      "ToType": "cCoder.Packaging.Services.Processings.PackageItemProcessingService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Processings.PackageEventProcessingService",
+      "ToType": "cCoder.Packaging.Services.Foundations.Events.PackageEventService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Processings.PackageExportProcessingService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Processings.PackageItemEventProcessingService",
+      "ToType": "cCoder.Packaging.Services.Foundations.Events.PackageItemEventService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Processings.PackageItemProcessingService",
+      "ToType": "cCoder.Packaging.Services.Foundations.Storages.PackageItemService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Processings.PackageProcessingService",
+      "ToType": "cCoder.Packaging.Services.Foundations.Storages.PackageService"
+    }
+  ],
+  "AnalysisItems": []
+}

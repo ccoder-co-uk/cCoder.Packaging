@@ -1,124 +1,120 @@
-using cCoder.Packaging.Api.OData;
-using cCoder.Packaging.Models;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using cCoder.Data.Extensions;
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Services.Foundations.Storages;
 
 namespace cCoder.Packaging.Services.Processings;
 
-internal class PackageProcessingService(IPackageService service, IPackageItemProcessingService packageItemService) : IPackageProcessingService
+internal sealed partial class PackageProcessingService(
+    IPackageService packageService)
+    : IPackageProcessingService
 {
-    public cCoder.Data.Models.Packaging.Package ExportPackage(int appId, string packageName)
-    {
-        cCoder.Data.Models.Packaging.Package result = packageName switch
+    public Package ExportPackage(int appId, string packageName) =>
+        TryCatch(operation: () =>
         {
-            "Roles" => service.ExportRoles(appId),
-            "Layouts" => service.ExportLayouts(appId),
-            "Templates" => service.ExportTemplates(appId),
-            "Components" => service.ExportComponents(appId),
-            "Scripts" => service.ExportScripts(appId),
-            "Resources" => service.ExportResources(appId),
-            "Pages" => service.ExportPages(appId),
-            "PageRoles" => service.ExportPageRoles(appId),
-            _ => new cCoder.Data.Models.Packaging.Package
+            ValidatePackageOnExport(appId: appId, packageName: packageName);
+
+            return packageName switch
+            {
+                "Roles" => packageService.ExportPackageRoles(appId: appId),
+                "Layouts" => packageService.ExportPackageLayouts(appId: appId),
+                "Templates" => packageService.ExportPackageTemplates(appId: appId),
+                "Components" => packageService.ExportPackageComponents(appId: appId),
+                "Scripts" => packageService.ExportPackageScripts(appId: appId),
+                "Resources" => packageService.ExportPackageResources(appId: appId),
+                "Pages" => packageService.ExportPackagePages(appId: appId),
+                "PageRoles" => packageService.ExportPackagePageRoles(appId: appId),
+                _ => new Package
+                {
+                    Name = packageName,
+                    Items = [],
+                },
+            };
+        });
+
+    public Package[] ExportPackages(int appId, string[] packageNames) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePackagesOnExport(appId: appId, packageNames: packageNames);
+
+            return packageNames
+                .Select(selector: packageName => ExportPackageValue(
+                    appId: appId,
+                    packageName: packageName))
+                .ToArray();
+        });
+
+    public Package GetPackage(Guid packageId) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePackageOnGet(packageId: packageId);
+
+            return packageService.GetPackage(packageId: packageId);
+        });
+
+    public IQueryable<Package> GetAllPackages(bool ignoreFilters = false) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePackagesOnGet(ignoreFilters: ignoreFilters);
+
+            return packageService.GetAllPackages(ignoreFilters: ignoreFilters);
+        });
+
+    public ValueTask<Package> AddPackageAsync(Package newPackage) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePackageOnAdd(newPackage: newPackage);
+            ClearPackageItems(package: newPackage);
+
+            return packageService.AddPackageAsync(newPackage: newPackage);
+        });
+
+    public ValueTask<Package> UpdatePackageAsync(Package updatedPackage) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePackageOnUpdate(updatedPackage: updatedPackage);
+
+            return packageService.UpdatePackageAsync(updatedPackage: updatedPackage);
+        });
+
+    public ValueTask DeletePackageAsync(Guid packageId) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePackageOnDelete(packageId: packageId);
+
+            return packageService.DeletePackageAsync(packageId: packageId);
+        });
+
+    private Package ExportPackageValue(int appId, string packageName) =>
+        packageName switch
+        {
+            "Roles" => packageService.ExportPackageRoles(appId: appId),
+            "Layouts" => packageService.ExportPackageLayouts(appId: appId),
+            "Templates" => packageService.ExportPackageTemplates(appId: appId),
+            "Components" => packageService.ExportPackageComponents(appId: appId),
+            "Scripts" => packageService.ExportPackageScripts(appId: appId),
+            "Resources" => packageService.ExportPackageResources(appId: appId),
+            "Pages" => packageService.ExportPackagePages(appId: appId),
+            "PageRoles" => packageService.ExportPackagePageRoles(appId: appId),
+            _ => new Package
             {
                 Name = packageName,
-                Items = Array.Empty<cCoder.Data.Models.Packaging.PackageItem>()
+                Items = [],
             },
         };
 
-        return result;
-    }
-
-    public cCoder.Data.Models.Packaging.Package[] ExportPackages(int appId, string[] packageNames)
+    private static void ClearPackageItems(Package package)
     {
-        return packageNames.Select((string name) => ExportPackage(appId, name)).ToArray();
-    }
-
-    public cCoder.Data.Models.Packaging.Package Get(Guid id)
-    {
-        return service.Get(id);
-    }
-
-    public IQueryable<cCoder.Data.Models.Packaging.Package> GetAll(bool ignoreFilters = false)
-    {
-        return service.GetAll(ignoreFilters);
-    }
-
-    public ValueTask<cCoder.Data.Models.Packaging.Package> AddAsync(cCoder.Data.Models.Packaging.Package entity)
-    {
-        if (entity.Items != null && entity.Items.Any())
+        if (package.Items is not null)
         {
-            entity.Items.ForEach(delegate (cCoder.Data.Models.Packaging.PackageItem item)
+            package.Items.ForEach(action: packageItem =>
             {
-                item.PackageId = entity.Id;
-                item.Package = null;
+                packageItem.PackageId = package.Id;
+                packageItem.Package = null;
             });
-        }
-        return service.AddAsync(entity);
-    }
-
-    public async ValueTask<cCoder.Data.Models.Packaging.Package> UpdateAsync(cCoder.Data.Models.Packaging.Package entity)
-    {
-        cCoder.Data.Models.Packaging.Package result = await service.UpdateAsync(entity);
-        if (entity.Items != null && entity.Items.Any())
-        {
-            await packageItemService.DeleteAllAsync((from item in packageItemService.GetAll()
-                                                     where item.PackageId == result.Id
-                                                     select item).ToArray());
-            entity.Items.ForEach(delegate (cCoder.Data.Models.Packaging.PackageItem item)
-            {
-                item.PackageId = result.Id;
-            });
-            await packageItemService.AddOrUpdate(entity.Items);
-        }
-        return result;
-    }
-
-    public ValueTask DeleteAsync(Guid id)
-    {
-        return service.DeleteAsync(id);
-    }
-
-    public async ValueTask<IEnumerable<Result<cCoder.Data.Models.Packaging.Package>>> AddOrUpdate(IEnumerable<cCoder.Data.Models.Packaging.Package> items)
-    {
-        List<Result<cCoder.Data.Models.Packaging.Package>> results = new List<Result<cCoder.Data.Models.Packaging.Package>>();
-
-        foreach (cCoder.Data.Models.Packaging.Package item in items)
-        {
-            try
-            {
-                cCoder.Data.Models.Packaging.Package savedItem =
-                    item.Id == Guid.Empty
-                        ? await AddAsync(item)
-                        : await UpdateAsync(item);
-
-                results.Add(new Result<cCoder.Data.Models.Packaging.Package>
-                {
-                    Success = true,
-                    Item = savedItem,
-                    Message = item.Id == Guid.Empty ? "Added Successfully" : "Updated Successfully"
-                });
-            }
-            catch (Exception ex)
-            {
-                results.Add(new Result<cCoder.Data.Models.Packaging.Package>
-                {
-                    Success = false,
-                    Item = item,
-                    Message = ex.Message
-                });
-            }
-        }
-
-        return results;
-    }
-
-    public async ValueTask DeleteAllAsync(IEnumerable<cCoder.Data.Models.Packaging.Package> items)
-    {
-        foreach (cCoder.Data.Models.Packaging.Package item in items)
-        {
-            await DeleteAsync(item.Id);
         }
     }
 }
-

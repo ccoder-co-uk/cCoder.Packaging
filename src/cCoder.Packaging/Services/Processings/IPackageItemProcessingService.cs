@@ -1,21 +1,23 @@
-using cCoder.Packaging.Models;
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
 using cCoder.Data.Models.Packaging;
+using cCoder.Packaging.Dependencies;
+using cCoder.Packaging.Models;
 
 namespace cCoder.Packaging.Services.Processings;
 
-public interface IPackageItemProcessingService
+internal interface IPackageItemProcessingService
 {
-    cCoder.Data.Models.Packaging.PackageItem Get(Guid id);
+    PackageItem GetPackageItem(Guid packageItemId);
+    IQueryable<PackageItem> GetAllPackageItems(bool ignoreFilters = false);
+    ValueTask<PackageItem> AddPackageItemAsync(PackageItem newPackageItem);
+    ValueTask<PackageItem> UpdatePackageItemAsync(PackageItem updatedPackageItem);
+    ValueTask DeletePackageItemAsync(Guid packageItemId);
 
-    IQueryable<cCoder.Data.Models.Packaging.PackageItem> GetAll(bool ignoreFilters = false);
+    ValueTask<IEnumerable<Result<PackageItem>>> AddOrUpdatePackageItemsAsync(
+        IEnumerable<PackageItem> packageItems);
 
-    ValueTask<cCoder.Data.Models.Packaging.PackageItem> AddAsync(cCoder.Data.Models.Packaging.PackageItem entity);
-
-    ValueTask<cCoder.Data.Models.Packaging.PackageItem> UpdateAsync(cCoder.Data.Models.Packaging.PackageItem entity);
-
-    ValueTask DeleteAsync(Guid id);
-
-    ValueTask<IEnumerable<Result<cCoder.Data.Models.Packaging.PackageItem>>> AddOrUpdate(IEnumerable<cCoder.Data.Models.Packaging.PackageItem> items);
-
-    ValueTask DeleteAllAsync(IEnumerable<cCoder.Data.Models.Packaging.PackageItem> items);
+    ValueTask DeleteAllPackageItemsAsync(IEnumerable<PackageItem> deletedPackageItems);
 }
