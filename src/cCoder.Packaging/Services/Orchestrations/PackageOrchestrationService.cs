@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Data;
+using cCoder.Data.Extensions;
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
@@ -10,7 +11,13 @@ using cCoder.Packaging.Services.Processings;
 
 namespace cCoder.Packaging.Services.Orchestrations;
 
-internal class PackageOrchestrationService(IAppDomainProvider appDomainProvider, IPackageProcessingService processingService, IPackageEventProcessingService eventService, Config config) : IPackageOrchestrationService
+internal class PackageOrchestrationService(
+    IAppDomainProvider appDomainProvider,
+    IPackageProcessingService processingService,
+    IPackageItemProcessingService packageItemProcessingService,
+    IPackageEventProcessingService eventService,
+    Config config)
+    : IPackageOrchestrationService
 {
     public IEnumerable<cCoder.Data.Models.Packaging.Package> Export(int appId, string[] packageNames = null)
     {
@@ -47,42 +54,104 @@ internal class PackageOrchestrationService(IAppDomainProvider appDomainProvider,
 
     public cCoder.Data.Models.Packaging.Package Get(Guid id)
     {
-        return processingService.Get(id: id);
+        return processingService.GetPackage(packageId: id);
     }
 
     public IQueryable<cCoder.Data.Models.Packaging.Package> GetAll(bool ignoreFilters = false)
     {
-        return processingService.GetAll(ignoreFilters: ignoreFilters);
+        return processingService.GetAllPackages(ignoreFilters: ignoreFilters);
     }
 
     public async ValueTask<cCoder.Data.Models.Packaging.Package> AddAsync(cCoder.Data.Models.Packaging.Package entity)
     {
-        cCoder.Data.Models.Packaging.Package result = await processingService.AddAsync(entity: entity);
+        cCoder.Data.Models.Packaging.Package result =
+            await processingService.AddPackageAsync(newPackage: entity);
         await eventService.RaisePackageAddEventAsync(newPackage: result);
         return result;
     }
 
     public async ValueTask<cCoder.Data.Models.Packaging.Package> UpdateAsync(cCoder.Data.Models.Packaging.Package entity)
     {
-        cCoder.Data.Models.Packaging.Package result = await processingService.UpdateAsync(entity: entity);
+        cCoder.Data.Models.Packaging.Package result =
+            await processingService.UpdatePackageAsync(updatedPackage: entity);
+
+        if (entity.Items is not null && entity.Items.Any())
+        {
+            PackageItem[] deletedPackageItems = packageItemProcessingService
+                .GetAllPackageItems()
+                .Where(predicate: packageItem => packageItem.PackageId == result.Id)
+                .ToArray();
+
+            await packageItemProcessingService
+                .DeleteAllPackageItemsAsync(deletedPackageItems: deletedPackageItems);
+
+            entity.Items.ForEach(action: packageItem =>
+            {
+                packageItem.PackageId = result.Id;
+            });
+
+            await packageItemProcessingService
+                .AddOrUpdatePackageItemsAsync(packageItems: entity.Items);
+        }
+
         await eventService.RaisePackageUpdateEventAsync(updatedPackage: result);
         return result;
     }
 
     public async ValueTask DeleteAsync(Guid id)
     {
-        cCoder.Data.Models.Packaging.Package entity = processingService.Get(id: id);
+        cCoder.Data.Models.Packaging.Package entity =
+            processingService.GetPackage(packageId: id);
         await eventService.RaisePackageDeleteEventAsync(deletedPackage: entity);
-        await processingService.DeleteAsync(id: id);
+        await processingService.DeletePackageAsync(packageId: id);
     }
 
     public async ValueTask<IEnumerable<Result<cCoder.Data.Models.Packaging.Package>>> AddOrUpdate(IEnumerable<cCoder.Data.Models.Packaging.Package> items)
     {
-        return (await processingService.AddOrUpdate(items: items)).ToArray();
+        List<Result<Package>> results = [];
+
+        foreach (Package package in items)
+        {
+            try
+            {
+                bool isNewPackage = package.Id == Guid.Empty;
+                Package savedPackage = isNewPackage
+                    ? await processingService.AddPackageAsync(newPackage: package)
+                    : await processingService.UpdatePackageAsync(updatedPackage: package);
+
+                results.Add(item: new Result<Package>
+                {
+                    Success = true,
+                    Item = savedPackage,
+                    Message = isNewPackage
+                        ? "Added Successfully"
+                        : "Updated Successfully",
+                });
+            }
+            catch (Exception exception)
+            {
+                results.Add(item: new Result<Package>
+                {
+                    Success = false,
+                    Item = package,
+                    Message = exception.Message,
+                });
+            }
+        }
+
+        return results;
     }
 
     public ValueTask DeleteAllAsync(IEnumerable<cCoder.Data.Models.Packaging.Package> items)
     {
-        return processingService.DeleteAllAsync(items: items);
+        return DeletePackagesAsync(items: items);
+    }
+
+    private async ValueTask DeletePackagesAsync(IEnumerable<Package> items)
+    {
+        foreach (Package package in items)
+        {
+            await processingService.DeletePackageAsync(packageId: package.Id);
+        }
     }
 }
