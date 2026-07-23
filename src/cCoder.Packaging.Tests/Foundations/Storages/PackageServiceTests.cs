@@ -34,7 +34,7 @@ public class PackageServiceTests
             .Returns(value: filteredPackages.AsQueryable());
 
         // When
-        Package actualPackage = service.Get(id: expectedPackage.Id);
+        Package actualPackage = service.GetPackage(packageId: expectedPackage.Id);
 
         // Then
         actualPackage.Should()
@@ -60,7 +60,7 @@ public class PackageServiceTests
             .Returns(value: new[] { unrestrictedPackage }.AsQueryable());
 
         // When
-        Action act = () => service.Get(id: packageId);
+        Action act = () => service.GetPackage(packageId: packageId);
 
         // Then
         act.Should()
@@ -88,7 +88,7 @@ public class PackageServiceTests
                                                                                    .AsQueryable());
 
         // When
-        Package actualPackage = service.Get(id: packageId);
+        Package actualPackage = service.GetPackage(packageId: packageId);
 
         // Then
         actualPackage.Should()
@@ -110,7 +110,7 @@ public class PackageServiceTests
             .Returns(value: expectedPackages);
 
         // When
-        IQueryable<Package> actualPackages = service.GetAll(ignoreFilters: true);
+        IQueryable<Package> actualPackages = service.GetAllPackages(ignoreFilters: true);
 
         // Then
         actualPackages.Should()
@@ -146,7 +146,7 @@ id: package.Id,
             .ReturnsAsync(value: storedPackage);
 
         // When
-        Package actualPackage = await service.AddAsync(package: package);
+        Package actualPackage = await service.AddPackageAsync(newPackage: package);
 
         // Then
         actualPackage.Should()
@@ -185,7 +185,7 @@ id: package.Id,
             .ReturnsAsync(value: storedPackage);
 
         // When
-        Package actualPackage = await service.UpdateAsync(package: package);
+        Package actualPackage = await service.UpdatePackageAsync(updatedPackage: package);
 
         // Then
         actualPackage.Should()
@@ -214,7 +214,7 @@ id: package.Id,
             .ReturnsAsync(value: 1);
 
         // When
-        await service.DeleteAsync(id: package.Id);
+        await service.DeletePackageAsync(packageId: package.Id);
 
         // Then
         packageBrokerMock.Verify(expression: broker => broker.GetAllPackages(ignoreFilters: false), times: Times.Once);

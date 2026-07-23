@@ -4,14 +4,13 @@
 
 using cCoder.Data.Models.Packaging;
 
-
 namespace cCoder.Packaging.Services.Foundations.Storages;
 
-public interface IPackageItemService
+internal interface IPackageItemService
 {
-    PackageItem Get(Guid id);
-    IQueryable<PackageItem> GetAll(bool ignoreFilters = false);
-    ValueTask<PackageItem> AddAsync(PackageItem packageItem);
-    ValueTask<PackageItem> UpdateAsync(PackageItem packageItem);
-    ValueTask DeleteAsync(Guid id);
+    PackageItem GetPackageItem(Guid packageItemId);
+    IQueryable<PackageItem> GetAllPackageItems(bool ignoreFilters = false);
+    ValueTask<PackageItem> AddPackageItemAsync(PackageItem newPackageItem);
+    ValueTask<PackageItem> UpdatePackageItemAsync(PackageItem updatedPackageItem);
+    ValueTask DeletePackageItemAsync(Guid packageItemId);
 }

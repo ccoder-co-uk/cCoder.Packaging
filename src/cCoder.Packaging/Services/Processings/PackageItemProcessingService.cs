@@ -12,27 +12,27 @@ internal class PackageItemProcessingService(IPackageItemService service) : IPack
 {
     public cCoder.Data.Models.Packaging.PackageItem Get(Guid id)
     {
-        return service.Get(id: id);
+        return service.GetPackageItem(packageItemId: id);
     }
 
     public IQueryable<cCoder.Data.Models.Packaging.PackageItem> GetAll(bool ignoreFilters = false)
     {
-        return service.GetAll(ignoreFilters: ignoreFilters);
+        return service.GetAllPackageItems(ignoreFilters: ignoreFilters);
     }
 
     public ValueTask<cCoder.Data.Models.Packaging.PackageItem> AddAsync(cCoder.Data.Models.Packaging.PackageItem entity)
     {
-        return service.AddAsync(packageItem: entity);
+        return service.AddPackageItemAsync(newPackageItem: entity);
     }
 
     public ValueTask<cCoder.Data.Models.Packaging.PackageItem> UpdateAsync(cCoder.Data.Models.Packaging.PackageItem entity)
     {
-        return service.UpdateAsync(packageItem: entity);
+        return service.UpdatePackageItemAsync(updatedPackageItem: entity);
     }
 
     public ValueTask DeleteAsync(Guid id)
     {
-        return service.DeleteAsync(id: id);
+        return service.DeletePackageItemAsync(packageItemId: id);
     }
 
     public async ValueTask<IEnumerable<Result<cCoder.Data.Models.Packaging.PackageItem>>> AddOrUpdate(IEnumerable<cCoder.Data.Models.Packaging.PackageItem> items)

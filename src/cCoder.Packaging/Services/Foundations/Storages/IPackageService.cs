@@ -6,19 +6,19 @@ using cCoder.Data.Models.Packaging;
 
 namespace cCoder.Packaging.Services.Foundations.Storages;
 
-public interface IPackageService
+internal interface IPackageService
 {
-    Package Get(Guid id);
-    IQueryable<Package> GetAll(bool ignoreFilters = false);
-    ValueTask<Package> AddAsync(Package package);
-    ValueTask<Package> UpdateAsync(Package package);
-    ValueTask DeleteAsync(Guid id);
-    Package ExportRoles(int appId);
-    Package ExportLayouts(int appId);
-    Package ExportTemplates(int appId);
-    Package ExportComponents(int appId);
-    Package ExportScripts(int appId);
-    Package ExportResources(int appId);
-    Package ExportPages(int appId);
-    Package ExportPageRoles(int appId);
+    Package GetPackage(Guid packageId);
+    IQueryable<Package> GetAllPackages(bool ignoreFilters = false);
+    ValueTask<Package> AddPackageAsync(Package newPackage);
+    ValueTask<Package> UpdatePackageAsync(Package updatedPackage);
+    ValueTask DeletePackageAsync(Guid packageId);
+    Package ExportPackageRoles(int appId);
+    Package ExportPackageLayouts(int appId);
+    Package ExportPackageTemplates(int appId);
+    Package ExportPackageComponents(int appId);
+    Package ExportPackageScripts(int appId);
+    Package ExportPackageResources(int appId);
+    Package ExportPackagePages(int appId);
+    Package ExportPackagePageRoles(int appId);
 }

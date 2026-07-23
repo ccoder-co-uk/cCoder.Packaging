@@ -38,7 +38,7 @@ public class PackageItemServiceTests
             .Returns(value: new[] { expectedItem }.AsQueryable());
 
         // When
-        PackageItem actualItem = service.Get(id: expectedItem.Id);
+        PackageItem actualItem = service.GetPackageItem(packageItemId: expectedItem.Id);
 
         // Then
         actualItem.Should()
@@ -66,7 +66,7 @@ public class PackageItemServiceTests
             .Returns(value: new[] { unrestrictedItem }.AsQueryable());
 
         // When
-        Action act = () => service.Get(id: packageItemId);
+        Action act = () => service.GetPackageItem(packageItemId: packageItemId);
 
         // Then
         act.Should()
@@ -96,7 +96,7 @@ public class PackageItemServiceTests
                          .AsQueryable());
 
         // When
-        PackageItem actualItem = service.Get(id: packageItemId);
+        PackageItem actualItem = service.GetPackageItem(packageItemId: packageItemId);
 
         // Then
         actualItem.Should()
@@ -118,7 +118,8 @@ public class PackageItemServiceTests
             .Returns(value: expectedItems);
 
         // When
-        IQueryable<PackageItem> actualItems = service.GetAll(ignoreFilters: true);
+        IQueryable<PackageItem> actualItems =
+            service.GetAllPackageItems(ignoreFilters: true);
 
         // Then
         actualItems.Should()
@@ -155,7 +156,8 @@ data: packageItem.Data);
             .ReturnsAsync(value: storedPackageItem);
 
         // When
-        PackageItem actualItem = await service.AddAsync(packageItem: packageItem);
+        PackageItem actualItem =
+            await service.AddPackageItemAsync(newPackageItem: packageItem);
 
         // Then
         actualItem.Should()
@@ -196,7 +198,8 @@ data: packageItem.Data);
             .ReturnsAsync(value: storedPackageItem);
 
         // When
-        PackageItem actualItem = await service.UpdateAsync(packageItem: packageItem);
+        PackageItem actualItem =
+            await service.UpdatePackageItemAsync(updatedPackageItem: packageItem);
 
         // Then
         actualItem.Should()
@@ -230,7 +233,7 @@ data: packageItem.Data);
             .ReturnsAsync(value: 1);
 
         // When
-        await service.DeleteAsync(id: packageItem.Id);
+        await service.DeletePackageItemAsync(packageItemId: packageItem.Id);
 
         // Then
         packageItemBrokerMock.Verify(expression: broker => broker.GetAllPackageItems(ignoreFilters: false), times: Times.Once);

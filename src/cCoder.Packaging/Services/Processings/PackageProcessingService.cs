@@ -15,14 +15,14 @@ internal class PackageProcessingService(IPackageService service, IPackageItemPro
     {
         cCoder.Data.Models.Packaging.Package result = packageName switch
         {
-            "Roles" => service.ExportRoles(appId: appId),
-            "Layouts" => service.ExportLayouts(appId: appId),
-            "Templates" => service.ExportTemplates(appId: appId),
-            "Components" => service.ExportComponents(appId: appId),
-            "Scripts" => service.ExportScripts(appId: appId),
-            "Resources" => service.ExportResources(appId: appId),
-            "Pages" => service.ExportPages(appId: appId),
-            "PageRoles" => service.ExportPageRoles(appId: appId),
+            "Roles" => service.ExportPackageRoles(appId: appId),
+            "Layouts" => service.ExportPackageLayouts(appId: appId),
+            "Templates" => service.ExportPackageTemplates(appId: appId),
+            "Components" => service.ExportPackageComponents(appId: appId),
+            "Scripts" => service.ExportPackageScripts(appId: appId),
+            "Resources" => service.ExportPackageResources(appId: appId),
+            "Pages" => service.ExportPackagePages(appId: appId),
+            "PageRoles" => service.ExportPackagePageRoles(appId: appId),
             _ => new cCoder.Data.Models.Packaging.Package
             {
                 Name = packageName,
@@ -41,12 +41,12 @@ internal class PackageProcessingService(IPackageService service, IPackageItemPro
 
     public cCoder.Data.Models.Packaging.Package Get(Guid id)
     {
-        return service.Get(id: id);
+        return service.GetPackage(packageId: id);
     }
 
     public IQueryable<cCoder.Data.Models.Packaging.Package> GetAll(bool ignoreFilters = false)
     {
-        return service.GetAll(ignoreFilters: ignoreFilters);
+        return service.GetAllPackages(ignoreFilters: ignoreFilters);
     }
 
     public ValueTask<cCoder.Data.Models.Packaging.Package> AddAsync(cCoder.Data.Models.Packaging.Package entity)
@@ -60,12 +60,13 @@ internal class PackageProcessingService(IPackageService service, IPackageItemPro
             });
         }
 
-        return service.AddAsync(package: entity);
+        return service.AddPackageAsync(newPackage: entity);
     }
 
     public async ValueTask<cCoder.Data.Models.Packaging.Package> UpdateAsync(cCoder.Data.Models.Packaging.Package entity)
     {
-        cCoder.Data.Models.Packaging.Package result = await service.UpdateAsync(package: entity);
+        cCoder.Data.Models.Packaging.Package result =
+            await service.UpdatePackageAsync(updatedPackage: entity);
 
         if (entity.Items != null && entity.Items.Any())
         {
@@ -86,7 +87,7 @@ internal class PackageProcessingService(IPackageService service, IPackageItemPro
 
     public ValueTask DeleteAsync(Guid id)
     {
-        return service.DeleteAsync(id: id);
+        return service.DeletePackageAsync(packageId: id);
     }
 
     public async ValueTask<IEnumerable<Result<cCoder.Data.Models.Packaging.Package>>> AddOrUpdate(IEnumerable<cCoder.Data.Models.Packaging.Package> items)
