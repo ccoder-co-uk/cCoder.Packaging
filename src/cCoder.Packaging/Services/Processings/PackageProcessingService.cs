@@ -70,16 +70,18 @@ internal class PackageProcessingService(IPackageService service, IPackageItemPro
 
         if (entity.Items != null && entity.Items.Any())
         {
-            await packageItemService.DeleteAllAsync(items: (from item in packageItemService.GetAll()
-                                                            where item.PackageId == result.Id
-                                                            select item).ToArray());
+            await packageItemService.DeleteAllPackageItemsAsync(
+                deletedPackageItems: (from item in packageItemService.GetAllPackageItems()
+                               where item.PackageId == result.Id
+                               select item).ToArray());
 
             entity.Items.ForEach(action: delegate (cCoder.Data.Models.Packaging.PackageItem item)
             {
                 item.PackageId = result.Id;
             });
 
-            await packageItemService.AddOrUpdate(items: entity.Items);
+            await packageItemService
+                .AddOrUpdatePackageItemsAsync(packageItems: entity.Items);
         }
 
         return result;
