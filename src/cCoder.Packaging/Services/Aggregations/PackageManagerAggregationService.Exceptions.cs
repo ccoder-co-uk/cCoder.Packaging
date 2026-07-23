@@ -6,7 +6,7 @@ using cCoder.Packaging.Models.Exceptions;
 
 namespace cCoder.Packaging.Services.Aggregations;
 
-internal sealed partial class PackageManagerOrchestrationService
+internal sealed partial class PackageManagerAggregationService
 {
     private static T TryCatch<T>(Func<T> operation)
     {

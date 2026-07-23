@@ -8,7 +8,7 @@ using cCoder.Data.Models.Packaging;
 
 namespace cCoder.Packaging.Services.Aggregations;
 
-public interface IPackageManagerOrchestrationService
+public interface IPackageManagerAggregationService
 {
     ValueTask ImportPackageAsync(int appId, Package package);
 

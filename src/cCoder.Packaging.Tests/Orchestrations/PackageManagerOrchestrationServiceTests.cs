@@ -1,10 +1,9 @@
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Services;
 using cCoder.Packaging.Services.Aggregations;
+using cCoder.Packaging.Services.Foundations.PackageManagers;
 using FizzWare.NBuilder;
-using Microsoft.Extensions.Logging;
 using Moq;
 
 
@@ -18,13 +17,17 @@ public partial class PackageManagerOrchestrationServiceTests
     private readonly Mock<IWorkflowPackageService> workflowPackageServiceMock = new();
     private readonly Mock<IDocumentManagementPackageService> documentManagementPackageServiceMock = new();
     private readonly Mock<IContentManagementPackageService> contentManagementPackageServiceMock = new();
-    private readonly PackageManagerOrchestrationService packageManagerOrchestrationService;
+    private readonly PackageManagerAggregationService packageManagerOrchestrationService;
 
     public PackageManagerOrchestrationServiceTests()
     {
-        packageManagerOrchestrationService = new PackageManagerOrchestrationService(
-            Mock.Of<ILogger<PackageManagerOrchestrationService>>(),
+        Mock<IPackageLoggerBroker> packageLoggerBrokerMock = new();
+        PackageManagerTelemetryService packageManagerTelemetryService = new(
             authorizationBrokerMock.Object,
+            packageLoggerBrokerMock.Object);
+
+        packageManagerOrchestrationService = new PackageManagerAggregationService(
+            packageManagerTelemetryService,
             appSecurityPackageServiceMock.Object,
             schedulingPackageServiceMock.Object,
             workflowPackageServiceMock.Object,

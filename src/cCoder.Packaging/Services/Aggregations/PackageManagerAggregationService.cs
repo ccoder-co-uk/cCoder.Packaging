@@ -2,21 +2,19 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using System.Security;
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Brokers;
+using cCoder.Packaging.Services.Foundations.PackageManagers;
 
 namespace cCoder.Packaging.Services.Aggregations;
 
-internal sealed partial class PackageManagerOrchestrationService(
-    ILogger<PackageManagerOrchestrationService> logger,
-    IAuthorizationBroker authorizationBroker,
+internal sealed partial class PackageManagerAggregationService(
+    IPackageManagerTelemetryService packageManagerTelemetryService,
     IAppSecurityPackageService appSecurityPackageService,
     ISchedulingPackageService schedulingPackageService,
     IWorkflowPackageService workflowPackageService,
     IDocumentManagementPackageService documentManagementPackageService,
     IContentManagementPackageService contentManagementPackageService)
-    : IPackageManagerOrchestrationService
+    : IPackageManagerAggregationService
 {
     public ValueTask ImportPackageAsync(int appId, Package package) =>
         TryCatch(operation: async () =>
@@ -28,17 +26,13 @@ internal sealed partial class PackageManagerOrchestrationService(
                 return;
             }
 
-            EnsureAdmin(appId: appId);
+            packageManagerTelemetryService.EnsurePackageAdmin(appId: appId);
 
             foreach (PackageItem packageItem in package.Items)
             {
-                logger.LogDebug(
-                    message: "Importing {ItemType} items from {PackageSource}",
-                    args:
-                    [
-                        packageItem.Type,
-                        package.SourceApi,
-                    ]);
+                packageManagerTelemetryService.LogPackageItemImport(
+                    packageItem: packageItem,
+                    packageSource: package.SourceApi);
 
                 await ImportPackageItemAsync(
                     appId: appId,
@@ -50,7 +44,7 @@ internal sealed partial class PackageManagerOrchestrationService(
         TryCatch(operation: () =>
         {
             ValidatePackageOnExport(appId: appId, packageName: packageName);
-            EnsureAdmin(appId: appId);
+            packageManagerTelemetryService.EnsurePackageAdmin(appId: appId);
 
             return packageName switch
             {
@@ -135,11 +129,4 @@ internal sealed partial class PackageManagerOrchestrationService(
             package: contentPackage);
     }
 
-    private void EnsureAdmin(int appId)
-    {
-        if (!authorizationBroker.IsAdminOfApp(appId: appId))
-        {
-            throw new SecurityException("Access Denied!");
-        }
-    }
 }

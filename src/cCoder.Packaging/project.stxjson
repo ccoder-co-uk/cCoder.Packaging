@@ -578,6 +578,27 @@
       ]
     },
     {
+      "Name": "cCoder.Packaging.Brokers.PackageLoggerBroker",
+      "StandardElementType": "Broker",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "LogPackageItemImport",
+          "Inputs": [
+            {
+              "Name": "packageItem",
+              "Type": "PackageItem"
+            },
+            {
+              "Name": "packageSource",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Packaging.Brokers.Storages.PackageBroker",
       "StandardElementType": "Broker",
       "Properties": [],
@@ -1305,113 +1326,8 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
+      "Name": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
       "StandardElementType": "AggregationService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "ExportPackage",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "packageName",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "Package"
-        },
-        {
-          "Name": "ImportPackageAsync",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "package",
-              "Type": "Package"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Packaging.Services.AppSecurityPackageService",
-      "StandardElementType": "Unknown",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "ExportPackage",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "packageName",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "Package"
-        },
-        {
-          "Name": "ImportPackageAsync",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "package",
-              "Type": "Package"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Packaging.Services.ContentManagementPackageService",
-      "StandardElementType": "Unknown",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "ExportPackage",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "packageName",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "Package"
-        },
-        {
-          "Name": "ImportPackageAsync",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "package",
-              "Type": "Package"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Packaging.Services.DocumentManagementPackageService",
-      "StandardElementType": "Unknown",
       "Properties": [],
       "Methods": [
         {
@@ -1526,6 +1442,212 @@
             {
               "Name": "entity",
               "Type": "PackageItem"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageManagers.AppSecurityPackageService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageManagers.ContentManagementPackageService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageManagers.DocumentManagementPackageService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageManagers.PackageManagerTelemetryService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "EnsurePackageAdmin",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            }
+          ],
+          "ReturnType": "System.Void"
+        },
+        {
+          "Name": "LogPackageItemImport",
+          "Inputs": [
+            {
+              "Name": "packageItem",
+              "Type": "PackageItem"
+            },
+            {
+              "Name": "packageSource",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageManagers.SchedulingPackageService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Services.Foundations.PackageManagers.WorkflowPackageService",
+      "StandardElementType": "FoundationService",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2171,76 +2293,6 @@
       ]
     },
     {
-      "Name": "cCoder.Packaging.Services.SchedulingPackageService",
-      "StandardElementType": "Unknown",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "ExportPackage",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "packageName",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "Package"
-        },
-        {
-          "Name": "ImportPackageAsync",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "package",
-              "Type": "Package"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Packaging.Services.WorkflowPackageService",
-      "StandardElementType": "Unknown",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "ExportPackage",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "packageName",
-              "Type": "System.String"
-            }
-          ],
-          "ReturnType": "Package"
-        },
-        {
-          "Name": "ImportPackageAsync",
-          "Inputs": [
-            {
-              "Name": "appId",
-              "Type": "System.Int32"
-            },
-            {
-              "Name": "package",
-              "Type": "Package"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.ValueTask"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Packaging.WebApplicationExtensions",
       "StandardElementType": "Dependency",
       "Properties": [],
@@ -2272,28 +2324,28 @@
       "ToType": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService"
     },
     {
-      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
-      "ToType": "cCoder.Packaging.Brokers.AuthorizationBroker"
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageManagers.AppSecurityPackageService"
     },
     {
-      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
-      "ToType": "cCoder.Packaging.Services.AppSecurityPackageService"
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageManagers.ContentManagementPackageService"
     },
     {
-      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
-      "ToType": "cCoder.Packaging.Services.ContentManagementPackageService"
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageManagers.DocumentManagementPackageService"
     },
     {
-      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
-      "ToType": "cCoder.Packaging.Services.DocumentManagementPackageService"
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageManagers.PackageManagerTelemetryService"
     },
     {
-      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
-      "ToType": "cCoder.Packaging.Services.SchedulingPackageService"
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageManagers.SchedulingPackageService"
     },
     {
-      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
-      "ToType": "cCoder.Packaging.Services.WorkflowPackageService"
+      "FromType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService",
+      "ToType": "cCoder.Packaging.Services.Foundations.PackageManagers.WorkflowPackageService"
     },
     {
       "FromType": "cCoder.Packaging.Services.Foundations.Events.PackageEventService",
@@ -2310,6 +2362,14 @@
     {
       "FromType": "cCoder.Packaging.Services.Foundations.Events.PackageItemEventService",
       "ToType": "cCoder.Packaging.Brokers.Events.PackageItemEventBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageManagers.PackageManagerTelemetryService",
+      "ToType": "cCoder.Packaging.Brokers.AuthorizationBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageManagers.PackageManagerTelemetryService",
+      "ToType": "cCoder.Packaging.Brokers.PackageLoggerBroker"
     },
     {
       "FromType": "cCoder.Packaging.Services.Foundations.Storages.PackageItemService",
@@ -2580,41 +2640,6 @@
       "LineNumber": 121
     },
     {
-      "Code": "STXA001",
-      "Description": "An aggregation service may have any number of dependencies, but they must share the same service variation.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STXA002",
-      "Description": "An aggregation service name must contain the Aggregation identifier.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.Aggregations.PackageManagerOrchestrationService",
-      "LineNumber": 11
-    },
-    {
-      "Code": "STX0001",
-      "Description": "The type is not a valid Standard element type.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.AppSecurityPackageService",
-      "LineNumber": 18
-    },
-    {
-      "Code": "STX0001",
-      "Description": "The type is not a valid Standard element type.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.ContentManagementPackageService",
-      "LineNumber": 19
-    },
-    {
-      "Code": "STX0001",
-      "Description": "The type is not a valid Standard element type.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.DocumentManagementPackageService",
-      "LineNumber": 19
-    },
-    {
       "Code": "STXO001",
       "Description": "An orchestration must have two or three foundation or processing dependencies and must not mix them.",
       "Severity": "Warning",
@@ -2627,20 +2652,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Services.Orchestrations.PackageOrchestrationService",
       "LineNumber": 175
-    },
-    {
-      "Code": "STX0001",
-      "Description": "The type is not a valid Standard element type.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.SchedulingPackageService",
-      "LineNumber": 19
-    },
-    {
-      "Code": "STX0001",
-      "Description": "The type is not a valid Standard element type.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Services.WorkflowPackageService",
-      "LineNumber": 19
     }
   ]
 }

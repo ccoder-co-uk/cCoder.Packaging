@@ -7,7 +7,7 @@ using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
 
 
-namespace cCoder.Packaging.Services;
+namespace cCoder.Packaging.Services.Foundations.PackageManagers;
 
 public interface IContentManagementPackageService
 {
@@ -16,13 +16,25 @@ public interface IContentManagementPackageService
     Package ExportPackage(int appId, string packageName);
 }
 
-internal class ContentManagementPackageService(
+internal sealed partial class ContentManagementPackageService(
     IContentManagementPackageManagerBroker contentManagementPackageManagerBroker
 ) : IContentManagementPackageService
 {
     public ValueTask ImportPackageAsync(int appId, Package package) =>
-        contentManagementPackageManagerBroker.ImportPackageAsync(appId: appId, package: package);
+        TryCatch(operation: () =>
+        {
+            ValidatePackageOnImport(appId: appId, package: package);
+
+            return contentManagementPackageManagerBroker
+                .ImportPackageAsync(appId: appId, package: package);
+        });
 
     public Package ExportPackage(int appId, string packageName) =>
-        contentManagementPackageManagerBroker.ExportPackage(appId: appId, packageName: packageName);
+        TryCatch(operation: () =>
+        {
+            ValidatePackageOnExport(appId: appId, packageName: packageName);
+
+            return contentManagementPackageManagerBroker
+                .ExportPackage(appId: appId, packageName: packageName);
+        });
 }

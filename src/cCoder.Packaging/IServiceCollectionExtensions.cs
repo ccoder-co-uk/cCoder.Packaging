@@ -7,12 +7,12 @@ using cCoder.Packaging.Api.OData;
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Brokers.Events;
 using cCoder.Packaging.Brokers.Storages;
-using cCoder.Packaging.Services;
 using cCoder.Packaging.Services.Foundations.Events;
 using cCoder.Packaging.Services.Foundations;
 using cCoder.Packaging.Services.Foundations.Storages;
 using cCoder.Packaging.Services.Orchestrations;
 using cCoder.Packaging.Services.Aggregations;
+using cCoder.Packaging.Services.Foundations.PackageManagers;
 using cCoder.Packaging.Services.Processings;
 using cCoder.Eventing;
 using Microsoft.AspNetCore.Http;
@@ -99,7 +99,9 @@ implementationInstance: builder => new PackagingModelBuilder(builder).Configure(
             services.TryAddTransient<IDocumentManagementPackageService, DocumentManagementPackageService>();
             services.TryAddTransient<ISchedulingPackageService, SchedulingPackageService>();
             services.TryAddTransient<IWorkflowPackageService, WorkflowPackageService>();
-            services.TryAddTransient<IPackageManagerOrchestrationService, PackageManagerOrchestrationService>();
+            services.TryAddTransient<IPackageManagerAggregationService, PackageManagerAggregationService>();
+            services.TryAddTransient<IPackageManagerTelemetryService, PackageManagerTelemetryService>();
+            services.TryAddTransient<IPackageLoggerBroker, PackageLoggerBroker>();
         }
 
         return services;

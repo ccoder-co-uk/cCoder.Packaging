@@ -5,9 +5,9 @@
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Dependencies;
 
-namespace cCoder.Packaging.Services.Aggregations;
+namespace cCoder.Packaging.Services.Foundations.PackageManagers;
 
-internal sealed partial class PackageManagerOrchestrationService
+internal sealed partial class ContentManagementPackageService
 {
     private static void Validate(params object[] inputs) =>
         ValidationRulesEngine.Validate(inputs: inputs);
