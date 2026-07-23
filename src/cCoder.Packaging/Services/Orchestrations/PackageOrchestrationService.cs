@@ -58,21 +58,21 @@ internal class PackageOrchestrationService(IAppDomainProvider appDomainProvider,
     public async ValueTask<cCoder.Data.Models.Packaging.Package> AddAsync(cCoder.Data.Models.Packaging.Package entity)
     {
         cCoder.Data.Models.Packaging.Package result = await processingService.AddAsync(entity: entity);
-        await eventService.RaisePackageAddEventAsync(entity: result);
+        await eventService.RaisePackageAddEventAsync(newPackage: result);
         return result;
     }
 
     public async ValueTask<cCoder.Data.Models.Packaging.Package> UpdateAsync(cCoder.Data.Models.Packaging.Package entity)
     {
         cCoder.Data.Models.Packaging.Package result = await processingService.UpdateAsync(entity: entity);
-        await eventService.RaisePackageUpdateEventAsync(entity: result);
+        await eventService.RaisePackageUpdateEventAsync(updatedPackage: result);
         return result;
     }
 
     public async ValueTask DeleteAsync(Guid id)
     {
         cCoder.Data.Models.Packaging.Package entity = processingService.Get(id: id);
-        await eventService.RaisePackageDeleteEventAsync(entity: entity);
+        await eventService.RaisePackageDeleteEventAsync(deletedPackage: entity);
         await processingService.DeleteAsync(id: id);
     }
 

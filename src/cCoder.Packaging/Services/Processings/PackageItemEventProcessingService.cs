@@ -5,14 +5,36 @@
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Services.Foundations.Events;
 
-
 namespace cCoder.Packaging.Services.Processings;
 
-internal class PackageItemEventProcessingService(IPackageItemEventService eventService) : IPackageItemEventProcessingService
+internal sealed partial class PackageItemEventProcessingService(
+    IPackageItemEventService packageItemEventService)
+    : IPackageItemEventProcessingService
 {
-    public ValueTask RaisePackageItemAddEventAsync(PackageItem entity) => eventService.RaisePackageItemAddEventAsync(entity: entity);
+    public ValueTask RaisePackageItemAddEventAsync(PackageItem newPackageItem) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePackageItemEventOnAdd(newPackageItem: newPackageItem);
 
-    public ValueTask RaisePackageItemUpdateEventAsync(PackageItem entity) => eventService.RaisePackageItemUpdateEventAsync(entity: entity);
+            return packageItemEventService
+                .RaisePackageItemAddEventAsync(entity: newPackageItem);
+        });
 
-    public ValueTask RaisePackageItemDeleteEventAsync(PackageItem entity) => eventService.RaisePackageItemDeleteEventAsync(entity: entity);
+    public ValueTask RaisePackageItemUpdateEventAsync(PackageItem updatedPackageItem) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePackageItemEventOnUpdate(updatedPackageItem: updatedPackageItem);
+
+            return packageItemEventService
+                .RaisePackageItemUpdateEventAsync(entity: updatedPackageItem);
+        });
+
+    public ValueTask RaisePackageItemDeleteEventAsync(PackageItem deletedPackageItem) =>
+        TryCatch(operation: () =>
+        {
+            ValidatePackageItemEventOnDelete(deletedPackageItem: deletedPackageItem);
+
+            return packageItemEventService
+                .RaisePackageItemDeleteEventAsync(entity: deletedPackageItem);
+        });
 }

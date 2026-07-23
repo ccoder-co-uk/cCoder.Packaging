@@ -7,9 +7,9 @@ using cCoder.Data.Models.Packaging;
 
 namespace cCoder.Packaging.Services.Processings;
 
-public interface IPackageItemEventProcessingService
+internal interface IPackageItemEventProcessingService
 {
-    ValueTask RaisePackageItemAddEventAsync(PackageItem entity);
-    ValueTask RaisePackageItemUpdateEventAsync(PackageItem entity);
-    ValueTask RaisePackageItemDeleteEventAsync(PackageItem entity);
+    ValueTask RaisePackageItemAddEventAsync(PackageItem newPackageItem);
+    ValueTask RaisePackageItemUpdateEventAsync(PackageItem updatedPackageItem);
+    ValueTask RaisePackageItemDeleteEventAsync(PackageItem deletedPackageItem);
 }
