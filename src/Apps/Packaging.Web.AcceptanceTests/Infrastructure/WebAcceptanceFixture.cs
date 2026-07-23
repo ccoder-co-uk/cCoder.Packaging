@@ -27,7 +27,8 @@ public sealed class WebAcceptanceFixture : IAsyncLifetime
         Client?.Dispose();
 
         if (Factory is not null)
-            await Factory.DisposeAsync();
+            {            await Factory.DisposeAsync();
+}
     }
 }
 

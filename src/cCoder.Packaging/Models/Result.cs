@@ -24,7 +24,8 @@ public class Result<T> : Result
         get
         {
             if (id != null)
-                return id;
+                {                return id;
+}
 
             try
             {

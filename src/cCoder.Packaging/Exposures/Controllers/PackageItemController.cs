@@ -78,7 +78,8 @@ public partial class PackageItemController(IPackageItemOrchestrationService pack
     public async Task<IActionResult> Post([FromBody] PackageItem entity)
     {
         if (!ModelState.IsValid)
-            return BadRequest(modelState:ModelState);
+            {            return BadRequest(modelState:ModelState);
+}
 
         return Ok(value:await packageItemOrchestrationService.AddAsync(entity:entity));
     }
@@ -95,7 +96,8 @@ public partial class PackageItemController(IPackageItemOrchestrationService pack
     public async Task<IActionResult> Put([FromRoute] Guid key, [FromBody] PackageItem entity)
     {
         if (!ModelState.IsValid)
-            return BadRequest(modelState:ModelState);
+            {            return BadRequest(modelState:ModelState);
+}
 
         return Ok(value:await packageItemOrchestrationService.UpdateAsync(entity:entity));
     }
@@ -106,7 +108,8 @@ public partial class PackageItemController(IPackageItemOrchestrationService pack
         PackageItem originalEntity = packageItemOrchestrationService.Get(id:key);
 
         if (originalEntity == null)
-            return NotFound();
+            {            return NotFound();
+}
 
         delta.Patch(original:originalEntity);
         return Ok(value:await packageItemOrchestrationService.UpdateAsync(entity:originalEntity));

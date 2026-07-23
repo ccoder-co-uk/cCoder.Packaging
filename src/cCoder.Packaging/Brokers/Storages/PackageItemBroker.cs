@@ -60,7 +60,8 @@ public class PackageItemBroker(ICoreContextFactory coreContextFactory) : IPackag
     public async ValueTask DeleteAllPackageItemsAsync(IEnumerable<PackageItem> items)
     {
         if (items == null || !items.Any())
-            return;
+            {            return;
+}
 
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
         coreDataContext.PackageItems.RemoveRange(entities:items);

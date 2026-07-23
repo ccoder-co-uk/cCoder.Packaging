@@ -21,13 +21,15 @@ internal class PackageItemService(
                                       .FirstOrDefault(predicate:i => i.Id == id);
 
         if (packageItem is not null)
-            return packageItem;
+            {            return packageItem;
+}
 
         PackageItem unrestrictedPackageItem = GetAll(ignoreFilters:true)
                                                   .FirstOrDefault(predicate:i => i.Id == id);
 
         if (unrestrictedPackageItem is not null)
-            throw new SecurityException("Access Denied!");
+            {            throw new SecurityException("Access Denied!");
+}
 
         return null;
     }

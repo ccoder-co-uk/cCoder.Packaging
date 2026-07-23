@@ -129,7 +129,8 @@ implementationInstance:                builder => new PackagingModelBuilder(buil
             options.DocInclusionPredicate(predicate:(documentName, apiDescription) =>
             {
                 if (string.IsNullOrWhiteSpace(value:apiDescription.RelativePath))
-                    return false;
+                    {                    return false;
+}
 
                 string normalizedDocument = string.Equals(a:documentName, b:"v1", comparisonType:StringComparison.OrdinalIgnoreCase)
                     ? "Core"

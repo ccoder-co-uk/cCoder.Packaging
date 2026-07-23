@@ -83,7 +83,8 @@ connectionString:            coreConnection);
         context.Response.ContentType = "application/json";
 
         if (exception is null)
-            return;
+            {            return;
+}
 
         log.LogError(message:"{Message}\n{StackTrace}", args:exception.Message, exception.StackTrace);
 

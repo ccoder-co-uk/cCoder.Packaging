@@ -19,13 +19,15 @@ internal class PackageService(IPackageBroker packageBroker, IAuthorizationBroker
                               .FirstOrDefault(predicate:i => i.Id == id);
 
         if (package is not null)
-            return package;
+            {            return package;
+}
 
         Package unrestrictedPackage = GetAll(ignoreFilters:true)
                                           .FirstOrDefault(predicate:i => i.Id == id);
 
         if (unrestrictedPackage is not null)
-            throw new SecurityException("Access Denied!");
+            {            throw new SecurityException("Access Denied!");
+}
 
         return null;
     }
@@ -134,6 +136,7 @@ internal class PackageService(IPackageBroker packageBroker, IAuthorizationBroker
     private void EnsureAdmin(int appId)
     {
         if (!authorizationBroker.IsAdminOfApp(appId:appId))
-            throw new SecurityException("Access Denied!");
+            {            throw new SecurityException("Access Denied!");
+}
     }
 }

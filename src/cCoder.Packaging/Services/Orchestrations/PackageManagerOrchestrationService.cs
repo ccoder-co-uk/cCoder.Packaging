@@ -25,10 +25,12 @@ internal class PackageManagerOrchestrationService(
         try
         {
             if (package.Items is null || package.Items.Count == 0)
-                return;
+                {                return;
+}
 
             if (!authorizationBroker.IsAdminOfApp(appId:appId))
-                throw new SecurityException("Access Denied!");
+                {                throw new SecurityException("Access Denied!");
+}
 
             foreach (PackageItem item in package.Items)
             {
@@ -92,7 +94,8 @@ package:                    new Package("ContentManagement") { Items = [item] }
             logger.LogWarning(exception:exception, message:"Exception importing package");
 
             if (exception.InnerException is not null)
-                logger.LogWarning(exception:exception.InnerException, message:"Inner exception importing package");
+                {                logger.LogWarning(exception:exception.InnerException, message:"Inner exception importing package");
+}
 
             throw;
         }
@@ -101,19 +104,24 @@ package:                    new Package("ContentManagement") { Items = [item] }
     public Package ExportPackage(int appId, string packageName)
     {
         if (!authorizationBroker.IsAdminOfApp(appId:appId))
-            throw new SecurityException("Access Denied!");
+            {            throw new SecurityException("Access Denied!");
+}
 
         if (packageName is "Calendars" or "CalendarEvents")
-            return schedulingPackageService.ExportPackage(appId:appId, packageName:packageName);
+            {            return schedulingPackageService.ExportPackage(appId:appId, packageName:packageName);
+}
 
         if (packageName == "Workflows")
-            return workflowPackageService.ExportPackage(appId:appId, packageName:packageName);
+            {            return workflowPackageService.ExportPackage(appId:appId, packageName:packageName);
+}
 
         if (packageName == "FolderRoles")
-            return documentManagementPackageService.ExportPackage(appId:appId, packageName:packageName);
+            {            return documentManagementPackageService.ExportPackage(appId:appId, packageName:packageName);
+}
 
         if (packageName == "Roles")
-            return appSecurityPackageService.ExportPackage(appId:appId, packageName:packageName);
+            {            return appSecurityPackageService.ExportPackage(appId:appId, packageName:packageName);
+}
 
         return contentManagementPackageService.ExportPackage(appId:appId, packageName:packageName);
     }

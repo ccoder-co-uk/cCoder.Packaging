@@ -78,7 +78,8 @@ public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBro
     public async ValueTask DeleteAllPackagesAsync(IEnumerable<Package> items)
     {
         if (items == null || !items.Any())
-            return;
+            {            return;
+}
 
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
         coreDataContext.Packages.RemoveRange(entities:items);
@@ -304,11 +305,13 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
         Dictionary<int, Page> pageDictionary = appPages.ToDictionary(keySelector:page => page.Id);
 
         foreach (Page page in appPages)
-            if (
+            {            if (
                 page.ParentId is not null
                 && pageDictionary.TryGetValue(key:page.ParentId.Value, out Page parent)
             )
-                page.Parent = parent;
+                {                page.Parent = parent;
+}
+}
 
         return new Package("Pages")
         {
@@ -323,10 +326,12 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
                             Page rootPage = page;
 
                             while (rootPage.ParentId is not null)
-                                rootPage = rootPage.Parent;
+                                {                                rootPage = rootPage.Parent;
+}
 
                             if (page.ParentId is not null && string.IsNullOrEmpty(value:rootPage.Path))
-                                page.Path = $"/{page.Path}";
+                                {                                page.Path = $"/{page.Path}";
+}
 
                             return new
                             {

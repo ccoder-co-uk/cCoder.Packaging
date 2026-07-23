@@ -74,7 +74,8 @@ public partial class PackageController(IPackageOrchestrationService packageOrche
     public async Task<IActionResult> Post([FromBody] Package entity)
     {
         if (!ModelState.IsValid)
-            return BadRequest(modelState:ModelState);
+            {            return BadRequest(modelState:ModelState);
+}
 
         return Ok(value:await packageOrchestrationService.AddAsync(entity:entity));
     }
@@ -91,7 +92,8 @@ public partial class PackageController(IPackageOrchestrationService packageOrche
     public async Task<IActionResult> Put([FromRoute] Guid key, [FromBody] Package entity)
     {
         if (!ModelState.IsValid)
-            return BadRequest(modelState:ModelState);
+            {            return BadRequest(modelState:ModelState);
+}
 
         return Ok(value:await packageOrchestrationService.UpdateAsync(entity:entity));
     }
@@ -102,7 +104,8 @@ public partial class PackageController(IPackageOrchestrationService packageOrche
         Package originalEntity = packageOrchestrationService.Get(id:key);
 
         if (originalEntity == null)
-            return NotFound();
+            {            return NotFound();
+}
 
         delta.Patch(original:originalEntity);
         return Ok(value:await packageOrchestrationService.UpdateAsync(entity:originalEntity));
