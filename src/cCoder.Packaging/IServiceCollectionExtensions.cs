@@ -74,6 +74,7 @@ implementationInstance: builder => new PackagingModelBuilder(builder).Configure(
         services.AddEventingForType<PackageItem>();
         services.AddEventingForType<(int, Package)>();
         services.TryAddTransient<IAuthorizationBroker, AuthorizationBroker>();
+        services.TryAddTransient<IAuthInfoBroker, AuthInfoBroker>();
         services.TryAddTransient<IPackageEventBroker, PackageEventBroker>();
         services.TryAddTransient<IPackageItemEventBroker, PackageItemEventBroker>();
         services.TryAddTransient<IPackageBroker, PackageBroker>();
