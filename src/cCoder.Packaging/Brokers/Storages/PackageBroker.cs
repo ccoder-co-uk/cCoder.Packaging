@@ -37,7 +37,7 @@ public interface IPackageBroker
     Package ExportCalendarEvents(int appId);
 }
 
-public class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBroker
+internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBroker
 {
 
     public IQueryable<Package> GetAllPackages(bool ignoreFilters)

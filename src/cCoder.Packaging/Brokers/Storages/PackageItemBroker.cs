@@ -19,7 +19,7 @@ public interface IPackageItemBroker
     int? GetAppId(PackageItem entity);
 }
 
-public class PackageItemBroker(ICoreContextFactory coreContextFactory) : IPackageItemBroker
+internal sealed class PackageItemBroker(ICoreContextFactory coreContextFactory) : IPackageItemBroker
 {
 
     public IQueryable<PackageItem> GetAllPackageItems(bool ignoreFilters)

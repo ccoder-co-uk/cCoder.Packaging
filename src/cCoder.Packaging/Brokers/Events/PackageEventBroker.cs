@@ -9,7 +9,7 @@ using cCoder.Eventing.Models;
 
 namespace cCoder.Packaging.Brokers.Events;
 
-public class PackageEventBroker(IEventHub eventHub) : IPackageEventBroker
+internal sealed class PackageEventBroker(IEventHub eventHub) : IPackageEventBroker
 {
     public ValueTask RaisePackageImportEventAsync(EventMessage<(int, Package)> message) =>
         eventHub.RaiseEventAsync(name:"package_import", message:message);
