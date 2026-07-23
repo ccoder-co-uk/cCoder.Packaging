@@ -17,24 +17,24 @@ public partial class PackageOrchestrationServiceTests
         const int appId = 1;
         const string domain = "app.local";
 
-        appDomainProviderMock.Setup(expression:x => x.GetDomain(appId:appId))
-            .Returns(value:domain);
+        appDomainProviderMock.Setup(expression: x => x.GetDomain(appId: appId))
+            .Returns(value: domain);
 
         packageProcessingServiceMock
-            .Setup(expression:x => x.ExportPackages(appId:appId, packageNames:It.IsAny<string[]>()))
-            .Returns(valueFunction:(int _, string[] packageNames) =>
-                [.. packageNames.Select(selector:packageName => new DataPackage(packageName) { Items = [] })]);
+            .Setup(expression: x => x.ExportPackages(appId: appId, packageNames: It.IsAny<string[]>()))
+            .Returns(valueFunction: (int _, string[] packageNames) =>
+                [.. packageNames.Select(selector: packageName => new DataPackage(packageName) { Items = [] })]);
 
         // When
-        Package[] result = orchestrationService.Export(appId:appId, packageNames:[])
+        Package[] result = orchestrationService.Export(appId: appId, packageNames: [])
                                .ToArray();
 
         // Then
         result.Should()
-            .HaveCount(expected:12);
+            .HaveCount(expected: 12);
 
-        packageProcessingServiceMock.Verify(expression:x => x.ExportPackages(appId:appId, packageNames:It.IsAny<string[]>()), times:Times.Once);
-        appDomainProviderMock.Verify(expression:x => x.GetDomain(appId:appId), times:Times.Once);
+        packageProcessingServiceMock.Verify(expression: x => x.ExportPackages(appId: appId, packageNames: It.IsAny<string[]>()), times: Times.Once);
+        appDomainProviderMock.Verify(expression: x => x.GetDomain(appId: appId), times: Times.Once);
         appDomainProviderMock.VerifyNoOtherCalls();
         packageProcessingServiceMock.VerifyNoOtherCalls();
     }

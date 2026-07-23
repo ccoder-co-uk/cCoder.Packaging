@@ -20,8 +20,8 @@ internal class SchedulingPackageService(ISchedulingPackageManagerBroker scheduli
     : ISchedulingPackageService
 {
     public ValueTask ImportPackageAsync(int appId, Package package) =>
-        schedulingPackageManagerBroker.ImportPackageAsync(appId:appId, package:package);
+        schedulingPackageManagerBroker.ImportPackageAsync(appId: appId, package: package);
 
     public Package ExportPackage(int appId, string packageName) =>
-        schedulingPackageManagerBroker.ExportPackage(appId:appId, packageName:packageName);
+        schedulingPackageManagerBroker.ExportPackage(appId: appId, packageName: packageName);
 }

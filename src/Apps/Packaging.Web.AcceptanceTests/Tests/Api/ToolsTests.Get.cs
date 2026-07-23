@@ -8,7 +8,7 @@ public sealed partial class ToolsTests
     public async Task ShouldServeToolsUi()
     {
         // Given
-        HttpResponseMessage response = await client.GetAsync(requestUri:"/tools/index.html");
+        HttpResponseMessage response = await client.GetAsync(requestUri: "/tools/index.html");
 
         response.EnsureSuccessStatusCode();
         // When
@@ -16,12 +16,12 @@ public sealed partial class ToolsTests
 
         // Then
         content.Should()
-            .Contain(expected:"Packaging");
+            .Contain(expected: "Packaging");
 
         content.Should()
-            .Contain(expected:"packaging-section-tabs");
+            .Contain(expected: "packaging-section-tabs");
 
         content.Should()
-            .Contain(expected:"/tools/packaging.js");
+            .Contain(expected: "/tools/packaging.js");
     }
 }

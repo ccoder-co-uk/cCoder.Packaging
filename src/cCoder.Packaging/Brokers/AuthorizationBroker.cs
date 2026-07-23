@@ -30,7 +30,7 @@ internal class AuthorizationBroker(ICoreContextFactory coreContextFactory) : IAu
     public bool IsAdminOfApp(int? appId)
     {
         User user = GetCurrentUser();
-        return user != null && appId.HasValue && HasAppAdminPrivilege(user:user, appId:appId.Value);
+        return user != null && appId.HasValue && HasAppAdminPrivilege(user: user, appId: appId.Value);
     }
 
     public bool IsAdmin(int appId, string userName)
@@ -38,37 +38,38 @@ internal class AuthorizationBroker(ICoreContextFactory coreContextFactory) : IAu
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
 
         User user = coreDataContext.Users
-            .Include(navigationPropertyPath:foundUser => foundUser.Roles)
-            .FirstOrDefault(predicate:foundUser => foundUser.Id == userName);
+            .Include(navigationPropertyPath: foundUser => foundUser.Roles)
+            .FirstOrDefault(predicate: foundUser => foundUser.Id == userName);
 
         App app = coreDataContext.Apps
-            .Include(navigationPropertyPath:foundApp => foundApp.Roles.Select(selector:role => role.Users))
-            .FirstOrDefault(predicate:foundApp => foundApp.Id == appId);
+            .Include(navigationPropertyPath: foundApp => foundApp.Roles.Select(selector: role => role.Users))
+            .FirstOrDefault(predicate: foundApp => foundApp.Id == appId);
 
-        return app?.IsAppAdmin(user:user) ?? false;
+        return app?.IsAppAdmin(user: user) ?? false;
     }
 
     public void Authorize(int? appId, string privilege)
     {
         User user = GetCurrentUser();
 
-        if (user == null || !(HasAppAdminPrivilege(user:user, appId:appId) || HasPrivilege(user:user, appId:appId, privilege:privilege)))
-            {            throw new SecurityException("Access Denied!");
-}
+        if (user == null || !(HasAppAdminPrivilege(user: user, appId: appId) || HasPrivilege(user: user, appId: appId, privilege: privilege)))
+        {
+            throw new SecurityException("Access Denied!");
+        }
     }
 
     private static bool HasPrivilege(User user, int? appId, string privilege)
     {
         string normalizedPrivilege = privilege.ToLower();
 
-        return (appId != null && HasAppAdminPrivilege(user:user, appId:appId.Value))
-            || (user.Roles?.Any(predicate:role =>
+        return (appId != null && HasAppAdminPrivilege(user: user, appId: appId.Value))
+            || (user.Roles?.Any(predicate: role =>
                 (appId == null || role.Role.AppId == appId)
-                && role.Role.Privileges.Contains(item:normalizedPrivilege))
+                && role.Role.Privileges.Contains(item: normalizedPrivilege))
                 ?? false);
     }
 
     private static bool HasAppAdminPrivilege(User user, int? appId) =>
         appId.HasValue
-        && (user.Roles?.Any(predicate:role => role.Role.AppId == appId.Value && role.Role.Allows(user:user, privilege:"app_admin")) ?? false);
+        && (user.Roles?.Any(predicate: role => role.Role.AppId == appId.Value && role.Role.Allows(user: user, privilege: "app_admin")) ?? false);
 }

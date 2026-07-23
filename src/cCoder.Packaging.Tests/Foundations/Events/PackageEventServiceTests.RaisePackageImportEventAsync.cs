@@ -27,32 +27,32 @@ public partial class PackageEventServiceTests
         EventMessage<(int, Package)> actualMessage = null;
 
         packageEventBrokerMock
-            .Setup(expression:x => x.RaisePackageImportEventAsync(message:It.IsAny<EventMessage<(int, Package)>>()))
-            .Callback<EventMessage<(int, Package)>>(action:message => actualMessage = message)
-            .Returns(value:ValueTask.CompletedTask);
+            .Setup(expression: x => x.RaisePackageImportEventAsync(message: It.IsAny<EventMessage<(int, Package)>>()))
+            .Callback<EventMessage<(int, Package)>>(action: message => actualMessage = message)
+            .Returns(value: ValueTask.CompletedTask);
 
         // When
-        await service.RaisePackageImportEventAsync(appId:7, package:package);
+        await service.RaisePackageImportEventAsync(appId: 7, package: package);
 
         // Then
         actualMessage.Should()
             .NotBeNull();
 
         actualMessage!.Data.Item1.Should()
-            .Be(expected:7);
+            .Be(expected: 7);
 
         actualMessage.Data.Item2.Should()
-            .BeSameAs(expected:package);
+            .BeSameAs(expected: package);
 
         actualMessage.AuthInfo.Should()
             .NotBeNull();
 
         actualMessage.AuthInfo.SSOUserId.Should()
-            .Be(expected:CurrentUserId);
+            .Be(expected: CurrentUserId);
 
         packageEventBrokerMock.Verify(
-expression:            x => x.RaisePackageImportEventAsync(message:It.IsAny<EventMessage<(int, Package)>>()),
-times:            Times.Once
+expression: x => x.RaisePackageImportEventAsync(message: It.IsAny<EventMessage<(int, Package)>>()),
+times: Times.Once
         );
 
         packageEventBrokerMock.VerifyNoOtherCalls();

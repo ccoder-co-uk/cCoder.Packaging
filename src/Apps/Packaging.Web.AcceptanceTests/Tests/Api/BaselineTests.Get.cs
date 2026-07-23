@@ -14,6 +14,6 @@ public sealed partial class BaselineTests
         // Then
         // When
         baseline.ValueKind.Should()
-            .Be(expected:JsonValueKind.Array);
+            .Be(expected: JsonValueKind.Array);
     }
 }

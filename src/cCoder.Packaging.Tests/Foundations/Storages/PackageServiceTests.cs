@@ -30,17 +30,17 @@ public class PackageServiceTests
         Package expectedPackage = CreatePackage();
         Package[] filteredPackages = [expectedPackage];
 
-        packageBrokerMock.Setup(expression:broker => broker.GetAllPackages(ignoreFilters:false))
-            .Returns(value:filteredPackages.AsQueryable());
+        packageBrokerMock.Setup(expression: broker => broker.GetAllPackages(ignoreFilters: false))
+            .Returns(value: filteredPackages.AsQueryable());
 
         // When
-        Package actualPackage = service.Get(id:expectedPackage.Id);
+        Package actualPackage = service.Get(id: expectedPackage.Id);
 
         // Then
         actualPackage.Should()
-            .BeSameAs(expected:expectedPackage);
+            .BeSameAs(expected: expectedPackage);
 
-        packageBrokerMock.Verify(expression:broker => broker.GetAllPackages(ignoreFilters:false), times:Times.Once);
+        packageBrokerMock.Verify(expression: broker => broker.GetAllPackages(ignoreFilters: false), times: Times.Once);
         packageBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -50,25 +50,25 @@ public class PackageServiceTests
     {
         // Given
         Guid packageId = Guid.NewGuid();
-        Package unrestrictedPackage = CreatePackage(id:packageId);
+        Package unrestrictedPackage = CreatePackage(id: packageId);
 
-        packageBrokerMock.Setup(expression:broker => broker.GetAllPackages(ignoreFilters:false))
-            .Returns(value:Array.Empty<Package>()
+        packageBrokerMock.Setup(expression: broker => broker.GetAllPackages(ignoreFilters: false))
+            .Returns(value: Array.Empty<Package>()
                                                                                     .AsQueryable());
 
-        packageBrokerMock.Setup(expression:broker => broker.GetAllPackages(ignoreFilters:true))
-            .Returns(value:new[] { unrestrictedPackage }.AsQueryable());
+        packageBrokerMock.Setup(expression: broker => broker.GetAllPackages(ignoreFilters: true))
+            .Returns(value: new[] { unrestrictedPackage }.AsQueryable());
 
         // When
-        Action act = () => service.Get(id:packageId);
+        Action act = () => service.Get(id: packageId);
 
         // Then
         act.Should()
             .Throw<SecurityException>()
-            .WithMessage(expectedWildcardPattern:"Access Denied!");
+            .WithMessage(expectedWildcardPattern: "Access Denied!");
 
-        packageBrokerMock.Verify(expression:broker => broker.GetAllPackages(ignoreFilters:false), times:Times.Once);
-        packageBrokerMock.Verify(expression:broker => broker.GetAllPackages(ignoreFilters:true), times:Times.Once);
+        packageBrokerMock.Verify(expression: broker => broker.GetAllPackages(ignoreFilters: false), times: Times.Once);
+        packageBrokerMock.Verify(expression: broker => broker.GetAllPackages(ignoreFilters: true), times: Times.Once);
         packageBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -79,23 +79,23 @@ public class PackageServiceTests
         // Given
         Guid packageId = Guid.NewGuid();
 
-        packageBrokerMock.Setup(expression:broker => broker.GetAllPackages(ignoreFilters:false))
-            .Returns(value:Array.Empty<Package>()
+        packageBrokerMock.Setup(expression: broker => broker.GetAllPackages(ignoreFilters: false))
+            .Returns(value: Array.Empty<Package>()
                                                                                     .AsQueryable());
 
-        packageBrokerMock.Setup(expression:broker => broker.GetAllPackages(ignoreFilters:true))
-            .Returns(value:Array.Empty<Package>()
+        packageBrokerMock.Setup(expression: broker => broker.GetAllPackages(ignoreFilters: true))
+            .Returns(value: Array.Empty<Package>()
                                                                                    .AsQueryable());
 
         // When
-        Package actualPackage = service.Get(id:packageId);
+        Package actualPackage = service.Get(id: packageId);
 
         // Then
         actualPackage.Should()
             .BeNull();
 
-        packageBrokerMock.Verify(expression:broker => broker.GetAllPackages(ignoreFilters:false), times:Times.Once);
-        packageBrokerMock.Verify(expression:broker => broker.GetAllPackages(ignoreFilters:true), times:Times.Once);
+        packageBrokerMock.Verify(expression: broker => broker.GetAllPackages(ignoreFilters: false), times: Times.Once);
+        packageBrokerMock.Verify(expression: broker => broker.GetAllPackages(ignoreFilters: true), times: Times.Once);
         packageBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -106,17 +106,17 @@ public class PackageServiceTests
         // Given
         IQueryable<Package> expectedPackages = new[] { CreatePackage(), CreatePackage() }.AsQueryable();
 
-        packageBrokerMock.Setup(expression:broker => broker.GetAllPackages(ignoreFilters:true))
-            .Returns(value:expectedPackages);
+        packageBrokerMock.Setup(expression: broker => broker.GetAllPackages(ignoreFilters: true))
+            .Returns(value: expectedPackages);
 
         // When
         IQueryable<Package> actualPackages = service.GetAll(ignoreFilters: true);
 
         // Then
         actualPackages.Should()
-            .BeSameAs(expected:expectedPackages);
+            .BeSameAs(expected: expectedPackages);
 
-        packageBrokerMock.Verify(expression:broker => broker.GetAllPackages(ignoreFilters:true), times:Times.Once);
+        packageBrokerMock.Verify(expression: broker => broker.GetAllPackages(ignoreFilters: true), times: Times.Once);
         packageBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -128,34 +128,34 @@ public class PackageServiceTests
         Package package = CreatePackage();
 
         Package storedPackage = CreatePackage(
-id:            package.Id,
+id: package.Id,
             name: package.Name,
             description: package.Description,
             category: package.Category,
             sourceApi: package.SourceApi);
 
-        authorizationBrokerMock.Setup(expression:broker => broker.Authorize(appId:null, privilege:"Package_create"));
+        authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: null, privilege: "Package_create"));
 
         packageBrokerMock
-            .Setup(expression:broker => broker.AddPackageAsync(entity:It.Is<Package>(match:item =>
+            .Setup(expression: broker => broker.AddPackageAsync(entity: It.Is<Package>(match: item =>
                 item.Id == Guid.Empty
                 && item.Name == package.Name
                 && item.Description == package.Description
                 && item.Category == package.Category
                 && item.SourceApi == package.SourceApi)))
-            .ReturnsAsync(value:storedPackage);
+            .ReturnsAsync(value: storedPackage);
 
         // When
-        Package actualPackage = await service.AddAsync(package:package);
+        Package actualPackage = await service.AddAsync(package: package);
 
         // Then
         actualPackage.Should()
-            .BeSameAs(expected:package);
+            .BeSameAs(expected: package);
 
         actualPackage.Id.Should()
-            .Be(expected:storedPackage.Id);
+            .Be(expected: storedPackage.Id);
 
-        authorizationBrokerMock.Verify(expression:broker => broker.Authorize(appId:null, privilege:"Package_create"), times:Times.Once);
+        authorizationBrokerMock.Verify(expression: broker => broker.Authorize(appId: null, privilege: "Package_create"), times: Times.Once);
         packageBrokerMock.VerifyAll();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -167,34 +167,34 @@ id:            package.Id,
         Package package = CreatePackage();
 
         Package storedPackage = CreatePackage(
-id:            package.Id,
+id: package.Id,
             name: package.Name,
             description: package.Description,
             category: package.Category,
             sourceApi: package.SourceApi);
 
-        authorizationBrokerMock.Setup(expression:broker => broker.Authorize(appId:null, privilege:"Package_update"));
+        authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: null, privilege: "Package_update"));
 
         packageBrokerMock
-            .Setup(expression:broker => broker.UpdatePackageAsync(entity:It.Is<Package>(match:item =>
+            .Setup(expression: broker => broker.UpdatePackageAsync(entity: It.Is<Package>(match: item =>
                 item.Id == package.Id
                 && item.Name == package.Name
                 && item.Description == package.Description
                 && item.Category == package.Category
                 && item.SourceApi == package.SourceApi)))
-            .ReturnsAsync(value:storedPackage);
+            .ReturnsAsync(value: storedPackage);
 
         // When
-        Package actualPackage = await service.UpdateAsync(package:package);
+        Package actualPackage = await service.UpdateAsync(package: package);
 
         // Then
         actualPackage.Should()
-            .BeSameAs(expected:package);
+            .BeSameAs(expected: package);
 
         actualPackage.Id.Should()
-            .Be(expected:storedPackage.Id);
+            .Be(expected: storedPackage.Id);
 
-        authorizationBrokerMock.Verify(expression:broker => broker.Authorize(appId:null, privilege:"Package_update"), times:Times.Once);
+        authorizationBrokerMock.Verify(expression: broker => broker.Authorize(appId: null, privilege: "Package_update"), times: Times.Once);
         packageBrokerMock.VerifyAll();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -205,21 +205,21 @@ id:            package.Id,
         // Given
         Package package = CreatePackage();
 
-        packageBrokerMock.Setup(expression:broker => broker.GetAllPackages(ignoreFilters:false))
-            .Returns(value:new[] { package }.AsQueryable());
+        packageBrokerMock.Setup(expression: broker => broker.GetAllPackages(ignoreFilters: false))
+            .Returns(value: new[] { package }.AsQueryable());
 
-        authorizationBrokerMock.Setup(expression:broker => broker.Authorize(appId:null, privilege:"Package_delete"));
+        authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: null, privilege: "Package_delete"));
 
-        packageBrokerMock.Setup(expression:broker => broker.DeletePackageAsync(entity:package))
-            .ReturnsAsync(value:1);
+        packageBrokerMock.Setup(expression: broker => broker.DeletePackageAsync(entity: package))
+            .ReturnsAsync(value: 1);
 
         // When
-        await service.DeleteAsync(id:package.Id);
+        await service.DeleteAsync(id: package.Id);
 
         // Then
-        packageBrokerMock.Verify(expression:broker => broker.GetAllPackages(ignoreFilters:false), times:Times.Once);
-        authorizationBrokerMock.Verify(expression:broker => broker.Authorize(appId:null, privilege:"Package_delete"), times:Times.Once);
-        packageBrokerMock.Verify(expression:broker => broker.DeletePackageAsync(entity:package), times:Times.Once);
+        packageBrokerMock.Verify(expression: broker => broker.GetAllPackages(ignoreFilters: false), times: Times.Once);
+        authorizationBrokerMock.Verify(expression: broker => broker.Authorize(appId: null, privilege: "Package_delete"), times: Times.Once);
+        packageBrokerMock.Verify(expression: broker => broker.DeletePackageAsync(entity: package), times: Times.Once);
         packageBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -239,19 +239,19 @@ id:            package.Id,
         const int appId = 42;
         Package expectedPackage = CreatePackage(name: methodName);
 
-        authorizationBrokerMock.Setup(expression:broker => broker.IsAdminOfApp(appId:appId))
-            .Returns(value:true);
+        authorizationBrokerMock.Setup(expression: broker => broker.IsAdminOfApp(appId: appId))
+            .Returns(value: true);
 
-        SetupExport(methodName:methodName, appId:appId, package:expectedPackage);
+        SetupExport(methodName: methodName, appId: appId, package: expectedPackage);
 
         // When
-        Package actualPackage = InvokeExport(methodName:methodName, appId:appId);
+        Package actualPackage = InvokeExport(methodName: methodName, appId: appId);
 
         // Then
         actualPackage.Should()
-            .BeSameAs(expected:expectedPackage);
+            .BeSameAs(expected: expectedPackage);
 
-        authorizationBrokerMock.Verify(expression:broker => broker.IsAdminOfApp(appId:appId), times:Times.Once);
+        authorizationBrokerMock.Verify(expression: broker => broker.IsAdminOfApp(appId: appId), times: Times.Once);
         packageBrokerMock.VerifyAll();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -262,18 +262,18 @@ id:            package.Id,
         // Given
         const int appId = 42;
 
-        authorizationBrokerMock.Setup(expression:broker => broker.IsAdminOfApp(appId:appId))
-            .Returns(value:false);
+        authorizationBrokerMock.Setup(expression: broker => broker.IsAdminOfApp(appId: appId))
+            .Returns(value: false);
 
         // When
-        Action act = () => service.ExportRoles(appId:appId);
+        Action act = () => service.ExportRoles(appId: appId);
 
         // Then
         act.Should()
             .Throw<SecurityException>()
-            .WithMessage(expectedWildcardPattern:"Access Denied!");
+            .WithMessage(expectedWildcardPattern: "Access Denied!");
 
-        authorizationBrokerMock.Verify(expression:broker => broker.IsAdminOfApp(appId:appId), times:Times.Once);
+        authorizationBrokerMock.Verify(expression: broker => broker.IsAdminOfApp(appId: appId), times: Times.Once);
         packageBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -283,36 +283,36 @@ id:            package.Id,
         switch (methodName)
         {
             case nameof(PackageService.ExportRoles):
-                packageBrokerMock.Setup(expression:broker => broker.ExportRoles(appId:appId))
-                    .Returns(value:package);
+                packageBrokerMock.Setup(expression: broker => broker.ExportRoles(appId: appId))
+                    .Returns(value: package);
                 break;
             case nameof(PackageService.ExportLayouts):
-                packageBrokerMock.Setup(expression:broker => broker.ExportLayouts(appId:appId))
-                    .Returns(value:package);
+                packageBrokerMock.Setup(expression: broker => broker.ExportLayouts(appId: appId))
+                    .Returns(value: package);
                 break;
             case nameof(PackageService.ExportTemplates):
-                packageBrokerMock.Setup(expression:broker => broker.ExportTemplates(appId:appId))
-                    .Returns(value:package);
+                packageBrokerMock.Setup(expression: broker => broker.ExportTemplates(appId: appId))
+                    .Returns(value: package);
                 break;
             case nameof(PackageService.ExportComponents):
-                packageBrokerMock.Setup(expression:broker => broker.ExportComponents(appId:appId))
-                    .Returns(value:package);
+                packageBrokerMock.Setup(expression: broker => broker.ExportComponents(appId: appId))
+                    .Returns(value: package);
                 break;
             case nameof(PackageService.ExportScripts):
-                packageBrokerMock.Setup(expression:broker => broker.ExportScripts(appId:appId))
-                    .Returns(value:package);
+                packageBrokerMock.Setup(expression: broker => broker.ExportScripts(appId: appId))
+                    .Returns(value: package);
                 break;
             case nameof(PackageService.ExportResources):
-                packageBrokerMock.Setup(expression:broker => broker.ExportResources(appId:appId))
-                    .Returns(value:package);
+                packageBrokerMock.Setup(expression: broker => broker.ExportResources(appId: appId))
+                    .Returns(value: package);
                 break;
             case nameof(PackageService.ExportPages):
-                packageBrokerMock.Setup(expression:broker => broker.ExportPages(appId:appId))
-                    .Returns(value:package);
+                packageBrokerMock.Setup(expression: broker => broker.ExportPages(appId: appId))
+                    .Returns(value: package);
                 break;
             case nameof(PackageService.ExportPageRoles):
-                packageBrokerMock.Setup(expression:broker => broker.ExportPageRoles(appId:appId))
-                    .Returns(value:package);
+                packageBrokerMock.Setup(expression: broker => broker.ExportPageRoles(appId: appId))
+                    .Returns(value: package);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(methodName), methodName, null);
@@ -322,14 +322,14 @@ id:            package.Id,
     private Package InvokeExport(string methodName, int appId) =>
         methodName switch
         {
-            nameof(PackageService.ExportRoles) => service.ExportRoles(appId:appId),
-            nameof(PackageService.ExportLayouts) => service.ExportLayouts(appId:appId),
-            nameof(PackageService.ExportTemplates) => service.ExportTemplates(appId:appId),
-            nameof(PackageService.ExportComponents) => service.ExportComponents(appId:appId),
-            nameof(PackageService.ExportScripts) => service.ExportScripts(appId:appId),
-            nameof(PackageService.ExportResources) => service.ExportResources(appId:appId),
-            nameof(PackageService.ExportPages) => service.ExportPages(appId:appId),
-            nameof(PackageService.ExportPageRoles) => service.ExportPageRoles(appId:appId),
+            nameof(PackageService.ExportRoles) => service.ExportRoles(appId: appId),
+            nameof(PackageService.ExportLayouts) => service.ExportLayouts(appId: appId),
+            nameof(PackageService.ExportTemplates) => service.ExportTemplates(appId: appId),
+            nameof(PackageService.ExportComponents) => service.ExportComponents(appId: appId),
+            nameof(PackageService.ExportScripts) => service.ExportScripts(appId: appId),
+            nameof(PackageService.ExportResources) => service.ExportResources(appId: appId),
+            nameof(PackageService.ExportPages) => service.ExportPages(appId: appId),
+            nameof(PackageService.ExportPageRoles) => service.ExportPageRoles(appId: appId),
             _ => throw new ArgumentOutOfRangeException(nameof(methodName), methodName, null),
         };
 

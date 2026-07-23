@@ -8,7 +8,7 @@ public sealed partial class ToolsTests
     public async Task ShouldPostSecurityAuthShapeForLogin()
     {
         // Given
-        HttpResponseMessage response = await client.GetAsync(requestUri:"/tools/api.js");
+        HttpResponseMessage response = await client.GetAsync(requestUri: "/tools/api.js");
 
         response.EnsureSuccessStatusCode();
         // When
@@ -16,12 +16,12 @@ public sealed partial class ToolsTests
 
         // Then
         content.Should()
-            .Contain(expected:"user: username");
+            .Contain(expected: "user: username");
 
         content.Should()
-            .Contain(expected:"pass: password");
+            .Contain(expected: "pass: password");
 
         content.Should()
-            .NotContain(unexpected:"userName");
+            .NotContain(unexpected: "userName");
     }
 }

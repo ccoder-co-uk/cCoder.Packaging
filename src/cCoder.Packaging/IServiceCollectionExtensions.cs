@@ -30,16 +30,16 @@ public static class IServiceCollectionExtensions
 {
     public static IServiceCollection AddPackagingWeb(this IServiceCollection services)
     {
-        AddPackaging(services:services, includePackageManagerServices: false);
+        AddPackaging(services: services, includePackageManagerServices: false);
         services.TryAddTransient<IAppDomainProvider, AppDomainProvider>();
-        AddAspNet(services:services);
-        AddApiDocumentation(services:services);
+        AddAspNet(services: services);
+        AddApiDocumentation(services: services);
 
         IEdmModel routeModel = BuildRouteModel();
         DefaultODataBatchHandler batchHandler = new();
 
         services.AddControllers()
-            .AddOData(setupAction:options =>
+            .AddOData(setupAction: options =>
         {
             options.RouteOptions.EnableQualifiedOperationCall = false;
             options.EnableAttributeRouting = true;
@@ -50,9 +50,9 @@ public static class IServiceCollectionExtensions
                 .Filter()
                 .Select()
                 .OrderBy()
-                .SetMaxTop(maxTopValue:1000)
-                .AddRouteComponents(routePrefix:"Api/Packaging", model:routeModel, batchHandler:batchHandler)
-                .AddRouteComponents(routePrefix:"Api/Core", model:routeModel, batchHandler:batchHandler);
+                .SetMaxTop(maxTopValue: 1000)
+                .AddRouteComponents(routePrefix: "Api/Packaging", model: routeModel, batchHandler: batchHandler)
+                .AddRouteComponents(routePrefix: "Api/Core", model: routeModel, batchHandler: batchHandler);
         });
 
         return services;
@@ -67,7 +67,7 @@ public static class IServiceCollectionExtensions
         if (includeRouteContributor)
         {
             services.AddSingleton<Action<ODataConventionModelBuilder>>(
-implementationInstance:                builder => new PackagingModelBuilder(builder).Configure());
+implementationInstance: builder => new PackagingModelBuilder(builder).Configure());
         }
 
         services.AddEventingForType<Package>();
@@ -104,56 +104,57 @@ implementationInstance:                builder => new PackagingModelBuilder(buil
     }
 
     private static void AddApiDocumentation(IServiceCollection services) =>
-        services.AddSwaggerGen(setupAction:options =>
+        services.AddSwaggerGen(setupAction: options =>
         {
-            options.ResolveConflictingActions(resolver:apiDescriptions => apiDescriptions.First());
+            options.ResolveConflictingActions(resolver: apiDescriptions => apiDescriptions.First());
 
-            options.SwaggerDoc(name:"Packaging", info:new OpenApiInfo
+            options.SwaggerDoc(name: "Packaging", info: new OpenApiInfo
             {
                 Title = "Packaging API definition",
                 Version = "Packaging",
             });
 
-            options.SwaggerDoc(name:"Core", info:new OpenApiInfo
+            options.SwaggerDoc(name: "Core", info: new OpenApiInfo
             {
                 Title = "Core API definition",
                 Version = "Core",
             });
 
-            options.SwaggerDoc(name:"v1", info:new OpenApiInfo
+            options.SwaggerDoc(name: "v1", info: new OpenApiInfo
             {
                 Title = "Core API definition",
                 Version = "v1",
             });
 
-            options.DocInclusionPredicate(predicate:(documentName, apiDescription) =>
+            options.DocInclusionPredicate(predicate: (documentName, apiDescription) =>
             {
-                if (string.IsNullOrWhiteSpace(value:apiDescription.RelativePath))
-                    {                    return false;
-}
+                if (string.IsNullOrWhiteSpace(value: apiDescription.RelativePath))
+                {
+                    return false;
+                }
 
-                string normalizedDocument = string.Equals(a:documentName, b:"v1", comparisonType:StringComparison.OrdinalIgnoreCase)
+                string normalizedDocument = string.Equals(a: documentName, b: "v1", comparisonType: StringComparison.OrdinalIgnoreCase)
                     ? "Core"
                     : documentName;
 
-                string path = apiDescription.RelativePath.StartsWith(value:'/')
+                string path = apiDescription.RelativePath.StartsWith(value: '/')
                     ? apiDescription.RelativePath
                     : $"/{apiDescription.RelativePath}";
 
-                return string.Equals(a:normalizedDocument, b:"Core", comparisonType:StringComparison.OrdinalIgnoreCase)
-                    ? MatchesContextRoute(path:path, rootPath:"Api/Core")
-                    : MatchesContextRoute(path:path, rootPath:"Api/Packaging");
+                return string.Equals(a: normalizedDocument, b: "Core", comparisonType: StringComparison.OrdinalIgnoreCase)
+                    ? MatchesContextRoute(path: path, rootPath: "Api/Core")
+                    : MatchesContextRoute(path: path, rootPath: "Api/Packaging");
             });
         });
 
     private static bool MatchesContextRoute(string path, string rootPath)
     {
-        string normalizedRootPath = rootPath.StartsWith(value:'/')
+        string normalizedRootPath = rootPath.StartsWith(value: '/')
             ? rootPath
             : $"/{rootPath}";
 
-        return path.Equals(value:normalizedRootPath, comparisonType:StringComparison.OrdinalIgnoreCase)
-            || path.StartsWith(value:$"{normalizedRootPath}/", comparisonType:StringComparison.OrdinalIgnoreCase);
+        return path.Equals(value: normalizedRootPath, comparisonType: StringComparison.OrdinalIgnoreCase)
+            || path.StartsWith(value: $"{normalizedRootPath}/", comparisonType: StringComparison.OrdinalIgnoreCase);
     }
 
     private static IEdmModel BuildRouteModel()
@@ -172,27 +173,27 @@ implementationInstance:                builder => new PackagingModelBuilder(buil
         services.AddHttpContextAccessor();
 
         services.AddScoped(
-serviceType:            typeof(HttpContext),
-implementationFactory:            serviceProvider => serviceProvider.GetService<IHttpContextAccessor>()?.HttpContext ?? new DefaultHttpContext());
+serviceType: typeof(HttpContext),
+implementationFactory: serviceProvider => serviceProvider.GetService<IHttpContextAccessor>()?.HttpContext ?? new DefaultHttpContext());
 
         services.AddScoped(
-serviceType:            typeof(HttpRequest),
-implementationFactory:            serviceProvider => serviceProvider.GetRequiredService<HttpContext>()
+serviceType: typeof(HttpRequest),
+implementationFactory: serviceProvider => serviceProvider.GetRequiredService<HttpContext>()
                                    .Request);
 
         services.AddSession();
 
-        services.AddHsts(configureOptions:options =>
+        services.AddHsts(configureOptions: options =>
         {
             options.Preload = true;
             options.IncludeSubDomains = true;
-            options.MaxAge = TimeSpan.FromMinutes(minutes:60);
+            options.MaxAge = TimeSpan.FromMinutes(minutes: 60);
         });
 
-        services.AddMvc(setupAction:options => options.EnableEndpointRouting = false);
+        services.AddMvc(setupAction: options => options.EnableEndpointRouting = false);
         services.AddRazorPages();
 
-        services.Configure<KestrelServerOptions>(configureOptions:options =>
+        services.Configure<KestrelServerOptions>(configureOptions: options =>
         {
             options.Limits.MaxRequestBodySize = int.MaxValue;
         });

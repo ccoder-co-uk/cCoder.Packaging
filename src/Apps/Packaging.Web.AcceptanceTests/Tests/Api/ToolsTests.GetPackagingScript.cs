@@ -8,7 +8,7 @@ public sealed partial class ToolsTests
     public async Task ShouldServeStandardPackagingGridScript()
     {
         // Given
-        HttpResponseMessage response = await client.GetAsync(requestUri:"/tools/packaging.js");
+        HttpResponseMessage response = await client.GetAsync(requestUri: "/tools/packaging.js");
 
         response.EnsureSuccessStatusCode();
         // When
@@ -16,9 +16,9 @@ public sealed partial class ToolsTests
 
         // Then
         content.Should()
-            .Contain(expected:"packaging-expand-toggle");
+            .Contain(expected: "packaging-expand-toggle");
 
         content.Should()
-            .Contain(expected:"packaging-tabs");
+            .Contain(expected: "packaging-tabs");
     }
 }

@@ -19,8 +19,8 @@ internal class AppSecurityPackageService(IAppSecurityPackageManagerBroker appSec
     : IAppSecurityPackageService
 {
     public ValueTask ImportPackageAsync(int appId, Package package) =>
-        appSecurityPackageManagerBroker.ImportPackageAsync(appId:appId, package:package);
+        appSecurityPackageManagerBroker.ImportPackageAsync(appId: appId, package: package);
 
     public Package ExportPackage(int appId, string packageName) =>
-        appSecurityPackageManagerBroker.ExportPackage(appId:appId, packageName:packageName);
+        appSecurityPackageManagerBroker.ExportPackage(appId: appId, packageName: packageName);
 }

@@ -12,13 +12,13 @@ public sealed partial class BaselineTests(WebAcceptanceFixture fixture)
 
     private async Task<JsonElement> GetBaselineAsync()
     {
-        using HttpResponseMessage response = await client.GetAsync(requestUri:"/Api/Packaging/Baseline");
+        using HttpResponseMessage response = await client.GetAsync(requestUri: "/Api/Packaging/Baseline");
         string content = await response.Content.ReadAsStringAsync();
 
         response.StatusCode.Should()
-            .Be(expected:HttpStatusCode.OK, because:content);
+            .Be(expected: HttpStatusCode.OK, because: content);
 
-        return JsonDocument.Parse(json:content)
+        return JsonDocument.Parse(json: content)
                    .RootElement.Clone();
     }
 }

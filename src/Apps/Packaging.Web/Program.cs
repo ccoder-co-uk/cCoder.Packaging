@@ -14,31 +14,31 @@ public class Program
 
     public static void Main(string[] args)
     {
-        WebApplicationBuilder builder = WebApplication.CreateBuilder(args:args);
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
 
-        string coreConnection = builder.Configuration.GetConnectionString(name:"Core")
+        string coreConnection = builder.Configuration.GetConnectionString(name: "Core")
             ?? throw new InvalidOperationException("ConnectionStrings:Core is required.");
 
-        string ssoConnection = builder.Configuration.GetConnectionString(name:"SSO")
+        string ssoConnection = builder.Configuration.GetConnectionString(name: "SSO")
             ?? throw new InvalidOperationException("ConnectionStrings:SSO is required.");
 
         cCoder.Data.Config config = new();
-        builder.Configuration.Bind(instance:config);
-        builder.Services.AddSingleton(implementationInstance:config);
+        builder.Configuration.Bind(instance: config);
+        builder.Services.AddSingleton(implementationInstance: config);
         builder.Services.AddEventing();
 
-        builder.Services.AddSecurityApi(configAction:(services, securityConfig) =>
+        builder.Services.AddSecurityApi(configAction: (services, securityConfig) =>
         {
-            securityConfig.AddMSSQLModelProvider(services:services, connectionString:ssoConnection);
+            securityConfig.AddMSSQLModelProvider(services: services, connectionString: ssoConnection);
 
             securityConfig.UseAESHMMACPasswordEncryption(
-services:                services,
-decryptionKey:                builder.Configuration.GetSection(key:"Settings")["DecryptionKey"]);
+services: services,
+decryptionKey: builder.Configuration.GetSection(key: "Settings")["DecryptionKey"]);
         });
 
         cCoder.Data.IServiceCollectionExtensions.AddCoreData(
-services:            builder.Services,
-connectionString:            coreConnection);
+services: builder.Services,
+connectionString: coreConnection);
 
         builder.Services.AddPackagingWeb();
 
@@ -50,24 +50,24 @@ connectionString:            coreConnection);
         app.UseStaticFiles();
 
         app.UseSwagger()
-            .UseSwaggerUI(setupAction:options =>
+            .UseSwaggerUI(setupAction: options =>
             {
-                options.SwaggerEndpoint(url:"/swagger/Packaging/swagger.json", name:"Packaging API");
-                options.SwaggerEndpoint(url:"/swagger/Core/swagger.json", name:"Core API");
-                options.SwaggerEndpoint(url:"/swagger/v1/swagger.json", name:"Core API");
+                options.SwaggerEndpoint(url: "/swagger/Packaging/swagger.json", name: "Packaging API");
+                options.SwaggerEndpoint(url: "/swagger/Core/swagger.json", name: "Core API");
+                options.SwaggerEndpoint(url: "/swagger/v1/swagger.json", name: "Core API");
             })
             .UseODataBatching()
             .UseODataRouteDebug();
 
-        app.MapGet(pattern:"/Health", handler:() => Results.Text(content:"OK"));
-        app.MapGet(pattern:"/", handler:() => Results.Redirect(url:"/tools/index.html"));
+        app.MapGet(pattern: "/Health", handler: () => Results.Text(content: "OK"));
+        app.MapGet(pattern: "/", handler: () => Results.Redirect(url: "/tools/index.html"));
         app.UseRouting();
         app.MapControllers();
-        app.UsePackagingExposure(log:log);
+        app.UsePackagingExposure(log: log);
 
-        app.UseExceptionHandler(configure:errorApplication =>
+        app.UseExceptionHandler(configure: errorApplication =>
         {
-            errorApplication.Run(handler:HandleUnhandledException);
+            errorApplication.Run(handler: HandleUnhandledException);
         });
 
         app.Run();
@@ -83,12 +83,13 @@ connectionString:            coreConnection);
         context.Response.ContentType = "application/json";
 
         if (exception is null)
-            {            return;
-}
+        {
+            return;
+        }
 
-        log.LogError(message:"{Message}\n{StackTrace}", args:exception.Message, exception.StackTrace);
+        log.LogError(message: "{Message}\n{StackTrace}", args: exception.Message, exception.StackTrace);
 
         await context.Response.WriteAsync(
-text:            "{ \"error\": \"" + exception.Message.Replace(oldValue:"\"", newValue:"'") + "\" }");
+text: "{ \"error\": \"" + exception.Message.Replace(oldValue: "\"", newValue: "'") + "\" }");
     }
 }

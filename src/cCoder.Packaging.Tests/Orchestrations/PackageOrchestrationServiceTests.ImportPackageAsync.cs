@@ -16,22 +16,22 @@ public partial class PackageOrchestrationServiceTests
         Package package = new("Roles") { Items = [] };
 
         packageEventProcessingServiceMock
-            .Setup(expression:x => x.RaisePackageImportEventAsync(
-appId:                1,
-package:                It.Is<DataPackage>(match:p => p.Name == package.Name && p.Items != null && !p.Items.Any())
+            .Setup(expression: x => x.RaisePackageImportEventAsync(
+appId: 1,
+package: It.Is<DataPackage>(match: p => p.Name == package.Name && p.Items != null && !p.Items.Any())
             ))
-            .Returns(value:ValueTask.CompletedTask);
+            .Returns(value: ValueTask.CompletedTask);
 
         // When
-        await orchestrationService.ImportPackageAsync(appId:1, package:package);
+        await orchestrationService.ImportPackageAsync(appId: 1, package: package);
 
         // Then
         packageEventProcessingServiceMock.Verify(
-expression:            x => x.RaisePackageImportEventAsync(
-appId:                1,
-package:                It.Is<DataPackage>(match:p => p.Name == package.Name && p.Items != null && !p.Items.Any())
+expression: x => x.RaisePackageImportEventAsync(
+appId: 1,
+package: It.Is<DataPackage>(match: p => p.Name == package.Name && p.Items != null && !p.Items.Any())
             ),
-times:            Times.Once
+times: Times.Once
         );
 
         packageProcessingServiceMock.VerifyNoOtherCalls();

@@ -17,8 +17,8 @@ public partial class PackageEventServiceTests
         packageEventBrokerMock = new Mock<IPackageEventBroker>(MockBehavior.Strict);
         authInfoMock = new Mock<ICoreAuthInfo>(MockBehavior.Strict);
 
-        authInfoMock.SetupGet(expression:x => x.SSOUserId)
-            .Returns(value:CurrentUserId);
+        authInfoMock.SetupGet(expression: x => x.SSOUserId)
+            .Returns(value: CurrentUserId);
 
         service = new cCoder.Packaging.Services.Foundations.Events.PackageEventService(
             packageEventBrokerMock.Object,

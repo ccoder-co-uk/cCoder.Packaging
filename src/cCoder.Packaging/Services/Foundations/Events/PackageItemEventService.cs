@@ -23,7 +23,7 @@ internal class PackageItemEventService(
             Data = entity,
         };
 
-        await packageItemEventBroker.RaisePackageItemAddEventAsync(message:message);
+        await packageItemEventBroker.RaisePackageItemAddEventAsync(message: message);
     }
 
     public async ValueTask RaisePackageItemUpdateEventAsync(PackageItem entity)
@@ -34,7 +34,7 @@ internal class PackageItemEventService(
             Data = entity,
         };
 
-        await packageItemEventBroker.RaisePackageItemUpdateEventAsync(message:message);
+        await packageItemEventBroker.RaisePackageItemUpdateEventAsync(message: message);
     }
 
     public async ValueTask RaisePackageItemDeleteEventAsync(PackageItem entity)
@@ -45,6 +45,6 @@ internal class PackageItemEventService(
             Data = entity,
         };
 
-        await packageItemEventBroker.RaisePackageItemDeleteEventAsync(message:message);
+        await packageItemEventBroker.RaisePackageItemDeleteEventAsync(message: message);
     }
 }

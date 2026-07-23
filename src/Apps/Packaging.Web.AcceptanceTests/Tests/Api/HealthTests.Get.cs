@@ -8,7 +8,7 @@ public sealed partial class HealthTests
     public async Task ShouldReturnOk()
     {
         // Given
-        HttpResponseMessage response = await client.GetAsync(requestUri:"/Health");
+        HttpResponseMessage response = await client.GetAsync(requestUri: "/Health");
 
         response.EnsureSuccessStatusCode();
         // When
@@ -16,6 +16,6 @@ public sealed partial class HealthTests
 
         // Then
         content.Should()
-            .Be(expected:"OK");
+            .Be(expected: "OK");
     }
 }

@@ -8,7 +8,7 @@ public sealed partial class SwaggerTests
     public async Task ShouldExposePackagingApiDocument()
     {
         // Given
-        HttpResponseMessage response = await client.GetAsync(requestUri:"/swagger/Packaging/swagger.json");
+        HttpResponseMessage response = await client.GetAsync(requestUri: "/swagger/Packaging/swagger.json");
 
         response.EnsureSuccessStatusCode();
         // When
@@ -16,9 +16,9 @@ public sealed partial class SwaggerTests
 
         // Then
         content.Should()
-            .Contain(expected:"Package");
+            .Contain(expected: "Package");
 
         content.Should()
-            .Contain(expected:"PackageItem");
+            .Contain(expected: "PackageItem");
     }
 }

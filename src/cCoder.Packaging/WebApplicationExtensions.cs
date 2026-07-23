@@ -16,8 +16,8 @@ public static class WebApplicationExtensions
 
     public static WebApplication UsePackagingExposure(this WebApplication app, ILogger log = null)
     {
-        log?.LogInformation(message:"Initialising Packaging");
-        PopulateMetadataTypeCache(app:app);
+        log?.LogInformation(message: "Initialising Packaging");
+        PopulateMetadataTypeCache(app: app);
         return app;
     }
 
@@ -25,14 +25,14 @@ public static class WebApplicationExtensions
     {
         IMetadataTypeCache metadataTypeCache = app.Services.GetRequiredService<IMetadataTypeCache>();
 
-        if (!metadataTypeCache.Contains(scope:MetadataScope))
+        if (!metadataTypeCache.Contains(scope: MetadataScope))
         {
             metadataTypeCache.Set(
-scope:                MetadataScope,
-typeSetPayloads:                app.Services
+scope: MetadataScope,
+typeSetPayloads: app.Services
                     .GetRequiredService<IPackagingMetadataTypeService>()
                     .GetKnownMetadata()
-                    .Select(selector:static metadata => JsonSerializer.Serialize(value:metadata)));
+                    .Select(selector: static metadata => JsonSerializer.Serialize(value: metadata)));
         }
     }
 }

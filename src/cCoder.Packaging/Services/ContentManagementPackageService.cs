@@ -21,8 +21,8 @@ internal class ContentManagementPackageService(
 ) : IContentManagementPackageService
 {
     public ValueTask ImportPackageAsync(int appId, Package package) =>
-        contentManagementPackageManagerBroker.ImportPackageAsync(appId:appId, package:package);
+        contentManagementPackageManagerBroker.ImportPackageAsync(appId: appId, package: package);
 
     public Package ExportPackage(int appId, string packageName) =>
-        contentManagementPackageManagerBroker.ExportPackage(appId:appId, packageName:packageName);
+        contentManagementPackageManagerBroker.ExportPackage(appId: appId, packageName: packageName);
 }

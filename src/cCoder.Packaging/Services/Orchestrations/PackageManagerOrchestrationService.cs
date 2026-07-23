@@ -25,12 +25,14 @@ internal class PackageManagerOrchestrationService(
         try
         {
             if (package.Items is null || package.Items.Count == 0)
-                {                return;
-}
+            {
+                return;
+            }
 
-            if (!authorizationBroker.IsAdminOfApp(appId:appId))
-                {                throw new SecurityException("Access Denied!");
-}
+            if (!authorizationBroker.IsAdminOfApp(appId: appId))
+            {
+                throw new SecurityException("Access Denied!");
+            }
 
             foreach (PackageItem item in package.Items)
             {
@@ -46,8 +48,8 @@ internal class PackageManagerOrchestrationService(
                 if (item.Type is "Core/Calendar" or "Core/CalendarEvent")
                 {
                     await schedulingPackageService.ImportPackageAsync(
-appId:                        appId,
-package:                        new Package("Planning") { Items = [item] }
+appId: appId,
+package: new Package("Planning") { Items = [item] }
                     );
 
                     continue;
@@ -56,8 +58,8 @@ package:                        new Package("Planning") { Items = [item] }
                 if (item.Type == "Core/FlowDefinition")
                 {
                     await workflowPackageService.ImportPackageAsync(
-appId:                        appId,
-package:                        new Package("Workflow") { Items = [item] }
+appId: appId,
+package: new Package("Workflow") { Items = [item] }
                     );
 
                     continue;
@@ -66,8 +68,8 @@ package:                        new Package("Workflow") { Items = [item] }
                 if (item.Type == "Core/FolderRole")
                 {
                     await documentManagementPackageService.ImportPackageAsync(
-appId:                        appId,
-package:                        new Package("DocumentManagement") { Items = [item] }
+appId: appId,
+package: new Package("DocumentManagement") { Items = [item] }
                     );
 
                     continue;
@@ -76,26 +78,27 @@ package:                        new Package("DocumentManagement") { Items = [ite
                 if (item.Type == "Core/Role")
                 {
                     await appSecurityPackageService.ImportPackageAsync(
-appId:                        appId,
-package:                        new Package("AppSecurity") { Items = [item] }
+appId: appId,
+package: new Package("AppSecurity") { Items = [item] }
                     );
 
                     continue;
                 }
 
                 await contentManagementPackageService.ImportPackageAsync(
-appId:                    appId,
-package:                    new Package("ContentManagement") { Items = [item] }
+appId: appId,
+package: new Package("ContentManagement") { Items = [item] }
                 );
             }
         }
         catch (Exception exception)
         {
-            logger.LogWarning(exception:exception, message:"Exception importing package");
+            logger.LogWarning(exception: exception, message: "Exception importing package");
 
             if (exception.InnerException is not null)
-                {                logger.LogWarning(exception:exception.InnerException, message:"Inner exception importing package");
-}
+            {
+                logger.LogWarning(exception: exception.InnerException, message: "Inner exception importing package");
+            }
 
             throw;
         }
@@ -103,26 +106,31 @@ package:                    new Package("ContentManagement") { Items = [item] }
 
     public Package ExportPackage(int appId, string packageName)
     {
-        if (!authorizationBroker.IsAdminOfApp(appId:appId))
-            {            throw new SecurityException("Access Denied!");
-}
+        if (!authorizationBroker.IsAdminOfApp(appId: appId))
+        {
+            throw new SecurityException("Access Denied!");
+        }
 
         if (packageName is "Calendars" or "CalendarEvents")
-            {            return schedulingPackageService.ExportPackage(appId:appId, packageName:packageName);
-}
+        {
+            return schedulingPackageService.ExportPackage(appId: appId, packageName: packageName);
+        }
 
         if (packageName == "Workflows")
-            {            return workflowPackageService.ExportPackage(appId:appId, packageName:packageName);
-}
+        {
+            return workflowPackageService.ExportPackage(appId: appId, packageName: packageName);
+        }
 
         if (packageName == "FolderRoles")
-            {            return documentManagementPackageService.ExportPackage(appId:appId, packageName:packageName);
-}
+        {
+            return documentManagementPackageService.ExportPackage(appId: appId, packageName: packageName);
+        }
 
         if (packageName == "Roles")
-            {            return appSecurityPackageService.ExportPackage(appId:appId, packageName:packageName);
-}
+        {
+            return appSecurityPackageService.ExportPackage(appId: appId, packageName: packageName);
+        }
 
-        return contentManagementPackageService.ExportPackage(appId:appId, packageName:packageName);
+        return contentManagementPackageService.ExportPackage(appId: appId, packageName: packageName);
     }
 }

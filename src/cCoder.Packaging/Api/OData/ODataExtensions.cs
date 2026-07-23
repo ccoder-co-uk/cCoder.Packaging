@@ -16,19 +16,21 @@ internal static class ODataCollectionExtensions
     internal static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
     {
         if (source == null)
-            {            return;
-}
+        {
+            return;
+        }
 
         foreach (T item in source)
-            {            action(obj:item);
-}
+        {
+            action(obj: item);
+        }
     }
 }
 
 internal static class ODataJsonExtensions
 {
     internal static string ToJsonForOdata(this object value) =>
-        JsonConvert.SerializeObject(value:value, formatting:Formatting.None, settings:GetODataJsonSettings());
+        JsonConvert.SerializeObject(value: value, formatting: Formatting.None, settings: GetODataJsonSettings());
 
     private static JsonSerializerSettings GetODataJsonSettings() =>
         new()
@@ -49,11 +51,12 @@ internal static class ODataTypeExtensions
     internal static string GetCSharpTypeName(this Type type)
     {
         if (!type.IsGenericType)
-            {            return type.Name;
-}
+        {
+            return type.Name;
+        }
 
-        IEnumerable<string> genericNames = type.GenericTypeArguments.Select(selector:argument => argument.GetCSharpTypeName());
-        return $"{type.Name.Split(separator:'`')[0]}<{string.Join(separator:",", values:genericNames)}>".Replace(oldValue:"System.Object", newValue:"dynamic");
+        IEnumerable<string> genericNames = type.GenericTypeArguments.Select(selector: argument => argument.GetCSharpTypeName());
+        return $"{type.Name.Split(separator: '`')[0]}<{string.Join(separator: ",", values: genericNames)}>".Replace(oldValue: "System.Object", newValue: "dynamic");
     }
 
     internal static bool IsJoinType(this Type type)
@@ -64,8 +67,8 @@ internal static class ODataTypeExtensions
             && type.GetProperties()
                    .Length == 4
             && type.GetProperties()
-                .Where(predicate:property => property.PropertyType.IsValueType || property.PropertyType == typeof(string))
-                .All(predicate:property => property.GetCustomAttribute<ForeignKeyAttribute>() != null);
+                .Where(predicate: property => property.PropertyType.IsValueType || property.PropertyType == typeof(string))
+                .All(predicate: property => property.GetCustomAttribute<ForeignKeyAttribute>() != null);
     }
 
     internal static PropertyInfo GetIdProperty(this Type type)
@@ -73,18 +76,19 @@ internal static class ODataTypeExtensions
         if (!type.IsJoinType())
         {
             PropertyInfo idProperty =
-                type.GetProperty(name:"ID")
-                ?? type.GetProperty(name:"Id")
-                ?? type.GetProperty(name:type.Name + "Id")
-                ?? type.GetProperty(name:type.Name + "ID")
+                type.GetProperty(name: "ID")
+                ?? type.GetProperty(name: "Id")
+                ?? type.GetProperty(name: type.Name + "Id")
+                ?? type.GetProperty(name: type.Name + "ID")
                 ?? type.GetProperties()
-                       .FirstOrDefault(predicate:property =>
-                    property.GetCustomAttributes(attributeType:typeof(KeyAttribute), inherit:false)
+                       .FirstOrDefault(predicate: property =>
+                    property.GetCustomAttributes(attributeType: typeof(KeyAttribute), inherit: false)
                         .Any());
 
             if (idProperty != null)
-                {                return idProperty;
-}
+            {
+                return idProperty;
+            }
         }
         else
         {
@@ -106,15 +110,15 @@ internal sealed class CompositePropertyInfo(Type type) : PropertyInfo
     public override Type ReflectedType => PropertyType.ReflectedType;
 
     public override MethodInfo[] GetAccessors(bool nonPublic) => throw new NotImplementedException();
-    public override object[] GetCustomAttributes(bool inherit) => PropertyType.GetCustomAttributes(inherit:inherit);
+    public override object[] GetCustomAttributes(bool inherit) => PropertyType.GetCustomAttributes(inherit: inherit);
     public override object[] GetCustomAttributes(Type attributeType, bool inherit) =>
-        PropertyType.GetCustomAttributes(attributeType:attributeType, inherit:inherit);
+        PropertyType.GetCustomAttributes(attributeType: attributeType, inherit: inherit);
     public override MethodInfo GetGetMethod(bool nonPublic) => throw new NotImplementedException();
     public override ParameterInfo[] GetIndexParameters() => throw new NotImplementedException();
     public override MethodInfo GetSetMethod(bool nonPublic) => throw new NotImplementedException();
     public override object GetValue(object obj, BindingFlags invokeAttr, Binder binder, object[] index, CultureInfo culture) =>
         throw new NotImplementedException();
-    public override bool IsDefined(Type attributeType, bool inherit) => PropertyType.IsDefined(attributeType:attributeType, inherit:inherit);
+    public override bool IsDefined(Type attributeType, bool inherit) => PropertyType.IsDefined(attributeType: attributeType, inherit: inherit);
     public override void SetValue(object obj, object value, BindingFlags invokeAttr, Binder binder, object[] index, CultureInfo culture) =>
         throw new NotImplementedException();
 }

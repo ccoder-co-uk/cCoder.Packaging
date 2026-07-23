@@ -13,7 +13,7 @@ public sealed class WebAcceptanceFixture : IAsyncLifetime
     {
         Factory = new WebAcceptanceFactory();
 
-        Client = Factory.CreateClient(options:new WebApplicationFactoryClientOptions
+        Client = Factory.CreateClient(options: new WebApplicationFactoryClientOptions
         {
             AllowAutoRedirect = false,
             BaseAddress = new Uri("https://localhost"),
@@ -27,8 +27,9 @@ public sealed class WebAcceptanceFixture : IAsyncLifetime
         Client?.Dispose();
 
         if (Factory is not null)
-            {            await Factory.DisposeAsync();
-}
+        {
+            await Factory.DisposeAsync();
+        }
     }
 }
 

@@ -34,7 +34,7 @@ internal sealed class PackageItemBroker(ICoreContextFactory coreContextFactory) 
     public async ValueTask<PackageItem> AddPackageItemAsync(PackageItem entity)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        PackageItem result = (await coreDataContext.PackageItems.AddAsync(entity:entity)).Entity;
+        PackageItem result = (await coreDataContext.PackageItems.AddAsync(entity: entity)).Entity;
         _ = await coreDataContext.SaveChangesAsync();
         return result;
     }
@@ -43,7 +43,7 @@ internal sealed class PackageItemBroker(ICoreContextFactory coreContextFactory) 
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
 
-        PackageItem result = coreDataContext.PackageItems.Update(entity:entity)
+        PackageItem result = coreDataContext.PackageItems.Update(entity: entity)
                                  .Entity;
 
         _ = await coreDataContext.SaveChangesAsync();
@@ -53,18 +53,19 @@ internal sealed class PackageItemBroker(ICoreContextFactory coreContextFactory) 
     public async ValueTask<int> DeletePackageItemAsync(PackageItem entity)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        coreDataContext.PackageItems.Remove(entity:entity);
+        coreDataContext.PackageItems.Remove(entity: entity);
         return await coreDataContext.SaveChangesAsync();
     }
 
     public async ValueTask DeleteAllPackageItemsAsync(IEnumerable<PackageItem> items)
     {
         if (items == null || !items.Any())
-            {            return;
-}
+        {
+            return;
+        }
 
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        coreDataContext.PackageItems.RemoveRange(entities:items);
+        coreDataContext.PackageItems.RemoveRange(entities: items);
         _ = await coreDataContext.SaveChangesAsync();
     }
 

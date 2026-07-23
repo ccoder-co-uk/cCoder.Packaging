@@ -52,7 +52,7 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
     public async ValueTask<Package> AddPackageAsync(Package entity)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        Package result = (await coreDataContext.Packages.AddAsync(entity:entity)).Entity;
+        Package result = (await coreDataContext.Packages.AddAsync(entity: entity)).Entity;
         _ = await coreDataContext.SaveChangesAsync();
         return result;
     }
@@ -61,7 +61,7 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
 
-        Package result = coreDataContext.Packages.Update(entity:entity)
+        Package result = coreDataContext.Packages.Update(entity: entity)
                              .Entity;
 
         _ = await coreDataContext.SaveChangesAsync();
@@ -71,18 +71,19 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
     public async ValueTask<int> DeletePackageAsync(Package entity)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        coreDataContext.Packages.Remove(entity:entity);
+        coreDataContext.Packages.Remove(entity: entity);
         return await coreDataContext.SaveChangesAsync();
     }
 
     public async ValueTask DeleteAllPackagesAsync(IEnumerable<Package> items)
     {
         if (items == null || !items.Any())
-            {            return;
-}
+        {
+            return;
+        }
 
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        coreDataContext.Packages.RemoveRange(entities:items);
+        coreDataContext.Packages.RemoveRange(entities: items);
         _ = await coreDataContext.SaveChangesAsync();
     }
 
@@ -97,9 +98,9 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         Role[] roles = coreDataContext.Roles
-            .Where(predicate:role => role.AppId == appId)
-            .Include(navigationPropertyPath:role => role.Users)
-                .ThenInclude(navigationPropertyPath:userRole => userRole.User)
+            .Where(predicate: role => role.AppId == appId)
+            .Include(navigationPropertyPath: role => role.Users)
+                .ThenInclude(navigationPropertyPath: userRole => userRole.User)
             .ToArray();
 
         return new Package("Roles")
@@ -122,9 +123,9 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         Folder[] folders = coreDataContext.Folders
-            .Where(predicate:folder => folder.AppId == appId)
-            .Include(navigationPropertyPath:folder => folder.Roles)
-                .ThenInclude(navigationPropertyPath:folderRole => folderRole.Role)
+            .Where(predicate: folder => folder.AppId == appId)
+            .Include(navigationPropertyPath: folder => folder.Roles)
+                .ThenInclude(navigationPropertyPath: folderRole => folderRole.Role)
             .ToArray();
 
         return new Package("FolderRoles")
@@ -296,22 +297,24 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         List<Page> appPages = coreDataContext.Pages
-            .Where(predicate:page => page.AppId == appId)
-            .Include(navigationPropertyPath:page => page.Contents)
-            .Include(navigationPropertyPath:page => page.PageInfo)
+            .Where(predicate: page => page.AppId == appId)
+            .Include(navigationPropertyPath: page => page.Contents)
+            .Include(navigationPropertyPath: page => page.PageInfo)
             .AsNoTracking()
             .ToList();
 
-        Dictionary<int, Page> pageDictionary = appPages.ToDictionary(keySelector:page => page.Id);
+        Dictionary<int, Page> pageDictionary = appPages.ToDictionary(keySelector: page => page.Id);
 
         foreach (Page page in appPages)
-            {            if (
-                page.ParentId is not null
-                && pageDictionary.TryGetValue(key:page.ParentId.Value, out Page parent)
-            )
-                {                page.Parent = parent;
-}
-}
+        {
+            if (
+            page.ParentId is not null
+            && pageDictionary.TryGetValue(key: page.ParentId.Value, out Page parent)
+        )
+            {
+                page.Parent = parent;
+            }
+        }
 
         return new Package("Pages")
         {
@@ -406,22 +409,22 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         Role[] roleData = coreDataContext.Roles
-            .Where(predicate:role => role.AppId == appId)
+            .Where(predicate: role => role.AppId == appId)
             .ToArray();
 
-        Dictionary<Guid, string> roleNamesById = roleData.ToDictionary(keySelector:role => role.Id, elementSelector:role => role.Name);
+        Dictionary<Guid, string> roleNamesById = roleData.ToDictionary(keySelector: role => role.Id, elementSelector: role => role.Name);
 
         Page[] pages = coreDataContext.Pages
-            .Where(predicate:page => page.AppId == appId)
-            .Include(navigationPropertyPath:page => page.Roles)
+            .Where(predicate: page => page.AppId == appId)
+            .Include(navigationPropertyPath: page => page.Roles)
             .ToArray();
 
         ExportPageRoleInfo[] pageRoles = pages
-            .Where(predicate:page => page.Roles != null)
-            .SelectMany(selector:page =>
+            .Where(predicate: page => page.Roles != null)
+            .SelectMany(selector: page =>
                 page.Roles
-                    .Where(predicate:pageRole => roleNamesById.ContainsKey(key:pageRole.RoleId))
-                    .Select(selector:pageRole => new ExportPageRoleInfo
+                    .Where(predicate: pageRole => roleNamesById.ContainsKey(key: pageRole.RoleId))
+                    .Select(selector: pageRole => new ExportPageRoleInfo
                     {
                         Path = page.Path,
                         Role = roleNamesById[pageRole.RoleId],

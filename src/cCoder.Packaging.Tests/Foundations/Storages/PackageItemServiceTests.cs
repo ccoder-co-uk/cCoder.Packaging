@@ -34,17 +34,17 @@ public class PackageItemServiceTests
         PackageItem expectedItem = CreatePackageItem();
 
         packageItemBrokerMock
-            .Setup(expression:broker => broker.GetAllPackageItems(ignoreFilters:false))
-            .Returns(value:new[] { expectedItem }.AsQueryable());
+            .Setup(expression: broker => broker.GetAllPackageItems(ignoreFilters: false))
+            .Returns(value: new[] { expectedItem }.AsQueryable());
 
         // When
-        PackageItem actualItem = service.Get(id:expectedItem.Id);
+        PackageItem actualItem = service.Get(id: expectedItem.Id);
 
         // Then
         actualItem.Should()
-            .BeSameAs(expected:expectedItem);
+            .BeSameAs(expected: expectedItem);
 
-        packageItemBrokerMock.Verify(expression:broker => broker.GetAllPackageItems(ignoreFilters:false), times:Times.Once);
+        packageItemBrokerMock.Verify(expression: broker => broker.GetAllPackageItems(ignoreFilters: false), times: Times.Once);
         packageItemBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -54,27 +54,27 @@ public class PackageItemServiceTests
     {
         // Given
         Guid packageItemId = Guid.NewGuid();
-        PackageItem unrestrictedItem = CreatePackageItem(id:packageItemId);
+        PackageItem unrestrictedItem = CreatePackageItem(id: packageItemId);
 
         packageItemBrokerMock
-            .Setup(expression:broker => broker.GetAllPackageItems(ignoreFilters:false))
-            .Returns(value:Array.Empty<PackageItem>()
+            .Setup(expression: broker => broker.GetAllPackageItems(ignoreFilters: false))
+            .Returns(value: Array.Empty<PackageItem>()
                          .AsQueryable());
 
         packageItemBrokerMock
-            .Setup(expression:broker => broker.GetAllPackageItems(ignoreFilters:true))
-            .Returns(value:new[] { unrestrictedItem }.AsQueryable());
+            .Setup(expression: broker => broker.GetAllPackageItems(ignoreFilters: true))
+            .Returns(value: new[] { unrestrictedItem }.AsQueryable());
 
         // When
-        Action act = () => service.Get(id:packageItemId);
+        Action act = () => service.Get(id: packageItemId);
 
         // Then
         act.Should()
             .Throw<SecurityException>()
-            .WithMessage(expectedWildcardPattern:"Access Denied!");
+            .WithMessage(expectedWildcardPattern: "Access Denied!");
 
-        packageItemBrokerMock.Verify(expression:broker => broker.GetAllPackageItems(ignoreFilters:false), times:Times.Once);
-        packageItemBrokerMock.Verify(expression:broker => broker.GetAllPackageItems(ignoreFilters:true), times:Times.Once);
+        packageItemBrokerMock.Verify(expression: broker => broker.GetAllPackageItems(ignoreFilters: false), times: Times.Once);
+        packageItemBrokerMock.Verify(expression: broker => broker.GetAllPackageItems(ignoreFilters: true), times: Times.Once);
         packageItemBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -86,24 +86,24 @@ public class PackageItemServiceTests
         Guid packageItemId = Guid.NewGuid();
 
         packageItemBrokerMock
-            .Setup(expression:broker => broker.GetAllPackageItems(ignoreFilters:false))
-            .Returns(value:Array.Empty<PackageItem>()
+            .Setup(expression: broker => broker.GetAllPackageItems(ignoreFilters: false))
+            .Returns(value: Array.Empty<PackageItem>()
                          .AsQueryable());
 
         packageItemBrokerMock
-            .Setup(expression:broker => broker.GetAllPackageItems(ignoreFilters:true))
-            .Returns(value:Array.Empty<PackageItem>()
+            .Setup(expression: broker => broker.GetAllPackageItems(ignoreFilters: true))
+            .Returns(value: Array.Empty<PackageItem>()
                          .AsQueryable());
 
         // When
-        PackageItem actualItem = service.Get(id:packageItemId);
+        PackageItem actualItem = service.Get(id: packageItemId);
 
         // Then
         actualItem.Should()
             .BeNull();
 
-        packageItemBrokerMock.Verify(expression:broker => broker.GetAllPackageItems(ignoreFilters:false), times:Times.Once);
-        packageItemBrokerMock.Verify(expression:broker => broker.GetAllPackageItems(ignoreFilters:true), times:Times.Once);
+        packageItemBrokerMock.Verify(expression: broker => broker.GetAllPackageItems(ignoreFilters: false), times: Times.Once);
+        packageItemBrokerMock.Verify(expression: broker => broker.GetAllPackageItems(ignoreFilters: true), times: Times.Once);
         packageItemBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -114,17 +114,17 @@ public class PackageItemServiceTests
         // Given
         IQueryable<PackageItem> expectedItems = new[] { CreatePackageItem(), CreatePackageItem() }.AsQueryable();
 
-        packageItemBrokerMock.Setup(expression:broker => broker.GetAllPackageItems(ignoreFilters:true))
-            .Returns(value:expectedItems);
+        packageItemBrokerMock.Setup(expression: broker => broker.GetAllPackageItems(ignoreFilters: true))
+            .Returns(value: expectedItems);
 
         // When
         IQueryable<PackageItem> actualItems = service.GetAll(ignoreFilters: true);
 
         // Then
         actualItems.Should()
-            .BeSameAs(expected:expectedItems);
+            .BeSameAs(expected: expectedItems);
 
-        packageItemBrokerMock.Verify(expression:broker => broker.GetAllPackageItems(ignoreFilters:true), times:Times.Once);
+        packageItemBrokerMock.Verify(expression: broker => broker.GetAllPackageItems(ignoreFilters: true), times: Times.Once);
         packageItemBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }
@@ -136,33 +136,33 @@ public class PackageItemServiceTests
         PackageItem packageItem = CreatePackageItem();
 
         PackageItem storedPackageItem = CreatePackageItem(
-id:            packageItem.Id,
-packageId:            packageItem.PackageId,
-type:            packageItem.Type,
-data:            packageItem.Data);
+id: packageItem.Id,
+packageId: packageItem.PackageId,
+type: packageItem.Type,
+data: packageItem.Data);
 
-        packageItemBrokerMock.Setup(expression:broker => broker.GetAppId(entity:packageItem))
-            .Returns(value:7);
+        packageItemBrokerMock.Setup(expression: broker => broker.GetAppId(entity: packageItem))
+            .Returns(value: 7);
 
-        authorizationBrokerMock.Setup(expression:broker => broker.Authorize(appId:7, privilege:"PackageItem_create"));
+        authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: 7, privilege: "PackageItem_create"));
 
         packageItemBrokerMock
-            .Setup(expression:broker => broker.AddPackageItemAsync(entity:It.Is<PackageItem>(match:item =>
+            .Setup(expression: broker => broker.AddPackageItemAsync(entity: It.Is<PackageItem>(match: item =>
                 item.Id == Guid.Empty
                 && item.PackageId == packageItem.PackageId
                 && item.Type == packageItem.Type
                 && item.Data == packageItem.Data)))
-            .ReturnsAsync(value:storedPackageItem);
+            .ReturnsAsync(value: storedPackageItem);
 
         // When
-        PackageItem actualItem = await service.AddAsync(packageItem:packageItem);
+        PackageItem actualItem = await service.AddAsync(packageItem: packageItem);
 
         // Then
         actualItem.Should()
-            .BeSameAs(expected:packageItem);
+            .BeSameAs(expected: packageItem);
 
         actualItem.Id.Should()
-            .Be(expected:storedPackageItem.Id);
+            .Be(expected: storedPackageItem.Id);
 
         packageItemBrokerMock.VerifyAll();
         authorizationBrokerMock.VerifyAll();
@@ -177,33 +177,33 @@ data:            packageItem.Data);
         PackageItem packageItem = CreatePackageItem();
 
         PackageItem storedPackageItem = CreatePackageItem(
-id:            packageItem.Id,
-packageId:            packageItem.PackageId,
-type:            packageItem.Type,
-data:            packageItem.Data);
+id: packageItem.Id,
+packageId: packageItem.PackageId,
+type: packageItem.Type,
+data: packageItem.Data);
 
-        packageItemBrokerMock.Setup(expression:broker => broker.GetAppId(entity:packageItem))
-            .Returns(value:7);
+        packageItemBrokerMock.Setup(expression: broker => broker.GetAppId(entity: packageItem))
+            .Returns(value: 7);
 
-        authorizationBrokerMock.Setup(expression:broker => broker.Authorize(appId:7, privilege:"PackageItem_update"));
+        authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: 7, privilege: "PackageItem_update"));
 
         packageItemBrokerMock
-            .Setup(expression:broker => broker.UpdatePackageItemAsync(entity:It.Is<PackageItem>(match:item =>
+            .Setup(expression: broker => broker.UpdatePackageItemAsync(entity: It.Is<PackageItem>(match: item =>
                 item.Id == packageItem.Id
                 && item.PackageId == packageItem.PackageId
                 && item.Type == packageItem.Type
                 && item.Data == packageItem.Data)))
-            .ReturnsAsync(value:storedPackageItem);
+            .ReturnsAsync(value: storedPackageItem);
 
         // When
-        PackageItem actualItem = await service.UpdateAsync(packageItem:packageItem);
+        PackageItem actualItem = await service.UpdateAsync(packageItem: packageItem);
 
         // Then
         actualItem.Should()
-            .BeSameAs(expected:packageItem);
+            .BeSameAs(expected: packageItem);
 
         actualItem.Id.Should()
-            .Be(expected:storedPackageItem.Id);
+            .Be(expected: storedPackageItem.Id);
 
         packageItemBrokerMock.VerifyAll();
         authorizationBrokerMock.VerifyAll();
@@ -218,25 +218,25 @@ data:            packageItem.Data);
         PackageItem packageItem = CreatePackageItem();
 
         packageItemBrokerMock
-            .Setup(expression:broker => broker.GetAllPackageItems(ignoreFilters:false))
-            .Returns(value:new[] { packageItem }.AsQueryable());
+            .Setup(expression: broker => broker.GetAllPackageItems(ignoreFilters: false))
+            .Returns(value: new[] { packageItem }.AsQueryable());
 
-        packageItemBrokerMock.Setup(expression:broker => broker.GetAppId(entity:packageItem))
-            .Returns(value:7);
+        packageItemBrokerMock.Setup(expression: broker => broker.GetAppId(entity: packageItem))
+            .Returns(value: 7);
 
-        authorizationBrokerMock.Setup(expression:broker => broker.Authorize(appId:7, privilege:"PackageItem_delete"));
+        authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: 7, privilege: "PackageItem_delete"));
 
-        packageItemBrokerMock.Setup(expression:broker => broker.DeletePackageItemAsync(entity:packageItem))
-            .ReturnsAsync(value:1);
+        packageItemBrokerMock.Setup(expression: broker => broker.DeletePackageItemAsync(entity: packageItem))
+            .ReturnsAsync(value: 1);
 
         // When
-        await service.DeleteAsync(id:packageItem.Id);
+        await service.DeleteAsync(id: packageItem.Id);
 
         // Then
-        packageItemBrokerMock.Verify(expression:broker => broker.GetAllPackageItems(ignoreFilters:false), times:Times.Once);
-        packageItemBrokerMock.Verify(expression:broker => broker.GetAppId(entity:packageItem), times:Times.Once);
-        authorizationBrokerMock.Verify(expression:broker => broker.Authorize(appId:7, privilege:"PackageItem_delete"), times:Times.Once);
-        packageItemBrokerMock.Verify(expression:broker => broker.DeletePackageItemAsync(entity:packageItem), times:Times.Once);
+        packageItemBrokerMock.Verify(expression: broker => broker.GetAllPackageItems(ignoreFilters: false), times: Times.Once);
+        packageItemBrokerMock.Verify(expression: broker => broker.GetAppId(entity: packageItem), times: Times.Once);
+        authorizationBrokerMock.Verify(expression: broker => broker.Authorize(appId: 7, privilege: "PackageItem_delete"), times: Times.Once);
+        packageItemBrokerMock.Verify(expression: broker => broker.DeletePackageItemAsync(entity: packageItem), times: Times.Once);
         packageItemBrokerMock.VerifyNoOtherCalls();
         authorizationBrokerMock.VerifyNoOtherCalls();
     }

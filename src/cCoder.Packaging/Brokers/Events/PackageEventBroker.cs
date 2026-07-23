@@ -12,14 +12,14 @@ namespace cCoder.Packaging.Brokers.Events;
 internal sealed class PackageEventBroker(IEventHub eventHub) : IPackageEventBroker
 {
     public ValueTask RaisePackageImportEventAsync(EventMessage<(int, Package)> message) =>
-        eventHub.RaiseEventAsync(name:"package_import", message:message);
+        eventHub.RaiseEventAsync(name: "package_import", message: message);
 
     public ValueTask RaisePackageAddEventAsync(EventMessage<Package> message) =>
-        eventHub.RaiseEventAsync(name:"package_add", message:message);
+        eventHub.RaiseEventAsync(name: "package_add", message: message);
 
     public ValueTask RaisePackageUpdateEventAsync(EventMessage<Package> message) =>
-        eventHub.RaiseEventAsync(name:"package_update", message:message);
+        eventHub.RaiseEventAsync(name: "package_update", message: message);
 
     public ValueTask RaisePackageDeleteEventAsync(EventMessage<Package> message) =>
-        eventHub.RaiseEventAsync(name:"package_delete", message:message);
+        eventHub.RaiseEventAsync(name: "package_delete", message: message);
 }

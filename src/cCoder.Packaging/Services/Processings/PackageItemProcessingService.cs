@@ -12,27 +12,27 @@ internal class PackageItemProcessingService(IPackageItemService service) : IPack
 {
     public cCoder.Data.Models.Packaging.PackageItem Get(Guid id)
     {
-        return service.Get(id:id);
+        return service.Get(id: id);
     }
 
     public IQueryable<cCoder.Data.Models.Packaging.PackageItem> GetAll(bool ignoreFilters = false)
     {
-        return service.GetAll(ignoreFilters:ignoreFilters);
+        return service.GetAll(ignoreFilters: ignoreFilters);
     }
 
     public ValueTask<cCoder.Data.Models.Packaging.PackageItem> AddAsync(cCoder.Data.Models.Packaging.PackageItem entity)
     {
-        return service.AddAsync(packageItem:entity);
+        return service.AddAsync(packageItem: entity);
     }
 
     public ValueTask<cCoder.Data.Models.Packaging.PackageItem> UpdateAsync(cCoder.Data.Models.Packaging.PackageItem entity)
     {
-        return service.UpdateAsync(packageItem:entity);
+        return service.UpdateAsync(packageItem: entity);
     }
 
     public ValueTask DeleteAsync(Guid id)
     {
-        return service.DeleteAsync(id:id);
+        return service.DeleteAsync(id: id);
     }
 
     public async ValueTask<IEnumerable<Result<cCoder.Data.Models.Packaging.PackageItem>>> AddOrUpdate(IEnumerable<cCoder.Data.Models.Packaging.PackageItem> items)
@@ -45,10 +45,10 @@ internal class PackageItemProcessingService(IPackageItemService service) : IPack
             {
                 cCoder.Data.Models.Packaging.PackageItem savedItem =
                     item.Id == Guid.Empty
-                        ? await AddAsync(entity:item)
-                        : await UpdateAsync(entity:item);
+                        ? await AddAsync(entity: item)
+                        : await UpdateAsync(entity: item);
 
-                results.Add(item:new Result<cCoder.Data.Models.Packaging.PackageItem>
+                results.Add(item: new Result<cCoder.Data.Models.Packaging.PackageItem>
                 {
                     Success = true,
                     Item = savedItem,
@@ -57,7 +57,7 @@ internal class PackageItemProcessingService(IPackageItemService service) : IPack
             }
             catch (Exception ex)
             {
-                results.Add(item:new Result<cCoder.Data.Models.Packaging.PackageItem>
+                results.Add(item: new Result<cCoder.Data.Models.Packaging.PackageItem>
                 {
                     Success = false,
                     Item = item,
@@ -73,7 +73,7 @@ internal class PackageItemProcessingService(IPackageItemService service) : IPack
     {
         foreach (cCoder.Data.Models.Packaging.PackageItem item in items)
         {
-            await DeleteAsync(id:item.Id);
+            await DeleteAsync(id: item.Id);
         }
     }
 }

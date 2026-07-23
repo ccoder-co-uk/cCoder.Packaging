@@ -25,17 +25,17 @@ public abstract class ODataModelBuilder
         where T : class
     {
         setName ??= typeof(T).Name;
-        return Builder.EntitySet<T>(name:setName);
+        return Builder.EntitySet<T>(name: setName);
     }
 
     protected virtual EntitySetConfiguration<T> AddJoinSet<T, TKey>(Expression<Func<T, TKey>> key)
         where T : class
     {
         string name = typeof(T).Name;
-        EntitySetConfiguration<T> result = Builder.EntitySet<T>(name:name);
+        EntitySetConfiguration<T> result = Builder.EntitySet<T>(name: name);
 
         Builder.EntityType<T>()
-            .HasKey(keyDefinitionExpression:key);
+            .HasKey(keyDefinitionExpression: key);
 
         return result;
     }

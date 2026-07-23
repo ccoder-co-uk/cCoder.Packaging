@@ -21,7 +21,7 @@ internal class PackageEventService(IPackageEventBroker packageEventBroker, ICore
             Data = (appId, package),
         };
 
-        await packageEventBroker.RaisePackageImportEventAsync(message:message);
+        await packageEventBroker.RaisePackageImportEventAsync(message: message);
     }
 
     public async ValueTask RaisePackageAddEventAsync(Package package)
@@ -32,7 +32,7 @@ internal class PackageEventService(IPackageEventBroker packageEventBroker, ICore
             Data = package,
         };
 
-        await packageEventBroker.RaisePackageAddEventAsync(message:message);
+        await packageEventBroker.RaisePackageAddEventAsync(message: message);
     }
 
     public async ValueTask RaisePackageUpdateEventAsync(Package package)
@@ -43,7 +43,7 @@ internal class PackageEventService(IPackageEventBroker packageEventBroker, ICore
             Data = package,
         };
 
-        await packageEventBroker.RaisePackageUpdateEventAsync(message:message);
+        await packageEventBroker.RaisePackageUpdateEventAsync(message: message);
     }
 
     public async ValueTask RaisePackageDeleteEventAsync(Package package)
@@ -54,6 +54,6 @@ internal class PackageEventService(IPackageEventBroker packageEventBroker, ICore
             Data = package,
         };
 
-        await packageEventBroker.RaisePackageDeleteEventAsync(message:message);
+        await packageEventBroker.RaisePackageDeleteEventAsync(message: message);
     }
 }
