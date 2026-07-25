@@ -21,6 +21,7 @@ public partial class PackageManagerAggregationServiceTests
     private readonly Mock<IWorkflowPackageService> workflowPackageServiceMock = new();
     private readonly Mock<IDocumentManagementPackageService> documentManagementPackageServiceMock = new();
     private readonly Mock<IContentManagementPackageService> contentManagementPackageServiceMock = new();
+
     private readonly PackageManagerAggregationService packageManagerAggregationService;
 
     public PackageManagerAggregationServiceTests()

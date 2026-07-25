@@ -21,7 +21,15 @@ public partial class PackageManagerAggregationServiceTests
     {
         // Given
         Package package = CreateRandomPackage();
-        package.Items = [new PackageItem { Type = "Core/Calendar", Data = "[]" }];
+
+        package.Items =
+        [
+            new PackageItem
+            {
+                Type = "Workflow/Calendar",
+                Data = "[]",
+            },
+        ];
 
         authorizationBrokerMock.Setup(expression: x => x.IsAdminOfApp(appId: 1))
             .Returns(value: true);
@@ -46,7 +54,15 @@ public partial class PackageManagerAggregationServiceTests
     {
         // Given
         Package package = CreateRandomPackage();
-        package.Items = [new PackageItem { Type = "Core/FlowDefinition", Data = "[]" }];
+
+        package.Items =
+        [
+            new PackageItem
+            {
+                Type = "Workflow/FlowDefinition",
+                Data = "[]",
+            },
+        ];
 
         authorizationBrokerMock.Setup(expression: x => x.IsAdminOfApp(appId: 1))
             .Returns(value: true);
@@ -67,7 +83,15 @@ public partial class PackageManagerAggregationServiceTests
     {
         // Given
         Package package = CreateRandomPackage();
-        package.Items = [new PackageItem { Type = "Core/FolderRole", Data = "[]" }];
+
+        package.Items =
+        [
+            new PackageItem
+            {
+                Type = "DocumentManagement/FolderRole",
+                Data = "[]",
+            },
+        ];
 
         authorizationBrokerMock.Setup(expression: x => x.IsAdminOfApp(appId: 1))
             .Returns(value: true);
@@ -81,6 +105,44 @@ public partial class PackageManagerAggregationServiceTests
 
         // Then
         documentManagementPackageServiceMock.Verify(expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()), times: Times.Once);
+    }
+
+    [Fact]
+    public async Task ShouldDelegateToAppSecurityPackageServiceWhenImportPackageAsync()
+    {
+        // Given
+        Package package = CreateRandomPackage();
+
+        package.Items =
+        [
+            new PackageItem
+            {
+                Type = "AppSecurity/Role",
+                Data = "[]",
+            },
+        ];
+
+        authorizationBrokerMock
+            .Setup(expression: x => x.IsAdminOfApp(appId: 1))
+            .Returns(value: true);
+
+        appSecurityPackageServiceMock
+            .Setup(expression: x => x.ImportPackageAsync(
+                appId: 1,
+                package: It.IsAny<Package>()))
+            .Returns(value: ValueTask.CompletedTask);
+
+        // When
+        await packageManagerAggregationService.ImportPackageAsync(
+            appId: 1,
+            package: package);
+
+        // Then
+        appSecurityPackageServiceMock
+            .Verify(expression: x => x.ImportPackageAsync(
+                appId: 1,
+                package: It.IsAny<Package>()),
+                times: Times.Once);
     }
 
     [Fact]
