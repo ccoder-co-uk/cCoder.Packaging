@@ -75,13 +75,19 @@ internal sealed partial class PackageManagerAggregationService(
         int appId,
         PackageItem packageItem)
     {
+        PackageItem canonicalPackageItem = ToCanonicalPackageItem(
+            packageItem: packageItem);
+
         if (packageItem.Type is
             "Core/Calendar"
             or "Core/CalendarEvent"
             or "Workflow/Calendar"
             or "Workflow/CalendarEvent")
         {
-            Package planningPackage = new("Planning") { Items = [packageItem] };
+            Package planningPackage = new("Planning")
+            {
+                Items = [canonicalPackageItem],
+            };
 
             await schedulingPackageService.ImportPackageAsync(
                 appId: appId,
@@ -94,7 +100,10 @@ internal sealed partial class PackageManagerAggregationService(
             "Core/FlowDefinition"
             or "Workflow/FlowDefinition")
         {
-            Package workflowPackage = new("Workflow") { Items = [packageItem] };
+            Package workflowPackage = new("Workflow")
+            {
+                Items = [canonicalPackageItem],
+            };
 
             await workflowPackageService.ImportPackageAsync(
                 appId: appId,
@@ -108,7 +117,10 @@ internal sealed partial class PackageManagerAggregationService(
             or "DocumentManagement/FolderRole")
         {
             Package documentPackage =
-                new("DocumentManagement") { Items = [packageItem] };
+                new("DocumentManagement")
+                {
+                    Items = [canonicalPackageItem],
+                };
 
             await documentManagementPackageService.ImportPackageAsync(
                 appId: appId,
@@ -122,7 +134,10 @@ internal sealed partial class PackageManagerAggregationService(
             or "AppSecurity/Role")
         {
             Package appSecurityPackage =
-                new("AppSecurity") { Items = [packageItem] };
+                new("AppSecurity")
+                {
+                    Items = [canonicalPackageItem],
+                };
 
             await appSecurityPackageService.ImportPackageAsync(
                 appId: appId,
@@ -132,11 +147,42 @@ internal sealed partial class PackageManagerAggregationService(
         }
 
         Package contentPackage =
-            new("ContentManagement") { Items = [packageItem] };
+            new("ContentManagement")
+            {
+                Items = [canonicalPackageItem],
+            };
 
         await contentManagementPackageService.ImportPackageAsync(
             appId: appId,
             package: contentPackage);
     }
 
+    private static PackageItem ToCanonicalPackageItem(
+        PackageItem packageItem) =>
+        new()
+        {
+            Id = packageItem.Id,
+            PackageId = packageItem.PackageId,
+            Type = packageItem.Type switch
+            {
+                string type when type.StartsWith(
+                    value: "ContentManagement/",
+                    comparisonType: StringComparison.OrdinalIgnoreCase) =>
+                    $"Core/{type["ContentManagement/".Length..]}",
+                string type when type.StartsWith(
+                    value: "AppSecurity/",
+                    comparisonType: StringComparison.OrdinalIgnoreCase) =>
+                    $"Core/{type["AppSecurity/".Length..]}",
+                string type when type.StartsWith(
+                    value: "DocumentManagement/",
+                    comparisonType: StringComparison.OrdinalIgnoreCase) =>
+                    $"Core/{type["DocumentManagement/".Length..]}",
+                string type when type.StartsWith(
+                    value: "Workflow/",
+                    comparisonType: StringComparison.OrdinalIgnoreCase) =>
+                    $"Core/{type["Workflow/".Length..]}",
+                _ => packageItem.Type,
+            },
+            Data = packageItem.Data,
+        };
 }

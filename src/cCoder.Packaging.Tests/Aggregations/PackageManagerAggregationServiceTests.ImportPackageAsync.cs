@@ -167,6 +167,46 @@ public partial class PackageManagerAggregationServiceTests
     }
 
     [Fact]
+    public async Task ShouldCanonicalizeDomainPackageItemTypeWhenImportPackageAsync()
+    {
+        // Given
+        Package package = CreateRandomPackage();
+        Package actualPackage = null;
+
+        package.Items =
+        [
+            new PackageItem
+            {
+                Type = "ContentManagement/Page",
+                Data = "[]",
+            },
+        ];
+
+        authorizationBrokerMock
+            .Setup(expression: x => x.IsAdminOfApp(appId: 1))
+            .Returns(value: true);
+
+        contentManagementPackageServiceMock
+            .Setup(expression: x => x.ImportPackageAsync(
+                appId: 1,
+                package: It.IsAny<Package>()))
+            .Callback<int, Package>(action: (_, importedPackage) =>
+                actualPackage = importedPackage)
+            .Returns(value: ValueTask.CompletedTask);
+
+        // When
+        await packageManagerAggregationService.ImportPackageAsync(
+            appId: 1,
+            package: package);
+
+        // Then
+        actualPackage.Items.Should()
+            .ContainSingle()
+            .Which.Type.Should()
+            .Be(expected: "Core/Page");
+    }
+
+    [Fact]
     public async Task ShouldImportPackageWithoutSourceApiWhenImportPackageAsync()
     {
         // Given
