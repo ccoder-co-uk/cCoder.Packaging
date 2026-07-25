@@ -32,7 +32,7 @@ internal sealed partial class PackageManagerAggregationService(
             {
                 packageManagerTelemetryService.LogPackageItemImport(
                     packageItem: packageItem,
-                    packageSource: package.SourceApi);
+                    packageSource: package.SourceApi ?? string.Empty);
 
                 await ImportPackageItemAsync(
                     appId: appId,

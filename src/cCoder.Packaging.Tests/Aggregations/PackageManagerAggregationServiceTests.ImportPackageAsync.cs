@@ -105,6 +105,30 @@ public partial class PackageManagerAggregationServiceTests
     }
 
     [Fact]
+    public async Task ShouldImportPackageWithoutSourceApiWhenImportPackageAsync()
+    {
+        // Given
+        Package package = CreateRandomPackage();
+        package.SourceApi = null;
+        package.Items = [new PackageItem { Type = "Core/Component", Data = "[]" }];
+
+        authorizationBrokerMock.Setup(expression: x => x.IsAdminOfApp(appId: 1))
+            .Returns(value: true);
+
+        contentManagementPackageServiceMock
+            .Setup(expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()))
+            .Returns(value: ValueTask.CompletedTask);
+
+        // When
+        await packageManagerAggregationService.ImportPackageAsync(appId: 1, package: package);
+
+        // Then
+        contentManagementPackageServiceMock.Verify(
+            expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()),
+            times: Times.Once);
+    }
+
+    [Fact]
     public async Task ShouldCompleteWithoutAggregationCallsWhenPackageHasNoItemsForImportPackageAsync()
     {
         // Given
