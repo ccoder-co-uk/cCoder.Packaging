@@ -17,7 +17,6 @@ using cCoder.Packaging.Services.Orchestrations;
 using cCoder.Packaging.Services.Aggregations;
 using cCoder.Packaging.Services.Foundations.PackageManagers;
 using cCoder.Packaging.Services.Foundations.PackageExports;
-using cCoder.Packaging.Services.Foundations.Baselines;
 using cCoder.Packaging.Services.Foundations.Metadata;
 using cCoder.Packaging.Services.Processings;
 using cCoder.Eventing;
@@ -102,7 +101,6 @@ public static class IServiceCollectionExtensions
         services.TryAddTransient<IPackageExportService, PackageExportService>();
         services.TryAddTransient<IPackageExportProcessingService, PackageExportProcessingService>();
         services.TryAddTransient<IConfigProvider, ConfigProvider>();
-        services.TryAddTransient<IBaselineService, BaselineService>();
         services.TryAddTransient<IMetadataService, MetadataService>();
 
         if (includePackageManagerServices)

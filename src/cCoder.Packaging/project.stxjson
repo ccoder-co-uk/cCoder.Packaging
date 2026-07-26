@@ -923,18 +923,6 @@
       ]
     },
     {
-      "Name": "cCoder.Packaging.Exposures.Controllers.BaselineController",
-      "StandardElementType": "Exposure",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "Get",
-          "Inputs": [],
-          "ReturnType": "IActionResult"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Packaging.Exposures.Controllers.PackageController",
       "StandardElementType": "Exposure",
       "Properties": [],
@@ -1107,17 +1095,6 @@
           "ReturnType": "IActionResult"
         }
       ]
-    },
-    {
-      "Name": "cCoder.Packaging.Exposures.Setup.UIBaseline",
-      "StandardElementType": "Dependency",
-      "Properties": [
-        {
-          "Name": "Packages",
-          "Type": "Package[]"
-        }
-      ],
-      "Methods": []
     },
     {
       "Name": "cCoder.Packaging.IServiceCollectionExtensions",
@@ -1501,18 +1478,6 @@
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
-        }
-      ]
-    },
-    {
-      "Name": "cCoder.Packaging.Services.Foundations.Baselines.BaselineService",
-      "StandardElementType": "FoundationService",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "GetBaselinePackages",
-          "Inputs": [],
-          "ReturnType": "Package[]"
         }
       ]
     },
@@ -2425,10 +2390,6 @@
     }
   ],
   "Links": [
-    {
-      "FromType": "cCoder.Packaging.Exposures.Controllers.BaselineController",
-      "ToType": "cCoder.Packaging.Services.Foundations.Baselines.BaselineService"
-    },
     {
       "FromType": "cCoder.Packaging.Exposures.Controllers.PackageController",
       "ToType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService"
