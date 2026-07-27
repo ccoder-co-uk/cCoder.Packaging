@@ -199,13 +199,18 @@ public partial class PackageManagerAggregationServiceTests
     {
         // Given
         Package package = CreateRandomPackage();
+        Package actualPackage = null;
         package.Items = [new PackageItem { Type = "ContentManagement/Component", Data = "[]" }];
 
         authorizationBrokerMock.Setup(expression: x => x.IsAdminOfApp(appId: 1))
             .Returns(value: true);
 
         contentManagementPackageServiceMock
-            .Setup(expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()))
+            .Setup(expression: x => x.ImportPackageAsync(
+                appId: 1,
+                package: It.IsAny<Package>()))
+            .Callback<int, Package>(action: (_, delegatedPackage) =>
+                actualPackage = delegatedPackage)
             .Returns(value: ValueTask.CompletedTask);
 
         // When
@@ -213,6 +218,9 @@ public partial class PackageManagerAggregationServiceTests
 
         // Then
         contentManagementPackageServiceMock.Verify(expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()), times: Times.Once);
+
+        actualPackage.Name.Should()
+            .Be(expected: package.Name);
     }
 
     [Fact]

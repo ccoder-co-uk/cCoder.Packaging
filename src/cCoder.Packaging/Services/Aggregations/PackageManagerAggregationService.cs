@@ -36,6 +36,7 @@ internal sealed partial class PackageManagerAggregationService(
 
                 await ImportPackageItemAsync(
                     appId: appId,
+                    packageName: package.Name,
                     packageItem: packageItem);
             }
         });
@@ -73,6 +74,7 @@ internal sealed partial class PackageManagerAggregationService(
 
     private async ValueTask ImportPackageItemAsync(
         int appId,
+        string packageName,
         PackageItem packageItem)
     {
         if (packageItem.Type is
@@ -144,7 +146,7 @@ internal sealed partial class PackageManagerAggregationService(
         }
 
         Package contentPackage =
-            new("ContentManagement")
+            new(packageName)
             {
                 Items = [packageItem],
             };
