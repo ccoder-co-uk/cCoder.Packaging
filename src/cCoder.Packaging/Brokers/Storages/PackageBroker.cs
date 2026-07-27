@@ -118,7 +118,7 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
             [
                 new PackageItem
                 {
-                    Type = "Core/Role",
+                    Type = "AppSecurity/Role",
                     Data = roles.Select(selector:role => new { role.Name, role.Privs })
                                .ToJson(settings:serializerSettings),
                 },
@@ -143,7 +143,7 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
             [
                 new PackageItem
                 {
-                    Type = "Core/FolderRole",
+                    Type = "DocumentManagement/FolderRole",
                     Data = folders.SelectMany(
 collectionSelector:                        folder => folder.Roles,
 resultSelector:                        (folder, folderRole) => new { folder.Path, folderRole.Role.Name }
@@ -166,7 +166,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
             [
                 new PackageItem
                 {
-                    Type = "Core/Layout",
+                    Type = "ContentManagement/Layout",
                     Data = coreDataContext
                         .Layouts
                         .Where(predicate:layout => layout.AppId == appId)
@@ -195,7 +195,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
             [
                 new PackageItem
                 {
-                    Type = "Core/Template",
+                    Type = "ContentManagement/Template",
                     Data = coreDataContext
                         .Templates
                         .Where(predicate:template => template.AppId == appId)
@@ -223,7 +223,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
             [
                 new PackageItem
                 {
-                    Type = "Core/Component",
+                    Type = "ContentManagement/Component",
                     Data = coreDataContext
                         .Components
                         .Where(predicate:component => component.AppId == appId)
@@ -253,7 +253,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
             [
                 new PackageItem
                 {
-                    Type = "Core/Script",
+                    Type = "ContentManagement/Script",
                     Data = coreDataContext
                         .Scripts
                         .Where(predicate:script => script.AppId == appId)
@@ -280,7 +280,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
             [
                 new PackageItem
                 {
-                    Type = "Core/Resource",
+                    Type = "ContentManagement/Resource",
                     Data = coreDataContext
                         .Resources
                         .Where(predicate:resource => resource.AppId == appId)
@@ -328,7 +328,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
             [
                 new PackageItem
                 {
-                    Type = "Core/Page",
+                    Type = "ContentManagement/Page",
                     Data = appPages
                         .Select(selector:page =>
                         {
@@ -393,7 +393,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
             [
                 new PackageItem
                 {
-                    Type = "Core/FlowDefinition",
+                    Type = "Workflow/FlowDefinition",
                     Data = coreDataContext
                         .FlowDefinitions
                         .Include(navigationPropertyPath:flow => flow.App)
@@ -450,7 +450,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
             [
                 new PackageItem
                 {
-                    Type = "Core/PageRole",
+                    Type = "ContentManagement/PageRole",
                     Data = pageRoles.ToJson(settings:serializerSettings),
                 },
             ],
@@ -468,7 +468,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
             [
                 new PackageItem
                 {
-                    Type = "Core/Calendar",
+                    Type = "Workflow/Calendar",
                     Data = coreDataContext
                         .Calendars
                         .Where(predicate:calendar => calendar.AppId == appId)
@@ -490,7 +490,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
             [
                 new PackageItem
                 {
-                    Type = "Core/CalendarEvent",
+                    Type = "Workflow/CalendarEvent",
                     Data = coreDataContext
                         .Events
                         .Include(navigationPropertyPath:calendarEvent => calendarEvent.Calendar)
