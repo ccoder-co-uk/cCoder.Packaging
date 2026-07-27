@@ -77,7 +77,9 @@ internal sealed partial class PackageManagerAggregationService(
     {
         if (packageItem.Type is
             "Workflow/Calendar"
-            or "Workflow/CalendarEvent")
+            or "Workflow/CalendarEvent"
+            or "Core/Calendar"
+            or "Core/CalendarEvent")
         {
             Package planningPackage = new("Planning")
             {
@@ -91,7 +93,9 @@ internal sealed partial class PackageManagerAggregationService(
             return;
         }
 
-        if (packageItem.Type is "Workflow/FlowDefinition")
+        if (packageItem.Type is
+            "Workflow/FlowDefinition"
+            or "Core/FlowDefinition")
         {
             Package workflowPackage = new("Workflow")
             {
@@ -105,7 +109,9 @@ internal sealed partial class PackageManagerAggregationService(
             return;
         }
 
-        if (packageItem.Type is "DocumentManagement/FolderRole")
+        if (packageItem.Type is
+            "DocumentManagement/FolderRole"
+            or "Core/FolderRole")
         {
             Package documentPackage =
                 new("DocumentManagement")
@@ -120,7 +126,9 @@ internal sealed partial class PackageManagerAggregationService(
             return;
         }
 
-        if (packageItem.Type is "AppSecurity/Role")
+        if (packageItem.Type is
+            "AppSecurity/Role"
+            or "Core/Role")
         {
             Package appSecurityPackage =
                 new("AppSecurity")
