@@ -150,7 +150,7 @@ public partial class PackageManagerAggregationServiceTests
     {
         // Given
         Package package = CreateRandomPackage();
-        package.Items = [new PackageItem { Type = "Core/Component", Data = "[]" }];
+        package.Items = [new PackageItem { Type = "ContentManagement/Component", Data = "[]" }];
 
         authorizationBrokerMock.Setup(expression: x => x.IsAdminOfApp(appId: 1))
             .Returns(value: true);
@@ -203,7 +203,7 @@ public partial class PackageManagerAggregationServiceTests
         actualPackage.Items.Should()
             .ContainSingle()
             .Which.Type.Should()
-            .Be(expected: "Core/Page");
+            .Be(expected: "ContentManagement/Page");
     }
 
     [Fact]
@@ -212,7 +212,7 @@ public partial class PackageManagerAggregationServiceTests
         // Given
         Package package = CreateRandomPackage();
         package.SourceApi = null;
-        package.Items = [new PackageItem { Type = "Core/Component", Data = "[]" }];
+        package.Items = [new PackageItem { Type = "ContentManagement/Component", Data = "[]" }];
 
         authorizationBrokerMock.Setup(expression: x => x.IsAdminOfApp(appId: 1))
             .Returns(value: true);
@@ -253,7 +253,7 @@ public partial class PackageManagerAggregationServiceTests
     {
         // Given
         Package package = CreateRandomPackage();
-        package.Items = [new PackageItem { Type = "Core/Component", Data = "[]" }];
+        package.Items = [new PackageItem { Type = "ContentManagement/Component", Data = "[]" }];
 
         // When
         authorizationBrokerMock.Setup(expression: x => x.IsAdminOfApp(appId: 1))

@@ -75,18 +75,13 @@ internal sealed partial class PackageManagerAggregationService(
         int appId,
         PackageItem packageItem)
     {
-        PackageItem canonicalPackageItem = ToCanonicalPackageItem(
-            packageItem: packageItem);
-
         if (packageItem.Type is
-            "Core/Calendar"
-            or "Core/CalendarEvent"
-            or "Workflow/Calendar"
+            "Workflow/Calendar"
             or "Workflow/CalendarEvent")
         {
             Package planningPackage = new("Planning")
             {
-                Items = [canonicalPackageItem],
+                Items = [packageItem],
             };
 
             await schedulingPackageService.ImportPackageAsync(
@@ -96,13 +91,11 @@ internal sealed partial class PackageManagerAggregationService(
             return;
         }
 
-        if (packageItem.Type is
-            "Core/FlowDefinition"
-            or "Workflow/FlowDefinition")
+        if (packageItem.Type is "Workflow/FlowDefinition")
         {
             Package workflowPackage = new("Workflow")
             {
-                Items = [canonicalPackageItem],
+                Items = [packageItem],
             };
 
             await workflowPackageService.ImportPackageAsync(
@@ -112,14 +105,12 @@ internal sealed partial class PackageManagerAggregationService(
             return;
         }
 
-        if (packageItem.Type is
-            "Core/FolderRole"
-            or "DocumentManagement/FolderRole")
+        if (packageItem.Type is "DocumentManagement/FolderRole")
         {
             Package documentPackage =
                 new("DocumentManagement")
                 {
-                    Items = [canonicalPackageItem],
+                    Items = [packageItem],
                 };
 
             await documentManagementPackageService.ImportPackageAsync(
@@ -129,14 +120,12 @@ internal sealed partial class PackageManagerAggregationService(
             return;
         }
 
-        if (packageItem.Type is
-            "Core/Role"
-            or "AppSecurity/Role")
+        if (packageItem.Type is "AppSecurity/Role")
         {
             Package appSecurityPackage =
                 new("AppSecurity")
                 {
-                    Items = [canonicalPackageItem],
+                    Items = [packageItem],
                 };
 
             await appSecurityPackageService.ImportPackageAsync(
@@ -149,7 +138,7 @@ internal sealed partial class PackageManagerAggregationService(
         Package contentPackage =
             new("ContentManagement")
             {
-                Items = [canonicalPackageItem],
+                Items = [packageItem],
             };
 
         await contentManagementPackageService.ImportPackageAsync(
@@ -157,32 +146,4 @@ internal sealed partial class PackageManagerAggregationService(
             package: contentPackage);
     }
 
-    private static PackageItem ToCanonicalPackageItem(
-        PackageItem packageItem) =>
-        new()
-        {
-            Id = packageItem.Id,
-            PackageId = packageItem.PackageId,
-            Type = packageItem.Type switch
-            {
-                string type when type.StartsWith(
-                    value: "ContentManagement/",
-                    comparisonType: StringComparison.OrdinalIgnoreCase) =>
-                    $"Core/{type["ContentManagement/".Length..]}",
-                string type when type.StartsWith(
-                    value: "AppSecurity/",
-                    comparisonType: StringComparison.OrdinalIgnoreCase) =>
-                    $"Core/{type["AppSecurity/".Length..]}",
-                string type when type.StartsWith(
-                    value: "DocumentManagement/",
-                    comparisonType: StringComparison.OrdinalIgnoreCase) =>
-                    $"Core/{type["DocumentManagement/".Length..]}",
-                string type when type.StartsWith(
-                    value: "Workflow/",
-                    comparisonType: StringComparison.OrdinalIgnoreCase) =>
-                    $"Core/{type["Workflow/".Length..]}",
-                _ => packageItem.Type,
-            },
-            Data = packageItem.Data,
-        };
 }

@@ -272,7 +272,7 @@ data: packageItem.Data);
         {
             Id = id ?? Guid.NewGuid(),
             PackageId = packageId ?? Guid.NewGuid(),
-            Type = type ?? "Core/Page",
+            Type = type ?? "ContentManagement/Page",
             Data = data ?? "{\"name\":\"Home\"}",
         };
 }
