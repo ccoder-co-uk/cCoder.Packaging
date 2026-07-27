@@ -146,6 +146,55 @@ public partial class PackageManagerAggregationServiceTests
     }
 
     [Fact]
+    public async Task ShouldRouteLegacyCorePackageItemTypesToTheirDomainServicesWhenImportPackageAsync()
+    {
+        // Given
+        Package package = CreateRandomPackage();
+
+        package.Items =
+        [
+            new PackageItem { Type = "Core/Calendar", Data = "[]" },
+            new PackageItem { Type = "Core/FlowDefinition", Data = "[]" },
+            new PackageItem { Type = "Core/FolderRole", Data = "[]" },
+            new PackageItem { Type = "Core/Role", Data = "[]" },
+        ];
+
+        authorizationBrokerMock
+            .Setup(expression: x => x.IsAdminOfApp(appId: 1))
+            .Returns(value: true);
+
+        schedulingPackageServiceMock
+            .Setup(expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()))
+            .Returns(value: ValueTask.CompletedTask);
+
+        workflowPackageServiceMock
+            .Setup(expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()))
+            .Returns(value: ValueTask.CompletedTask);
+
+        documentManagementPackageServiceMock
+            .Setup(expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()))
+            .Returns(value: ValueTask.CompletedTask);
+
+        appSecurityPackageServiceMock
+            .Setup(expression: x => x.ImportPackageAsync(
+                appId: 1,
+                package: It.IsAny<Package>()))
+            .Returns(value: ValueTask.CompletedTask);
+
+        // When
+        await packageManagerAggregationService.ImportPackageAsync(
+            appId: 1,
+            package: package);
+
+        // Then
+        schedulingPackageServiceMock.VerifyAll();
+        workflowPackageServiceMock.VerifyAll();
+        documentManagementPackageServiceMock.VerifyAll();
+        appSecurityPackageServiceMock.VerifyAll();
+        contentManagementPackageServiceMock.VerifyNoOtherCalls();
+    }
+
+    [Fact]
     public async Task ShouldDelegateToContentManagementPackageServiceWhenImportPackageAsync()
     {
         // Given
