@@ -21,6 +21,7 @@ public partial class PackageManagerAggregationServiceTests
     {
         // Given
         Package package = CreateRandomPackage();
+        Package actualPackage = null;
 
         package.Items =
         [
@@ -36,6 +37,8 @@ public partial class PackageManagerAggregationServiceTests
 
         schedulingPackageServiceMock
             .Setup(expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()))
+            .Callback<int, Package>(action: (_, importedPackage) =>
+                actualPackage = importedPackage)
             .Returns(value: ValueTask.CompletedTask);
 
         // When
@@ -47,6 +50,11 @@ public partial class PackageManagerAggregationServiceTests
         workflowPackageServiceMock.VerifyNoOtherCalls();
         documentManagementPackageServiceMock.VerifyNoOtherCalls();
         contentManagementPackageServiceMock.VerifyNoOtherCalls();
+
+        actualPackage.Items.Should()
+            .ContainSingle()
+            .Which.Type.Should()
+            .Be(expected: "Core/Calendar");
     }
 
     [Fact]
@@ -54,6 +62,7 @@ public partial class PackageManagerAggregationServiceTests
     {
         // Given
         Package package = CreateRandomPackage();
+        Package actualPackage = null;
 
         package.Items =
         [
@@ -69,6 +78,8 @@ public partial class PackageManagerAggregationServiceTests
 
         workflowPackageServiceMock
             .Setup(expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()))
+            .Callback<int, Package>(action: (_, importedPackage) =>
+                actualPackage = importedPackage)
             .Returns(value: ValueTask.CompletedTask);
 
         // When
@@ -76,6 +87,11 @@ public partial class PackageManagerAggregationServiceTests
 
         // Then
         workflowPackageServiceMock.Verify(expression: x => x.ImportPackageAsync(appId: 1, package: It.IsAny<Package>()), times: Times.Once);
+
+        actualPackage.Items.Should()
+            .ContainSingle()
+            .Which.Type.Should()
+            .Be(expected: "Core/FlowDefinition");
     }
 
     [Fact]
