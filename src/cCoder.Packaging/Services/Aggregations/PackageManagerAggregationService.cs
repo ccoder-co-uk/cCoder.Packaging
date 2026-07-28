@@ -77,6 +77,9 @@ internal sealed partial class PackageManagerAggregationService(
         string packageName,
         PackageItem packageItem)
     {
+        PackageItem canonicalPackageItem = ToCanonicalDomainPackageItem(
+            packageItem: packageItem);
+
         if (packageItem.Type is
             "Workflow/Calendar"
             or "Workflow/CalendarEvent"
@@ -85,7 +88,7 @@ internal sealed partial class PackageManagerAggregationService(
         {
             Package planningPackage = new("Planning")
             {
-                Items = [packageItem],
+                Items = [canonicalPackageItem],
             };
 
             await schedulingPackageService.ImportPackageAsync(
@@ -101,7 +104,7 @@ internal sealed partial class PackageManagerAggregationService(
         {
             Package workflowPackage = new("Workflow")
             {
-                Items = [packageItem],
+                Items = [canonicalPackageItem],
             };
 
             await workflowPackageService.ImportPackageAsync(
@@ -118,7 +121,7 @@ internal sealed partial class PackageManagerAggregationService(
             Package documentPackage =
                 new("DocumentManagement")
                 {
-                    Items = [packageItem],
+                    Items = [canonicalPackageItem],
                 };
 
             await documentManagementPackageService.ImportPackageAsync(
@@ -135,7 +138,7 @@ internal sealed partial class PackageManagerAggregationService(
             Package appSecurityPackage =
                 new("AppSecurity")
                 {
-                    Items = [packageItem],
+                    Items = [canonicalPackageItem],
                 };
 
             await appSecurityPackageService.ImportPackageAsync(
@@ -156,4 +159,28 @@ internal sealed partial class PackageManagerAggregationService(
             package: contentPackage);
     }
 
+    private static PackageItem ToCanonicalDomainPackageItem(
+        PackageItem packageItem) =>
+        new()
+        {
+            Id = packageItem.Id,
+            PackageId = packageItem.PackageId,
+            Type = packageItem.Type switch
+            {
+                string type when type.StartsWith(
+                    value: "AppSecurity/",
+                    comparisonType: StringComparison.OrdinalIgnoreCase) =>
+                    $"Core/{type["AppSecurity/".Length..]}",
+                string type when type.StartsWith(
+                    value: "DocumentManagement/",
+                    comparisonType: StringComparison.OrdinalIgnoreCase) =>
+                    $"Core/{type["DocumentManagement/".Length..]}",
+                string type when type.StartsWith(
+                    value: "Workflow/",
+                    comparisonType: StringComparison.OrdinalIgnoreCase) =>
+                    $"Core/{type["Workflow/".Length..]}",
+                _ => packageItem.Type,
+            },
+            Data = packageItem.Data,
+        };
 }
