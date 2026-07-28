@@ -2,24 +2,25 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Data;
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Api.OData;
+using cCoder.Eventing;
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Brokers.Events;
 using cCoder.Packaging.Brokers.Metadata;
 using cCoder.Packaging.Brokers.OData;
 using cCoder.Packaging.Brokers.Storages;
 using cCoder.Packaging.Exposures.Configuration;
-using cCoder.Packaging.Services.Foundations.Events;
+using cCoder.Packaging.Models;
+using cCoder.Packaging.Services.Aggregations;
 using cCoder.Packaging.Services.Foundations;
+using cCoder.Packaging.Services.Foundations.Events;
+using cCoder.Packaging.Services.Foundations.Metadata;
+using cCoder.Packaging.Services.Foundations.PackageExports;
+using cCoder.Packaging.Services.Foundations.PackageManagers;
 using cCoder.Packaging.Services.Foundations.Storages;
 using cCoder.Packaging.Services.Orchestrations;
-using cCoder.Packaging.Services.Aggregations;
-using cCoder.Packaging.Services.Foundations.PackageManagers;
-using cCoder.Packaging.Services.Foundations.PackageExports;
-using cCoder.Packaging.Services.Foundations.Metadata;
 using cCoder.Packaging.Services.Processings;
-using cCoder.Eventing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.OData.Batch;
@@ -29,23 +30,178 @@ using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi;
 
-
 namespace cCoder.Packaging;
 
 public static class IServiceCollectionExtensions
 {
-    public static IServiceCollection AddPackagingWeb(this IServiceCollection services)
+    public static IServiceCollection AddPackagingWeb(
+        this IServiceCollection services,
+        Action<PackagingConfiguration> configure)
     {
-        AddPackaging(services: services, includePackageManagerServices: false);
+        PackagingConfiguration configuration = new();
+        configure?.Invoke(obj: configuration);
+
+        return services.AddPackagingWeb(configuration: configuration);
+    }
+
+    public static IServiceCollection AddPackagingWeb(
+        this IServiceCollection services,
+        PackagingConfiguration configuration)
+    {
+        services.AddConfiguration(configuration: configuration);
+        services.AddBrokers(includePackageManagerServices: false);
+        services.AddFoundations(includePackageManagerServices: false);
+        services.AddProcessings();
+        services.AddOrchestrations();
+        services.AddAggregations(includePackageManagerServices: false);
+        services.AddExposures(includeRouteContributor: false);
+        services.AddWebExposures();
+
+        return services;
+    }
+
+    public static IServiceCollection AddPackaging(
+        this IServiceCollection services,
+        Action<PackagingConfiguration> configure)
+    {
+        PackagingConfiguration configuration = new();
+        configure?.Invoke(obj: configuration);
+
+        return services.AddPackaging(configuration: configuration);
+    }
+
+    public static IServiceCollection AddPackaging(
+        this IServiceCollection services,
+        PackagingConfiguration configuration)
+    {
+        services.AddConfiguration(configuration: configuration);
+        services.AddBrokers(includePackageManagerServices: true);
+        services.AddFoundations(includePackageManagerServices: true);
+        services.AddProcessings();
+        services.AddOrchestrations();
+        services.AddAggregations(includePackageManagerServices: true);
+        services.AddExposures(includeRouteContributor: true);
+
+        return services;
+    }
+
+    private static void AddConfiguration(
+        this IServiceCollection services,
+        PackagingConfiguration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(argument: configuration);
+        services.TryAddSingleton(instance: configuration);
+
+        services.AddData(
+            configuration: new cCoder.Data.Models.DataConfiguration
+            {
+                ConnectionString = configuration.ConnectionString
+            });
+    }
+
+    private static void AddBrokers(
+        this IServiceCollection services,
+        bool includePackageManagerServices)
+    {
+        services.TryAddTransient<IAuthorizationBroker, AuthorizationBroker>();
+        services.TryAddTransient<IAuthInfoBroker, AuthInfoBroker>();
+        services.TryAddTransient<IPackageEventBroker, PackageEventBroker>();
+        services.TryAddTransient<IPackageItemEventBroker, PackageItemEventBroker>();
+        services.TryAddTransient<IPackageBroker, PackageBroker>();
+        services.TryAddTransient<IPackageItemBroker, PackageItemBroker>();
+        services.TryAddTransient<IMetadataBroker, MetadataBroker>();
+
+        if (includePackageManagerServices)
+        {
+            services.TryAddTransient<IPackageLoggerBroker, PackageLoggerBroker>();
+        }
+    }
+
+    private static void AddFoundations(
+        this IServiceCollection services,
+        bool includePackageManagerServices)
+    {
+        services.TryAddTransient<IPackageEventService, PackageEventService>();
+        services.TryAddTransient<IPackageItemEventService, PackageItemEventService>();
+        services.TryAddTransient<IPackagingMetadataTypeService, PackagingMetadataTypeService>();
+        services.TryAddTransient<IPackageService, PackageService>();
+        services.TryAddTransient<IPackageItemService, PackageItemService>();
+        services.TryAddTransient<IPackageExportService, PackageExportService>();
+        services.TryAddTransient<IMetadataService, MetadataService>();
+
+        if (includePackageManagerServices)
+        {
+            services.TryAddTransient<IAppSecurityPackageService, AppSecurityPackageService>();
+            services.TryAddTransient<IContentManagementPackageService, ContentManagementPackageService>();
+            services.TryAddTransient<IDocumentManagementPackageService, DocumentManagementPackageService>();
+            services.TryAddTransient<ISchedulingPackageService, SchedulingPackageService>();
+            services.TryAddTransient<IWorkflowPackageService, WorkflowPackageService>();
+            services.TryAddTransient<IPackageManagerTelemetryService, PackageManagerTelemetryService>();
+        }
+    }
+
+    private static void AddProcessings(
+        this IServiceCollection services)
+    {
+        services.TryAddTransient<IPackageEventProcessingService, PackageEventProcessingService>();
+        services.TryAddTransient<IPackageItemEventProcessingService, PackageItemEventProcessingService>();
+        services.TryAddTransient<IPackageItemProcessingService, PackageItemProcessingService>();
+        services.TryAddTransient<IPackageProcessingService, PackageProcessingService>();
+        services.TryAddTransient<IPackageExportProcessingService, PackageExportProcessingService>();
+    }
+
+    private static void AddOrchestrations(
+        this IServiceCollection services) =>
+        services.TryAddTransient<
+            IPackageItemOrchestrationService,
+            PackageItemOrchestrationService>();
+
+    private static void AddAggregations(
+        this IServiceCollection services,
+        bool includePackageManagerServices)
+    {
+        services.TryAddTransient<IPackageAggregationService, PackageAggregationService>();
+
+        if (includePackageManagerServices)
+        {
+            services.TryAddTransient<
+                IPackageManagerAggregationService,
+                PackageManagerAggregationService>();
+        }
+    }
+
+    private static void AddExposures(
+        this IServiceCollection services,
+        bool includeRouteContributor)
+    {
+        services.AddEventingForType<Package>();
+        services.AddEventingForType<PackageItem>();
+        services.AddEventingForType<(int, Package)>();
+        services.TryAddTransient<IConfigProvider, ConfigProvider>();
+
+        if (includeRouteContributor)
+        {
+            services.AddSingleton<Action<ODataConventionModelBuilder>>(
+                implementationInstance: builder =>
+                    new ODataModelBroker().ConfigureODataModel(
+                        builder: builder));
+        }
+    }
+
+    private static void AddWebExposures(
+        this IServiceCollection services)
+    {
         services.TryAddTransient<IAppDomainProvider, AppDomainProvider>();
-        AddAspNet(services: services);
-        AddApiDocumentation(services: services);
+        services.AddAspNet();
+        services.AddApiDocumentation();
 
-        IEdmModel routeModel = BuildRouteModel();
+        ODataConventionModelBuilder modelBuilder = new();
+        new ODataModelBroker().ConfigureODataModel(builder: modelBuilder);
+        IEdmModel routeModel = modelBuilder.GetEdmModel();
         DefaultODataBatchHandler batchHandler = new();
+        IMvcBuilder mvcBuilder = services.AddControllers();
 
-        services.AddControllers()
-            .AddOData(setupAction: options =>
+        mvcBuilder.AddOData(setupAction: options =>
         {
             options.RouteOptions.EnableQualifiedOperationCall = false;
             options.EnableAttributeRouting = true;
@@ -57,130 +213,82 @@ public static class IServiceCollectionExtensions
                 .Select()
                 .OrderBy()
                 .SetMaxTop(maxTopValue: 1000)
-                .AddRouteComponents(routePrefix: "Api/Packaging", model: routeModel, batchHandler: batchHandler)
-                .AddRouteComponents(routePrefix: "Api/Core", model: routeModel, batchHandler: batchHandler);
+                .AddRouteComponents(
+                    routePrefix: "Api/Packaging",
+                    model: routeModel,
+                    batchHandler: batchHandler)
+                .AddRouteComponents(
+                    routePrefix: "Api/Core",
+                    model: routeModel,
+                    batchHandler: batchHandler);
         });
-
-        return services;
     }
 
-    public static IServiceCollection AddPackaging(
-        this IServiceCollection services,
-        bool includeRouteContributor = true,
-        bool includePackageManagerServices = true
-    )
-    {
-        if (includeRouteContributor)
-        {
-            services.AddSingleton<Action<ODataConventionModelBuilder>>(
-                implementationInstance: builder =>
-                    new ODataModelBroker().ConfigureODataModel(builder: builder));
-        }
-
-        services.AddEventingForType<Package>();
-        services.AddEventingForType<PackageItem>();
-        services.AddEventingForType<(int, Package)>();
-        services.TryAddTransient<IAuthorizationBroker, AuthorizationBroker>();
-        services.TryAddTransient<IAuthInfoBroker, AuthInfoBroker>();
-        services.TryAddTransient<IPackageEventBroker, PackageEventBroker>();
-        services.TryAddTransient<IPackageItemEventBroker, PackageItemEventBroker>();
-        services.TryAddTransient<IPackageBroker, PackageBroker>();
-        services.TryAddTransient<IPackageItemBroker, PackageItemBroker>();
-        services.TryAddTransient<IMetadataBroker, MetadataBroker>();
-        services.TryAddTransient<IPackageEventService, PackageEventService>();
-        services.TryAddTransient<IPackageItemEventService, PackageItemEventService>();
-        services.TryAddTransient<IPackagingMetadataTypeService, PackagingMetadataTypeService>();
-        services.TryAddTransient<IPackageService, PackageService>();
-        services.TryAddTransient<IPackageItemService, PackageItemService>();
-        services.TryAddTransient<IPackageEventProcessingService, PackageEventProcessingService>();
-        services.TryAddTransient<IPackageItemEventProcessingService, PackageItemEventProcessingService>();
-        services.TryAddTransient<IPackageItemProcessingService, PackageItemProcessingService>();
-        services.TryAddTransient<IPackageProcessingService, PackageProcessingService>();
-        services.TryAddTransient<IPackageItemOrchestrationService, PackageItemOrchestrationService>();
-        services.TryAddTransient<IPackageAggregationService, PackageAggregationService>();
-        services.TryAddTransient<IPackageExportService, PackageExportService>();
-        services.TryAddTransient<IPackageExportProcessingService, PackageExportProcessingService>();
-        services.TryAddTransient<IConfigProvider, ConfigProvider>();
-        services.TryAddTransient<IMetadataService, MetadataService>();
-
-        if (includePackageManagerServices)
-        {
-            services.TryAddTransient<IAppSecurityPackageService, AppSecurityPackageService>();
-            services.TryAddTransient<IContentManagementPackageService, ContentManagementPackageService>();
-            services.TryAddTransient<IDocumentManagementPackageService, DocumentManagementPackageService>();
-            services.TryAddTransient<ISchedulingPackageService, SchedulingPackageService>();
-            services.TryAddTransient<IWorkflowPackageService, WorkflowPackageService>();
-            services.TryAddTransient<IPackageManagerAggregationService, PackageManagerAggregationService>();
-            services.TryAddTransient<IPackageManagerTelemetryService, PackageManagerTelemetryService>();
-            services.TryAddTransient<IPackageLoggerBroker, PackageLoggerBroker>();
-        }
-
-        return services;
-    }
-
-    private static void AddApiDocumentation(IServiceCollection services) =>
+    private static void AddApiDocumentation(
+        this IServiceCollection services) =>
         services.AddSwaggerGen(setupAction: options =>
         {
-            options.ResolveConflictingActions(resolver: apiDescriptions => apiDescriptions.First());
+            options.ResolveConflictingActions(
+                resolver: apiDescriptions => apiDescriptions.First());
 
             options.SwaggerDoc(name: "Packaging", info: new OpenApiInfo
             {
                 Title = "Packaging API definition",
-                Version = "Packaging",
+                Version = "Packaging"
             });
 
             options.SwaggerDoc(name: "Core", info: new OpenApiInfo
             {
                 Title = "Core API definition",
-                Version = "Core",
+                Version = "Core"
             });
 
             options.SwaggerDoc(name: "v1", info: new OpenApiInfo
             {
                 Title = "Core API definition",
-                Version = "v1",
+                Version = "v1"
             });
 
-            options.DocInclusionPredicate(predicate: (documentName, apiDescription) =>
-            {
-                if (string.IsNullOrWhiteSpace(value: apiDescription.RelativePath))
+            options.DocInclusionPredicate(
+                predicate: (documentName, apiDescription) =>
                 {
-                    return false;
-                }
+                    if (string.IsNullOrWhiteSpace(
+                        value: apiDescription.RelativePath))
+                    {
+                        return false;
+                    }
 
-                string normalizedDocument = string.Equals(a: documentName, b: "v1", comparisonType: StringComparison.OrdinalIgnoreCase)
-                    ? "Core"
-                    : documentName;
+                    string normalizedDocument = string.Equals(
+                        a: documentName,
+                        b: "v1",
+                        comparisonType: StringComparison.OrdinalIgnoreCase)
+                            ? "Core"
+                            : documentName;
 
-                string path = apiDescription.RelativePath.StartsWith(value: '/')
-                    ? apiDescription.RelativePath
-                    : $"/{apiDescription.RelativePath}";
+                    string path =
+                        apiDescription.RelativePath.StartsWith(value: '/')
+                            ? apiDescription.RelativePath
+                            : $"/{apiDescription.RelativePath}";
 
-                return string.Equals(a: normalizedDocument, b: "Core", comparisonType: StringComparison.OrdinalIgnoreCase)
-                    ? MatchesContextRoute(path: path, rootPath: "Api/Core")
-                    : MatchesContextRoute(path: path, rootPath: "Api/Packaging");
-            });
+                    string rootPath =
+                        string.Equals(
+                            a: normalizedDocument,
+                            b: "Core",
+                            comparisonType: StringComparison.OrdinalIgnoreCase)
+                                ? "/Api/Core"
+                                : "/Api/Packaging";
+
+                    return path.Equals(
+                            value: rootPath,
+                            comparisonType: StringComparison.OrdinalIgnoreCase)
+                        || path.StartsWith(
+                            value: $"{rootPath}/",
+                            comparisonType: StringComparison.OrdinalIgnoreCase);
+                });
         });
 
-    private static bool MatchesContextRoute(string path, string rootPath)
-    {
-        string normalizedRootPath = rootPath.StartsWith(value: '/')
-            ? rootPath
-            : $"/{rootPath}";
-
-        return path.Equals(value: normalizedRootPath, comparisonType: StringComparison.OrdinalIgnoreCase)
-            || path.StartsWith(value: $"{normalizedRootPath}/", comparisonType: StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static IEdmModel BuildRouteModel()
-    {
-        ODataConventionModelBuilder builder = new();
-        new ODataModelBroker().ConfigureODataModel(builder: builder);
-
-        return builder.GetEdmModel();
-    }
-
-    private static void AddAspNet(IServiceCollection services)
+    private static void AddAspNet(
+        this IServiceCollection services)
     {
         services.AddRouting();
         services.AddResponseCompression();
@@ -188,13 +296,15 @@ public static class IServiceCollectionExtensions
         services.AddHttpContextAccessor();
 
         services.AddScoped(
-serviceType: typeof(HttpContext),
-implementationFactory: serviceProvider => serviceProvider.GetService<IHttpContextAccessor>()?.HttpContext ?? new DefaultHttpContext());
+            serviceType: typeof(HttpContext),
+            implementationFactory: serviceProvider =>
+                serviceProvider.GetService<IHttpContextAccessor>()?.HttpContext
+                ?? new DefaultHttpContext());
 
         services.AddScoped(
-serviceType: typeof(HttpRequest),
-implementationFactory: serviceProvider => serviceProvider.GetRequiredService<HttpContext>()
-                                   .Request);
+            serviceType: typeof(HttpRequest),
+            implementationFactory: serviceProvider =>
+                serviceProvider.GetRequiredService<HttpContext>().Request);
 
         services.AddSession();
 
@@ -205,14 +315,13 @@ implementationFactory: serviceProvider => serviceProvider.GetRequiredService<Htt
             options.MaxAge = TimeSpan.FromMinutes(minutes: 60);
         });
 
-        services.AddMvc(setupAction: options => options.EnableEndpointRouting = false);
+        services.AddMvc(
+            setupAction: options => options.EnableEndpointRouting = false);
         services.AddRazorPages();
-
         services.Configure<KestrelServerOptions>(configureOptions: options =>
         {
             options.Limits.MaxRequestBodySize = int.MaxValue;
         });
-
         services.AddEndpointsApiExplorer();
         services.AddSignalR();
     }

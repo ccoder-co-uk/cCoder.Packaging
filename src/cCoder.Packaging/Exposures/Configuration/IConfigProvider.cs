@@ -6,5 +6,5 @@ namespace cCoder.Packaging.Exposures.Configuration;
 
 public interface IConfigProvider
 {
-    IDictionary<string, string> GetSettings();
+    string GetPackageSourceSslPort();
 }

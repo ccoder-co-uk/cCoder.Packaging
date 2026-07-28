@@ -9,9 +9,9 @@ using Microsoft.AspNetCore.OData;
 
 namespace Packaging.Web;
 
-public static class IApplicationBuilderExtensions
+public static class WebApplicationExtensions
 {
-    public static IApplicationBuilder UsePackagingWebApplication(
+    public static IApplicationBuilder UsePackagingWeb(
         this WebApplication app)
     {
         app.UseHttpsRedirection();

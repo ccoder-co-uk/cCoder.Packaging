@@ -4,7 +4,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace cCoder.Packaging.Dependencies;
+namespace cCoder.Packaging.Models.Results;
 
 public class Result
 {
@@ -41,7 +41,4 @@ public class Result<T> : Result
     }
 
     public T Item { get; set; }
-
-    public Result<TNew> ToNew<TNew>(TNew item) =>
-        new() { Success = Success, Message = Message, Item = item };
 }

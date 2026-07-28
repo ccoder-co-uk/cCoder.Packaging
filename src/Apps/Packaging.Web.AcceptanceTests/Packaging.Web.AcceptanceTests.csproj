@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="8.10.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
@@ -25,7 +26,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\Shared\Testing\AcceptanceTestConfiguration.cs" Link="Testing\AcceptanceTestConfiguration.cs" />
     <ProjectReference Include="..\Packaging.Web\Packaging.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\Shared\Testing\appsettings.testing.json" Link="appsettings.testing.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
