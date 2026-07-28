@@ -17,13 +17,7 @@ internal sealed partial class PackageExportService(
         {
             ValidatePackageSourceApiOnGet(appId: appId);
             string domain = appDomainProvider.GetDomain(appId: appId);
-            IDictionary<string, string> settings = configProvider.GetSettings();
-
-            string sslPort = settings.TryGetValue(
-                key: "sslPort",
-                value: out string configuredSslPort)
-                    ? configuredSslPort
-                    : "443";
+            string sslPort = configProvider.GetPackageSourceSslPort();
 
             return $"https://{domain}:{sslPort}/Api/";
         });

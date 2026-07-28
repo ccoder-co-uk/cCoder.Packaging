@@ -1,5 +1,19 @@
 # cCoder.Packaging
 
+## Local configuration
+
+The Web app binds `PackagingWebConfiguration` directly from `appsettings.json`.
+Leave secret values empty and define these user- or machine-level environment
+variables:
+
+- `Packaging__ConnectionString`
+- `Security__ConnectionString`
+- `Security__DecryptionKey`
+- `Eventing__ServiceBus__ConnectionString` when Service Bus eventing is selected
+
+Restart Visual Studio after changing environment variables and press F5. No
+conversion, `.env` file, or startup script is required.
+
 `cCoder.Packaging` contains the Packaging domain for the cCoder platform.
 
 ## Functionality
@@ -43,11 +57,9 @@ surface starts and responds correctly.
 - `appsettings.{Environment}.json`
 - environment variables
 
-Required settings are:
-
-- `ConnectionStrings__Core`
-- `ConnectionStrings__SSO`
-- `Settings__DecryptionKey`
+The committed settings map directly to the `Eventing`, `Packaging`, and
+`Security` configuration objects. Secrets use the matching environment
+variables listed above.
 
 The local test UI is available at `/tools/index.html`, and `/Health` returns a
 fixed `OK` response for basic health checks.
@@ -55,13 +67,13 @@ fixed `OK` response for basic health checks.
 ## Build
 
 ```powershell
-dotnet build src/cCoder.Packaging.sln -v minimal
+dotnet build src/cCoder.Packaging.slnx -v minimal
 ```
 
 ## Test
 
 ```powershell
-dotnet test src/cCoder.Packaging.sln -v minimal --no-build
+dotnet test src/cCoder.Packaging.slnx -v minimal --no-build
 ```
 
 ## Run The Web App

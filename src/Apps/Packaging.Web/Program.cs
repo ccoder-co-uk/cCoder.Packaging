@@ -9,10 +9,10 @@ public class Program
     public static void Main(string[] args)
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args: args);
-        builder.Services.AddPackagingWebApplication(configuration: builder.Configuration);
+        builder.Services.AddPackagingWeb(configuration: builder.Configuration);
 
         WebApplication app = builder.Build();
-        app.UsePackagingWebApplication();
+        app.UsePackagingWeb();
         app.Run();
     }
 }

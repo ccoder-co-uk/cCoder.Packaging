@@ -1,29 +1,12 @@
 {
   "Classes": [
     {
-      "Name": "Packaging.Web.IApplicationBuilderExtensions",
-      "StandardElementType": "Dependency",
-      "Properties": [],
-      "Methods": [
-        {
-          "Name": "UsePackagingWebApplication",
-          "Inputs": [
-            {
-              "Name": "app",
-              "Type": "WebApplication"
-            }
-          ],
-          "ReturnType": "IApplicationBuilder"
-        }
-      ]
-    },
-    {
       "Name": "Packaging.Web.IServiceCollectionExtensions",
       "StandardElementType": "App",
       "Properties": [],
       "Methods": [
         {
-          "Name": "AddPackagingWebApplication",
+          "Name": "AddPackagingWeb",
           "Inputs": [
             {
               "Name": "services",
@@ -32,11 +15,34 @@
             {
               "Name": "configuration",
               "Type": "IConfiguration"
+            },
+            {
+              "Name": "configure",
+              "Type": "System.Action\u003CPackaging.Web.Models.PackagingWebConfiguration\u003E"
             }
           ],
           "ReturnType": "IServiceCollection"
         }
       ]
+    },
+    {
+      "Name": "Packaging.Web.Models.PackagingWebConfiguration",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Eventing",
+          "Type": "cCoder.Eventing.Models.EventingConfiguration"
+        },
+        {
+          "Name": "Packaging",
+          "Type": "cCoder.Packaging.Models.PackagingConfiguration"
+        },
+        {
+          "Name": "Security",
+          "Type": "cCoder.Security.Objects.SecurityConfiguration"
+        }
+      ],
+      "Methods": []
     },
     {
       "Name": "Packaging.Web.Program",
@@ -52,6 +58,23 @@
             }
           ],
           "ReturnType": "System.Void"
+        }
+      ]
+    },
+    {
+      "Name": "Packaging.Web.WebApplicationExtensions",
+      "StandardElementType": "App",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "UsePackagingWeb",
+          "Inputs": [
+            {
+              "Name": "app",
+              "Type": "WebApplication"
+            }
+          ],
+          "ReturnType": "IApplicationBuilder"
         }
       ]
     }

@@ -1,0 +1,15 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Apps/">
+    <Project Path="Apps/Packaging.Web.AcceptanceTests/Packaging.Web.AcceptanceTests.csproj" />
+    <Project Path="Apps/Packaging.Web/Packaging.Web.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="cCoder.Packaging.Tests/cCoder.Packaging.Tests.csproj" />
+    <Project Path="cCoder.Packaging/cCoder.Packaging.csproj" />
+  </Folder>
+</Solution>

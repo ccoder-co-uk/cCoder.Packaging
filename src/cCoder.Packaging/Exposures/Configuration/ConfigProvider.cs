@@ -2,12 +2,13 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Data;
+using cCoder.Packaging.Models;
 
 namespace cCoder.Packaging.Exposures.Configuration;
 
-public sealed class ConfigProvider(Config config) : IConfigProvider
+public sealed class ConfigProvider(PackagingConfiguration configuration)
+    : IConfigProvider
 {
-    public IDictionary<string, string> GetSettings() =>
-        config.Settings;
+    public string GetPackageSourceSslPort() =>
+        configuration.PackageSourceSslPort;
 }

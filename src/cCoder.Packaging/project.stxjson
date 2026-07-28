@@ -256,13 +256,13 @@
     },
     {
       "Name": "cCoder.Packaging.Api.OData.ODataCollectionExtensions",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Exposure",
       "Properties": [],
       "Methods": []
     },
     {
       "Name": "cCoder.Packaging.Api.OData.ODataJsonExtensions",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Exposure",
       "Properties": [],
       "Methods": []
     },
@@ -287,7 +287,7 @@
     },
     {
       "Name": "cCoder.Packaging.Api.OData.ODataTypeExtensions",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Exposure",
       "Properties": [],
       "Methods": []
     },
@@ -866,59 +866,14 @@
       ]
     },
     {
-      "Name": "cCoder.Packaging.Dependencies.Result",
-      "StandardElementType": "Dependency",
-      "Properties": [
-        {
-          "Name": "Id",
-          "Type": "System.String"
-        },
-        {
-          "Name": "Message",
-          "Type": "System.String"
-        },
-        {
-          "Name": "Success",
-          "Type": "System.Boolean"
-        }
-      ],
-      "Methods": []
-    },
-    {
-      "Name": "cCoder.Packaging.Dependencies.Result\u003CT\u003E",
-      "StandardElementType": "Dependency",
-      "Properties": [
-        {
-          "Name": "Id",
-          "Type": "System.String"
-        },
-        {
-          "Name": "Item",
-          "Type": "T"
-        }
-      ],
-      "Methods": [
-        {
-          "Name": "ToNew",
-          "Inputs": [
-            {
-              "Name": "item",
-              "Type": "TNew"
-            }
-          ],
-          "ReturnType": "cCoder.Packaging.Dependencies.Result\u003CTNew\u003E"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Packaging.Exposures.Configuration.ConfigProvider",
       "StandardElementType": "Exposure",
       "Properties": [],
       "Methods": [
         {
-          "Name": "GetSettings",
+          "Name": "GetPackageSourceSslPort",
           "Inputs": [],
-          "ReturnType": "System.Collections.Generic.IDictionary\u003CSystem.String, System.String\u003E"
+          "ReturnType": "System.String"
         }
       ]
     },
@@ -1109,12 +1064,22 @@
               "Type": "IServiceCollection"
             },
             {
-              "Name": "includeRouteContributor",
-              "Type": "System.Boolean"
+              "Name": "configure",
+              "Type": "System.Action\u003CcCoder.Packaging.Models.PackagingConfiguration\u003E"
+            }
+          ],
+          "ReturnType": "IServiceCollection"
+        },
+        {
+          "Name": "AddPackaging",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
             },
             {
-              "Name": "includePackageManagerServices",
-              "Type": "System.Boolean"
+              "Name": "configuration",
+              "Type": "cCoder.Packaging.Models.PackagingConfiguration"
             }
           ],
           "ReturnType": "IServiceCollection"
@@ -1125,6 +1090,24 @@
             {
               "Name": "services",
               "Type": "IServiceCollection"
+            },
+            {
+              "Name": "configure",
+              "Type": "System.Action\u003CcCoder.Packaging.Models.PackagingConfiguration\u003E"
+            }
+          ],
+          "ReturnType": "IServiceCollection"
+        },
+        {
+          "Name": "AddPackagingWeb",
+          "Inputs": [
+            {
+              "Name": "services",
+              "Type": "IServiceCollection"
+            },
+            {
+              "Name": "configuration",
+              "Type": "cCoder.Packaging.Models.PackagingConfiguration"
             }
           ],
           "ReturnType": "IServiceCollection"
@@ -1342,6 +1325,59 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Packaging.Models.PackagingConfiguration",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "AssetsRoot",
+          "Type": "System.String"
+        },
+        {
+          "Name": "ConnectionString",
+          "Type": "System.String"
+        },
+        {
+          "Name": "PackageSourceSslPort",
+          "Type": "System.String"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.Results.Result",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Id",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Message",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Success",
+          "Type": "System.Boolean"
+        }
+      ],
+      "Methods": []
+    },
+    {
+      "Name": "cCoder.Packaging.Models.Results.Result\u003CT\u003E",
+      "StandardElementType": "Model",
+      "Properties": [
+        {
+          "Name": "Id",
+          "Type": "System.String"
+        },
+        {
+          "Name": "Item",
+          "Type": "T"
+        }
+      ],
+      "Methods": []
+    },
+    {
       "Name": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
       "StandardElementType": "AggregationService",
       "Properties": [],
@@ -1354,7 +1390,7 @@
               "Type": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Dependencies.Result\u003CPackage\u003E\u003E\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Models.Results.Result\u003CPackage\u003E\u003E\u003E"
         },
         {
           "Name": "AddPackageAsync",
@@ -2036,7 +2072,7 @@
               "Type": "System.Collections.Generic.IEnumerable\u003CPackageItem\u003E"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Dependencies.Result\u003CPackageItem\u003E\u003E\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Models.Results.Result\u003CPackageItem\u003E\u003E\u003E"
         },
         {
           "Name": "AddPackageItemAsync",
@@ -2218,7 +2254,7 @@
               "Type": "System.Collections.Generic.IEnumerable\u003CPackageItem\u003E"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Dependencies.Result\u003CPackageItem\u003E\u003E\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Models.Results.Result\u003CPackageItem\u003E\u003E\u003E"
         },
         {
           "Name": "AddPackageItemAsync",
@@ -2369,7 +2405,7 @@
     },
     {
       "Name": "cCoder.Packaging.WebApplicationExtensions",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "App",
       "Properties": [],
       "Methods": [
         {
@@ -2390,6 +2426,10 @@
     }
   ],
   "Links": [
+    {
+      "FromType": "cCoder.Packaging.Exposures.Configuration.ConfigProvider",
+      "ToType": "cCoder.Packaging.Models.PackagingConfiguration"
+    },
     {
       "FromType": "cCoder.Packaging.Exposures.Controllers.PackageController",
       "ToType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService"

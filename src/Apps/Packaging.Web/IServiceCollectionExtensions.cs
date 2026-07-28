@@ -3,45 +3,29 @@
 // ---------------------------------------------------------------
 
 using cCoder.Eventing;
-using cCoder.Packaging;
 using cCoder.Security;
-using cCoder.Security.Data.EF;
+using Packaging.Web.Models;
 
 namespace Packaging.Web;
 
 public static class IServiceCollectionExtensions
 {
-    public static IServiceCollection AddPackagingWebApplication(
+    public static IServiceCollection AddPackagingWeb(
         this IServiceCollection services,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        Action<PackagingWebConfiguration> configure = null)
     {
-        string coreConnection = configuration.GetConnectionString(name: "Core")
-            ?? throw new InvalidOperationException("ConnectionStrings:Core is required.");
+        PackagingWebConfiguration packagingWebConfiguration = new();
+        configuration.Bind(instance: packagingWebConfiguration);
+        configure?.Invoke(obj: packagingWebConfiguration);
 
-        string ssoConnection = configuration.GetConnectionString(name: "SSO")
-            ?? throw new InvalidOperationException("ConnectionStrings:SSO is required.");
-
-        cCoder.Data.Config config = new();
-        configuration.Bind(instance: config);
-        services.AddSingleton(implementationInstance: config);
-        services.AddEventing();
-
-        services.AddSecurityApi(configAction: (securityServices, securityConfig) =>
-        {
-            securityConfig.AddMSSQLModelProvider(
-                services: securityServices,
-                connectionString: ssoConnection);
-
-            securityConfig.UseAESHMMACPasswordEncryption(
-                services: securityServices,
-                decryptionKey: configuration.GetSection(key: "Settings")["DecryptionKey"]);
-        });
-
-        cCoder.Data.IServiceCollectionExtensions.AddCoreData(
+        services.AddEventingWeb(
+            configuration: packagingWebConfiguration.Eventing);
+        services.AddSecurityWeb(
+            configuration: packagingWebConfiguration.Security);
+        cCoder.Packaging.IServiceCollectionExtensions.AddPackagingWeb(
             services: services,
-            connectionString: coreConnection);
-
-        services.AddPackagingWeb();
+            configuration: packagingWebConfiguration.Packaging);
 
         return services;
     }
