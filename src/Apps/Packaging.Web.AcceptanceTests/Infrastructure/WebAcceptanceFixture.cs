@@ -36,9 +36,3 @@ public sealed class WebAcceptanceFixture : IAsyncLifetime
         }
     }
 }
-
-[CollectionDefinition(Name)]
-public sealed class WebAcceptanceCollection : ICollectionFixture<WebAcceptanceFixture>
-{
-    public const string Name = "Web acceptance";
-}
