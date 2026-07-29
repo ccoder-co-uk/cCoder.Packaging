@@ -1,171 +1,6 @@
 {
   "Classes": [
     {
-      "Name": "cCoder.Packaging.Api.OData.CompositePropertyInfo",
-      "StandardElementType": "Dependency",
-      "Properties": [
-        {
-          "Name": "Attributes",
-          "Type": "System.Reflection.PropertyAttributes"
-        },
-        {
-          "Name": "CanRead",
-          "Type": "System.Boolean"
-        },
-        {
-          "Name": "CanWrite",
-          "Type": "System.Boolean"
-        },
-        {
-          "Name": "DeclaringType",
-          "Type": "System.Type"
-        },
-        {
-          "Name": "Name",
-          "Type": "System.String"
-        },
-        {
-          "Name": "PropertyType",
-          "Type": "System.Type"
-        },
-        {
-          "Name": "ReflectedType",
-          "Type": "System.Type"
-        }
-      ],
-      "Methods": [
-        {
-          "Name": "GetAccessors",
-          "Inputs": [
-            {
-              "Name": "nonPublic",
-              "Type": "System.Boolean"
-            }
-          ],
-          "ReturnType": "System.Reflection.MethodInfo[]"
-        },
-        {
-          "Name": "GetCustomAttributes",
-          "Inputs": [
-            {
-              "Name": "inherit",
-              "Type": "System.Boolean"
-            }
-          ],
-          "ReturnType": "System.Object[]"
-        },
-        {
-          "Name": "GetCustomAttributes",
-          "Inputs": [
-            {
-              "Name": "attributeType",
-              "Type": "System.Type"
-            },
-            {
-              "Name": "inherit",
-              "Type": "System.Boolean"
-            }
-          ],
-          "ReturnType": "System.Object[]"
-        },
-        {
-          "Name": "GetGetMethod",
-          "Inputs": [
-            {
-              "Name": "nonPublic",
-              "Type": "System.Boolean"
-            }
-          ],
-          "ReturnType": "System.Reflection.MethodInfo"
-        },
-        {
-          "Name": "GetIndexParameters",
-          "Inputs": [],
-          "ReturnType": "System.Reflection.ParameterInfo[]"
-        },
-        {
-          "Name": "GetSetMethod",
-          "Inputs": [
-            {
-              "Name": "nonPublic",
-              "Type": "System.Boolean"
-            }
-          ],
-          "ReturnType": "System.Reflection.MethodInfo"
-        },
-        {
-          "Name": "GetValue",
-          "Inputs": [
-            {
-              "Name": "obj",
-              "Type": "System.Object"
-            },
-            {
-              "Name": "invokeAttr",
-              "Type": "System.Reflection.BindingFlags"
-            },
-            {
-              "Name": "binder",
-              "Type": "System.Reflection.Binder"
-            },
-            {
-              "Name": "index",
-              "Type": "System.Object[]"
-            },
-            {
-              "Name": "culture",
-              "Type": "System.Globalization.CultureInfo"
-            }
-          ],
-          "ReturnType": "System.Object"
-        },
-        {
-          "Name": "IsDefined",
-          "Inputs": [
-            {
-              "Name": "attributeType",
-              "Type": "System.Type"
-            },
-            {
-              "Name": "inherit",
-              "Type": "System.Boolean"
-            }
-          ],
-          "ReturnType": "System.Boolean"
-        },
-        {
-          "Name": "SetValue",
-          "Inputs": [
-            {
-              "Name": "obj",
-              "Type": "System.Object"
-            },
-            {
-              "Name": "value",
-              "Type": "System.Object"
-            },
-            {
-              "Name": "invokeAttr",
-              "Type": "System.Reflection.BindingFlags"
-            },
-            {
-              "Name": "binder",
-              "Type": "System.Reflection.Binder"
-            },
-            {
-              "Name": "index",
-              "Type": "System.Object[]"
-            },
-            {
-              "Name": "culture",
-              "Type": "System.Globalization.CultureInfo"
-            }
-          ],
-          "ReturnType": "System.Void"
-        }
-      ]
-    },
-    {
       "Name": "cCoder.Packaging.Api.OData.ExtendedMetadataContainer",
       "StandardElementType": "Model",
       "Properties": [
@@ -845,6 +680,171 @@
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+        }
+      ]
+    },
+    {
+      "Name": "cCoder.Packaging.Dependencies.OData.CompositePropertyInfo",
+      "StandardElementType": "Dependency",
+      "Properties": [
+        {
+          "Name": "Attributes",
+          "Type": "System.Reflection.PropertyAttributes"
+        },
+        {
+          "Name": "CanRead",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "CanWrite",
+          "Type": "System.Boolean"
+        },
+        {
+          "Name": "DeclaringType",
+          "Type": "System.Type"
+        },
+        {
+          "Name": "Name",
+          "Type": "System.String"
+        },
+        {
+          "Name": "PropertyType",
+          "Type": "System.Type"
+        },
+        {
+          "Name": "ReflectedType",
+          "Type": "System.Type"
+        }
+      ],
+      "Methods": [
+        {
+          "Name": "GetAccessors",
+          "Inputs": [
+            {
+              "Name": "nonPublic",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Reflection.MethodInfo[]"
+        },
+        {
+          "Name": "GetCustomAttributes",
+          "Inputs": [
+            {
+              "Name": "inherit",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Object[]"
+        },
+        {
+          "Name": "GetCustomAttributes",
+          "Inputs": [
+            {
+              "Name": "attributeType",
+              "Type": "System.Type"
+            },
+            {
+              "Name": "inherit",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Object[]"
+        },
+        {
+          "Name": "GetGetMethod",
+          "Inputs": [
+            {
+              "Name": "nonPublic",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Reflection.MethodInfo"
+        },
+        {
+          "Name": "GetIndexParameters",
+          "Inputs": [],
+          "ReturnType": "System.Reflection.ParameterInfo[]"
+        },
+        {
+          "Name": "GetSetMethod",
+          "Inputs": [
+            {
+              "Name": "nonPublic",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Reflection.MethodInfo"
+        },
+        {
+          "Name": "GetValue",
+          "Inputs": [
+            {
+              "Name": "obj",
+              "Type": "System.Object"
+            },
+            {
+              "Name": "invokeAttr",
+              "Type": "System.Reflection.BindingFlags"
+            },
+            {
+              "Name": "binder",
+              "Type": "System.Reflection.Binder"
+            },
+            {
+              "Name": "index",
+              "Type": "System.Object[]"
+            },
+            {
+              "Name": "culture",
+              "Type": "System.Globalization.CultureInfo"
+            }
+          ],
+          "ReturnType": "System.Object"
+        },
+        {
+          "Name": "IsDefined",
+          "Inputs": [
+            {
+              "Name": "attributeType",
+              "Type": "System.Type"
+            },
+            {
+              "Name": "inherit",
+              "Type": "System.Boolean"
+            }
+          ],
+          "ReturnType": "System.Boolean"
+        },
+        {
+          "Name": "SetValue",
+          "Inputs": [
+            {
+              "Name": "obj",
+              "Type": "System.Object"
+            },
+            {
+              "Name": "value",
+              "Type": "System.Object"
+            },
+            {
+              "Name": "invokeAttr",
+              "Type": "System.Reflection.BindingFlags"
+            },
+            {
+              "Name": "binder",
+              "Type": "System.Reflection.Binder"
+            },
+            {
+              "Name": "index",
+              "Type": "System.Object[]"
+            },
+            {
+              "Name": "culture",
+              "Type": "System.Globalization.CultureInfo"
+            }
+          ],
+          "ReturnType": "System.Void"
         }
       ]
     },
