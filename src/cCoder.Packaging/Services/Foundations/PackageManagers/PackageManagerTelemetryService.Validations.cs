@@ -3,14 +3,18 @@
 // ---------------------------------------------------------------
 
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Dependencies;
 
 namespace cCoder.Packaging.Services.Foundations.PackageManagers;
 
 internal sealed partial class PackageManagerTelemetryService
 {
-    private static void Validate(params object[] inputs) =>
-        ValidationRulesEngine.Validate(inputs: inputs);
+    private static void Validate(params object[] inputs)
+    {
+        foreach (object input in inputs)
+        {
+            ArgumentNullException.ThrowIfNull(argument: input);
+        }
+    }
 
     private static void ValidatePackageAdminOnEnsure(int appId) =>
         Validate(inputs: appId);

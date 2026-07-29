@@ -3,21 +3,22 @@
 // ---------------------------------------------------------------
 
 using cCoder.Packaging.Brokers;
-using cCoder.Packaging.Exposures.Configuration;
+using cCoder.Packaging.Exposures.PackageManagers;
+using cCoder.Packaging.Models;
 
 namespace cCoder.Packaging.Services.Foundations.PackageExports;
 
 internal sealed partial class PackageExportService(
-    IAppDomainProvider appDomainProvider,
-    IConfigProvider configProvider)
+    IAppDomainManager appDomainManager,
+    PackagingConfiguration configuration)
     : IPackageExportService
 {
     public string GetPackageSourceApi(int appId) =>
         TryCatch(operation: () =>
         {
             ValidatePackageSourceApiOnGet(appId: appId);
-            string domain = appDomainProvider.GetDomain(appId: appId);
-            string sslPort = configProvider.GetPackageSourceSslPort();
+            string domain = appDomainManager.GetDomain(appId: appId);
+            string sslPort = configuration.PackageSourceSslPort;
 
             return $"https://{domain}:{sslPort}/Api/";
         });

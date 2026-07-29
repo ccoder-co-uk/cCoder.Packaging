@@ -10,7 +10,8 @@ using cCoder.Packaging.Brokers.Events;
 using cCoder.Packaging.Brokers.Metadata;
 using cCoder.Packaging.Brokers.OData;
 using cCoder.Packaging.Brokers.Storages;
-using cCoder.Packaging.Exposures.Configuration;
+using cCoder.Packaging.Exposures;
+using cCoder.Packaging.Exposures.PackageManagers;
 using cCoder.Packaging.Models;
 using cCoder.Packaging.Services.Aggregations;
 using cCoder.Packaging.Services.Foundations;
@@ -55,7 +56,7 @@ public static class IServiceCollectionExtensions
         services.AddOrchestrations();
         services.AddAggregations(includePackageManagerServices: false);
         services.AddExposures(includeRouteContributor: false);
-        services.AddWebExposures();
+        services.AddWebExposures(configuration: configuration);
 
         return services;
     }
@@ -177,7 +178,11 @@ public static class IServiceCollectionExtensions
         services.AddEventingForType<Package>();
         services.AddEventingForType<PackageItem>();
         services.AddEventingForType<(int, Package)>();
-        services.TryAddTransient<IConfigProvider, ConfigProvider>();
+        services.TryAddTransient<IPackageManager, PackageManager>();
+        services.TryAddTransient<IPackageItemManager, PackageItemManager>();
+        services.TryAddTransient<
+            IPackageMetadataManager,
+            PackageMetadataManager>();
 
         if (includeRouteContributor)
         {
@@ -189,11 +194,12 @@ public static class IServiceCollectionExtensions
     }
 
     private static void AddWebExposures(
-        this IServiceCollection services)
+        this IServiceCollection services,
+        PackagingConfiguration configuration)
     {
-        services.TryAddTransient<IAppDomainProvider, AppDomainProvider>();
+        services.TryAddTransient<IAppDomainManager, AppDomainManager>();
         services.AddAspNet();
-        services.AddApiDocumentation();
+        services.AddApiDocumentation(configuration: configuration);
 
         ODataConventionModelBuilder modelBuilder = new();
         new ODataModelBroker().ConfigureODataModel(builder: modelBuilder);
@@ -214,18 +220,15 @@ public static class IServiceCollectionExtensions
                 .OrderBy()
                 .SetMaxTop(maxTopValue: 1000)
                 .AddRouteComponents(
-                    routePrefix: "Api/Packaging",
-                    model: routeModel,
-                    batchHandler: batchHandler)
-                .AddRouteComponents(
-                    routePrefix: "Api/Core",
+                    routePrefix: configuration.RootPath,
                     model: routeModel,
                     batchHandler: batchHandler);
         });
     }
 
     private static void AddApiDocumentation(
-        this IServiceCollection services) =>
+        this IServiceCollection services,
+        PackagingConfiguration configuration) =>
         services.AddSwaggerGen(setupAction: options =>
         {
             options.ResolveConflictingActions(
@@ -237,18 +240,6 @@ public static class IServiceCollectionExtensions
                 Version = "Packaging"
             });
 
-            options.SwaggerDoc(name: "Core", info: new OpenApiInfo
-            {
-                Title = "Core API definition",
-                Version = "Core"
-            });
-
-            options.SwaggerDoc(name: "v1", info: new OpenApiInfo
-            {
-                Title = "Core API definition",
-                Version = "v1"
-            });
-
             options.DocInclusionPredicate(
                 predicate: (documentName, apiDescription) =>
                 {
@@ -258,32 +249,27 @@ public static class IServiceCollectionExtensions
                         return false;
                     }
 
-                    string normalizedDocument = string.Equals(
-                        a: documentName,
-                        b: "v1",
-                        comparisonType: StringComparison.OrdinalIgnoreCase)
-                            ? "Core"
-                            : documentName;
-
                     string path =
                         apiDescription.RelativePath.StartsWith(value: '/')
                             ? apiDescription.RelativePath
                             : $"/{apiDescription.RelativePath}";
 
                     string rootPath =
-                        string.Equals(
-                            a: normalizedDocument,
-                            b: "Core",
-                            comparisonType: StringComparison.OrdinalIgnoreCase)
-                                ? "/Api/Core"
-                                : "/Api/Packaging";
+                        configuration.RootPath.StartsWith(value: '/')
+                            ? configuration.RootPath
+                            : $"/{configuration.RootPath}";
 
-                    return path.Equals(
+                    return string.Equals(
+                            a: documentName,
+                            b: "Packaging",
+                            comparisonType:
+                                StringComparison.OrdinalIgnoreCase)
+                        && (path.Equals(
                             value: rootPath,
                             comparisonType: StringComparison.OrdinalIgnoreCase)
                         || path.StartsWith(
                             value: $"{rootPath}/",
-                            comparisonType: StringComparison.OrdinalIgnoreCase);
+                            comparisonType: StringComparison.OrdinalIgnoreCase));
                 });
         });
 

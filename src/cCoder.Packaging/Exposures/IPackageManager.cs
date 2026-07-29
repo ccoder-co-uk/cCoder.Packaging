@@ -3,23 +3,14 @@
 // ---------------------------------------------------------------
 
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Models.Results;
-using cCoder.Packaging.Models;
 
-namespace cCoder.Packaging.Services.Aggregations;
+namespace cCoder.Packaging.Exposures;
 
-internal interface IPackageAggregationService
+public interface IPackageManager
 {
-    IEnumerable<Package> ExportPackages(int appId, string[] packageNames = null);
-    ValueTask ImportPackageAsync(int appId, Package package);
     Package GetPackage(Guid packageId);
     IQueryable<Package> GetAllPackages(bool ignoreFilters = false);
     ValueTask<Package> AddPackageAsync(Package newPackage);
     ValueTask<Package> UpdatePackageAsync(Package updatedPackage);
     ValueTask DeletePackageAsync(Guid packageId);
-
-    ValueTask<IEnumerable<Result<Package>>> AddOrUpdatePackagesAsync(
-        IEnumerable<Package> packages);
-
-    ValueTask DeleteAllPackagesAsync(IEnumerable<Package> deletedPackages);
 }

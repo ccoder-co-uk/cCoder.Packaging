@@ -5,9 +5,9 @@
 using System.Security;
 using cCoder.Packaging.Api.OData;
 using cCoder.Packaging.Models;
+using cCoder.Packaging.Exposures;
 using cCoder.Data.Extensions;
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Services.Orchestrations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Deltas;
@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 namespace cCoder.Packaging.Exposures.Controllers;
 
 public partial class PackageItemController(
-    IPackageItemOrchestrationService packageItemOrchestrationService)
+    IPackageItemManager packageItemOrchestrationService)
     : ODataController
 {
 

@@ -3,14 +3,18 @@
 // ---------------------------------------------------------------
 
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Dependencies;
 
 namespace cCoder.Packaging.Services.Foundations.Storages;
 
 internal sealed partial class PackageService
 {
-    private static void Validate(params object[] inputs) =>
-        ValidationRulesEngine.Validate(inputs: inputs);
+    private static void Validate(params object[] inputs)
+    {
+        foreach (object input in inputs)
+        {
+            ArgumentNullException.ThrowIfNull(argument: input);
+        }
+    }
 
     private static void ValidatePackageOnGet(Guid packageId) =>
         Validate(inputs: packageId);

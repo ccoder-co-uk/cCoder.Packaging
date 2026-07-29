@@ -6,11 +6,10 @@ using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
 
 
-namespace cCoder.Packaging.Brokers;
+namespace cCoder.Packaging.Exposures.PackageManagers;
 
-public interface IContentManagementPackageManagerBroker
+public interface IAppSecurityPackageManager
 {
     ValueTask ImportPackageAsync(int appId, Package package);
-
     Package ExportPackage(int appId, string packageName);
 }

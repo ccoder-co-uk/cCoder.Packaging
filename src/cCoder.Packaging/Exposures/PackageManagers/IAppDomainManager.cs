@@ -2,9 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-namespace cCoder.Packaging.Exposures.Configuration;
+namespace cCoder.Packaging.Exposures.PackageManagers;
 
-public interface IConfigProvider
+public interface IAppDomainManager
 {
-    string GetPackageSourceSslPort();
+    string GetDomain(int appId);
 }

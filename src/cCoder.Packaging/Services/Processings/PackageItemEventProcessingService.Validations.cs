@@ -3,14 +3,18 @@
 // ---------------------------------------------------------------
 
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Dependencies;
 
 namespace cCoder.Packaging.Services.Processings;
 
 internal sealed partial class PackageItemEventProcessingService
 {
-    private static void Validate(params object[] inputs) =>
-        ValidationRulesEngine.Validate(inputs: inputs);
+    private static void Validate(params object[] inputs)
+    {
+        foreach (object input in inputs)
+        {
+            ArgumentNullException.ThrowIfNull(argument: input);
+        }
+    }
 
     private static void ValidatePackageItemEventOnAdd(PackageItem newPackageItem) =>
         Validate(inputs: newPackageItem);

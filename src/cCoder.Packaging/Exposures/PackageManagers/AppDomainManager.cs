@@ -4,9 +4,9 @@
 
 using Microsoft.AspNetCore.Http;
 
-namespace cCoder.Packaging.Brokers;
+namespace cCoder.Packaging.Exposures.PackageManagers;
 
-internal class AppDomainProvider(IHttpContextAccessor httpContextAccessor) : IAppDomainProvider
+internal class AppDomainManager(IHttpContextAccessor httpContextAccessor) : IAppDomainManager
 {
     public string GetDomain(int appId) =>
         httpContextAccessor.HttpContext?.Request.Host.Host ?? "localhost";
