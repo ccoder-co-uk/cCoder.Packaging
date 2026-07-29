@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 
 namespace cCoder.Packaging.Testing;
 
@@ -25,64 +24,45 @@ internal sealed class AcceptanceTestConfiguration
 
     internal static AcceptanceTestConfiguration Load()
     {
-        IConfigurationRoot configuration = new ConfigurationBuilder()
-            .SetBasePath(basePath: AppContext.BaseDirectory)
-            .AddJsonFile(
-                path: "appsettings.testing.json",
-                optional: true)
-            .AddEnvironmentVariables()
-            .Build();
-
         string suffix = $"-acceptance-{Guid.NewGuid():N}";
 
         return new AcceptanceTestConfiguration(
             packagingConnectionString: AddDatabaseSuffix(
-                connectionString: GetConfigurationValue(
-                    configuration: configuration,
-                    key: "Packaging:ConnectionString"),
+                connectionString: ReadRequiredValue(
+                    variableName: "Packaging__ConnectionString"),
                 suffix: suffix),
             securityConnectionString: AddDatabaseSuffix(
-                connectionString: GetConfigurationValue(
-                    configuration: configuration,
-                    key: "Security:ConnectionString"),
+                connectionString: ReadRequiredValue(
+                    variableName: "Security__ConnectionString"),
                 suffix: suffix),
-            securityDecryptionKey: GetConfigurationValue(
-                configuration: configuration,
-                key: "Security:DecryptionKey"));
+            securityDecryptionKey: ReadRequiredValue(
+                variableName: "Security__DecryptionKey"));
     }
 
-    private static string GetConfigurationValue(
-        IConfiguration configuration,
-        string key)
+    private static string ReadRequiredValue(string variableName)
     {
-        string environmentVariableName =
-            key.Replace(oldValue: ":", newValue: "__");
-
-        string value = configuration[key];
+        string value =
+            Environment.GetEnvironmentVariable(variable: variableName)
+            ?? Environment.GetEnvironmentVariable(
+                variable: variableName,
+                target: EnvironmentVariableTarget.User)
+            ?? Environment.GetEnvironmentVariable(
+                variable: variableName,
+                target: EnvironmentVariableTarget.Machine);
 
         if (!string.IsNullOrWhiteSpace(value: value))
         {
             return value;
         }
 
-        return Environment.GetEnvironmentVariable(
-                variable: environmentVariableName,
-                target: EnvironmentVariableTarget.User)
-            ?? Environment.GetEnvironmentVariable(
-                variable: environmentVariableName,
-                target: EnvironmentVariableTarget.Machine)
-            ?? string.Empty;
+        throw new InvalidOperationException(
+            $"Required configuration environment variable '{variableName}' was not found.");
     }
 
     private static string AddDatabaseSuffix(
         string connectionString,
         string suffix)
     {
-        if (string.IsNullOrWhiteSpace(value: connectionString))
-        {
-            return string.Empty;
-        }
-
         SqlConnectionStringBuilder builder =
             new(connectionString: connectionString)
             {
@@ -90,11 +70,13 @@ internal sealed class AcceptanceTestConfiguration
                 TrustServerCertificate = true
             };
 
-        if (!string.IsNullOrWhiteSpace(value: builder.InitialCatalog))
+        if (string.IsNullOrWhiteSpace(value: builder.InitialCatalog))
         {
-            builder.InitialCatalog = $"{builder.InitialCatalog}{suffix}";
+            throw new InvalidOperationException(
+                "Acceptance test connection strings must name a database.");
         }
 
+        builder.InitialCatalog = $"{builder.InitialCatalog}{suffix}";
         return builder.ConnectionString;
     }
 }
