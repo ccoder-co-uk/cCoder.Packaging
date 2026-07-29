@@ -4,7 +4,7 @@
 
 using cCoder.Eventing.Models;
 using cCoder.Packaging.Models;
-using cCoder.Security.Objects;
+using cCoder.Security.Models;
 
 namespace Packaging.Web.Models;
 

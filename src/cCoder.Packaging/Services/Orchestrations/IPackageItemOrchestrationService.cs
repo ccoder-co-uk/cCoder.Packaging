@@ -3,13 +3,12 @@
 // ---------------------------------------------------------------
 
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Dependencies;
 using cCoder.Packaging.Models.Results;
 using cCoder.Packaging.Models;
 
 namespace cCoder.Packaging.Services.Orchestrations;
 
-public interface IPackageItemOrchestrationService
+internal interface IPackageItemOrchestrationService
 {
     PackageItem GetPackageItem(Guid packageItemId);
     IQueryable<PackageItem> GetAllPackageItems(bool ignoreFilters = false);

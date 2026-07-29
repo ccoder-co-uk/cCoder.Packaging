@@ -3,21 +3,14 @@
 // ---------------------------------------------------------------
 
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Models.Results;
-using cCoder.Packaging.Models;
 
-namespace cCoder.Packaging.Services.Processings;
+namespace cCoder.Packaging.Exposures;
 
-internal interface IPackageItemProcessingService
+public interface IPackageItemManager
 {
     PackageItem GetPackageItem(Guid packageItemId);
     IQueryable<PackageItem> GetAllPackageItems(bool ignoreFilters = false);
     ValueTask<PackageItem> AddPackageItemAsync(PackageItem newPackageItem);
     ValueTask<PackageItem> UpdatePackageItemAsync(PackageItem updatedPackageItem);
     ValueTask DeletePackageItemAsync(Guid packageItemId);
-
-    ValueTask<IEnumerable<Result<PackageItem>>> AddOrUpdatePackageItemsAsync(
-        IEnumerable<PackageItem> packageItems);
-
-    ValueTask DeleteAllPackageItemsAsync(IEnumerable<PackageItem> deletedPackageItems);
 }

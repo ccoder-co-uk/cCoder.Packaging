@@ -4,12 +4,13 @@
 
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Models;
+using cCoder.Packaging.Exposures.PackageManagers;
 using cCoder.Data.Models.Packaging;
 
 
 namespace cCoder.Packaging.Services.Foundations.PackageManagers;
 
-public interface ISchedulingPackageService
+internal interface ISchedulingPackageService
 {
     ValueTask ImportPackageAsync(int appId, Package package);
 
@@ -17,7 +18,7 @@ public interface ISchedulingPackageService
 }
 
 internal sealed partial class SchedulingPackageService(
-    ISchedulingPackageManagerBroker schedulingPackageManagerBroker)
+    ISchedulingPackageManager schedulingPackageManager)
     : ISchedulingPackageService
 {
     public ValueTask ImportPackageAsync(int appId, Package package) =>
@@ -25,7 +26,7 @@ internal sealed partial class SchedulingPackageService(
         {
             ValidatePackageOnImport(appId: appId, package: package);
 
-            return schedulingPackageManagerBroker
+            return schedulingPackageManager
                 .ImportPackageAsync(appId: appId, package: package);
         });
 
@@ -34,7 +35,7 @@ internal sealed partial class SchedulingPackageService(
         {
             ValidatePackageOnExport(appId: appId, packageName: packageName);
 
-            return schedulingPackageManagerBroker
+            return schedulingPackageManager
                 .ExportPackage(appId: appId, packageName: packageName);
         });
 }

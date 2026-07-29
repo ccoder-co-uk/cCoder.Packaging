@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------
 
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Dependencies;
 using cCoder.Packaging.Models.Results;
 using cCoder.Packaging.Models;
 using cCoder.Packaging.Services.Processings;

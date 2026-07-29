@@ -13,6 +13,7 @@ public sealed class PackagingConfiguration
             "https://raw.githubusercontent.com/ccoder-co-uk/" +
             "cCoder.Assets/main/Packages/";
         PackageSourceSslPort = "443";
+        RootPath = "Api/Packaging";
     }
 
     public string ConnectionString { get; set; }
@@ -20,4 +21,6 @@ public sealed class PackagingConfiguration
     public string AssetsRoot { get; set; }
 
     public string PackageSourceSslPort { get; set; }
+
+    public string RootPath { get; set; }
 }

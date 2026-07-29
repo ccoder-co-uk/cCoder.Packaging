@@ -4,9 +4,12 @@
 
 using cCoder.Packaging.Api.OData;
 
-namespace cCoder.Packaging.Services.Foundations.Metadata;
+namespace cCoder.Packaging.Exposures;
 
-internal interface IMetadataService
+public interface IPackageMetadataManager
 {
-    MetadataContainer CreateMetadataContainer(Type type, bool isEntity, bool hasEndpoint);
+    MetadataContainer CreateMetadataContainer(
+        Type type,
+        bool isEntity,
+        bool hasEndpoint);
 }

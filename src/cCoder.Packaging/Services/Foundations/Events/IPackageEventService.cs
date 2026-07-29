@@ -7,7 +7,7 @@ using cCoder.Data.Models.Packaging;
 
 namespace cCoder.Packaging.Services.Foundations.Events;
 
-public interface IPackageEventService
+internal interface IPackageEventService
 {
     ValueTask RaisePackageImportEventAsync(int appId, Package package);
     ValueTask RaisePackageAddEventAsync(Package entity);

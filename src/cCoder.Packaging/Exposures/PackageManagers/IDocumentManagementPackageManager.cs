@@ -6,9 +6,9 @@ using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
 
 
-namespace cCoder.Packaging.Brokers;
+namespace cCoder.Packaging.Exposures.PackageManagers;
 
-public interface IWorkflowPackageManagerBroker
+public interface IDocumentManagementPackageManager
 {
     ValueTask ImportPackageAsync(int appId, Package package);
 

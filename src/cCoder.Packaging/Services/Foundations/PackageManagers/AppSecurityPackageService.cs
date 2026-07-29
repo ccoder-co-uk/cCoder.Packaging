@@ -4,19 +4,20 @@
 
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Models;
+using cCoder.Packaging.Exposures.PackageManagers;
 using cCoder.Data.Models.Packaging;
 
 
 namespace cCoder.Packaging.Services.Foundations.PackageManagers;
 
-public interface IAppSecurityPackageService
+internal interface IAppSecurityPackageService
 {
     ValueTask ImportPackageAsync(int appId, Package package);
     Package ExportPackage(int appId, string packageName);
 }
 
 internal sealed partial class AppSecurityPackageService(
-    IAppSecurityPackageManagerBroker appSecurityPackageManagerBroker)
+    IAppSecurityPackageManager appSecurityPackageManager)
     : IAppSecurityPackageService
 {
     public ValueTask ImportPackageAsync(int appId, Package package) =>
@@ -24,7 +25,7 @@ internal sealed partial class AppSecurityPackageService(
         {
             ValidatePackageOnImport(appId: appId, package: package);
 
-            return appSecurityPackageManagerBroker
+            return appSecurityPackageManager
                 .ImportPackageAsync(appId: appId, package: package);
         });
 
@@ -33,7 +34,7 @@ internal sealed partial class AppSecurityPackageService(
         {
             ValidatePackageOnExport(appId: appId, packageName: packageName);
 
-            return appSecurityPackageManagerBroker
+            return appSecurityPackageManager
                 .ExportPackage(appId: appId, packageName: packageName);
         });
 }

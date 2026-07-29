@@ -4,13 +4,14 @@
 
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Api.OData;
-using cCoder.Packaging.Services.Foundations.Metadata;
+using cCoder.Packaging.Exposures;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cCoder.Packaging.Exposures.Controllers;
 
 [ApiController]
-public sealed class PackageItemMetadataController(IMetadataService metadataService)
+public sealed class PackageItemMetadataController(
+    IPackageMetadataManager metadataService)
     : ControllerBase
 {
     [HttpGet("Api/Packaging/PackageItem/GetMetadata")]

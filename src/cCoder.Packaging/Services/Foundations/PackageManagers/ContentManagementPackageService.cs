@@ -4,12 +4,13 @@
 
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Models;
+using cCoder.Packaging.Exposures.PackageManagers;
 using cCoder.Data.Models.Packaging;
 
 
 namespace cCoder.Packaging.Services.Foundations.PackageManagers;
 
-public interface IContentManagementPackageService
+internal interface IContentManagementPackageService
 {
     ValueTask ImportPackageAsync(int appId, Package package);
 
@@ -17,7 +18,7 @@ public interface IContentManagementPackageService
 }
 
 internal sealed partial class ContentManagementPackageService(
-    IContentManagementPackageManagerBroker contentManagementPackageManagerBroker
+    IContentManagementPackageManager contentManagementPackageManager
 ) : IContentManagementPackageService
 {
     public ValueTask ImportPackageAsync(int appId, Package package) =>
@@ -25,7 +26,7 @@ internal sealed partial class ContentManagementPackageService(
         {
             ValidatePackageOnImport(appId: appId, package: package);
 
-            return contentManagementPackageManagerBroker
+            return contentManagementPackageManager
                 .ImportPackageAsync(appId: appId, package: package);
         });
 
@@ -34,7 +35,7 @@ internal sealed partial class ContentManagementPackageService(
         {
             ValidatePackageOnExport(appId: appId, packageName: packageName);
 
-            return contentManagementPackageManagerBroker
+            return contentManagementPackageManager
                 .ExportPackage(appId: appId, packageName: packageName);
         });
 }
