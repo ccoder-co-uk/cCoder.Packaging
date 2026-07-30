@@ -58,6 +58,51 @@ public partial class PackageManagerAggregationServiceTests
     }
 
     [Fact]
+    public async Task ShouldDelegateScheduledTasksToSchedulingPackageServiceWhenImportPackageAsync()
+    {
+        // Given
+        Package package = CreateRandomPackage();
+        Package actualPackage = null;
+
+        package.Items =
+        [
+            new PackageItem
+            {
+                Type = "Workflow/ScheduledTask",
+                Data = "[]",
+            },
+        ];
+
+        authorizationBrokerMock.Setup(expression: x => x.IsAdminOfApp(appId: 1))
+            .Returns(value: true);
+
+        schedulingPackageServiceMock
+            .Setup(expression: x => x.ImportPackageAsync(
+                appId: 1,
+                package: It.IsAny<Package>()))
+            .Callback<int, Package>(action: (_, importedPackage) =>
+                actualPackage = importedPackage)
+            .Returns(value: ValueTask.CompletedTask);
+
+        // When
+        await packageManagerAggregationService.ImportPackageAsync(
+            appId: 1,
+            package: package);
+
+        // Then
+        schedulingPackageServiceMock.Verify(expression: x =>
+            x.ImportPackageAsync(
+                appId: 1,
+                package: It.IsAny<Package>()),
+            times: Times.Once);
+
+        actualPackage.Items.Should()
+            .ContainSingle()
+            .Which.Type.Should()
+            .Be(expected: "Core/ScheduledTask");
+    }
+
+    [Fact]
     public async Task ShouldDelegateToWorkflowPackageServiceWhenImportPackageAsync()
     {
         // Given

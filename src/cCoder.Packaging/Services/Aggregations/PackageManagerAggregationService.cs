@@ -83,8 +83,10 @@ internal sealed partial class PackageManagerAggregationService(
         if (packageItem.Type is
             "Workflow/Calendar"
             or "Workflow/CalendarEvent"
+            or "Workflow/ScheduledTask"
             or "Core/Calendar"
-            or "Core/CalendarEvent")
+            or "Core/CalendarEvent"
+            or "Core/ScheduledTask")
         {
             Package planningPackage = new("Planning")
             {
