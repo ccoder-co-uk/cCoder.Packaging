@@ -254,7 +254,7 @@
         {
           "Name": "GetCurrentUser",
           "Inputs": [],
-          "ReturnType": "User"
+          "ReturnType": "cCoder.Data.Models.Security.User"
         },
         {
           "Name": "IsAdmin",
@@ -292,7 +292,7 @@
           "Inputs": [
             {
               "Name": "message",
-              "Type": "EventMessage\u003CPackage\u003E"
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.Package\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -302,7 +302,7 @@
           "Inputs": [
             {
               "Name": "message",
-              "Type": "EventMessage\u003CPackage\u003E"
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.Package\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -312,7 +312,7 @@
           "Inputs": [
             {
               "Name": "message",
-              "Type": "EventMessage\u003C(System.Int32, Package)\u003E"
+              "Type": "cCoder.Eventing.Models.EventMessage\u003C(System.Int32, cCoder.Data.Models.Packaging.Package)\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -322,7 +322,7 @@
           "Inputs": [
             {
               "Name": "message",
-              "Type": "EventMessage\u003CPackage\u003E"
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.Package\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -339,7 +339,7 @@
           "Inputs": [
             {
               "Name": "message",
-              "Type": "EventMessage\u003CPackageItem\u003E"
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -349,7 +349,7 @@
           "Inputs": [
             {
               "Name": "message",
-              "Type": "EventMessage\u003CPackageItem\u003E"
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -359,7 +359,7 @@
           "Inputs": [
             {
               "Name": "message",
-              "Type": "EventMessage\u003CPackageItem\u003E"
+              "Type": "cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -418,7 +418,7 @@
           "Inputs": [
             {
               "Name": "packageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             },
             {
               "Name": "packageSource",
@@ -439,17 +439,17 @@
           "Inputs": [
             {
               "Name": "newPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package\u003E"
         },
         {
           "Name": "DeletePackageAsync",
           "Inputs": [
             {
               "Name": "deletedPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Int32\u003E"
@@ -462,7 +462,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportCalendars",
@@ -472,7 +472,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportComponents",
@@ -482,7 +482,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportFlowDefinitions",
@@ -492,7 +492,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportFolderRoles",
@@ -502,7 +502,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportLayouts",
@@ -512,7 +512,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportPageRoles",
@@ -522,7 +522,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportPages",
@@ -532,7 +532,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportResources",
@@ -542,7 +542,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportRoles",
@@ -552,7 +552,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportScripts",
@@ -562,7 +562,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportTemplates",
@@ -572,12 +572,12 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "GetAllPackages",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.Package\u003E"
         },
         {
           "Name": "GetAllPackages",
@@ -587,19 +587,19 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.Package\u003E"
         },
         {
           "Name": "GetAllPackagesIgnoringFilters",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.Package\u003E"
         },
         {
           "Name": "GetAppId",
           "Inputs": [
             {
               "Name": "entity",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Int32?"
@@ -609,10 +609,10 @@
           "Inputs": [
             {
               "Name": "updatedPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package\u003E"
         }
       ]
     },
@@ -626,17 +626,17 @@
           "Inputs": [
             {
               "Name": "newPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         },
         {
           "Name": "DeletePackageItemAsync",
           "Inputs": [
             {
               "Name": "deletedPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Int32\u003E"
@@ -644,7 +644,7 @@
         {
           "Name": "GetAllPackageItems",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         },
         {
           "Name": "GetAllPackageItems",
@@ -654,19 +654,19 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         },
         {
           "Name": "GetAllPackageItemsIgnoringFilters",
           "Inputs": [],
-          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         },
         {
           "Name": "GetAppId",
           "Inputs": [
             {
               "Name": "entity",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
           "ReturnType": "System.Int32?"
@@ -676,10 +676,10 @@
           "Inputs": [
             {
               "Name": "updatedPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         }
       ]
     },
@@ -878,7 +878,7 @@
           "Inputs": [
             {
               "Name": "queryOptions",
-              "Type": "ODataQueryOptions\u003CPackage\u003E"
+              "Type": "ODataQueryOptions\u003CcCoder.Data.Models.Packaging.Package\u003E"
             }
           ],
           "ReturnType": "IActionResult"
@@ -888,7 +888,7 @@
           "Inputs": [
             {
               "Name": "newPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
@@ -902,7 +902,7 @@
             },
             {
               "Name": "updatedPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
@@ -916,7 +916,7 @@
             },
             {
               "Name": "updatedPackageDelta",
-              "Type": "Delta\u003CPackage\u003E"
+              "Type": "Delta\u003CcCoder.Data.Models.Packaging.Package\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
@@ -953,7 +953,7 @@
           "Inputs": [
             {
               "Name": "queryOptions",
-              "Type": "ODataQueryOptions\u003CPackageItem\u003E"
+              "Type": "ODataQueryOptions\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
             }
           ],
           "ReturnType": "IActionResult"
@@ -963,7 +963,7 @@
           "Inputs": [
             {
               "Name": "newPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
           "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
@@ -977,7 +977,7 @@
             },
             {
               "Name": "updatedPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
           "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
@@ -991,7 +991,7 @@
             },
             {
               "Name": "updatedPackageItemDelta",
-              "Type": "Delta\u003CPackageItem\u003E"
+              "Type": "Delta\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E"
@@ -1032,10 +1032,10 @@
           "Inputs": [
             {
               "Name": "newPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         },
         {
           "Name": "DeletePackageItemAsync",
@@ -1055,7 +1055,7 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         },
         {
           "Name": "GetPackageItem",
@@ -1065,17 +1065,17 @@
               "Type": "System.Guid"
             }
           ],
-          "ReturnType": "PackageItem"
+          "ReturnType": "cCoder.Data.Models.Packaging.PackageItem"
         },
         {
           "Name": "UpdatePackageItemAsync",
           "Inputs": [
             {
               "Name": "updatedPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         }
       ]
     },
@@ -1089,10 +1089,10 @@
           "Inputs": [
             {
               "Name": "newPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package\u003E"
         },
         {
           "Name": "DeletePackageAsync",
@@ -1112,7 +1112,7 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.Package\u003E"
         },
         {
           "Name": "GetPackage",
@@ -1122,17 +1122,17 @@
               "Type": "System.Guid"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "UpdatePackageAsync",
           "Inputs": [
             {
               "Name": "updatedPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package\u003E"
         }
       ]
     },
@@ -1195,7 +1195,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ImportPackageAsync",
@@ -1206,7 +1206,7 @@
             },
             {
               "Name": "package",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1553,27 +1553,27 @@
           "Inputs": [
             {
               "Name": "packages",
-              "Type": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
+              "Type": "System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Models.Results.Result\u003CPackage\u003E\u003E\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Models.Results.Result\u003CcCoder.Data.Models.Packaging.Package\u003E\u003E\u003E"
         },
         {
           "Name": "AddPackageAsync",
           "Inputs": [
             {
               "Name": "newPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package\u003E"
         },
         {
           "Name": "DeleteAllPackagesAsync",
           "Inputs": [
             {
               "Name": "deletedPackages",
-              "Type": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
+              "Type": "System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1600,7 +1600,7 @@
               "Type": "System.String[]"
             }
           ],
-          "ReturnType": "System.Collections.Generic.IEnumerable\u003CPackage\u003E"
+          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E"
         },
         {
           "Name": "GetAllPackages",
@@ -1610,7 +1610,7 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.Package\u003E"
         },
         {
           "Name": "GetPackage",
@@ -1620,7 +1620,7 @@
               "Type": "System.Guid"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ImportPackageAsync",
@@ -1631,7 +1631,7 @@
             },
             {
               "Name": "package",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1641,10 +1641,10 @@
           "Inputs": [
             {
               "Name": "updatedPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package\u003E"
         }
       ]
     },
@@ -1665,7 +1665,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ImportPackageAsync",
@@ -1676,7 +1676,7 @@
             },
             {
               "Name": "package",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1693,7 +1693,7 @@
           "Inputs": [
             {
               "Name": "package",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1703,7 +1703,7 @@
           "Inputs": [
             {
               "Name": "package",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1717,7 +1717,7 @@
             },
             {
               "Name": "package",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1727,7 +1727,7 @@
           "Inputs": [
             {
               "Name": "package",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1744,7 +1744,7 @@
           "Inputs": [
             {
               "Name": "entity",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1754,7 +1754,7 @@
           "Inputs": [
             {
               "Name": "entity",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1764,7 +1764,7 @@
           "Inputs": [
             {
               "Name": "entity",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1830,7 +1830,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ImportPackageAsync",
@@ -1841,7 +1841,7 @@
             },
             {
               "Name": "package",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1865,7 +1865,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ImportPackageAsync",
@@ -1876,7 +1876,7 @@
             },
             {
               "Name": "package",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1900,7 +1900,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ImportPackageAsync",
@@ -1911,7 +1911,7 @@
             },
             {
               "Name": "package",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -1938,7 +1938,7 @@
           "Inputs": [
             {
               "Name": "packageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             },
             {
               "Name": "packageSource",
@@ -1966,7 +1966,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ImportPackageAsync",
@@ -1977,7 +1977,7 @@
             },
             {
               "Name": "package",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2001,7 +2001,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ImportPackageAsync",
@@ -2012,7 +2012,7 @@
             },
             {
               "Name": "package",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2041,10 +2041,10 @@
           "Inputs": [
             {
               "Name": "newPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         },
         {
           "Name": "DeletePackageItemAsync",
@@ -2064,7 +2064,7 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         },
         {
           "Name": "GetPackageItem",
@@ -2074,17 +2074,17 @@
               "Type": "System.Guid"
             }
           ],
-          "ReturnType": "PackageItem"
+          "ReturnType": "cCoder.Data.Models.Packaging.PackageItem"
         },
         {
           "Name": "UpdatePackageItemAsync",
           "Inputs": [
             {
               "Name": "updatedPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         }
       ]
     },
@@ -2098,10 +2098,10 @@
           "Inputs": [
             {
               "Name": "newPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package\u003E"
         },
         {
           "Name": "DeletePackageAsync",
@@ -2121,7 +2121,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportPackageLayouts",
@@ -2131,7 +2131,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportPackagePageRoles",
@@ -2141,7 +2141,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportPackagePages",
@@ -2151,7 +2151,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportPackageResources",
@@ -2161,7 +2161,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportPackageRoles",
@@ -2171,7 +2171,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportPackageScripts",
@@ -2181,7 +2181,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportPackageTemplates",
@@ -2191,7 +2191,7 @@
               "Type": "System.Int32"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "GetAllPackages",
@@ -2201,7 +2201,7 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.Package\u003E"
         },
         {
           "Name": "GetPackage",
@@ -2211,17 +2211,17 @@
               "Type": "System.Guid"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "UpdatePackageAsync",
           "Inputs": [
             {
               "Name": "updatedPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package\u003E"
         }
       ]
     },
@@ -2235,27 +2235,27 @@
           "Inputs": [
             {
               "Name": "packageItems",
-              "Type": "System.Collections.Generic.IEnumerable\u003CPackageItem\u003E"
+              "Type": "System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Models.Results.Result\u003CPackageItem\u003E\u003E\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Models.Results.Result\u003CcCoder.Data.Models.Packaging.PackageItem\u003E\u003E\u003E"
         },
         {
           "Name": "AddPackageItemAsync",
           "Inputs": [
             {
               "Name": "newPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         },
         {
           "Name": "DeleteAllPackageItemsAsync",
           "Inputs": [
             {
               "Name": "deletedPackageItems",
-              "Type": "System.Collections.Generic.IEnumerable\u003CPackageItem\u003E"
+              "Type": "System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2278,7 +2278,7 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         },
         {
           "Name": "GetPackageItem",
@@ -2288,17 +2288,17 @@
               "Type": "System.Guid"
             }
           ],
-          "ReturnType": "PackageItem"
+          "ReturnType": "cCoder.Data.Models.Packaging.PackageItem"
         },
         {
           "Name": "UpdatePackageItemAsync",
           "Inputs": [
             {
               "Name": "updatedPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         }
       ]
     },
@@ -2312,7 +2312,7 @@
           "Inputs": [
             {
               "Name": "newPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2322,7 +2322,7 @@
           "Inputs": [
             {
               "Name": "deletedPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2336,7 +2336,7 @@
             },
             {
               "Name": "package",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2346,7 +2346,7 @@
           "Inputs": [
             {
               "Name": "updatedPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2380,7 +2380,7 @@
           "Inputs": [
             {
               "Name": "newPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2390,7 +2390,7 @@
           "Inputs": [
             {
               "Name": "deletedPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2400,7 +2400,7 @@
           "Inputs": [
             {
               "Name": "updatedPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2417,27 +2417,27 @@
           "Inputs": [
             {
               "Name": "packageItems",
-              "Type": "System.Collections.Generic.IEnumerable\u003CPackageItem\u003E"
+              "Type": "System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Models.Results.Result\u003CPackageItem\u003E\u003E\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CSystem.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Models.Results.Result\u003CcCoder.Data.Models.Packaging.PackageItem\u003E\u003E\u003E"
         },
         {
           "Name": "AddPackageItemAsync",
           "Inputs": [
             {
               "Name": "newPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         },
         {
           "Name": "DeleteAllPackageItemsAsync",
           "Inputs": [
             {
               "Name": "deletedPackageItems",
-              "Type": "System.Collections.Generic.IEnumerable\u003CPackageItem\u003E"
+              "Type": "System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask"
@@ -2460,7 +2460,7 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CPackageItem\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         },
         {
           "Name": "GetPackageItem",
@@ -2470,17 +2470,17 @@
               "Type": "System.Guid"
             }
           ],
-          "ReturnType": "PackageItem"
+          "ReturnType": "cCoder.Data.Models.Packaging.PackageItem"
         },
         {
           "Name": "UpdatePackageItemAsync",
           "Inputs": [
             {
               "Name": "updatedPackageItem",
-              "Type": "PackageItem"
+              "Type": "cCoder.Data.Models.Packaging.PackageItem"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackageItem\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.PackageItem\u003E"
         }
       ]
     },
@@ -2494,10 +2494,10 @@
           "Inputs": [
             {
               "Name": "newPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package\u003E"
         },
         {
           "Name": "DeletePackageAsync",
@@ -2521,7 +2521,7 @@
               "Type": "System.String"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "ExportPackages",
@@ -2535,7 +2535,7 @@
               "Type": "System.String[]"
             }
           ],
-          "ReturnType": "Package[]"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package[]"
         },
         {
           "Name": "GetAllPackages",
@@ -2545,7 +2545,7 @@
               "Type": "System.Boolean"
             }
           ],
-          "ReturnType": "System.Linq.IQueryable\u003CPackage\u003E"
+          "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.Package\u003E"
         },
         {
           "Name": "GetPackage",
@@ -2555,17 +2555,17 @@
               "Type": "System.Guid"
             }
           ],
-          "ReturnType": "Package"
+          "ReturnType": "cCoder.Data.Models.Packaging.Package"
         },
         {
           "Name": "UpdatePackageAsync",
           "Inputs": [
             {
               "Name": "updatedPackage",
-              "Type": "Package"
+              "Type": "cCoder.Data.Models.Packaging.Package"
             }
           ],
-          "ReturnType": "System.Threading.Tasks.ValueTask\u003CPackage\u003E"
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package\u003E"
         }
       ]
     },
