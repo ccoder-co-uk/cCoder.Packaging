@@ -1179,6 +1179,41 @@
       ]
     },
     {
+      "Name": "cCoder.Packaging.Exposures.PackageTransferManager",
+      "StandardElementType": "Exposure",
+      "Properties": [],
+      "Methods": [
+        {
+          "Name": "ExportPackage",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageName",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "Package"
+        },
+        {
+          "Name": "ImportPackageAsync",
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "package",
+              "Type": "Package"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask"
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Packaging.IServiceCollectionExtensions",
       "StandardElementType": "App",
       "Properties": [],
@@ -2584,6 +2619,10 @@
     {
       "FromType": "cCoder.Packaging.Exposures.PackageMetadataManager",
       "ToType": "cCoder.Packaging.Services.Foundations.Metadata.MetadataService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Exposures.PackageTransferManager",
+      "ToType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService"
     },
     {
       "FromType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",

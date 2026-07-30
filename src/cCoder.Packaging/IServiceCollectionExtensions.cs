@@ -179,6 +179,9 @@ public static class IServiceCollectionExtensions
         services.AddEventingForType<PackageItem>();
         services.AddEventingForType<(int, Package)>();
         services.TryAddTransient<IPackageManager, PackageManager>();
+        services.TryAddTransient<
+            IPackageTransferManager,
+            PackageTransferManager>();
         services.TryAddTransient<IPackageItemManager, PackageItemManager>();
         services.TryAddTransient<
             IPackageMetadataManager,
