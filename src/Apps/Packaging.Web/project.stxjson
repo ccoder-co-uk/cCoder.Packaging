@@ -1,12 +1,25 @@
 {
+  "SchemaVersion": 2,
+  "Project": {
+    "Id": "Packaging.Web",
+    "Name": "Packaging.Web",
+    "AssemblyName": "Packaging.Web"
+  },
   "Classes": [
     {
       "Name": "Packaging.Web.IServiceCollectionExtensions",
       "StandardElementType": "App",
+      "LineNumber": 11,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [],
       "Methods": [
         {
+          "Id": "Packaging.Web.IServiceCollectionExtensions.AddPackagingWeb(IServiceCollection,IConfiguration,System.Action\u003CPackaging.Web.Models.PackagingWebConfiguration\u003E)",
           "Name": "AddPackagingWeb",
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "services",
@@ -21,13 +34,46 @@
               "Type": "System.Action\u003CPackaging.Web.Models.PackagingWebConfiguration\u003E"
             }
           ],
-          "ReturnType": "IServiceCollection"
+          "ReturnType": "IServiceCollection",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "System.Action\u003CT\u003E",
+              "MethodName": "Invoke",
+              "MethodId": "System.Action\u003CT\u003E.Invoke(T)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Packaging.IServiceCollectionExtensions",
+              "MethodName": "AddPackagingWeb",
+              "MethodId": "cCoder.Packaging.IServiceCollectionExtensions.AddPackagingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Packaging.Models.PackagingConfiguration\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "Packaging.Web.Models.PackagingWebConfiguration",
       "StandardElementType": "Model",
+      "LineNumber": 11,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [
         {
           "Name": "Eventing",
@@ -47,38 +93,95 @@
     {
       "Name": "Packaging.Web.Program",
       "StandardElementType": "App",
+      "LineNumber": 7,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [],
       "Methods": [
         {
+          "Id": "Packaging.Web.Program.Main(System.String[])",
           "Name": "Main",
+          "LineNumber": 9,
           "Inputs": [
             {
               "Name": "args",
               "Type": "System.String[]"
             }
           ],
-          "ReturnType": "System.Void"
+          "ReturnType": "System.Void",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "Packaging.Web.WebApplicationExtensions",
+              "MethodName": "UsePackagingWeb",
+              "MethodId": "Packaging.Web.WebApplicationExtensions.UsePackagingWeb(WebApplication)",
+              "StandardElementType": "App",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     },
     {
       "Name": "Packaging.Web.WebApplicationExtensions",
       "StandardElementType": "App",
+      "LineNumber": 12,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
       "Properties": [],
       "Methods": [
         {
+          "Id": "Packaging.Web.WebApplicationExtensions.UsePackagingWeb(WebApplication)",
           "Name": "UsePackagingWeb",
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "app",
               "Type": "WebApplication"
             }
           ],
-          "ReturnType": "IApplicationBuilder"
+          "ReturnType": "IApplicationBuilder",
+          "Implements": [],
+          "Calls": [
+            {
+              "TypeName": "Microsoft.AspNetCore.OData.ODataApplicationBuilderExtensions",
+              "MethodName": "UseODataRouteDebug",
+              "MethodId": "Microsoft.AspNetCore.OData.ODataApplicationBuilderExtensions.UseODataRouteDebug(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            }
+          ],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
         }
       ]
     }
   ],
+  "Interfaces": [],
   "Links": [],
   "AnalysisItems": []
 }

@@ -5,6 +5,7 @@
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Api.OData;
 using cCoder.Packaging.Exposures;
+using cCoder.Packaging.Models.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cCoder.Packaging.Exposures.Controllers;
@@ -17,11 +18,22 @@ public sealed class PackageMetadataController(
     [HttpGet("Api/Packaging/Package/GetMetadata")]
     public IActionResult GetPackageMetadata()
     {
-        MetadataContainer metadata = metadataService.CreateMetadataContainer(
-            type: typeof(Package),
-            isEntity: true,
-            hasEndpoint: true);
+        try
+        {
+            MetadataContainer metadata = metadataService.CreateMetadataContainer(
+                type: typeof(Package),
+                isEntity: true,
+                hasEndpoint: true);
 
-        return Ok(value: metadata);
+            return Ok(value: metadata);
+        }
+        catch (PackagingValidationException)
+        {
+            return BadRequest(error: "The package metadata request is invalid.");
+        }
+        catch (Exception)
+        {
+            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+        }
     }
 }

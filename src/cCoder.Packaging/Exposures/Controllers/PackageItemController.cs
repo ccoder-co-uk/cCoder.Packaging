@@ -5,6 +5,7 @@
 using System.Security;
 using cCoder.Packaging.Api.OData;
 using cCoder.Packaging.Models;
+using cCoder.Packaging.Models.Exceptions;
 using cCoder.Packaging.Exposures;
 using cCoder.Data.Extensions;
 using cCoder.Data.Models.Packaging;
@@ -32,8 +33,25 @@ public partial class PackageItemController(
         MaxExpansionDepth = 5
     )]
     [ActionName("Get")]
-    public IActionResult GetAll(ODataQueryOptions<PackageItem> queryOptions) =>
-        Ok(value: packageItemOrchestrationService.GetAllPackageItems());
+    public IActionResult GetAll()
+    {
+        try
+        {
+            return Ok(value: packageItemOrchestrationService.GetAllPackageItems());
+        }
+        catch (PackagingOrchestrationValidationException)
+        {
+            return BadRequest(error: "The package-item request is invalid.");
+        }
+        catch (SecurityException)
+        {
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception)
+        {
+            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+        }
+    }
 
     [HttpGet]
     [AllowAnonymous]
@@ -53,11 +71,26 @@ public partial class PackageItemController(
                 packageItemOrchestrationService.GetAllPackageItems()
                     .Where(predicate: packageItem => packageItem.Id == key);
 
+            PackageItem packageItem = result.FirstOrDefault();
+
+            if (packageItem is null)
+            {
+                return NotFound();
+            }
+
             return Ok(value: SingleResult.Create(queryable: result));
+        }
+        catch (PackagingOrchestrationValidationException)
+        {
+            return BadRequest(error: "The package-item request is invalid.");
         }
         catch (SecurityException)
         {
-            return NotFound();
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception)
+        {
+            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
         }
     }
 
@@ -72,13 +105,30 @@ public partial class PackageItemController(
     )]
     public async Task<IActionResult> Post([FromBody] PackageItem newPackageItem)
     {
-        if (!ModelState.IsValid)
+        try
         {
-            return BadRequest(modelState: ModelState);
-        }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(modelState: ModelState);
+            }
 
-        return Ok(value: await packageItemOrchestrationService
-            .AddPackageItemAsync(newPackageItem: newPackageItem));
+            return StatusCode(
+                statusCode: StatusCodes.Status201Created,
+                value: await packageItemOrchestrationService
+                    .AddPackageItemAsync(newPackageItem: newPackageItem));
+        }
+        catch (PackagingOrchestrationValidationException)
+        {
+            return BadRequest(error: "The package-item request is invalid.");
+        }
+        catch (SecurityException)
+        {
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception)
+        {
+            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+        }
     }
 
     [HttpPut]
@@ -94,13 +144,30 @@ public partial class PackageItemController(
         [FromRoute] Guid key,
         [FromBody] PackageItem updatedPackageItem)
     {
-        if (!ModelState.IsValid)
+        try
         {
-            return BadRequest(modelState: ModelState);
-        }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(modelState: ModelState);
+            }
 
-        return Ok(value: await packageItemOrchestrationService
-            .UpdatePackageItemAsync(updatedPackageItem: updatedPackageItem));
+            updatedPackageItem.Id = key;
+
+            return Ok(value: await packageItemOrchestrationService
+                .UpdatePackageItemAsync(updatedPackageItem: updatedPackageItem));
+        }
+        catch (PackagingOrchestrationValidationException)
+        {
+            return BadRequest(error: "The package-item request is invalid.");
+        }
+        catch (SecurityException)
+        {
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception)
+        {
+            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+        }
     }
 
     [AcceptVerbs("PATCH", "MERGE")]
@@ -109,26 +176,56 @@ public partial class PackageItemController(
         [FromRoute] Guid key,
         Delta<PackageItem> updatedPackageItemDelta)
     {
-        PackageItem originalEntity = packageItemOrchestrationService
-            .GetPackageItem(packageItemId: key);
-
-        if (originalEntity == null)
+        try
         {
-            return NotFound();
+            PackageItem originalEntity = packageItemOrchestrationService
+                .GetPackageItem(packageItemId: key);
+
+            if (originalEntity is null)
+            {
+                return NotFound();
+            }
+
+            updatedPackageItemDelta.Patch(original: originalEntity);
+
+            return Ok(value: await packageItemOrchestrationService
+                .UpdatePackageItemAsync(updatedPackageItem: originalEntity));
         }
-
-        updatedPackageItemDelta.Patch(original: originalEntity);
-
-        return Ok(value: await packageItemOrchestrationService
-            .UpdatePackageItemAsync(updatedPackageItem: originalEntity));
+        catch (PackagingOrchestrationValidationException)
+        {
+            return BadRequest(error: "The package-item request is invalid.");
+        }
+        catch (SecurityException)
+        {
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception)
+        {
+            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+        }
     }
 
     [HttpDelete]
     public async Task<IActionResult> Delete([FromRoute] Guid key)
     {
-        await packageItemOrchestrationService
-            .DeletePackageItemAsync(packageItemId: key);
+        try
+        {
+            await packageItemOrchestrationService
+                .DeletePackageItemAsync(packageItemId: key);
 
-        return Ok();
+            return NoContent();
+        }
+        catch (PackagingOrchestrationValidationException)
+        {
+            return BadRequest(error: "The package-item request is invalid.");
+        }
+        catch (SecurityException)
+        {
+            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
+        }
+        catch (Exception)
+        {
+            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+        }
     }
 }
