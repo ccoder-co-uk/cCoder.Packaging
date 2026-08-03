@@ -14148,13 +14148,6 @@
       "LineNumber": 66
     },
     {
-      "Code": "ODATA0001",
-      "Description": "An OData entity creation must return the created resource in a 201 response.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Exposures.Controllers.PackageController",
-      "LineNumber": 105
-    },
-    {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
@@ -14195,13 +14188,6 @@
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
       "LineNumber": 66
-    },
-    {
-      "Code": "ODATA0001",
-      "Description": "An OData entity creation must return the created resource in a 201 response.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
-      "LineNumber": 106
     },
     {
       "Code": "STXAPI005",
