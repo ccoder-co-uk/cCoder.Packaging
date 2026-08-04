@@ -1,5 +1,7 @@
 # cCoder.Packaging
 
+[View the latest code coverage report](https://ccoder-co-uk.github.io/cCoder.Packaging/)
+
 ## Local configuration
 
 The Web app binds `PackagingWebConfiguration` directly from `appsettings.json`.
