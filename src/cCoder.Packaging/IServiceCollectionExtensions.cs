@@ -91,6 +91,12 @@ public static class IServiceCollectionExtensions
         PackagingConfiguration configuration)
     {
         ArgumentNullException.ThrowIfNull(argument: configuration);
+        configuration.ConnectionString ??= string.Empty;
+        configuration.AssetsRoot ??=
+            "https://raw.githubusercontent.com/ccoder-co-uk/" +
+            "cCoder.Assets/main/Packages/";
+        configuration.PackageSourceSslPort ??= "443";
+        configuration.RootPath ??= "Api/Packaging";
         services.TryAddSingleton(instance: configuration);
 
         services.AddData(
