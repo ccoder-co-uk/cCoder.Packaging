@@ -26,9 +26,12 @@ public partial class PackageAggregationServiceTests
             .Returns(value: sourceApi);
 
         packageProcessingServiceMock
-            .Setup(expression: x => x.ExportPackages(appId: appId, packageNames: It.IsAny<string[]>()))
-            .Returns(valueFunction: (int _, string[] packageNames) =>
-                [.. packageNames.Select(selector: packageName => new DataPackage(packageName) { Items = [] })]);
+            .Setup(expression:x => x.ExportPackages(
+                appId:appId,
+                packageNames:It.IsAny<string[]>()))
+            .Returns(valueFunction:(int _, string[] packageNames) =>
+                [.. packageNames.Select(
+                    selector:packageName => new DataPackage(name:packageName) { Items = [] })]);
 
         // When
         Package[] result = aggregationService.ExportPackages(appId: appId, packageNames: [])
@@ -38,11 +41,15 @@ public partial class PackageAggregationServiceTests
         result.Should()
             .HaveCount(expected: 12);
 
-        packageProcessingServiceMock.Verify(expression: x => x.ExportPackages(appId: appId, packageNames: It.IsAny<string[]>()), times: Times.Once);
+        packageProcessingServiceMock.Verify(
+            expression:x => x.ExportPackages(
+                appId:appId,
+                packageNames:It.IsAny<string[]>()),
+            times:Times.Once);
 
         packageExportProcessingServiceMock.Verify(
-            expression: service => service.GetPackageSourceApi(appId: appId),
-            times: Times.Once);
+            expression:service => service.GetPackageSourceApi(appId:appId),
+            times:Times.Once);
 
         packageExportProcessingServiceMock.VerifyNoOtherCalls();
         packageProcessingServiceMock.VerifyNoOtherCalls();

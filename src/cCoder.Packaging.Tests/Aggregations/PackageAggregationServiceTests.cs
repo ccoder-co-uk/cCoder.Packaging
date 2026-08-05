@@ -20,20 +20,21 @@ public partial class PackageAggregationServiceTests
     public PackageAggregationServiceTests()
     {
         packageExportProcessingServiceMock =
-            new Mock<IPackageExportProcessingService>(MockBehavior.Strict);
-        packageProcessingServiceMock = new Mock<IPackageProcessingService>(MockBehavior.Strict);
+            new Mock<IPackageExportProcessingService>(behavior:MockBehavior.Strict);
+
+        packageProcessingServiceMock =
+            new Mock<IPackageProcessingService>(behavior:MockBehavior.Strict);
+
         packageItemProcessingServiceMock =
-            new Mock<IPackageItemProcessingService>(MockBehavior.Strict);
+            new Mock<IPackageItemProcessingService>(behavior:MockBehavior.Strict);
 
         packageEventProcessingServiceMock = new Mock<IPackageEventProcessingService>(
-            MockBehavior.Loose
-        );
+            behavior:MockBehavior.Loose);
 
         aggregationService = new PackageAggregationService(
-            packageProcessingServiceMock.Object,
-            packageItemProcessingServiceMock.Object,
-            packageEventProcessingServiceMock.Object,
-            packageExportProcessingServiceMock.Object
-        );
+            packageProcessingService:packageProcessingServiceMock.Object,
+            packageItemProcessingService:packageItemProcessingServiceMock.Object,
+            packageEventProcessingService:packageEventProcessingServiceMock.Object,
+            packageExportProcessingService:packageExportProcessingServiceMock.Object);
     }
 }

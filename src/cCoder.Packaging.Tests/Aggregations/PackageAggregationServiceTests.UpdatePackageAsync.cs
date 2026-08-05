@@ -19,6 +19,7 @@ public partial class PackageAggregationServiceTests
         Guid packageId = Guid.NewGuid();
         var replacementItem = new PackageItem { Type = "Core/Role", Data = "[]" };
         var existingItem = new PackageItem { PackageId = packageId };
+
         var updatedPackage = new Package(name:"Roles")
         {
             Id = packageId,
@@ -39,7 +40,7 @@ public partial class PackageAggregationServiceTests
 
         packageItemProcessingServiceMock
             .Setup(expression:service => service.DeleteAllPackageItemsAsync(
-                It.Is<IEnumerable<PackageItem>>(
+                deletedPackageItems:It.Is<IEnumerable<PackageItem>>(
                     match:items => items.Single() == existingItem)))
             .Returns(value:ValueTask.CompletedTask);
 
