@@ -8,7 +8,8 @@ using cCoder.Packaging.Services.Orchestrations;
 namespace cCoder.Packaging.Exposures;
 
 internal sealed class PackageItemManager(
-    IPackageItemOrchestrationService packageItemOrchestrationService)
+    IPackageItemOrchestrationService packageItemOrchestrationService,
+    IPackagingLoggingManager packagingLoggingManager)
     : IPackageItemManager
 {
     public PackageItem GetPackageItem(Guid packageItemId) =>
@@ -33,4 +34,9 @@ internal sealed class PackageItemManager(
     public ValueTask DeletePackageItemAsync(Guid packageItemId) =>
         packageItemOrchestrationService.DeletePackageItemAsync(
             packageItemId: packageItemId);
+
+    public void LogError(Exception exception, string message) =>
+        packagingLoggingManager.LogError(
+            exception: exception,
+            message: message);
 }

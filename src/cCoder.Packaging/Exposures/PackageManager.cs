@@ -8,7 +8,8 @@ using cCoder.Packaging.Services.Aggregations;
 namespace cCoder.Packaging.Exposures;
 
 internal sealed class PackageManager(
-    IPackageAggregationService packageAggregationService)
+    IPackageAggregationService packageAggregationService,
+    IPackagingLoggingManager packagingLoggingManager)
     : IPackageManager
 {
     public Package GetPackage(Guid packageId) =>
@@ -26,4 +27,9 @@ internal sealed class PackageManager(
 
     public ValueTask DeletePackageAsync(Guid packageId) =>
         packageAggregationService.DeletePackageAsync(packageId: packageId);
+
+    public void LogError(Exception exception, string message) =>
+        packagingLoggingManager.LogError(
+            exception: exception,
+            message: message);
 }

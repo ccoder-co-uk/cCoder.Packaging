@@ -17,6 +17,7 @@ using cCoder.Packaging.Services.Aggregations;
 using cCoder.Packaging.Services.Foundations;
 using cCoder.Packaging.Services.Foundations.Events;
 using cCoder.Packaging.Services.Foundations.Metadata;
+using cCoder.Packaging.Services.Foundations.Loggings;
 using cCoder.Packaging.Services.Foundations.PackageExports;
 using cCoder.Packaging.Services.Foundations.PackageManagers;
 using cCoder.Packaging.Services.Foundations.Storages;
@@ -136,6 +137,7 @@ public static class IServiceCollectionExtensions
         services.TryAddTransient<IPackageItemService, PackageItemService>();
         services.TryAddTransient<IPackageExportService, PackageExportService>();
         services.TryAddTransient<IMetadataService, MetadataService>();
+        services.TryAddTransient<ILoggingFoundationService, LoggingFoundationService>();
 
         if (includePackageManagerServices)
         {
@@ -186,6 +188,7 @@ public static class IServiceCollectionExtensions
         services.AddEventingForType<PackageItem>();
         services.AddEventingForType<PackageImportEvent>();
         services.TryAddTransient<IPackageManager, PackageManager>();
+        services.TryAddTransient<IPackagingLoggingManager, PackagingLoggingManager>();
         services.TryAddTransient<
             IPackageTransferManager,
             PackageTransferManager>();
