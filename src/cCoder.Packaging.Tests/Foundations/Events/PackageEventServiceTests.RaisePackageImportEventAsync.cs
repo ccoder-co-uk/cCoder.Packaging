@@ -4,8 +4,10 @@
 
 using cCoder.Data.Models.Packaging;
 using cCoder.Eventing.Models;
+using cCoder.Packaging.Models;
 using FluentAssertions;
 using Moq;
+using System.Text.Json;
 using Xunit;
 
 
@@ -28,11 +30,11 @@ public partial class PackageEventServiceTests
             ],
         };
 
-        EventMessage<(int, Package)> actualMessage = null;
+        EventMessage<PackageImportEvent> actualMessage = null;
 
         packageEventBrokerMock
-            .Setup(expression: x => x.RaisePackageImportEventAsync(message: It.IsAny<EventMessage<(int, Package)>>()))
-            .Callback<EventMessage<(int, Package)>>(action: message => actualMessage = message)
+            .Setup(expression: x => x.RaisePackageImportEventAsync(message: It.IsAny<EventMessage<PackageImportEvent>>()))
+            .Callback<EventMessage<PackageImportEvent>>(action: message => actualMessage = message)
             .Returns(value: ValueTask.CompletedTask);
 
         // When
@@ -42,10 +44,10 @@ public partial class PackageEventServiceTests
         actualMessage.Should()
             .NotBeNull();
 
-        actualMessage!.Data.Item1.Should()
+        actualMessage!.Data.AppId.Should()
             .Be(expected: 7);
 
-        actualMessage.Data.Item2.Should()
+        actualMessage.Data.Package.Should()
             .BeSameAs(expected: package);
 
         actualMessage.AuthInfo.Should()
@@ -54,10 +56,18 @@ public partial class PackageEventServiceTests
         actualMessage.AuthInfo.SSOUserId.Should()
             .Be(expected: CurrentUserId);
 
+        string serializedMessage = JsonSerializer.Serialize(value: actualMessage);
+
+        serializedMessage.Should()
+            .Contain(expected: "\"AppId\":7");
+
+        serializedMessage.Should()
+            .Contain(expected: "\"Package\":");
+
         packageEventBrokerMock.Verify(
-expression: x => x.RaisePackageImportEventAsync(message: It.IsAny<EventMessage<(int, Package)>>()),
-times: Times.Once
-        );
+            expression: x => x.RaisePackageImportEventAsync(
+                message: It.IsAny<EventMessage<PackageImportEvent>>()),
+            times: Times.Once);
 
         packageEventBrokerMock.VerifyNoOtherCalls();
     }
