@@ -7,7 +7,9 @@ using cCoder.Packaging.Services.Foundations.Metadata;
 
 namespace cCoder.Packaging.Exposures;
 
-internal sealed class PackageMetadataManager(IMetadataService metadataService)
+internal sealed class PackageMetadataManager(
+    IMetadataService metadataService,
+    IPackagingLoggingManager packagingLoggingManager)
     : IPackageMetadataManager
 {
     public MetadataContainer CreateMetadataContainer(
@@ -18,4 +20,9 @@ internal sealed class PackageMetadataManager(IMetadataService metadataService)
             type: type,
             isEntity: isEntity,
             hasEndpoint: hasEndpoint);
+
+    public void LogError(Exception exception, string message) =>
+        packagingLoggingManager.LogError(
+            exception: exception,
+            message: message);
 }

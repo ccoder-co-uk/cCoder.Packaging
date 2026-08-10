@@ -13,4 +13,5 @@ public interface IPackageItemManager
     ValueTask<PackageItem> AddPackageItemAsync(PackageItem newPackageItem);
     ValueTask<PackageItem> UpdatePackageItemAsync(PackageItem updatedPackageItem);
     ValueTask DeletePackageItemAsync(Guid packageItemId);
+    void LogError(Exception exception, string message);
 }

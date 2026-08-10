@@ -2,15 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Packaging.Api.OData;
+namespace cCoder.Packaging.Services.Foundations.Loggings;
 
-namespace cCoder.Packaging.Exposures;
-
-public interface IPackageMetadataManager
+internal interface ILoggingFoundationService
 {
-    MetadataContainer CreateMetadataContainer(
-        Type type,
-        bool isEntity,
-        bool hasEndpoint);
     void LogError(Exception exception, string message);
 }
