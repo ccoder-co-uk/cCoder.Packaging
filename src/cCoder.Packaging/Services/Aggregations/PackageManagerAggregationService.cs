@@ -88,8 +88,9 @@ internal sealed partial class PackageManagerAggregationService(
             or "Core/CalendarEvent"
             or "Core/ScheduledTask")
         {
-            Package planningPackage = new("Planning")
+            Package planningPackage = new()
             {
+                Name = "Planning",
                 Items = [canonicalPackageItem],
             };
 
@@ -104,8 +105,9 @@ internal sealed partial class PackageManagerAggregationService(
             "Workflow/FlowDefinition"
             or "Core/FlowDefinition")
         {
-            Package workflowPackage = new("Workflow")
+            Package workflowPackage = new()
             {
+                Name = "Workflow",
                 Items = [canonicalPackageItem],
             };
 
@@ -121,8 +123,9 @@ internal sealed partial class PackageManagerAggregationService(
             or "Core/FolderRole")
         {
             Package documentPackage =
-                new("DocumentManagement")
+                new()
                 {
+                    Name = "DocumentManagement",
                     Items = [canonicalPackageItem],
                 };
 
@@ -138,8 +141,9 @@ internal sealed partial class PackageManagerAggregationService(
             or "Core/Role")
         {
             Package appSecurityPackage =
-                new("AppSecurity")
+                new()
                 {
+                    Name = "AppSecurity",
                     Items = [canonicalPackageItem],
                 };
 
@@ -151,8 +155,9 @@ internal sealed partial class PackageManagerAggregationService(
         }
 
         Package contentPackage =
-            new(packageName)
+            new()
             {
+                Name = packageName,
                 Items = [packageItem],
             };
 

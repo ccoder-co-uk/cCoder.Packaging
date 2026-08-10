@@ -31,7 +31,11 @@ public partial class PackageAggregationServiceTests
                 packageNames:It.IsAny<string[]>()))
             .Returns(valueFunction:(int _, string[] packageNames) =>
                 [.. packageNames.Select(
-                    selector:packageName => new DataPackage(name:packageName) { Items = [] })]);
+                    selector:packageName => new DataPackage
+                    {
+                        Name = packageName,
+                        Items = []
+                    })]);
 
         // When
         Package[] result = aggregationService.ExportPackages(appId: appId, packageNames: [])

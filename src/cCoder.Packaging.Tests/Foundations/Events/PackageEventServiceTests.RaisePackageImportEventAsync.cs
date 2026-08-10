@@ -17,8 +17,9 @@ public partial class PackageEventServiceTests
     public async Task ShouldRaisePackageImportEventWhenRaisePackageImportEventAsync()
     {
         // Given
-        Package package = new("Roles")
+        Package package = new()
         {
+            Name = "Roles",
             Items =
             [
                 new PackageItem

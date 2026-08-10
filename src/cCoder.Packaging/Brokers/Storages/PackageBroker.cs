@@ -112,8 +112,9 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
                 .ThenInclude(navigationPropertyPath: userRole => userRole.User)
             .ToArray();
 
-        return new Package("Roles")
+        return new Package()
         {
+            Name = "Roles",
             Items =
             [
                 new PackageItem
@@ -137,8 +138,9 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
                 .ThenInclude(navigationPropertyPath: folderRole => folderRole.Role)
             .ToArray();
 
-        return new Package("FolderRoles")
+        return new Package()
         {
+            Name = "FolderRoles",
             Items =
             [
                 new PackageItem
@@ -160,8 +162,9 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
-        return new Package("Layouts")
+        return new Package()
         {
+            Name = "Layouts",
             Items =
             [
                 new PackageItem
@@ -189,8 +192,9 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
-        return new Package("Templates")
+        return new Package()
         {
+            Name = "Templates",
             Items =
             [
                 new PackageItem
@@ -217,8 +221,9 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
-        return new Package("Components")
+        return new Package()
         {
+            Name = "Components",
             Items =
             [
                 new PackageItem
@@ -247,8 +252,9 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
-        return new Package("Scripts")
+        return new Package()
         {
+            Name = "Scripts",
             Items =
             [
                 new PackageItem
@@ -274,8 +280,9 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
-        return new Package("Resources")
+        return new Package()
         {
+            Name = "Resources",
             Items =
             [
                 new PackageItem
@@ -322,8 +329,9 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
             .ForEach(action: page =>
                 page.Parent = pageDictionary[key: page.ParentId.Value]);
 
-        return new Package("Pages")
+        return new Package()
         {
+            Name = "Pages",
             Items =
             [
                 new PackageItem
@@ -387,8 +395,9 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
-        return new Package("Workflows")
+        return new Package()
         {
+            Name = "Workflows",
             Items =
             [
                 new PackageItem
@@ -444,8 +453,9 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
             )
             .ToArray();
 
-        return new Package("PageRoles")
+        return new Package()
         {
+            Name = "PageRoles",
             Items =
             [
                 new PackageItem
@@ -462,8 +472,9 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
-        return new Package("Calendars")
+        return new Package()
         {
+            Name = "Calendars",
             Items =
             [
                 new PackageItem
@@ -484,8 +495,9 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
         JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
-        return new Package("CalendarEvents")
+        return new Package()
         {
+            Name = "CalendarEvents",
             Items =
             [
                 new PackageItem
