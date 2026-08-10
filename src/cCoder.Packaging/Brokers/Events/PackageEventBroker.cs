@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using cCoder.Data.Models.Packaging;
+using cCoder.Packaging.Models;
 using cCoder.Eventing;
 using cCoder.Eventing.Models;
 
@@ -11,7 +12,7 @@ namespace cCoder.Packaging.Brokers.Events;
 
 internal sealed class PackageEventBroker(IEventHub eventHub) : IPackageEventBroker
 {
-    public ValueTask RaisePackageImportEventAsync(EventMessage<(int, Package)> message) =>
+    public ValueTask RaisePackageImportEventAsync(EventMessage<PackageImportEvent> message) =>
         eventHub.RaiseEventAsync(name: "package_import", message: message);
 
     public ValueTask RaisePackageAddEventAsync(EventMessage<Package> message) =>

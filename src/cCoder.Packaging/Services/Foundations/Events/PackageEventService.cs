@@ -6,6 +6,7 @@ using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Brokers.Events;
 using cCoder.Eventing.Models;
+using cCoder.Packaging.Models;
 
 
 namespace cCoder.Packaging.Services.Foundations.Events;
@@ -20,10 +21,14 @@ internal sealed partial class PackageEventService(
         {
             ValidatePackageEventOnImport(appId: appId, package: package);
 
-            EventMessage<(int, Package)> message = new()
+            EventMessage<PackageImportEvent> message = new()
             {
                 AuthInfo = new EventAuthInfo { SSOUserId = authInfoBroker.GetSSOUserId() },
-                Data = (appId, package),
+                Data = new PackageImportEvent
+                {
+                    AppId = appId,
+                    Package = package,
+                },
             };
 
             await packageEventBroker.RaisePackageImportEventAsync(message: message);

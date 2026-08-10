@@ -505,7 +505,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Events.PackageEventBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 12,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -526,7 +526,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.PackageEventBroker.RaisePackageAddEventAsync(EventMessage\u003CPackage\u003E)",
           "Name": "RaisePackageAddEventAsync",
-          "LineNumber": 17,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "message",
@@ -553,7 +553,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.PackageEventBroker.RaisePackageDeleteEventAsync(EventMessage\u003CPackage\u003E)",
           "Name": "RaisePackageDeleteEventAsync",
-          "LineNumber": 23,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "message",
@@ -578,18 +578,18 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Packaging.Brokers.Events.PackageEventBroker.RaisePackageImportEventAsync(EventMessage\u003C(System.Int32, Package)\u003E)",
+          "Id": "cCoder.Packaging.Brokers.Events.PackageEventBroker.RaisePackageImportEventAsync(EventMessage\u003CcCoder.Packaging.Models.PackageImportEvent\u003E)",
           "Name": "RaisePackageImportEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "message",
-              "Type": "EventMessage\u003C(System.Int32, Package)\u003E"
+              "Type": "EventMessage\u003CcCoder.Packaging.Models.PackageImportEvent\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask",
           "Implements": [
-            "cCoder.Packaging.Brokers.Events.IPackageEventBroker.RaisePackageImportEventAsync(EventMessage\u003C(System.Int32, Package)\u003E)"
+            "cCoder.Packaging.Brokers.Events.IPackageEventBroker.RaisePackageImportEventAsync(EventMessage\u003CcCoder.Packaging.Models.PackageImportEvent\u003E)"
           ],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -607,7 +607,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.PackageEventBroker.RaisePackageUpdateEventAsync(EventMessage\u003CPackage\u003E)",
           "Name": "RaisePackageUpdateEventAsync",
-          "LineNumber": 20,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "message",
@@ -4907,6 +4907,26 @@
       "Methods": []
     },
     {
+      "Name": "cCoder.Packaging.Models.PackageImportEvent",
+      "StandardElementType": "Model",
+      "LineNumber": 9,
+      "IsPublic": true,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [
+        {
+          "Name": "AppId",
+          "Type": "System.Int32"
+        },
+        {
+          "Name": "Package",
+          "Type": "Package"
+        }
+      ],
+      "Methods": []
+    },
+    {
       "Name": "cCoder.Packaging.Models.PackagingConfiguration",
       "StandardElementType": "Model",
       "LineNumber": 7,
@@ -5796,7 +5816,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.Events.PackageEventService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 13,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -5817,7 +5837,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.PackageEventService.RaisePackageAddEventAsync(Package)",
           "Name": "RaisePackageAddEventAsync",
-          "LineNumber": 32,
+          "LineNumber": 37,
           "Inputs": [
             {
               "Name": "package",
@@ -5871,7 +5891,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.PackageEventService.RaisePackageDeleteEventAsync(Package)",
           "Name": "RaisePackageDeleteEventAsync",
-          "LineNumber": 60,
+          "LineNumber": 65,
           "Inputs": [
             {
               "Name": "package",
@@ -5925,7 +5945,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.PackageEventService.RaisePackageImportEventAsync(System.Int32,Package)",
           "Name": "RaisePackageImportEventAsync",
-          "LineNumber": 18,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "appId",
@@ -5944,7 +5964,7 @@
             {
               "TypeName": "cCoder.Packaging.Brokers.Events.IPackageEventBroker",
               "MethodName": "RaisePackageImportEventAsync",
-              "MethodId": "cCoder.Packaging.Brokers.Events.IPackageEventBroker.RaisePackageImportEventAsync(EventMessage\u003C(System.Int32, Package)\u003E)",
+              "MethodId": "cCoder.Packaging.Brokers.Events.IPackageEventBroker.RaisePackageImportEventAsync(EventMessage\u003CcCoder.Packaging.Models.PackageImportEvent\u003E)",
               "StandardElementType": "Broker",
               "IsDependencyBoundary": false
             },
@@ -5983,7 +6003,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.PackageEventService.RaisePackageUpdateEventAsync(Package)",
           "Name": "RaisePackageUpdateEventAsync",
-          "LineNumber": 46,
+          "LineNumber": 51,
           "Inputs": [
             {
               "Name": "package",
@@ -9969,7 +9989,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Events.IPackageEventBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 11,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -9979,7 +9999,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.IPackageEventBroker.RaisePackageAddEventAsync(EventMessage\u003CPackage\u003E)",
           "Name": "RaisePackageAddEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "message",
@@ -10004,7 +10024,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.IPackageEventBroker.RaisePackageDeleteEventAsync(EventMessage\u003CPackage\u003E)",
           "Name": "RaisePackageDeleteEventAsync",
-          "LineNumber": 16,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "message",
@@ -10027,13 +10047,13 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Packaging.Brokers.Events.IPackageEventBroker.RaisePackageImportEventAsync(EventMessage\u003C(System.Int32, Package)\u003E)",
+          "Id": "cCoder.Packaging.Brokers.Events.IPackageEventBroker.RaisePackageImportEventAsync(EventMessage\u003CcCoder.Packaging.Models.PackageImportEvent\u003E)",
           "Name": "RaisePackageImportEventAsync",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "message",
-              "Type": "EventMessage\u003C(System.Int32, Package)\u003E"
+              "Type": "EventMessage\u003CcCoder.Packaging.Models.PackageImportEvent\u003E"
             }
           ],
           "ReturnType": "System.Threading.Tasks.ValueTask",
@@ -10054,7 +10074,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.IPackageEventBroker.RaisePackageUpdateEventAsync(EventMessage\u003CPackage\u003E)",
           "Name": "RaisePackageUpdateEventAsync",
-          "LineNumber": 15,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "message",
