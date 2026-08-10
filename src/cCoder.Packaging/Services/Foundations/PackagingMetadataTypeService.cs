@@ -15,8 +15,6 @@ internal sealed partial class PackagingMetadataTypeService(IMetadataBroker metad
     public IEnumerable<MetadataContainerSet> GetKnownMetadata() =>
         TryCatch(operation: () =>
         {
-            ValidateKnownMetadataOnGet();
-
             return new MetadataContainerSet[]
             {
                 new MetadataContainerSet
