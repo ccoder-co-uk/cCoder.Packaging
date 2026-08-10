@@ -19,7 +19,7 @@ public partial class PackageAggregationServiceTests
     public async Task ShouldRaisePackageImportEventAsyncWhenImportPackageAsync()
     {
         // Given
-        Package package = new("Roles") { Items = [] };
+        Package package = new() { Name = "Roles", Items = [] };
         Expression<Func<IPackageEventProcessingService, ValueTask>> expectedCall = service => service.RaisePackageImportEventAsync(appId: 1, package: It.IsAny<DataPackage>());
 
         var eventSetup = packageEventProcessingServiceMock.Setup(expression: expectedCall);

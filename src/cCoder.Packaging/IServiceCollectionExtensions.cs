@@ -110,6 +110,7 @@ public static class IServiceCollectionExtensions
         this IServiceCollection services,
         bool includePackageManagerServices)
     {
+        services.AddTransient<Brokers.Loggings.ILoggingBroker, Brokers.Loggings.LoggingBroker>();
         services.TryAddTransient<IAuthorizationBroker, AuthorizationBroker>();
         services.TryAddTransient<IAuthInfoBroker, AuthInfoBroker>();
         services.TryAddTransient<IPackageEventBroker, PackageEventBroker>();

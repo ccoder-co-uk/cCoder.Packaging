@@ -20,13 +20,14 @@ public partial class PackageAggregationServiceTests
         var replacementItem = new PackageItem { Type = "Core/Role", Data = "[]" };
         var existingItem = new PackageItem { PackageId = packageId };
 
-        var updatedPackage = new Package(name:"Roles")
+        var updatedPackage = new Package
         {
+            Name = "Roles",
             Id = packageId,
             Items = [replacementItem]
         };
 
-        var savedPackage = new Package(name:"Roles") { Id = packageId };
+        var savedPackage = new Package { Name = "Roles", Id = packageId };
 
         packageProcessingServiceMock
             .Setup(expression:service => service.UpdatePackageAsync(

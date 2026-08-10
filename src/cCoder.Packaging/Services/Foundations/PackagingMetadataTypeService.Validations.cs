@@ -14,7 +14,4 @@ internal sealed partial class PackagingMetadataTypeService
             ArgumentNullException.ThrowIfNull(argument: input);
         }
     }
-
-    private static void ValidateKnownMetadataOnGet() =>
-        Validate(inputs: []);
 }
