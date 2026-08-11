@@ -25,6 +25,11 @@ internal sealed class PackageManager(
         packageAggregationService.UpdatePackageAsync(
             updatedPackage: updatedPackage);
 
+    public ValueTask ImportPackageAsync(int? appId, Package package) =>
+        packageAggregationService.ImportPackageAsync(
+            appId: appId,
+            package: package);
+
     public ValueTask DeletePackageAsync(Guid packageId) =>
         packageAggregationService.DeletePackageAsync(packageId: packageId);
 

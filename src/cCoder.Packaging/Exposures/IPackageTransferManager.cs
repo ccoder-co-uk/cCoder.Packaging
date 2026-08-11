@@ -9,5 +9,4 @@ namespace cCoder.Packaging.Exposures;
 public interface IPackageTransferManager
 {
     Package ExportPackage(int appId, string packageName);
-    ValueTask ImportPackageAsync(int appId, Package package);
 }

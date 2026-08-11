@@ -16,7 +16,7 @@ internal sealed partial class PackageEventService(
     IAuthInfoBroker authInfoBroker)
     : IPackageEventService
 {
-    public ValueTask RaisePackageImportEventAsync(int appId, Package package) =>
+    public ValueTask RaisePackageImportEventAsync(int? appId, Package package) =>
         TryCatch(operation: async () =>
         {
             ValidatePackageEventOnImport(appId: appId, package: package);

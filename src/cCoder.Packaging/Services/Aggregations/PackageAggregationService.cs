@@ -61,7 +61,7 @@ internal sealed partial class PackageAggregationService(
             return packages;
         });
 
-    public ValueTask ImportPackageAsync(int appId, Package package) =>
+    public ValueTask ImportPackageAsync(int? appId, Package package) =>
         TryCatch(operation: () =>
         {
             ValidatePackageOnImport(appId: appId, package: package);

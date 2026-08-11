@@ -15,8 +15,11 @@ namespace cCoder.Packaging.Tests.Foundations.Events;
 
 public partial class PackageEventServiceTests
 {
-    [Fact]
-    public async Task ShouldRaisePackageImportEventWhenRaisePackageImportEventAsync()
+    [Theory]
+    [InlineData(7)]
+    [InlineData(null)]
+    public async Task ShouldRaisePackageImportEventWithNamedPayloadAsync(
+        int? appId)
     {
         // Given
         Package package = new()
@@ -39,14 +42,16 @@ public partial class PackageEventServiceTests
             .Returns(value: ValueTask.CompletedTask);
 
         // When
-        await service.RaisePackageImportEventAsync(appId: 7, package: package);
+        await service.RaisePackageImportEventAsync(
+            appId: appId,
+            package: package);
 
         // Then
         actualMessage.Should()
             .NotBeNull();
 
         actualMessage!.Data.AppId.Should()
-            .Be(expected: 7);
+            .Be(expected: appId);
 
         actualMessage.Data.Package.Should()
             .BeSameAs(expected: package);
@@ -59,8 +64,12 @@ public partial class PackageEventServiceTests
 
         string serializedMessage = JsonSerializer.Serialize(value: actualMessage);
 
+        string expectedAppId = appId.HasValue
+            ? appId.Value.ToString()
+            : "null";
+
         serializedMessage.Should()
-            .Contain(expected: "\"AppId\":7");
+            .Contain(expected: $"\"AppId\":{expectedAppId}");
 
         serializedMessage.Should()
             .Contain(expected: "\"Package\":");

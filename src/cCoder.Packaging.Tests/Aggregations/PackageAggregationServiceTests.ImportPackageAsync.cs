@@ -15,23 +15,37 @@ namespace cCoder.Packaging.Tests.Aggregations;
 
 public partial class PackageAggregationServiceTests
 {
-    [Fact]
-    public async Task ShouldRaisePackageImportEventAsyncWhenImportPackageAsync()
+    [Theory]
+    [InlineData(1)]
+    [InlineData(null)]
+    public async Task ShouldRaiseOnlyPackageImportEventAsyncWhenImportPackageAsync(
+        int? appId)
     {
         // Given
         Package package = new() { Name = "Roles", Items = [] };
-        Expression<Func<IPackageEventProcessingService, ValueTask>> expectedCall = service => service.RaisePackageImportEventAsync(appId: 1, package: It.IsAny<DataPackage>());
+
+        Expression<Func<IPackageEventProcessingService, ValueTask>> expectedCall =
+            service => service.RaisePackageImportEventAsync(
+                appId: appId,
+                package: package);
 
         var eventSetup = packageEventProcessingServiceMock.Setup(expression: expectedCall);
         eventSetup.Returns(value: ValueTask.CompletedTask);
 
         // When
-        await aggregationService.ImportPackageAsync(appId: 1, package: package);
+        await aggregationService.ImportPackageAsync(
+            appId: appId,
+            package: package);
 
         // Then
-        packageEventProcessingServiceMock.VerifyAll();
+        packageEventProcessingServiceMock.Verify(
+            expression: expectedCall,
+            times: Times.Once);
+
+        packageEventProcessingServiceMock.VerifyNoOtherCalls();
 
         packageProcessingServiceMock.VerifyNoOtherCalls();
+        packageItemProcessingServiceMock.VerifyNoOtherCalls();
         packageExportProcessingServiceMock.VerifyNoOtherCalls();
     }
 }

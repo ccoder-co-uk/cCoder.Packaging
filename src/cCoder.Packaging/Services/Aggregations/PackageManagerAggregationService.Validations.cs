@@ -16,9 +16,6 @@ internal sealed partial class PackageManagerAggregationService
         }
     }
 
-    private static void ValidatePackageOnImport(int appId, Package package) =>
-        Validate(inputs: [appId, package]);
-
     private static void ValidatePackageOnExport(int appId, string packageName) =>
         Validate(inputs: [appId, packageName]);
 }

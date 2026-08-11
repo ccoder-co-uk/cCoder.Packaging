@@ -10,7 +10,5 @@ namespace cCoder.Packaging.Services.Aggregations;
 
 internal interface IPackageManagerAggregationService
 {
-    ValueTask ImportPackageAsync(int appId, Package package);
-
     Package ExportPackage(int appId, string packageName);
 }

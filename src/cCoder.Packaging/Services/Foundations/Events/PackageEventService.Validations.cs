@@ -16,8 +16,10 @@ internal sealed partial class PackageEventService
         }
     }
 
-    private static void ValidatePackageEventOnImport(int appId, Package package) =>
-        Validate(inputs: [appId, package]);
+    private static void ValidatePackageEventOnImport(
+        int? appId,
+        Package package) =>
+        Validate(inputs: package);
 
     private static void ValidatePackageEventOnAdd(Package newPackage) =>
         Validate(inputs: newPackage);

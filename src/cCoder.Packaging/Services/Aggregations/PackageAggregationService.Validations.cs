@@ -19,8 +19,8 @@ internal sealed partial class PackageAggregationService
     private static void ValidatePackagesOnExport(int appId, string[] packageNames) =>
         Validate(inputs: appId);
 
-    private static void ValidatePackageOnImport(int appId, Package package) =>
-        Validate(inputs: [appId, package]);
+    private static void ValidatePackageOnImport(int? appId, Package package) =>
+        Validate(inputs: package);
 
     private static void ValidatePackageOnGet(Guid packageId) =>
         Validate(inputs: packageId);

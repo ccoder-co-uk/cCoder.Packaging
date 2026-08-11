@@ -12,6 +12,7 @@ public interface IPackageManager
     IQueryable<Package> GetAllPackages(bool ignoreFilters = false);
     ValueTask<Package> AddPackageAsync(Package newPackage);
     ValueTask<Package> UpdatePackageAsync(Package updatedPackage);
+    ValueTask ImportPackageAsync(int? appId, Package package);
     ValueTask DeletePackageAsync(Guid packageId);
     void LogError(Exception exception, string message);
 }
