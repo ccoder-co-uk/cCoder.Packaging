@@ -148,6 +148,43 @@ public partial class PackageController(
         }
     }
 
+    [HttpPost("/Api/Packaging/Package/Import")]
+    public async Task<IActionResult> PostImport(
+        [FromBody] Package newPackage,
+        [FromQuery] int? appId = null)
+    {
+        try
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(modelState: ModelState);
+            }
+
+            await packageOrchestrationService.ImportPackageAsync(
+                appId: appId,
+                package: newPackage);
+
+            return Accepted();
+        }
+        catch (PackagingOrchestrationValidationException exception)
+        {
+            packageOrchestrationService.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
+            return BadRequest(error: "The package request is invalid.");
+        }
+        catch (Exception exception)
+        {
+            packageOrchestrationService.LogError(
+                exception: exception,
+                message: "Controller request failed.");
+
+            return StatusCode(
+                statusCode: StatusCodes.Status500InternalServerError);
+        }
+    }
+
     [HttpPut]
     [EnableQuery(
         AllowedArithmeticOperators = AllowedArithmeticOperators.All,

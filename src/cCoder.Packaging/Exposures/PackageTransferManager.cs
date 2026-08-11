@@ -16,8 +16,4 @@ internal sealed class PackageTransferManager(
             appId: appId,
             packageName: packageName);
 
-    public ValueTask ImportPackageAsync(int appId, Package package) =>
-        packageManagerAggregationService.ImportPackageAsync(
-            appId: appId,
-            package: package);
 }

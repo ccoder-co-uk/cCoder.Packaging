@@ -11,7 +11,7 @@ namespace cCoder.Packaging.Services.Aggregations;
 internal interface IPackageAggregationService
 {
     IEnumerable<Package> ExportPackages(int appId, string[] packageNames = null);
-    ValueTask ImportPackageAsync(int appId, Package package);
+    ValueTask ImportPackageAsync(int? appId, Package package);
     Package GetPackage(Guid packageId);
     IQueryable<Package> GetAllPackages(bool ignoreFilters = false);
     ValueTask<Package> AddPackageAsync(Package newPackage);

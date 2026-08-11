@@ -11,7 +11,7 @@ internal sealed partial class PackageEventProcessingService(
     IPackageEventService packageEventService)
     : IPackageEventProcessingService
 {
-    public ValueTask RaisePackageImportEventAsync(int appId, Package package) =>
+    public ValueTask RaisePackageImportEventAsync(int? appId, Package package) =>
         TryCatch(operation: () =>
         {
             ValidatePackageEventOnImport(appId: appId, package: package);
