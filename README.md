@@ -4,14 +4,34 @@
 
 ## Local configuration
 
-The Web app binds `PackagingWebConfiguration` directly from `appsettings.json`.
-Leave secret values empty and define these user- or machine-level environment
-variables:
+The Web app binds the complete configuration root to
+`Packaging.Web.Models.AppConfiguration`. Its composition root registers
+`CoreData`, `Packaging`, `SecurityData`, `Security`, and `Eventing` side by
+side.
 
-- `Packaging__ConnectionString`
-- `Security__ConnectionString`
+Persistence belongs to the Data domains. `PackagingConfiguration` contains
+only Packaging behavior and package-source settings; `CoreData` owns the
+database connection, Data registration, and migrations. Likewise,
+`SecurityData` owns the Security database and `Security` contains
+authentication behavior. Leave secret values empty and define these user- or
+machine-level environment variables:
+
+- `CoreData__ConnectionString`
+- `SecurityData__ConnectionString`
 - `Security__DecryptionKey`
 - `Eventing__ServiceBus__ConnectionString` when Service Bus eventing is selected
+
+`CoreData__AdminConnectionString` and
+`SecurityData__AdminConnectionString` are optional migration-only overrides. If
+an admin connection is configured, startup migrations use it and normal runtime
+operations continue to use the regular connection. If it is omitted, migrations
+use the regular connection.
+
+Library consumers register persistence and behavior explicitly at their own
+composition root: call `AddData` before `AddPackaging` or `AddPackagingWeb`; Web
+hosts also call `AddSecurityData` before `AddSecurityWeb`. An application that
+consumes `cCoder.Core` should use Core's composite API instead; Core deliberately
+composes its configured child domains recursively.
 
 Restart Visual Studio after changing environment variables and press F5. No
 conversion, `.env` file, or startup script is required.
@@ -59,9 +79,9 @@ surface starts and responds correctly.
 - `appsettings.{Environment}.json`
 - environment variables
 
-The committed settings map directly to the `Eventing`, `Packaging`, and
-`Security` configuration objects. Secrets use the matching environment
-variables listed above.
+The committed settings map directly to the `CoreData`, `Eventing`, `Packaging`,
+`SecurityData`, and `Security` configuration objects. Secrets use the matching
+environment variables listed above.
 
 The local test UI is available at `/tools/index.html`, and `/Health` returns a
 fixed `OK` response for basic health checks.
