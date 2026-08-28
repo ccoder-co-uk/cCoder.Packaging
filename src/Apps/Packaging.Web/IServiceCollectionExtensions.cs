@@ -2,38 +2,34 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Data;
 using cCoder.Eventing;
-using cCoder.Eventing.Models;
-using cCoder.Packaging.Models;
 using cCoder.Security;
-using cCoder.Security.Models;
+using cCoder.Security.Data.EF;
 using Packaging.Web.Models;
 
 namespace Packaging.Web;
 
 public static class IServiceCollectionExtensions
 {
-    public static IServiceCollection AddPackagingWeb(
+    public static IServiceCollection AddWeb(
         this IServiceCollection services,
         IConfiguration configuration,
-        Action<PackagingWebConfiguration> configure = null)
+        Action<AppConfiguration> configure = null)
     {
-        PackagingWebConfiguration packagingWebConfiguration = new()
-        {
-            Eventing = new EventingConfiguration(),
-            Packaging = new PackagingConfiguration(),
-            Security = new SecurityConfiguration()
-        };
-        configuration.Bind(instance: packagingWebConfiguration);
-        configure?.Invoke(obj: packagingWebConfiguration);
+        AppConfiguration appConfiguration = new();
+        configuration.Bind(instance: appConfiguration);
+        configure?.Invoke(obj: appConfiguration);
 
+        services.AddData(configuration: appConfiguration.CoreData);
         services.AddEventingWeb(
-            configuration: packagingWebConfiguration.Eventing);
+            configuration: appConfiguration.Eventing);
+        services.AddSecurityData(configuration: appConfiguration.SecurityData);
         services.AddSecurityWeb(
-            configuration: packagingWebConfiguration.Security);
+            configuration: appConfiguration.Security);
         cCoder.Packaging.IServiceCollectionExtensions.AddPackagingWeb(
             services: services,
-            configuration: packagingWebConfiguration.Packaging);
+            configuration: appConfiguration.Packaging);
 
         return services;
     }

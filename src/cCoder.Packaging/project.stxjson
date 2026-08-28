@@ -4708,7 +4708,7 @@
     {
       "Name": "cCoder.Packaging.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 37,
+      "LineNumber": 36,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -4718,7 +4718,7 @@
         {
           "Id": "cCoder.Packaging.IServiceCollectionExtensions.AddPackaging(IServiceCollection,System.Action\u003CcCoder.Packaging.Models.PackagingConfiguration\u003E)",
           "Name": "AddPackaging",
-          "LineNumber": 65,
+          "LineNumber": 64,
           "Inputs": [
             {
               "Name": "services",
@@ -4762,7 +4762,7 @@
         {
           "Id": "cCoder.Packaging.IServiceCollectionExtensions.AddPackaging(IServiceCollection,cCoder.Packaging.Models.PackagingConfiguration)",
           "Name": "AddPackaging",
-          "LineNumber": 75,
+          "LineNumber": 74,
           "Inputs": [
             {
               "Name": "services",
@@ -4791,7 +4791,7 @@
         {
           "Id": "cCoder.Packaging.IServiceCollectionExtensions.AddPackagingWeb(IServiceCollection,System.Action\u003CcCoder.Packaging.Models.PackagingConfiguration\u003E)",
           "Name": "AddPackagingWeb",
-          "LineNumber": 39,
+          "LineNumber": 38,
           "Inputs": [
             {
               "Name": "services",
@@ -4835,7 +4835,7 @@
         {
           "Id": "cCoder.Packaging.IServiceCollectionExtensions.AddPackagingWeb(IServiceCollection,cCoder.Packaging.Models.PackagingConfiguration)",
           "Name": "AddPackagingWeb",
-          "LineNumber": 49,
+          "LineNumber": 48,
           "Inputs": [
             {
               "Name": "services",
@@ -5250,10 +5250,6 @@
       "Properties": [
         {
           "Name": "AssetsRoot",
-          "Type": "System.String"
-        },
-        {
-          "Name": "ConnectionString",
           "Type": "System.String"
         },
         {

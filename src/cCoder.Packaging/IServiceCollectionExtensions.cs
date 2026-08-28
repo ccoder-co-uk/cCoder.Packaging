@@ -2,7 +2,6 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-using cCoder.Data;
 using cCoder.Data.Models.Packaging;
 using cCoder.Eventing;
 using cCoder.Packaging.Brokers;
@@ -92,19 +91,12 @@ public static class IServiceCollectionExtensions
         PackagingConfiguration configuration)
     {
         ArgumentNullException.ThrowIfNull(argument: configuration);
-        configuration.ConnectionString ??= string.Empty;
         configuration.AssetsRoot ??=
             "https://raw.githubusercontent.com/ccoder-co-uk/" +
             "cCoder.Assets/main/Packages/";
         configuration.PackageSourceSslPort ??= "443";
         configuration.RootPath ??= "Api/Packaging";
         services.TryAddSingleton(instance: configuration);
-
-        services.AddData(
-            configuration: new cCoder.Data.Models.DataConfiguration
-            {
-                ConnectionString = configuration.ConnectionString
-            });
     }
 
     private static void AddBrokers(

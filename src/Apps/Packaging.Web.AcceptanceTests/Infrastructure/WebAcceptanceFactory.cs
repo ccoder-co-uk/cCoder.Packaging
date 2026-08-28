@@ -26,10 +26,10 @@ internal sealed class WebAcceptanceFactory : WebApplicationFactory<Program>
                     key: "Eventing:ProviderType",
                     value: "InProcess"),
                 new(
-                    key: "Packaging:ConnectionString",
+                    key: "CoreData:ConnectionString",
                     value: configuration.PackagingConnectionString),
                 new(
-                    key: "Security:ConnectionString",
+                    key: "SecurityData:ConnectionString",
                     value: configuration.SecurityConnectionString),
                 new(
                     key: "Security:DecryptionKey",
