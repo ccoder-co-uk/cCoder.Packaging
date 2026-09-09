@@ -5001,8 +5001,8 @@
     },
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
-      "StandardElementType": "Dependency",
-      "LineNumber": 10,
+      "StandardElementType": "Model",
+      "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5021,8 +5021,8 @@
     },
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
-      "StandardElementType": "Dependency",
-      "LineNumber": 28,
+      "StandardElementType": "Model",
+      "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5041,8 +5041,8 @@
     },
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
-      "StandardElementType": "Dependency",
-      "LineNumber": 31,
+      "StandardElementType": "Model",
+      "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5061,8 +5061,8 @@
     },
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationValidationException",
-      "StandardElementType": "Dependency",
-      "LineNumber": 25,
+      "StandardElementType": "Model",
+      "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5081,8 +5081,8 @@
     },
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingProcessingDependencyException",
-      "StandardElementType": "Dependency",
-      "LineNumber": 19,
+      "StandardElementType": "Model",
+      "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5101,8 +5101,8 @@
     },
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingProcessingServiceException",
-      "StandardElementType": "Dependency",
-      "LineNumber": 22,
+      "StandardElementType": "Model",
+      "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5121,8 +5121,8 @@
     },
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingProcessingValidationException",
-      "StandardElementType": "Dependency",
-      "LineNumber": 16,
+      "StandardElementType": "Model",
+      "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5141,8 +5141,8 @@
     },
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingServiceException",
-      "StandardElementType": "Dependency",
-      "LineNumber": 13,
+      "StandardElementType": "Model",
+      "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5161,7 +5161,7 @@
     },
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingValidationException",
-      "StandardElementType": "Dependency",
+      "StandardElementType": "Model",
       "LineNumber": 7,
       "IsPublic": false,
       "Kind": "Class",
@@ -14692,6 +14692,42 @@
   ],
   "Links": [
     {
+      "FromType": "cCoder.Packaging.Brokers.AuthInfoBroker",
+      "ToType": "ICoreAuthInfo"
+    },
+    {
+      "FromType": "cCoder.Packaging.Brokers.AuthorizationBroker",
+      "ToType": "ICoreContextFactory"
+    },
+    {
+      "FromType": "cCoder.Packaging.Brokers.Events.PackageEventBroker",
+      "ToType": "IEventHub"
+    },
+    {
+      "FromType": "cCoder.Packaging.Brokers.Events.PackageItemEventBroker",
+      "ToType": "IEventHub"
+    },
+    {
+      "FromType": "cCoder.Packaging.Brokers.Loggings.LoggingBroker",
+      "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Packaging.Brokers.Loggings.LoggingBroker\u003E"
+    },
+    {
+      "FromType": "cCoder.Packaging.Brokers.PackageLoggerBroker",
+      "ToType": "ILogger\u003CcCoder.Packaging.Services.Aggregations.PackageManagerAggregationService\u003E"
+    },
+    {
+      "FromType": "cCoder.Packaging.Brokers.Storages.PackageBroker",
+      "ToType": "ICoreContextFactory"
+    },
+    {
+      "FromType": "cCoder.Packaging.Brokers.Storages.PackageItemBroker",
+      "ToType": "ICoreContextFactory"
+    },
+    {
+      "FromType": "cCoder.Packaging.Dependencies.OData.CompositePropertyInfo",
+      "ToType": "System.Type"
+    },
+    {
       "FromType": "cCoder.Packaging.Exposures.Controllers.PackageController",
       "ToType": "cCoder.Packaging.Exposures.PackageManager"
     },
@@ -14724,6 +14760,10 @@
       "ToType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService"
     },
     {
+      "FromType": "cCoder.Packaging.Exposures.PackageManagers.AppDomainManager",
+      "ToType": "IHttpContextAccessor"
+    },
+    {
       "FromType": "cCoder.Packaging.Exposures.PackageMetadataManager",
       "ToType": "cCoder.Packaging.Exposures.PackagingLoggingManager"
     },
@@ -14738,6 +14778,42 @@
     {
       "FromType": "cCoder.Packaging.Exposures.PackagingLoggingManager",
       "ToType": "cCoder.Packaging.Services.Foundations.Loggings.LoggingFoundationService"
+    },
+    {
+      "FromType": "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationValidationException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Packaging.Models.Exceptions.PackagingProcessingDependencyException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Packaging.Models.Exceptions.PackagingProcessingServiceException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Packaging.Models.Exceptions.PackagingProcessingValidationException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Packaging.Models.Exceptions.PackagingServiceException",
+      "ToType": "System.Exception"
+    },
+    {
+      "FromType": "cCoder.Packaging.Models.Exceptions.PackagingValidationException",
+      "ToType": "System.Exception"
     },
     {
       "FromType": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
@@ -14812,12 +14888,32 @@
       "ToType": "cCoder.Packaging.Models.PackagingConfiguration"
     },
     {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageManagers.AppSecurityPackageService",
+      "ToType": "cCoder.Packaging.Exposures.PackageManagers.IAppSecurityPackageManager"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageManagers.ContentManagementPackageService",
+      "ToType": "cCoder.Packaging.Exposures.PackageManagers.IContentManagementPackageManager"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageManagers.DocumentManagementPackageService",
+      "ToType": "cCoder.Packaging.Exposures.PackageManagers.IDocumentManagementPackageManager"
+    },
+    {
       "FromType": "cCoder.Packaging.Services.Foundations.PackageManagers.PackageManagerTelemetryService",
       "ToType": "cCoder.Packaging.Brokers.AuthorizationBroker"
     },
     {
       "FromType": "cCoder.Packaging.Services.Foundations.PackageManagers.PackageManagerTelemetryService",
       "ToType": "cCoder.Packaging.Brokers.PackageLoggerBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageManagers.SchedulingPackageService",
+      "ToType": "cCoder.Packaging.Exposures.PackageManagers.ISchedulingPackageManager"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageManagers.WorkflowPackageService",
+      "ToType": "cCoder.Packaging.Exposures.PackageManagers.IWorkflowPackageManager"
     },
     {
       "FromType": "cCoder.Packaging.Services.Foundations.PackagingMetadataTypeService",
