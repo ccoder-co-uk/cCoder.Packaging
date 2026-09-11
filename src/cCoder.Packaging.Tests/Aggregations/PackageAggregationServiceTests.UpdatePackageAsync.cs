@@ -53,7 +53,7 @@ public partial class PackageAggregationServiceTests
 
         packageEventProcessingServiceMock
             .Setup(expression:service => service.RaisePackageUpdateEventAsync(
-                updatedPackage:savedPackage))
+                package:savedPackage))
             .Returns(value:ValueTask.CompletedTask);
 
         // When

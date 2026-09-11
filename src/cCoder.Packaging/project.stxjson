@@ -155,17 +155,6 @@
       "Methods": []
     },
     {
-      "Name": "cCoder.Packaging.Api.OData.ObjectExtensions",
-      "StandardElementType": "Exposure",
-      "LineNumber": 10,
-      "IsPublic": false,
-      "Kind": "Class",
-      "BaseType": null,
-      "Interfaces": [],
-      "Properties": [],
-      "Methods": []
-    },
-    {
       "Name": "cCoder.Packaging.Api.OData.OperationContainer",
       "StandardElementType": "Model",
       "LineNumber": 7,
@@ -1608,7 +1597,7 @@
           "LineNumber": 99,
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "package",
               "Type": "Package"
             }
           ],
@@ -1823,7 +1812,7 @@
           "LineNumber": 80,
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -2298,7 +2287,7 @@
     {
       "Name": "cCoder.Packaging.Exposures.Controllers.PackageController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 22,
+      "LineNumber": 20,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -2317,7 +2306,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Delete(System.Guid)",
           "Name": "Delete",
-          "LineNumber": 275,
+          "LineNumber": 232,
           "Inputs": [
             {
               "Name": "key",
@@ -2396,7 +2385,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 72,
+          "LineNumber": 70,
           "Inputs": [
             {
               "Name": "key",
@@ -2498,7 +2487,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.GetAll()",
           "Name": "GetAll",
-          "LineNumber": 36,
+          "LineNumber": 34,
           "Inputs": [],
           "ReturnType": "IActionResult",
           "Implements": [],
@@ -2571,7 +2560,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Post(Package)",
           "Name": "Post",
-          "LineNumber": 117,
+          "LineNumber": 115,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -2650,7 +2639,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.PostImport(Package,System.Int32?)",
           "Name": "PostImport",
-          "LineNumber": 152,
+          "LineNumber": 150,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -2742,7 +2731,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Put(System.Guid,Package)",
           "Name": "Put",
-          "LineNumber": 197,
+          "LineNumber": 195,
           "Inputs": [
             {
               "Name": "key",
@@ -2831,111 +2820,13 @@
           "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
           "HasTryCatch": true
-        },
-        {
-          "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.PutPackagePatch(System.Guid,Delta\u003CPackage\u003E)",
-          "Name": "PutPackagePatch",
-          "LineNumber": 235,
-          "Inputs": [
-            {
-              "Name": "key",
-              "Type": "System.Guid"
-            },
-            {
-              "Name": "updatedPackageDelta",
-              "Type": "Delta\u003CPackage\u003E"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E",
-          "Implements": [],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Packaging.Exposures.IPackageManager",
-              "MethodName": "GetPackage",
-              "MethodId": "cCoder.Packaging.Exposures.IPackageManager.GetPackage(System.Guid)",
-              "StandardElementType": "Exposure",
-              "IsDependencyBoundary": false
-            },
-            {
-              "TypeName": "cCoder.Packaging.Exposures.IPackageManager",
-              "MethodName": "LogError",
-              "MethodId": "cCoder.Packaging.Exposures.IPackageManager.LogError(System.Exception,System.String)",
-              "StandardElementType": "Exposure",
-              "IsDependencyBoundary": false
-            },
-            {
-              "TypeName": "cCoder.Packaging.Exposures.IPackageManager",
-              "MethodName": "UpdatePackageAsync",
-              "MethodId": "cCoder.Packaging.Exposures.IPackageManager.UpdatePackageAsync(Package)",
-              "StandardElementType": "Exposure",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.Security.SecurityException",
-            "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationValidationException",
-            "cCoder.Packaging.Models.Exceptions.PackagingProcessingDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingProcessingServiceException",
-            "cCoder.Packaging.Models.Exceptions.PackagingProcessingValidationException",
-            "cCoder.Packaging.Models.Exceptions.PackagingServiceException",
-            "cCoder.Packaging.Models.Exceptions.PackagingValidationException"
-          ],
-          "IncomingExceptionTypes": [
-            "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationValidationException"
-          ],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [
-            {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
-              "IsNullPath": false,
-              "HasBody": true,
-              "ExposesExceptionDetails": false,
-              "LogsException": false
-            },
-            {
-              "StatusCode": 400,
-              "ResultMethod": "BadRequest",
-              "ExceptionType": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationValidationException",
-              "IsExceptionPath": true,
-              "IsNullPath": false,
-              "HasBody": true,
-              "ExposesExceptionDetails": false,
-              "LogsException": true
-            },
-            {
-              "StatusCode": 404,
-              "ResultMethod": "NotFound",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
-              "IsNullPath": true,
-              "HasBody": false,
-              "ExposesExceptionDetails": false,
-              "LogsException": false
-            }
-          ],
-          "IsHttpRequestHandler": true,
-          "IsODataControllerAction": true,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": true,
-          "HasTryCatch": true
         }
       ]
     },
     {
       "Name": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 21,
+      "LineNumber": 19,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -2954,7 +2845,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageItemController.Delete(System.Guid)",
           "Name": "Delete",
-          "LineNumber": 239,
+          "LineNumber": 196,
           "Inputs": [
             {
               "Name": "key",
@@ -3033,7 +2924,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageItemController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 72,
+          "LineNumber": 70,
           "Inputs": [
             {
               "Name": "key",
@@ -3135,7 +3026,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageItemController.GetAll()",
           "Name": "GetAll",
-          "LineNumber": 36,
+          "LineNumber": 34,
           "Inputs": [],
           "ReturnType": "IActionResult",
           "Implements": [],
@@ -3208,7 +3099,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageItemController.Post(PackageItem)",
           "Name": "Post",
-          "LineNumber": 118,
+          "LineNumber": 116,
           "Inputs": [
             {
               "Name": "newPackageItem",
@@ -3287,7 +3178,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageItemController.Put(System.Guid,PackageItem)",
           "Name": "Put",
-          "LineNumber": 161,
+          "LineNumber": 159,
           "Inputs": [
             {
               "Name": "key",
@@ -3375,104 +3266,6 @@
           "HasFromBodyParameter": false,
           "HasKeyParameter": false,
           "HandlesNullWithNotFound": false,
-          "HasTryCatch": true
-        },
-        {
-          "Id": "cCoder.Packaging.Exposures.Controllers.PackageItemController.PutPackageItemPatch(System.Guid,Delta\u003CPackageItem\u003E)",
-          "Name": "PutPackageItemPatch",
-          "LineNumber": 199,
-          "Inputs": [
-            {
-              "Name": "key",
-              "Type": "System.Guid"
-            },
-            {
-              "Name": "updatedPackageItemDelta",
-              "Type": "Delta\u003CPackageItem\u003E"
-            }
-          ],
-          "ReturnType": "System.Threading.Tasks.Task\u003CIActionResult\u003E",
-          "Implements": [],
-          "Calls": [
-            {
-              "TypeName": "cCoder.Packaging.Exposures.IPackageItemManager",
-              "MethodName": "GetPackageItem",
-              "MethodId": "cCoder.Packaging.Exposures.IPackageItemManager.GetPackageItem(System.Guid)",
-              "StandardElementType": "Exposure",
-              "IsDependencyBoundary": false
-            },
-            {
-              "TypeName": "cCoder.Packaging.Exposures.IPackageItemManager",
-              "MethodName": "LogError",
-              "MethodId": "cCoder.Packaging.Exposures.IPackageItemManager.LogError(System.Exception,System.String)",
-              "StandardElementType": "Exposure",
-              "IsDependencyBoundary": false
-            },
-            {
-              "TypeName": "cCoder.Packaging.Exposures.IPackageItemManager",
-              "MethodName": "UpdatePackageItemAsync",
-              "MethodId": "cCoder.Packaging.Exposures.IPackageItemManager.UpdatePackageItemAsync(PackageItem)",
-              "StandardElementType": "Exposure",
-              "IsDependencyBoundary": false
-            }
-          ],
-          "PossibleExceptionTypes": [
-            "System.Security.SecurityException",
-            "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationValidationException",
-            "cCoder.Packaging.Models.Exceptions.PackagingProcessingDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingProcessingServiceException",
-            "cCoder.Packaging.Models.Exceptions.PackagingProcessingValidationException",
-            "cCoder.Packaging.Models.Exceptions.PackagingServiceException",
-            "cCoder.Packaging.Models.Exceptions.PackagingValidationException"
-          ],
-          "IncomingExceptionTypes": [
-            "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationValidationException"
-          ],
-          "ThrowsExceptionTypes": [],
-          "HttpMethods": [],
-          "HttpResponses": [
-            {
-              "StatusCode": 200,
-              "ResultMethod": "Ok",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
-              "IsNullPath": false,
-              "HasBody": true,
-              "ExposesExceptionDetails": false,
-              "LogsException": false
-            },
-            {
-              "StatusCode": 400,
-              "ResultMethod": "BadRequest",
-              "ExceptionType": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationValidationException",
-              "IsExceptionPath": true,
-              "IsNullPath": false,
-              "HasBody": true,
-              "ExposesExceptionDetails": false,
-              "LogsException": true
-            },
-            {
-              "StatusCode": 404,
-              "ResultMethod": "NotFound",
-              "ExceptionType": "",
-              "IsExceptionPath": false,
-              "IsNullPath": true,
-              "HasBody": false,
-              "ExposesExceptionDetails": false,
-              "LogsException": false
-            }
-          ],
-          "IsHttpRequestHandler": true,
-          "IsODataControllerAction": true,
-          "HasFromBodyParameter": false,
-          "HasKeyParameter": false,
-          "HandlesNullWithNotFound": true,
           "HasTryCatch": true
         }
       ]
@@ -6327,7 +6120,7 @@
           "LineNumber": 18,
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -6381,7 +6174,7 @@
           "LineNumber": 46,
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -6435,7 +6228,7 @@
           "LineNumber": 32,
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -8949,7 +8742,7 @@
           "LineNumber": 23,
           "Inputs": [
             {
-              "Name": "newPackage",
+              "Name": "package",
               "Type": "Package"
             }
           ],
@@ -9000,7 +8793,7 @@
           "LineNumber": 41,
           "Inputs": [
             {
-              "Name": "deletedPackage",
+              "Name": "package",
               "Type": "Package"
             }
           ],
@@ -9106,7 +8899,7 @@
           "LineNumber": 32,
           "Inputs": [
             {
-              "Name": "updatedPackage",
+              "Name": "package",
               "Type": "Package"
             }
           ],
@@ -9254,7 +9047,7 @@
           "LineNumber": 14,
           "Inputs": [
             {
-              "Name": "newPackageItem",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -9305,7 +9098,7 @@
           "LineNumber": 32,
           "Inputs": [
             {
-              "Name": "deletedPackageItem",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -9356,7 +9149,7 @@
           "LineNumber": 23,
           "Inputs": [
             {
-              "Name": "updatedPackageItem",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -11396,7 +11189,7 @@
           "LineNumber": 20,
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -12648,7 +12441,7 @@
           "LineNumber": 13,
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "package",
               "Type": "Package"
             }
           ],
@@ -12673,7 +12466,7 @@
           "LineNumber": 15,
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "package",
               "Type": "Package"
             }
           ],
@@ -12727,7 +12520,7 @@
           "LineNumber": 14,
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "package",
               "Type": "Package"
             }
           ],
@@ -12764,7 +12557,7 @@
           "LineNumber": 12,
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -12789,7 +12582,7 @@
           "LineNumber": 14,
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -12814,7 +12607,7 @@
           "LineNumber": 13,
           "Inputs": [
             {
-              "Name": "entity",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -14083,7 +13876,7 @@
           "LineNumber": 13,
           "Inputs": [
             {
-              "Name": "newPackage",
+              "Name": "package",
               "Type": "Package"
             }
           ],
@@ -14108,7 +13901,7 @@
           "LineNumber": 15,
           "Inputs": [
             {
-              "Name": "deletedPackage",
+              "Name": "package",
               "Type": "Package"
             }
           ],
@@ -14162,7 +13955,7 @@
           "LineNumber": 14,
           "Inputs": [
             {
-              "Name": "updatedPackage",
+              "Name": "package",
               "Type": "Package"
             }
           ],
@@ -14236,7 +14029,7 @@
           "LineNumber": 12,
           "Inputs": [
             {
-              "Name": "newPackageItem",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -14261,7 +14054,7 @@
           "LineNumber": 14,
           "Inputs": [
             {
-              "Name": "deletedPackageItem",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -14286,7 +14079,7 @@
           "LineNumber": 13,
           "Inputs": [
             {
-              "Name": "updatedPackageItem",
+              "Name": "packageItem",
               "Type": "PackageItem"
             }
           ],
@@ -14970,91 +14763,77 @@
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageController",
-      "LineNumber": 36
+      "LineNumber": 34
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageController",
-      "LineNumber": 72
+      "LineNumber": 70
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageController",
-      "LineNumber": 117
+      "LineNumber": 115
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageController",
-      "LineNumber": 152
+      "LineNumber": 150
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageController",
-      "LineNumber": 197
+      "LineNumber": 195
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageController",
-      "LineNumber": 235
-    },
-    {
-      "Code": "STXAPI005",
-      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Exposures.Controllers.PackageController",
-      "LineNumber": 275
+      "LineNumber": 232
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
-      "LineNumber": 36
+      "LineNumber": 34
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
-      "LineNumber": 72
+      "LineNumber": 70
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
-      "LineNumber": 118
+      "LineNumber": 116
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
-      "LineNumber": 161
+      "LineNumber": 159
     },
     {
       "Code": "STXAPI005",
       "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
       "Severity": "Warning",
       "Type": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
-      "LineNumber": 199
-    },
-    {
-      "Code": "STXAPI005",
-      "Description": "Every public HTTP handler must map success and caught failure paths to 2xx, 4xx, or 5xx responses.",
-      "Severity": "Warning",
-      "Type": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
-      "LineNumber": 239
+      "LineNumber": 196
     },
     {
       "Code": "STXAPI005",

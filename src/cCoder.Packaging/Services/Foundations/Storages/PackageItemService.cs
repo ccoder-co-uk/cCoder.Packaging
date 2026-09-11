@@ -36,7 +36,7 @@ internal sealed partial class PackageItemService(
             ValidatePackageItemOnAdd(newPackageItem: newPackageItem);
 
             authorizationBroker.Authorize(
-                appId: packageItemBroker.GetAppId(entity: newPackageItem),
+                appId: packageItemBroker.GetAppId(packageItem: newPackageItem),
                 privilege: $"{nameof(PackageItem)}_create");
 
             PackageItem packageItem = new()
@@ -63,7 +63,7 @@ internal sealed partial class PackageItemService(
             ValidatePackageItemOnUpdate(updatedPackageItem: updatedPackageItem);
 
             authorizationBroker.Authorize(
-                appId: packageItemBroker.GetAppId(entity: updatedPackageItem),
+                appId: packageItemBroker.GetAppId(packageItem: updatedPackageItem),
                 privilege: $"{nameof(PackageItem)}_update");
 
             PackageItem packageItem = new()
@@ -93,7 +93,7 @@ internal sealed partial class PackageItemService(
             PackageItem deletedPackageItem = SelectPackageItem(packageItemId: packageItemId);
 
             authorizationBroker.Authorize(
-                appId: packageItemBroker.GetAppId(entity: deletedPackageItem),
+                appId: packageItemBroker.GetAppId(packageItem: deletedPackageItem),
                 privilege: $"{nameof(PackageItem)}_delete");
 
             _ = await packageItemBroker.DeletePackageItemAsync(

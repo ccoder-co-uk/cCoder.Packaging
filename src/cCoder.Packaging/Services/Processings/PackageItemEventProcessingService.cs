@@ -11,30 +11,30 @@ internal sealed partial class PackageItemEventProcessingService(
     IPackageItemEventService packageItemEventService)
     : IPackageItemEventProcessingService
 {
-    public ValueTask RaisePackageItemAddEventAsync(PackageItem newPackageItem) =>
+    public ValueTask RaisePackageItemAddEventAsync(PackageItem packageItem) =>
         TryCatch(operation: () =>
         {
-            ValidatePackageItemEventOnAdd(newPackageItem: newPackageItem);
+            ValidatePackageItemEventOnAdd(newPackageItem: packageItem);
 
             return packageItemEventService
-                .RaisePackageItemAddEventAsync(entity: newPackageItem);
+                .RaisePackageItemAddEventAsync(packageItem: packageItem);
         });
 
-    public ValueTask RaisePackageItemUpdateEventAsync(PackageItem updatedPackageItem) =>
+    public ValueTask RaisePackageItemUpdateEventAsync(PackageItem packageItem) =>
         TryCatch(operation: () =>
         {
-            ValidatePackageItemEventOnUpdate(updatedPackageItem: updatedPackageItem);
+            ValidatePackageItemEventOnUpdate(updatedPackageItem: packageItem);
 
             return packageItemEventService
-                .RaisePackageItemUpdateEventAsync(entity: updatedPackageItem);
+                .RaisePackageItemUpdateEventAsync(packageItem: packageItem);
         });
 
-    public ValueTask RaisePackageItemDeleteEventAsync(PackageItem deletedPackageItem) =>
+    public ValueTask RaisePackageItemDeleteEventAsync(PackageItem packageItem) =>
         TryCatch(operation: () =>
         {
-            ValidatePackageItemEventOnDelete(deletedPackageItem: deletedPackageItem);
+            ValidatePackageItemEventOnDelete(deletedPackageItem: packageItem);
 
             return packageItemEventService
-                .RaisePackageItemDeleteEventAsync(entity: deletedPackageItem);
+                .RaisePackageItemDeleteEventAsync(packageItem: packageItem);
         });
 }

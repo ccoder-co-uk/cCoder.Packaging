@@ -96,7 +96,7 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
         return await coreDataContext.SaveChangesAsync();
     }
 
-    public int? GetAppId(Package entity)
+    public int? GetAppId(Package package)
     {
         return null;
     }

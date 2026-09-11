@@ -20,30 +20,30 @@ internal sealed partial class PackageEventProcessingService(
                 .RaisePackageImportEventAsync(appId: appId, package: package);
         });
 
-    public ValueTask RaisePackageAddEventAsync(Package newPackage) =>
+    public ValueTask RaisePackageAddEventAsync(Package package) =>
         TryCatch(operation: () =>
         {
-            ValidatePackageEventOnAdd(newPackage: newPackage);
+            ValidatePackageEventOnAdd(newPackage: package);
 
             return packageEventService
-                .RaisePackageAddEventAsync(entity: newPackage);
+                .RaisePackageAddEventAsync(package: package);
         });
 
-    public ValueTask RaisePackageUpdateEventAsync(Package updatedPackage) =>
+    public ValueTask RaisePackageUpdateEventAsync(Package package) =>
         TryCatch(operation: () =>
         {
-            ValidatePackageEventOnUpdate(updatedPackage: updatedPackage);
+            ValidatePackageEventOnUpdate(updatedPackage: package);
 
             return packageEventService
-                .RaisePackageUpdateEventAsync(entity: updatedPackage);
+                .RaisePackageUpdateEventAsync(package: package);
         });
 
-    public ValueTask RaisePackageDeleteEventAsync(Package deletedPackage) =>
+    public ValueTask RaisePackageDeleteEventAsync(Package package) =>
         TryCatch(operation: () =>
         {
-            ValidatePackageEventOnDelete(deletedPackage: deletedPackage);
+            ValidatePackageEventOnDelete(deletedPackage: package);
 
             return packageEventService
-                .RaisePackageDeleteEventAsync(entity: deletedPackage);
+                .RaisePackageDeleteEventAsync(package: package);
         });
 }

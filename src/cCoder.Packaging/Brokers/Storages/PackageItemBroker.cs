@@ -17,7 +17,7 @@ public interface IPackageItemBroker
     ValueTask<PackageItem> AddPackageItemAsync(PackageItem newPackageItem);
     ValueTask<PackageItem> UpdatePackageItemAsync(PackageItem updatedPackageItem);
     ValueTask<int> DeletePackageItemAsync(PackageItem deletedPackageItem);
-    int? GetAppId(PackageItem entity);
+    int? GetAppId(PackageItem packageItem);
 }
 
 internal sealed class PackageItemBroker(ICoreContextFactory coreContextFactory) : IPackageItemBroker
@@ -77,7 +77,7 @@ internal sealed class PackageItemBroker(ICoreContextFactory coreContextFactory) 
         return await coreDataContext.SaveChangesAsync();
     }
 
-    public int? GetAppId(PackageItem entity)
+    public int? GetAppId(PackageItem packageItem)
     {
         return null;
     }
