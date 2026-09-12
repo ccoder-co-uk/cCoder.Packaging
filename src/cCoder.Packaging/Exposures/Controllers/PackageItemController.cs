@@ -11,9 +11,7 @@ using cCoder.Data.Extensions;
 using cCoder.Data.Models.Packaging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OData.Deltas;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Results;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace cCoder.Packaging.Exposures.Controllers;
@@ -84,7 +82,7 @@ public partial class PackageItemController(
                 return NotFound();
             }
 
-            return Ok(value: SingleResult.Create(queryable: result));
+            return Ok(value: packageItem);
         }
         catch (PackagingOrchestrationValidationException exception)
         {
@@ -173,47 +171,6 @@ public partial class PackageItemController(
 
             return Ok(value: await packageItemOrchestrationService
                 .UpdatePackageItemAsync(updatedPackageItem: updatedPackageItem));
-        }
-        catch (PackagingOrchestrationValidationException exception)
-        {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
-
-            return BadRequest(error: "The package-item request is invalid.");
-        }
-        catch (SecurityException exception)
-        {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
-
-            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
-        }
-        catch (Exception exception)
-        {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
-
-            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
-        }
-    }
-
-    [AcceptVerbs("PATCH", "MERGE")]
-    [ActionName("Patch")]
-    public async Task<IActionResult> PutPackageItemPatch(
-        [FromRoute] Guid key,
-        Delta<PackageItem> updatedPackageItemDelta)
-    {
-        try
-        {
-            PackageItem originalEntity = packageItemOrchestrationService
-                .GetPackageItem(packageItemId: key);
-
-            if (originalEntity is null)
-            {
-                return NotFound();
-            }
-
-            updatedPackageItemDelta.Patch(original: originalEntity);
-
-            return Ok(value: await packageItemOrchestrationService
-                .UpdatePackageItemAsync(updatedPackageItem: originalEntity));
         }
         catch (PackagingOrchestrationValidationException exception)
         {

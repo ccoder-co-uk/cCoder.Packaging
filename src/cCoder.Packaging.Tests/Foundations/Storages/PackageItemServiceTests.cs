@@ -152,7 +152,7 @@ packageId: packageItem.PackageId,
 type: packageItem.Type,
 data: packageItem.Data);
 
-        packageItemBrokerMock.Setup(expression: broker => broker.GetAppId(entity: packageItem))
+        packageItemBrokerMock.Setup(expression: broker => broker.GetAppId(packageItem: packageItem))
             .Returns(value: 7);
 
         authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: 7, privilege: "PackageItem_create"));
@@ -195,7 +195,7 @@ packageId: packageItem.PackageId,
 type: packageItem.Type,
 data: packageItem.Data);
 
-        packageItemBrokerMock.Setup(expression: broker => broker.GetAppId(entity: packageItem))
+        packageItemBrokerMock.Setup(expression: broker => broker.GetAppId(packageItem: packageItem))
             .Returns(value: 7);
 
         authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: 7, privilege: "PackageItem_update"));
@@ -236,7 +236,7 @@ data: packageItem.Data);
             .Setup(expression: broker => broker.GetAllPackageItems(ignoreFilters: false))
             .Returns(value: new[] { packageItem }.AsQueryable());
 
-        packageItemBrokerMock.Setup(expression: broker => broker.GetAppId(entity: packageItem))
+        packageItemBrokerMock.Setup(expression: broker => broker.GetAppId(packageItem: packageItem))
             .Returns(value: 7);
 
         authorizationBrokerMock.Setup(expression: broker => broker.Authorize(appId: 7, privilege: "PackageItem_delete"));
@@ -251,7 +251,7 @@ data: packageItem.Data);
 
         // Then
         packageItemBrokerMock.Verify(expression: broker => broker.GetAllPackageItems(ignoreFilters: false), times: Times.Once);
-        packageItemBrokerMock.Verify(expression: broker => broker.GetAppId(entity: packageItem), times: Times.Once);
+        packageItemBrokerMock.Verify(expression: broker => broker.GetAppId(packageItem: packageItem), times: Times.Once);
         authorizationBrokerMock.Verify(expression: broker => broker.Authorize(appId: 7, privilege: "PackageItem_delete"), times: Times.Once);
 
         packageItemBrokerMock.Verify(

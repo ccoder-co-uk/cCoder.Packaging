@@ -9,7 +9,7 @@ namespace cCoder.Packaging.Services.Foundations.Events;
 
 internal interface IPackageItemEventService
 {
-    ValueTask RaisePackageItemAddEventAsync(PackageItem entity);
-    ValueTask RaisePackageItemUpdateEventAsync(PackageItem entity);
-    ValueTask RaisePackageItemDeleteEventAsync(PackageItem entity);
+    ValueTask RaisePackageItemAddEventAsync(PackageItem packageItem);
+    ValueTask RaisePackageItemUpdateEventAsync(PackageItem packageItem);
+    ValueTask RaisePackageItemDeleteEventAsync(PackageItem packageItem);
 }

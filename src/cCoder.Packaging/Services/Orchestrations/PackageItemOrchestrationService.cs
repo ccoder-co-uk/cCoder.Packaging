@@ -41,7 +41,7 @@ internal sealed partial class PackageItemOrchestrationService(
                 .AddPackageItemAsync(newPackageItem: newPackageItem);
 
             await packageItemEventProcessingService
-                .RaisePackageItemAddEventAsync(newPackageItem: savedPackageItem);
+                .RaisePackageItemAddEventAsync(packageItem: savedPackageItem);
 
             return savedPackageItem;
         });
@@ -55,7 +55,7 @@ internal sealed partial class PackageItemOrchestrationService(
                 .UpdatePackageItemAsync(updatedPackageItem: updatedPackageItem);
 
             await packageItemEventProcessingService
-                .RaisePackageItemUpdateEventAsync(updatedPackageItem: savedPackageItem);
+                .RaisePackageItemUpdateEventAsync(packageItem: savedPackageItem);
 
             return savedPackageItem;
         });
@@ -69,7 +69,7 @@ internal sealed partial class PackageItemOrchestrationService(
                 .GetPackageItem(packageItemId: packageItemId);
 
             await packageItemEventProcessingService
-                .RaisePackageItemDeleteEventAsync(deletedPackageItem: deletedPackageItem);
+                .RaisePackageItemDeleteEventAsync(packageItem: deletedPackageItem);
 
             await packageItemProcessingService
                 .DeletePackageItemAsync(packageItemId: packageItemId);

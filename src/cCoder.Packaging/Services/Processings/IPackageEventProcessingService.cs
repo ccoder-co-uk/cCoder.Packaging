@@ -10,7 +10,7 @@ namespace cCoder.Packaging.Services.Processings;
 internal interface IPackageEventProcessingService
 {
     ValueTask RaisePackageImportEventAsync(int? appId, Package package);
-    ValueTask RaisePackageAddEventAsync(Package newPackage);
-    ValueTask RaisePackageUpdateEventAsync(Package updatedPackage);
-    ValueTask RaisePackageDeleteEventAsync(Package deletedPackage);
+    ValueTask RaisePackageAddEventAsync(Package package);
+    ValueTask RaisePackageUpdateEventAsync(Package package);
+    ValueTask RaisePackageDeleteEventAsync(Package package);
 }

@@ -15,43 +15,43 @@ internal sealed partial class PackageItemEventService(
     IAuthInfoBroker authInfoBroker
 ) : IPackageItemEventService
 {
-    public ValueTask RaisePackageItemAddEventAsync(PackageItem entity) =>
+    public ValueTask RaisePackageItemAddEventAsync(PackageItem packageItem) =>
         TryCatch(operation: async () =>
         {
-            ValidatePackageItemEventOnAdd(newPackageItem: entity);
+            ValidatePackageItemEventOnAdd(newPackageItem: packageItem);
 
             EventMessage<PackageItem> message = new()
             {
                 AuthInfo = new EventAuthInfo { SSOUserId = authInfoBroker.GetSSOUserId() },
-                Data = entity,
+                Data = packageItem,
             };
 
             await packageItemEventBroker.RaisePackageItemAddEventAsync(message: message);
         });
 
-    public ValueTask RaisePackageItemUpdateEventAsync(PackageItem entity) =>
+    public ValueTask RaisePackageItemUpdateEventAsync(PackageItem packageItem) =>
         TryCatch(operation: async () =>
         {
-            ValidatePackageItemEventOnUpdate(updatedPackageItem: entity);
+            ValidatePackageItemEventOnUpdate(updatedPackageItem: packageItem);
 
             EventMessage<PackageItem> message = new()
             {
                 AuthInfo = new EventAuthInfo { SSOUserId = authInfoBroker.GetSSOUserId() },
-                Data = entity,
+                Data = packageItem,
             };
 
             await packageItemEventBroker.RaisePackageItemUpdateEventAsync(message: message);
         });
 
-    public ValueTask RaisePackageItemDeleteEventAsync(PackageItem entity) =>
+    public ValueTask RaisePackageItemDeleteEventAsync(PackageItem packageItem) =>
         TryCatch(operation: async () =>
         {
-            ValidatePackageItemEventOnDelete(deletedPackageItem: entity);
+            ValidatePackageItemEventOnDelete(deletedPackageItem: packageItem);
 
             EventMessage<PackageItem> message = new()
             {
                 AuthInfo = new EventAuthInfo { SSOUserId = authInfoBroker.GetSSOUserId() },
-                Data = entity,
+                Data = packageItem,
             };
 
             await packageItemEventBroker.RaisePackageItemDeleteEventAsync(message: message);

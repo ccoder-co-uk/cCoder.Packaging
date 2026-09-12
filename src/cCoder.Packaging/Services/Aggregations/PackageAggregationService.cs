@@ -96,7 +96,7 @@ internal sealed partial class PackageAggregationService(
                 .AddPackageAsync(newPackage: newPackage);
 
             await packageEventProcessingService
-                .RaisePackageAddEventAsync(newPackage: savedPackage);
+                .RaisePackageAddEventAsync(package: savedPackage);
 
             return savedPackage;
         });
@@ -131,7 +131,7 @@ internal sealed partial class PackageAggregationService(
             }
 
             await packageEventProcessingService
-                .RaisePackageUpdateEventAsync(updatedPackage: savedPackage);
+                .RaisePackageUpdateEventAsync(package: savedPackage);
 
             return savedPackage;
         });
@@ -145,7 +145,7 @@ internal sealed partial class PackageAggregationService(
                 .GetPackage(packageId: packageId);
 
             await packageEventProcessingService
-                .RaisePackageDeleteEventAsync(deletedPackage: deletedPackage);
+                .RaisePackageDeleteEventAsync(package: deletedPackage);
 
             await packageProcessingService
                 .DeletePackageAsync(packageId: packageId);
