@@ -26,7 +26,7 @@ internal sealed class AcceptanceTestConfiguration
     {
         string suffix = $"-acceptance-{Guid.NewGuid():N}";
 
-        return new AcceptanceTestConfiguration(
+        AcceptanceTestConfiguration configuration = new(
             packagingConnectionString: AddDatabaseSuffix(
                 connectionString: ReadRequiredValue(
                     variableName: "CoreData__ConnectionString"),
@@ -37,6 +37,16 @@ internal sealed class AcceptanceTestConfiguration
                 suffix: suffix),
             securityDecryptionKey: ReadRequiredValue(
                 variableName: "Security__DecryptionKey"));
+
+        Environment.SetEnvironmentVariable(
+            variable: "CoreData__ConnectionString",
+            value: configuration.PackagingConnectionString);
+
+        Environment.SetEnvironmentVariable(
+            variable: "SecurityData__ConnectionString",
+            value: configuration.SecurityConnectionString);
+
+        return configuration;
     }
 
     private static string ReadRequiredValue(string variableName)
