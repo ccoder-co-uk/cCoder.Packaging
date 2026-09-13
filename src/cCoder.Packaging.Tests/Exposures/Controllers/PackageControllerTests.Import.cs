@@ -29,7 +29,7 @@ public sealed partial class PackageControllerTests
             .Returns(value: ValueTask.CompletedTask);
 
         PackageController controller = new(
-            packageOrchestrationService: packageManager.Object);
+            packageManager: packageManager.Object);
 
         // When
         IActionResult result = await controller.PostImport(

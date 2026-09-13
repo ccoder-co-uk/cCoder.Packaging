@@ -8,6 +8,10 @@ namespace cCoder.Packaging.Exposures;
 
 public interface IPackageManager
 {
+    ValueTask<Package[]> ExportPackagesAsync(
+        int? appId,
+        string[] packageNames = null);
+
     Package GetPackage(Guid packageId);
     IQueryable<Package> GetAllPackages(bool ignoreFilters = false);
     ValueTask<Package> AddPackageAsync(Package newPackage);

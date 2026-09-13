@@ -17,26 +17,33 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "Packaging.Web.IServiceCollectionExtensions.AddWeb(IServiceCollection,IConfiguration,System.Action\u003CPackaging.Web.Models.AppConfiguration\u003E)",
+          "Id": "Packaging.Web.IServiceCollectionExtensions.AddWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action\u003CPackaging.Web.Models.AppConfiguration\u003E)",
           "Name": "AddWeb",
           "LineNumber": 15,
           "Inputs": [
             {
               "Name": "services",
-              "Type": "IServiceCollection"
+              "Type": "Microsoft.Extensions.DependencyInjection.IServiceCollection"
             },
             {
               "Name": "configuration",
-              "Type": "IConfiguration"
+              "Type": "Microsoft.Extensions.Configuration.IConfiguration"
             },
             {
               "Name": "configure",
               "Type": "System.Action\u003CPackaging.Web.Models.AppConfiguration\u003E"
             }
           ],
-          "ReturnType": "IServiceCollection",
+          "ReturnType": "Microsoft.Extensions.DependencyInjection.IServiceCollection",
           "Implements": [],
           "Calls": [
+            {
+              "TypeName": "Microsoft.Extensions.Configuration.ConfigurationBinder",
+              "MethodName": "Bind",
+              "MethodId": "Microsoft.Extensions.Configuration.ConfigurationBinder.Bind(Microsoft.Extensions.Configuration.IConfiguration,System.Object?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
             {
               "TypeName": "System.Action\u003CT\u003E",
               "MethodName": "Invoke",
@@ -45,9 +52,37 @@
               "IsDependencyBoundary": true
             },
             {
+              "TypeName": "cCoder.Data.IServiceCollectionExtensions",
+              "MethodName": "AddData",
+              "MethodId": "cCoder.Data.IServiceCollectionExtensions.AddData(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Data.Models.DataConfiguration)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Eventing.IServiceCollectionExtensions",
+              "MethodName": "AddEventingWeb",
+              "MethodId": "cCoder.Eventing.IServiceCollectionExtensions.AddEventingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Eventing.Models.EventingConfiguration)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
               "TypeName": "cCoder.Packaging.IServiceCollectionExtensions",
               "MethodName": "AddPackagingWeb",
-              "MethodId": "cCoder.Packaging.IServiceCollectionExtensions.AddPackagingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Packaging.Models.PackagingConfiguration\u003E)",
+              "MethodId": "cCoder.Packaging.IServiceCollectionExtensions.AddPackagingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Packaging.Models.PackagingConfiguration)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.Data.EF.IServiceCollectionExtensions",
+              "MethodName": "AddSecurityData",
+              "MethodId": "cCoder.Security.Data.EF.IServiceCollectionExtensions.AddSecurityData(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityDataConfiguration)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Security.IServiceCollectionExtensions",
+              "MethodName": "AddSecurityWeb",
+              "MethodId": "cCoder.Security.IServiceCollectionExtensions.AddSecurityWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Security.Models.SecurityConfiguration,Microsoft.OData.ModelBuilder.ODataConventionModelBuilder)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             }
@@ -122,9 +157,37 @@
           "Implements": [],
           "Calls": [
             {
+              "TypeName": "Microsoft.AspNetCore.Builder.WebApplication",
+              "MethodName": "CreateBuilder",
+              "MethodId": "Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(System.String[])",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.WebApplication",
+              "MethodName": "Run",
+              "MethodId": "Microsoft.AspNetCore.Builder.WebApplication.Run(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.WebApplicationBuilder",
+              "MethodName": "Build",
+              "MethodId": "Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Packaging.Web.IServiceCollectionExtensions",
+              "MethodName": "AddWeb",
+              "MethodId": "Packaging.Web.IServiceCollectionExtensions.AddWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action\u003CPackaging.Web.Models.AppConfiguration\u003E)",
+              "StandardElementType": "App",
+              "IsDependencyBoundary": false
+            },
+            {
               "TypeName": "Packaging.Web.WebApplicationExtensions",
               "MethodName": "UsePackagingWeb",
-              "MethodId": "Packaging.Web.WebApplicationExtensions.UsePackagingWeb(WebApplication)",
+              "MethodId": "Packaging.Web.WebApplicationExtensions.UsePackagingWeb(Microsoft.AspNetCore.Builder.WebApplication)",
               "StandardElementType": "App",
               "IsDependencyBoundary": false
             }
@@ -154,22 +217,134 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "Packaging.Web.WebApplicationExtensions.UsePackagingWeb(WebApplication)",
+          "Id": "Packaging.Web.WebApplicationExtensions.UsePackagingWeb(Microsoft.AspNetCore.Builder.WebApplication)",
           "Name": "UsePackagingWeb",
           "LineNumber": 14,
           "Inputs": [
             {
               "Name": "app",
-              "Type": "WebApplication"
+              "Type": "Microsoft.AspNetCore.Builder.WebApplication"
             }
           ],
-          "ReturnType": "IApplicationBuilder",
+          "ReturnType": "Microsoft.AspNetCore.Builder.IApplicationBuilder",
           "Implements": [],
           "Calls": [
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions",
+              "MethodName": "MapControllers",
+              "MethodId": "Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions",
+              "MethodName": "MapGet",
+              "MethodId": "Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder,System.String,System.Delegate)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions",
+              "MethodName": "UseRouting",
+              "MethodId": "Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions",
+              "MethodName": "UseExceptionHandler",
+              "MethodId": "Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action\u003CMicrosoft.AspNetCore.Builder.IApplicationBuilder\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions",
+              "MethodName": "UseHttpsRedirection",
+              "MethodId": "Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.RunExtensions",
+              "MethodName": "Run",
+              "MethodId": "Microsoft.AspNetCore.Builder.RunExtensions.Run(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Http.RequestDelegate)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions",
+              "MethodName": "UseSession",
+              "MethodId": "Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.StaticFileExtensions",
+              "MethodName": "UseStaticFiles",
+              "MethodId": "Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.SwaggerBuilderExtensions",
+              "MethodName": "UseSwagger",
+              "MethodId": "Microsoft.AspNetCore.Builder.SwaggerBuilderExtensions.UseSwagger(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action\u003CSwashbuckle.AspNetCore.Swagger.SwaggerOptions\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.SwaggerUIBuilderExtensions",
+              "MethodName": "UseSwaggerUI",
+              "MethodId": "Microsoft.AspNetCore.Builder.SwaggerUIBuilderExtensions.UseSwaggerUI(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action\u003CSwashbuckle.AspNetCore.SwaggerUI.SwaggerUIOptions\u003E)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Builder.SwaggerUIOptionsExtensions",
+              "MethodName": "SwaggerEndpoint",
+              "MethodId": "Microsoft.AspNetCore.Builder.SwaggerUIOptionsExtensions.SwaggerEndpoint(Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIOptions,System.String,System.String)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Http.Results",
+              "MethodName": "Redirect",
+              "MethodId": "Microsoft.AspNetCore.Http.Results.Redirect(System.String,System.Boolean,System.Boolean)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.Http.Results",
+              "MethodName": "Text",
+              "MethodId": "Microsoft.AspNetCore.Http.Results.Text(System.String?,System.String?,System.Text.Encoding?,System.Int32?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.AspNetCore.OData.ODataApplicationBuilderExtensions",
+              "MethodName": "UseODataBatching",
+              "MethodId": "Microsoft.AspNetCore.OData.ODataApplicationBuilderExtensions.UseODataBatching(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
             {
               "TypeName": "Microsoft.AspNetCore.OData.ODataApplicationBuilderExtensions",
               "MethodName": "UseODataRouteDebug",
               "MethodId": "Microsoft.AspNetCore.OData.ODataApplicationBuilderExtensions.UseODataRouteDebug(Microsoft.AspNetCore.Builder.IApplicationBuilder)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions",
+              "MethodName": "GetRequiredService",
+              "MethodId": "Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(System.IServiceProvider)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
+            },
+            {
+              "TypeName": "cCoder.Packaging.WebApplicationExtensions",
+              "MethodName": "UsePackagingExposure",
+              "MethodId": "cCoder.Packaging.WebApplicationExtensions.UsePackagingExposure(Microsoft.AspNetCore.Builder.WebApplication,Microsoft.Extensions.Logging.ILogger)",
               "StandardElementType": "Dependency",
               "IsDependencyBoundary": true
             }

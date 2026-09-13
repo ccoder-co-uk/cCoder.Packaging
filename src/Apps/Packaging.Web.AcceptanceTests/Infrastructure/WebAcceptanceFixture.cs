@@ -2,7 +2,10 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using cCoder.Data;
+using cCoder.Security.Data.EF.Interfaces;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Packaging.Web.AcceptanceTests.Infrastructure;
@@ -22,6 +25,21 @@ public sealed class WebAcceptanceFixture : IAsyncLifetime
             AllowAutoRedirect = false,
             BaseAddress = new Uri("https://localhost"),
         });
+
+        using IServiceScope scope = Factory.Services.CreateScope();
+
+        using CoreDataContext coreContext = scope.ServiceProvider
+            .GetRequiredService<ICoreContextFactory>()
+            .CreateCoreContext();
+
+        coreContext.Migrate();
+
+        using cCoder.Security.Data.EF.SecurityDbContext securityContext =
+            scope.ServiceProvider
+                .GetRequiredService<ISecurityDbContextFactory>()
+                .CreateDbContext(ignoreAuthInfo: true);
+
+        securityContext.Migrate();
 
         return Task.CompletedTask;
     }

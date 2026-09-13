@@ -6,10 +6,13 @@ using cCoder.Data.Models.Packaging;
 
 namespace cCoder.Packaging.Exposures;
 
-public interface IPackageTransferManager
+internal sealed class UnavailablePackageTransferManager
+    : IPackageTransferManager
 {
-    ValueTask<Package[]> ExportPackagesAsync(
+    public ValueTask<Package[]> ExportPackagesAsync(
         int appId,
         string[] packageNames,
-        string sourceApi);
+        string sourceApi) =>
+        throw new NotSupportedException(
+            "App package export requires a composition-root package transfer manager.");
 }

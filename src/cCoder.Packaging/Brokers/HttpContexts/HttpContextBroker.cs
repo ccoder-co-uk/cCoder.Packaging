@@ -4,10 +4,11 @@
 
 using Microsoft.AspNetCore.Http;
 
-namespace cCoder.Packaging.Exposures.PackageManagers;
+namespace cCoder.Packaging.Brokers.HttpContexts;
 
-internal class AppDomainManager(IHttpContextAccessor httpContextAccessor) : IAppDomainManager
+internal sealed class HttpContextBroker(IHttpContextAccessor httpContextAccessor)
+    : IHttpContextBroker
 {
-    public string GetDomain(int appId) =>
+    public string GetRequestDomain() =>
         httpContextAccessor.HttpContext?.Request.Host.Host ?? "localhost";
 }

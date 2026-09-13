@@ -6,6 +6,7 @@ using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
 using System.Linq.Expressions;
 using cCoder.Packaging.Services.Processings;
+using FluentAssertions;
 using Moq;
 using Xunit;
 using DataPackage = cCoder.Data.Models.Packaging.Package;
@@ -17,7 +18,6 @@ public partial class PackageAggregationServiceTests
 {
     [Theory]
     [InlineData(1)]
-    [InlineData(null)]
     public async Task ShouldRaiseOnlyPackageImportEventAsyncWhenImportPackageAsync(
         int? appId)
     {
@@ -47,5 +47,43 @@ public partial class PackageAggregationServiceTests
         packageProcessingServiceMock.VerifyNoOtherCalls();
         packageItemProcessingServiceMock.VerifyNoOtherCalls();
         packageExportProcessingServiceMock.VerifyNoOtherCalls();
+    }
+
+    [Fact]
+    public async Task ShouldPersistPackageWithoutRaisingEventWhenCommonCacheImportAsync()
+    {
+        // Given
+        Package package = new() { Name = "CommonCache", Items = [] };
+
+        packageProcessingServiceMock.Setup(expression: service =>
+                service.AddPackageAsync(newPackage: package))
+            .Returns(value: ValueTask.FromResult(result: package));
+
+        // When
+        await aggregationService.ImportPackageAsync(
+            appId: null,
+            package: package);
+
+        // Then
+        packageProcessingServiceMock.Verify(expression: service =>
+                service.AddPackageAsync(newPackage: package),
+            times: Times.Once);
+
+        packageProcessingServiceMock.VerifyNoOtherCalls();
+        packageItemProcessingServiceMock.VerifyNoOtherCalls();
+        packageEventProcessingServiceMock.VerifyNoOtherCalls();
+        packageExportProcessingServiceMock.VerifyNoOtherCalls();
+
+        package.Description
+            .Should()
+            .BeEmpty();
+
+        package.Category
+            .Should()
+            .BeEmpty();
+
+        package.SourceApi
+            .Should()
+            .BeEmpty();
     }
 }

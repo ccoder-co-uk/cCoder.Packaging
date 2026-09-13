@@ -2,9 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
-namespace cCoder.Packaging.Exposures.PackageManagers;
+namespace cCoder.Packaging.Brokers.HttpContexts;
 
-public interface IAppDomainManager
+internal interface IHttpContextBroker
 {
-    string GetDomain(int appId);
+    string GetRequestDomain();
 }

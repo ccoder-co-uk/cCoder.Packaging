@@ -15,7 +15,7 @@ namespace cCoder.Packaging.Tests.Aggregations;
 public partial class PackageAggregationServiceTests
 {
     [Fact]
-    public void ShouldUseDefaultPackageListWhenPackagesAreEmpty()
+    public async Task ShouldDelegateAppPackageExportToCompositionRootAsync()
     {
         // Given
         const int appId = 1;
@@ -25,35 +25,41 @@ public partial class PackageAggregationServiceTests
             .Setup(expression: service => service.GetPackageSourceApi(appId: appId))
             .Returns(value: sourceApi);
 
-        packageProcessingServiceMock
-            .Setup(expression:x => x.ExportPackages(
-                appId:appId,
-                packageNames:It.IsAny<string[]>()))
-            .Returns(valueFunction:(int _, string[] packageNames) =>
-                [.. packageNames.Select(
-                    selector:packageName => new DataPackage
-                    {
-                        Name = packageName,
-                        Items = []
-                    })]);
+        DataPackage[] expectedPackages =
+        [
+            new DataPackage
+            {
+                Name = "AppConfiguration",
+                Items = [],
+            },
+        ];
+
+        packageExportProcessingServiceMock
+            .Setup(expression: service => service.ExportPackagesAsync(
+                appId: appId,
+                packageNames: It.Is<string[]>(match: value => value.Length == 0),
+                sourceApi: sourceApi))
+            .ReturnsAsync(value: expectedPackages);
 
         // When
-        Package[] result = aggregationService.ExportPackages(appId: appId, packageNames: [])
-                               .ToArray();
+        Package[] result = await aggregationService.ExportPackagesAsync(
+            appId: appId,
+            packageNames: []);
 
         // Then
         result.Should()
-            .HaveCount(expected: 12);
-
-        packageProcessingServiceMock.Verify(
-            expression:x => x.ExportPackages(
-                appId:appId,
-                packageNames:It.IsAny<string[]>()),
-            times:Times.Once);
+            .BeEquivalentTo(expectation: expectedPackages);
 
         packageExportProcessingServiceMock.Verify(
             expression:service => service.GetPackageSourceApi(appId:appId),
             times:Times.Once);
+
+        packageExportProcessingServiceMock.Verify(
+            expression: service => service.ExportPackagesAsync(
+                appId: appId,
+                packageNames: It.Is<string[]>(match: value => value.Length == 0),
+                sourceApi: sourceApi),
+            times: Times.Once);
 
         packageExportProcessingServiceMock.VerifyNoOtherCalls();
         packageProcessingServiceMock.VerifyNoOtherCalls();

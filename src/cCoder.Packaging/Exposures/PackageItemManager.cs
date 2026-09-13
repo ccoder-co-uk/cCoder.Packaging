@@ -3,13 +3,14 @@
 // ---------------------------------------------------------------
 
 using cCoder.Data.Models.Packaging;
+using cCoder.Packaging.Brokers.Loggings;
 using cCoder.Packaging.Services.Orchestrations;
 
 namespace cCoder.Packaging.Exposures;
 
 internal sealed class PackageItemManager(
     IPackageItemOrchestrationService packageItemOrchestrationService,
-    IPackagingLoggingManager packagingLoggingManager)
+    ILoggingBroker loggingBroker)
     : IPackageItemManager
 {
     public PackageItem GetPackageItem(Guid packageItemId) =>
@@ -36,7 +37,5 @@ internal sealed class PackageItemManager(
             packageItemId: packageItemId);
 
     public void LogError(Exception exception, string message) =>
-        packagingLoggingManager.LogError(
-            exception: exception,
-            message: message);
+        loggingBroker.LogError(exception: exception, message: message);
 }

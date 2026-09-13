@@ -12,6 +12,12 @@ internal sealed partial class PackageProcessingService(
     IPackageService packageService)
     : IPackageProcessingService
 {
+    public Package[] ExportCommonCachePackages() =>
+        TryCatch(operation: () =>
+        {
+            return packageService.ExportCommonCachePackages();
+        });
+
     public Package ExportPackage(int appId, string packageName) =>
         TryCatch(operation: () =>
         {

@@ -3,13 +3,14 @@
 // ---------------------------------------------------------------
 
 using cCoder.Packaging.Api.OData;
+using cCoder.Packaging.Brokers.Loggings;
 using cCoder.Packaging.Services.Foundations.Metadata;
 
 namespace cCoder.Packaging.Exposures;
 
 internal sealed class PackageMetadataManager(
     IMetadataService metadataService,
-    IPackagingLoggingManager packagingLoggingManager)
+    ILoggingBroker loggingBroker)
     : IPackageMetadataManager
 {
     public MetadataContainer CreateMetadataContainer(
@@ -22,7 +23,5 @@ internal sealed class PackageMetadataManager(
             hasEndpoint: hasEndpoint);
 
     public void LogError(Exception exception, string message) =>
-        packagingLoggingManager.LogError(
-            exception: exception,
-            message: message);
+        loggingBroker.LogError(exception: exception, message: message);
 }

@@ -13,6 +13,7 @@ internal interface IPackageService
     ValueTask<Package> AddPackageAsync(Package newPackage);
     ValueTask<Package> UpdatePackageAsync(Package updatedPackage);
     ValueTask DeletePackageAsync(Guid packageId);
+    Package[] ExportCommonCachePackages();
     Package ExportPackageRoles(int appId);
     Package ExportPackageLayouts(int appId);
     Package ExportPackageTemplates(int appId);
