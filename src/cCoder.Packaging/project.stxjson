@@ -1145,6 +1145,78 @@
       ]
     },
     {
+      "Name": "cCoder.Packaging.Brokers.PackageTransfers.PackageTransferBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 10,
+      "IsPublic": false,
+      "Kind": "Class",
+      "BaseType": null,
+      "Interfaces": [
+        {
+          "Id": "cCoder.Packaging:cCoder.Packaging.Brokers.PackageTransfers.IPackageTransferBroker",
+          "FullName": "cCoder.Packaging.Brokers.PackageTransfers.IPackageTransferBroker",
+          "Name": "IPackageTransferBroker",
+          "Namespace": "cCoder.Packaging.Brokers.PackageTransfers",
+          "AssemblyName": "cCoder.Packaging",
+          "Kind": "Interface",
+          "IsInCurrentProject": true,
+          "StandardElementType": "Broker"
+        }
+      ],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Packaging.Brokers.PackageTransfers.PackageTransferBroker.ExportPackagesAsync(System.Int32,System.String[],System.String)",
+          "Name": "ExportPackagesAsync",
+          "LineNumber": 14,
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageNames",
+              "Type": "System.String[]"
+            },
+            {
+              "Name": "sourceApi",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package[]\u003E",
+          "Implements": [
+            "cCoder.Packaging.Brokers.PackageTransfers.IPackageTransferBroker.ExportPackagesAsync(System.Int32,System.String[],System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Packaging.Exposures.IPackageTransferManager",
+              "MethodName": "ExportPackagesAsync",
+              "MethodId": "cCoder.Packaging.Exposures.IPackageTransferManager.ExportPackagesAsync(System.Int32,System.String[],System.String)",
+              "StandardElementType": "Exposure",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.NotSupportedException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.NotSupportedException"
+          ],
+          "ThrowsExceptionTypes": [
+            "System.NotSupportedException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Packaging.Brokers.Storages.PackageBroker",
       "StandardElementType": "Broker",
       "LineNumber": 44,
@@ -3622,7 +3694,7 @@
               "Type": "System.String[]"
             }
           ],
-          "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult",
+          "ReturnType": "System.Threading.Tasks.Task\u003CMicrosoft.AspNetCore.Mvc.IActionResult\u003E",
           "Implements": [],
           "Calls": [
             {
@@ -3648,8 +3720,8 @@
             },
             {
               "TypeName": "cCoder.Packaging.Exposures.IPackageManager",
-              "MethodName": "ExportPackages",
-              "MethodId": "cCoder.Packaging.Exposures.IPackageManager.ExportPackages(System.Int32?,System.String[])",
+              "MethodName": "ExportPackagesAsync",
+              "MethodId": "cCoder.Packaging.Exposures.IPackageManager.ExportPackagesAsync(System.Int32?,System.String[])",
               "StandardElementType": "Exposure",
               "IsDependencyBoundary": false
             },
@@ -3662,7 +3734,7 @@
             }
           ],
           "PossibleExceptionTypes": [
-            "System.Security.SecurityException",
+            "System.NotSupportedException",
             "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
             "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
             "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
@@ -5638,8 +5710,8 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Packaging.Exposures.PackageManager.ExportPackages(System.Int32?,System.String[])",
-          "Name": "ExportPackages",
+          "Id": "cCoder.Packaging.Exposures.PackageManager.ExportPackagesAsync(System.Int32?,System.String[])",
+          "Name": "ExportPackagesAsync",
           "LineNumber": 16,
           "Inputs": [
             {
@@ -5651,21 +5723,21 @@
               "Type": "System.String[]"
             }
           ],
-          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E",
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package[]\u003E",
           "Implements": [
-            "cCoder.Packaging.Exposures.IPackageManager.ExportPackages(System.Int32?,System.String[])"
+            "cCoder.Packaging.Exposures.IPackageManager.ExportPackagesAsync(System.Int32?,System.String[])"
           ],
           "Calls": [
             {
               "TypeName": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService",
-              "MethodName": "ExportPackages",
-              "MethodId": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.ExportPackages(System.Int32?,System.String[])",
+              "MethodName": "ExportPackagesAsync",
+              "MethodId": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.ExportPackagesAsync(System.Int32?,System.String[])",
               "StandardElementType": "AggregationService",
               "IsDependencyBoundary": false
             }
           ],
           "PossibleExceptionTypes": [
-            "System.Security.SecurityException",
+            "System.NotSupportedException",
             "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
             "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
             "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
@@ -6075,9 +6147,9 @@
       ]
     },
     {
-      "Name": "cCoder.Packaging.Exposures.PackageTransferManager",
+      "Name": "cCoder.Packaging.Exposures.UnavailablePackageTransferManager",
       "StandardElementType": "Exposure",
-      "LineNumber": 10,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -6096,50 +6168,44 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Packaging.Exposures.PackageTransferManager.ExportPackage(System.Int32,System.String)",
-          "Name": "ExportPackage",
-          "LineNumber": 14,
+          "Id": "cCoder.Packaging.Exposures.UnavailablePackageTransferManager.ExportPackagesAsync(System.Int32,System.String[],System.String)",
+          "Name": "ExportPackagesAsync",
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "appId",
               "Type": "System.Int32"
             },
             {
-              "Name": "packageName",
+              "Name": "packageNames",
+              "Type": "System.String[]"
+            },
+            {
+              "Name": "sourceApi",
               "Type": "System.String"
             }
           ],
-          "ReturnType": "cCoder.Data.Models.Packaging.Package",
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package[]\u003E",
           "Implements": [
-            "cCoder.Packaging.Exposures.IPackageTransferManager.ExportPackage(System.Int32,System.String)"
+            "cCoder.Packaging.Exposures.IPackageTransferManager.ExportPackagesAsync(System.Int32,System.String[],System.String)"
           ],
           "Calls": [
             {
-              "TypeName": "cCoder.Packaging.Services.Aggregations.IPackageManagerAggregationService",
-              "MethodName": "ExportPackage",
-              "MethodId": "cCoder.Packaging.Services.Aggregations.IPackageManagerAggregationService.ExportPackage(System.Int32,System.String)",
-              "StandardElementType": "AggregationService",
-              "IsDependencyBoundary": false
+              "TypeName": "System.NotSupportedException",
+              "MethodName": ".ctor",
+              "MethodId": "System.NotSupportedException..ctor(System.String?)",
+              "StandardElementType": "Dependency",
+              "IsDependencyBoundary": true
             }
           ],
           "PossibleExceptionTypes": [
-            "System.Security.SecurityException",
-            "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationValidationException",
-            "cCoder.Packaging.Models.Exceptions.PackagingServiceException",
-            "cCoder.Packaging.Models.Exceptions.PackagingValidationException"
+            "System.NotSupportedException"
           ],
           "IncomingExceptionTypes": [
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationValidationException"
+            "System.NotSupportedException"
           ],
           "ThrowsExceptionTypes": [
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
-            "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationValidationException"
+            "System.NotSupportedException"
           ],
           "HttpMethods": [],
           "HttpResponses": [],
@@ -6155,7 +6221,7 @@
     {
       "Name": "cCoder.Packaging.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 37,
+      "LineNumber": 38,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -6165,7 +6231,7 @@
         {
           "Id": "cCoder.Packaging.IServiceCollectionExtensions.AddPackaging(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Packaging.Models.PackagingConfiguration\u003E)",
           "Name": "AddPackaging",
-          "LineNumber": 65,
+          "LineNumber": 66,
           "Inputs": [
             {
               "Name": "services",
@@ -6209,7 +6275,7 @@
         {
           "Id": "cCoder.Packaging.IServiceCollectionExtensions.AddPackaging(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Packaging.Models.PackagingConfiguration)",
           "Name": "AddPackaging",
-          "LineNumber": 75,
+          "LineNumber": 76,
           "Inputs": [
             {
               "Name": "services",
@@ -6238,7 +6304,7 @@
         {
           "Id": "cCoder.Packaging.IServiceCollectionExtensions.AddPackagingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Packaging.Models.PackagingConfiguration\u003E)",
           "Name": "AddPackagingWeb",
-          "LineNumber": 39,
+          "LineNumber": 40,
           "Inputs": [
             {
               "Name": "services",
@@ -6282,7 +6348,7 @@
         {
           "Id": "cCoder.Packaging.IServiceCollectionExtensions.AddPackagingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Packaging.Models.PackagingConfiguration)",
           "Name": "AddPackagingWeb",
-          "LineNumber": 49,
+          "LineNumber": 50,
           "Inputs": [
             {
               "Name": "services",
@@ -6787,7 +6853,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.AddOrUpdatePackagesAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "AddOrUpdatePackagesAsync",
-          "LineNumber": 186,
+          "LineNumber": 159,
           "Inputs": [
             {
               "Name": "packages",
@@ -6860,7 +6926,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.AddPackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "AddPackageAsync",
-          "LineNumber": 122,
+          "LineNumber": 95,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -6923,7 +6989,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.DeleteAllPackagesAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "DeleteAllPackagesAsync",
-          "LineNumber": 228,
+          "LineNumber": 201,
           "Inputs": [
             {
               "Name": "deletedPackages",
@@ -6979,7 +7045,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.DeletePackageAsync(System.Guid)",
           "Name": "DeletePackageAsync",
-          "LineNumber": 171,
+          "LineNumber": 144,
           "Inputs": [
             {
               "Name": "packageId",
@@ -7047,8 +7113,8 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.ExportPackages(System.Int32?,System.String[])",
-          "Name": "ExportPackages",
+          "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.ExportPackagesAsync(System.Int32?,System.String[])",
+          "Name": "ExportPackagesAsync",
           "LineNumber": 20,
           "Inputs": [
             {
@@ -7060,24 +7126,17 @@
               "Type": "System.String[]"
             }
           ],
-          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E",
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package[]\u003E",
           "Implements": [
-            "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.ExportPackages(System.Int32?,System.String[])"
+            "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.ExportPackagesAsync(System.Int32?,System.String[])"
           ],
           "Calls": [
             {
-              "TypeName": "System.Collections.Generic.List\u003CT\u003E",
-              "MethodName": "ForEach",
-              "MethodId": "System.Collections.Generic.List\u003CT\u003E.ForEach(System.Action\u003CT\u003E)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
-            },
-            {
-              "TypeName": "System.Linq.Enumerable",
-              "MethodName": "ToList",
-              "MethodId": "System.Linq.Enumerable.ToList(System.Collections.Generic.IEnumerable\u003CTSource\u003E)",
-              "StandardElementType": "Dependency",
-              "IsDependencyBoundary": true
+              "TypeName": "cCoder.Packaging.Services.Processings.IPackageExportProcessingService",
+              "MethodName": "ExportPackagesAsync",
+              "MethodId": "cCoder.Packaging.Services.Processings.IPackageExportProcessingService.ExportPackagesAsync(System.Int32,System.String[],System.String)",
+              "StandardElementType": "ProcessingService",
+              "IsDependencyBoundary": false
             },
             {
               "TypeName": "cCoder.Packaging.Services.Processings.IPackageExportProcessingService",
@@ -7092,17 +7151,10 @@
               "MethodId": "cCoder.Packaging.Services.Processings.IPackageProcessingService.ExportCommonCachePackages()",
               "StandardElementType": "ProcessingService",
               "IsDependencyBoundary": false
-            },
-            {
-              "TypeName": "cCoder.Packaging.Services.Processings.IPackageProcessingService",
-              "MethodName": "ExportPackages",
-              "MethodId": "cCoder.Packaging.Services.Processings.IPackageProcessingService.ExportPackages(System.Int32,System.String[])",
-              "StandardElementType": "ProcessingService",
-              "IsDependencyBoundary": false
             }
           ],
           "PossibleExceptionTypes": [
-            "System.Security.SecurityException",
+            "System.NotSupportedException",
             "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
             "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
             "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
@@ -7136,7 +7188,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.GetAllPackages(System.Boolean)",
           "Name": "GetAllPackages",
-          "LineNumber": 113,
+          "LineNumber": 86,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -7190,7 +7242,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.GetPackage(System.Guid)",
           "Name": "GetPackage",
-          "LineNumber": 105,
+          "LineNumber": 78,
           "Inputs": [
             {
               "Name": "packageId",
@@ -7245,7 +7297,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.ImportPackageAsync(System.Int32?,cCoder.Data.Models.Packaging.Package)",
           "Name": "ImportPackageAsync",
-          "LineNumber": 71,
+          "LineNumber": 44,
           "Inputs": [
             {
               "Name": "appId",
@@ -7319,7 +7371,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.UpdatePackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "UpdatePackageAsync",
-          "LineNumber": 136,
+          "LineNumber": 109,
           "Inputs": [
             {
               "Name": "updatedPackage",
@@ -8222,7 +8274,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 11,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -8241,9 +8293,66 @@
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService.ExportPackagesAsync(System.Int32,System.String[],System.String)",
+          "Name": "ExportPackagesAsync",
+          "LineNumber": 19,
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageNames",
+              "Type": "System.String[]"
+            },
+            {
+              "Name": "sourceApi",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package[]\u003E",
+          "Implements": [
+            "cCoder.Packaging.Services.Foundations.PackageExports.IPackageExportService.ExportPackagesAsync(System.Int32,System.String[],System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Packaging.Brokers.PackageTransfers.IPackageTransferBroker",
+              "MethodName": "ExportPackagesAsync",
+              "MethodId": "cCoder.Packaging.Brokers.PackageTransfers.IPackageTransferBroker.ExportPackagesAsync(System.Int32,System.String[],System.String)",
+              "StandardElementType": "Broker",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.NotSupportedException",
+            "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
+            "cCoder.Packaging.Models.Exceptions.PackagingServiceException",
+            "cCoder.Packaging.Models.Exceptions.PackagingValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "System.NotSupportedException",
+            "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
+            "cCoder.Packaging.Models.Exceptions.PackagingServiceException",
+            "cCoder.Packaging.Models.Exceptions.PackagingValidationException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
+            "cCoder.Packaging.Models.Exceptions.PackagingServiceException",
+            "cCoder.Packaging.Models.Exceptions.PackagingValidationException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
           "Id": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService.GetPackageSourceApi(System.Int32)",
           "Name": "GetPackageSourceApi",
-          "LineNumber": 16,
+          "LineNumber": 36,
           "Inputs": [
             {
               "Name": "appId",
@@ -10872,7 +10981,7 @@
     {
       "Name": "cCoder.Packaging.Services.Processings.PackageExportProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 9,
+      "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -10891,9 +11000,69 @@
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Packaging.Services.Processings.PackageExportProcessingService.ExportPackagesAsync(System.Int32,System.String[],System.String)",
+          "Name": "ExportPackagesAsync",
+          "LineNumber": 14,
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageNames",
+              "Type": "System.String[]"
+            },
+            {
+              "Name": "sourceApi",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package[]\u003E",
+          "Implements": [
+            "cCoder.Packaging.Services.Processings.IPackageExportProcessingService.ExportPackagesAsync(System.Int32,System.String[],System.String)"
+          ],
+          "Calls": [
+            {
+              "TypeName": "cCoder.Packaging.Services.Foundations.PackageExports.IPackageExportService",
+              "MethodName": "ExportPackagesAsync",
+              "MethodId": "cCoder.Packaging.Services.Foundations.PackageExports.IPackageExportService.ExportPackagesAsync(System.Int32,System.String[],System.String)",
+              "StandardElementType": "FoundationService",
+              "IsDependencyBoundary": false
+            }
+          ],
+          "PossibleExceptionTypes": [
+            "System.NotSupportedException",
+            "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
+            "cCoder.Packaging.Models.Exceptions.PackagingProcessingDependencyException",
+            "cCoder.Packaging.Models.Exceptions.PackagingProcessingServiceException",
+            "cCoder.Packaging.Models.Exceptions.PackagingProcessingValidationException",
+            "cCoder.Packaging.Models.Exceptions.PackagingServiceException",
+            "cCoder.Packaging.Models.Exceptions.PackagingValidationException"
+          ],
+          "IncomingExceptionTypes": [
+            "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
+            "cCoder.Packaging.Models.Exceptions.PackagingProcessingServiceException",
+            "cCoder.Packaging.Models.Exceptions.PackagingServiceException",
+            "cCoder.Packaging.Models.Exceptions.PackagingValidationException"
+          ],
+          "ThrowsExceptionTypes": [
+            "cCoder.Packaging.Models.Exceptions.PackagingProcessingDependencyException",
+            "cCoder.Packaging.Models.Exceptions.PackagingProcessingServiceException",
+            "cCoder.Packaging.Models.Exceptions.PackagingProcessingValidationException"
+          ],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
           "Id": "cCoder.Packaging.Services.Processings.PackageExportProcessingService.GetPackageSourceApi(System.Int32)",
           "Name": "GetPackageSourceApi",
-          "LineNumber": 13,
+          "LineNumber": 31,
           "Inputs": [
             {
               "Name": "appId",
@@ -12643,6 +12812,51 @@
       ]
     },
     {
+      "Name": "cCoder.Packaging.Brokers.PackageTransfers.IPackageTransferBroker",
+      "StandardElementType": "Broker",
+      "LineNumber": 9,
+      "IsPublic": false,
+      "Kind": "Interface",
+      "BaseType": null,
+      "Interfaces": [],
+      "Properties": [],
+      "Methods": [
+        {
+          "Id": "cCoder.Packaging.Brokers.PackageTransfers.IPackageTransferBroker.ExportPackagesAsync(System.Int32,System.String[],System.String)",
+          "Name": "ExportPackagesAsync",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageNames",
+              "Type": "System.String[]"
+            },
+            {
+              "Name": "sourceApi",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package[]\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        }
+      ]
+    },
+    {
       "Name": "cCoder.Packaging.Brokers.Storages.IPackageBroker",
       "StandardElementType": "Broker",
       "LineNumber": 21,
@@ -13518,8 +13732,8 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Packaging.Exposures.IPackageManager.ExportPackages(System.Int32?,System.String[])",
-          "Name": "ExportPackages",
+          "Id": "cCoder.Packaging.Exposures.IPackageManager.ExportPackagesAsync(System.Int32?,System.String[])",
+          "Name": "ExportPackagesAsync",
           "LineNumber": 11,
           "Inputs": [
             {
@@ -13531,7 +13745,7 @@
               "Type": "System.String[]"
             }
           ],
-          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E",
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package[]\u003E",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -13766,8 +13980,8 @@
       "Properties": [],
       "Methods": [
         {
-          "Id": "cCoder.Packaging.Exposures.IPackageTransferManager.ExportPackage(System.Int32,System.String)",
-          "Name": "ExportPackage",
+          "Id": "cCoder.Packaging.Exposures.IPackageTransferManager.ExportPackagesAsync(System.Int32,System.String[],System.String)",
+          "Name": "ExportPackagesAsync",
           "LineNumber": 11,
           "Inputs": [
             {
@@ -13775,11 +13989,15 @@
               "Type": "System.Int32"
             },
             {
-              "Name": "packageName",
+              "Name": "packageNames",
+              "Type": "System.String[]"
+            },
+            {
+              "Name": "sourceApi",
               "Type": "System.String"
             }
           ],
-          "ReturnType": "cCoder.Data.Models.Packaging.Package",
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package[]\u003E",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -14159,7 +14377,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.AddOrUpdatePackagesAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "AddOrUpdatePackagesAsync",
-          "LineNumber": 21,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "packages",
@@ -14184,7 +14402,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.AddPackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "AddPackageAsync",
-          "LineNumber": 17,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -14209,7 +14427,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.DeleteAllPackagesAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "DeleteAllPackagesAsync",
-          "LineNumber": 24,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "deletedPackages",
@@ -14234,7 +14452,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.DeletePackageAsync(System.Guid)",
           "Name": "DeletePackageAsync",
-          "LineNumber": 19,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "packageId",
@@ -14257,8 +14475,8 @@
           "HasTryCatch": false
         },
         {
-          "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.ExportPackages(System.Int32?,System.String[])",
-          "Name": "ExportPackages",
+          "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.ExportPackagesAsync(System.Int32?,System.String[])",
+          "Name": "ExportPackagesAsync",
           "LineNumber": 13,
           "Inputs": [
             {
@@ -14270,7 +14488,7 @@
               "Type": "System.String[]"
             }
           ],
-          "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E",
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package[]\u003E",
           "Implements": [],
           "Calls": [],
           "PossibleExceptionTypes": [],
@@ -14288,7 +14506,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.GetAllPackages(System.Boolean)",
           "Name": "GetAllPackages",
-          "LineNumber": 16,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -14313,7 +14531,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.GetPackage(System.Guid)",
           "Name": "GetPackage",
-          "LineNumber": 15,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "packageId",
@@ -14338,7 +14556,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.ImportPackageAsync(System.Int32?,cCoder.Data.Models.Packaging.Package)",
           "Name": "ImportPackageAsync",
-          "LineNumber": 14,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "appId",
@@ -14367,7 +14585,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.UpdatePackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "UpdatePackageAsync",
-          "LineNumber": 18,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "updatedPackage",
@@ -14756,7 +14974,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.PackageExports.IPackageExportService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -14764,9 +14982,42 @@
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Packaging.Services.Foundations.PackageExports.IPackageExportService.ExportPackagesAsync(System.Int32,System.String[],System.String)",
+          "Name": "ExportPackagesAsync",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageNames",
+              "Type": "System.String[]"
+            },
+            {
+              "Name": "sourceApi",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package[]\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
           "Id": "cCoder.Packaging.Services.Foundations.PackageExports.IPackageExportService.GetPackageSourceApi(System.Int32)",
           "Name": "GetPackageSourceApi",
-          "LineNumber": 9,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "appId",
@@ -16006,7 +16257,7 @@
     {
       "Name": "cCoder.Packaging.Services.Processings.IPackageExportProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -16014,9 +16265,42 @@
       "Properties": [],
       "Methods": [
         {
+          "Id": "cCoder.Packaging.Services.Processings.IPackageExportProcessingService.ExportPackagesAsync(System.Int32,System.String[],System.String)",
+          "Name": "ExportPackagesAsync",
+          "LineNumber": 11,
+          "Inputs": [
+            {
+              "Name": "appId",
+              "Type": "System.Int32"
+            },
+            {
+              "Name": "packageNames",
+              "Type": "System.String[]"
+            },
+            {
+              "Name": "sourceApi",
+              "Type": "System.String"
+            }
+          ],
+          "ReturnType": "System.Threading.Tasks.ValueTask\u003CcCoder.Data.Models.Packaging.Package[]\u003E",
+          "Implements": [],
+          "Calls": [],
+          "PossibleExceptionTypes": [],
+          "IncomingExceptionTypes": [],
+          "ThrowsExceptionTypes": [],
+          "HttpMethods": [],
+          "HttpResponses": [],
+          "IsHttpRequestHandler": false,
+          "IsODataControllerAction": false,
+          "HasFromBodyParameter": false,
+          "HasKeyParameter": false,
+          "HandlesNullWithNotFound": false,
+          "HasTryCatch": false
+        },
+        {
           "Id": "cCoder.Packaging.Services.Processings.IPackageExportProcessingService.GetPackageSourceApi(System.Int32)",
           "Name": "GetPackageSourceApi",
-          "LineNumber": 9,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "appId",
@@ -16560,6 +16844,10 @@
       "ToType": "Microsoft.Extensions.Logging.ILogger\u003CcCoder.Packaging.Services.Aggregations.PackageManagerAggregationService\u003E"
     },
     {
+      "FromType": "cCoder.Packaging.Brokers.PackageTransfers.PackageTransferBroker",
+      "ToType": "cCoder.Packaging.Exposures.UnavailablePackageTransferManager"
+    },
+    {
       "FromType": "cCoder.Packaging.Brokers.Storages.PackageBroker",
       "ToType": "cCoder.Data.ICoreContextFactory"
     },
@@ -16610,10 +16898,6 @@
     {
       "FromType": "cCoder.Packaging.Exposures.PackageMetadataManager",
       "ToType": "cCoder.Packaging.Services.Foundations.Metadata.MetadataService"
-    },
-    {
-      "FromType": "cCoder.Packaging.Exposures.PackageTransferManager",
-      "ToType": "cCoder.Packaging.Services.Aggregations.PackageManagerAggregationService"
     },
     {
       "FromType": "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
@@ -16718,6 +17002,10 @@
     {
       "FromType": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService",
       "ToType": "cCoder.Packaging.Brokers.HttpContexts.HttpContextBroker"
+    },
+    {
+      "FromType": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService",
+      "ToType": "cCoder.Packaging.Brokers.PackageTransfers.PackageTransferBroker"
     },
     {
       "FromType": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService",

@@ -22,13 +22,13 @@ public partial class PackageController(
     : ODataController
 {
     [HttpGet("/Api/Packaging/Package/Export")]
-    public IActionResult Get(
+    public async Task<IActionResult> Get(
         [FromQuery] int? appId = null,
         [FromQuery] string[] packageNames = null)
     {
         try
         {
-            return Ok(value: packageManager.ExportPackages(
+            return Ok(value: await packageManager.ExportPackagesAsync(
                 appId: appId,
                 packageNames: packageNames));
         }

@@ -8,7 +8,7 @@ namespace cCoder.Packaging.Exposures;
 
 public interface IPackageManager
 {
-    IEnumerable<Package> ExportPackages(
+    ValueTask<Package[]> ExportPackagesAsync(
         int? appId,
         string[] packageNames = null);
 

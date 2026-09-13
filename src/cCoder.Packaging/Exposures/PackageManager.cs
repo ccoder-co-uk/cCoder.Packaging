@@ -13,10 +13,10 @@ internal sealed class PackageManager(
     ILoggingBroker loggingBroker)
     : IPackageManager
 {
-    public IEnumerable<Package> ExportPackages(
+    public ValueTask<Package[]> ExportPackagesAsync(
         int? appId,
         string[] packageNames = null) =>
-        packageAggregationService.ExportPackages(
+        packageAggregationService.ExportPackagesAsync(
             appId: appId,
             packageNames: packageNames);
 

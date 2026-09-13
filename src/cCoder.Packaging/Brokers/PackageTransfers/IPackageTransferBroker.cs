@@ -4,9 +4,9 @@
 
 using cCoder.Data.Models.Packaging;
 
-namespace cCoder.Packaging.Exposures;
+namespace cCoder.Packaging.Brokers.PackageTransfers;
 
-public interface IPackageTransferManager
+internal interface IPackageTransferBroker
 {
     ValueTask<Package[]> ExportPackagesAsync(
         int appId,
