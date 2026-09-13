@@ -18,11 +18,18 @@ internal sealed partial class PackageAggregationService(
     : IPackageAggregationService
 {
     public IEnumerable<Package> ExportPackages(
-        int appId,
+        int? appId,
         string[] packageNames = null) =>
-        TryCatch(operation: () =>
+        TryCatch<IEnumerable<Package>>(operation: () =>
         {
-            ValidatePackagesOnExport(appId: appId, packageNames: packageNames);
+            if (appId is null)
+            {
+                return packageProcessingService.ExportCommonCachePackages();
+            }
+
+            ValidatePackagesOnExport(
+                appId: appId.Value,
+                packageNames: packageNames);
 
             string[] selectedPackageNames = packageNames is null || packageNames.Length == 0
                 ?
@@ -44,12 +51,12 @@ internal sealed partial class PackageAggregationService(
 
             List<Package> packages = packageProcessingService
                 .ExportPackages(
-                    appId: appId,
+                    appId: appId.Value,
                     packageNames: selectedPackageNames)
                 .ToList();
 
             string sourceApi = packageExportProcessingService
-                .GetPackageSourceApi(appId: appId);
+                .GetPackageSourceApi(appId: appId.Value);
 
             packages.ForEach(action: package =>
             {
@@ -62,11 +69,36 @@ internal sealed partial class PackageAggregationService(
         });
 
     public ValueTask ImportPackageAsync(int? appId, Package package) =>
-        TryCatch(operation: () =>
+        TryCatch(operation: async () =>
         {
             ValidatePackageOnImport(appId: appId, package: package);
 
-            return packageEventProcessingService
+            if (appId is null)
+            {
+                package.Description ??= string.Empty;
+                package.Category ??= string.Empty;
+                package.SourceApi ??= string.Empty;
+
+                Package savedPackage = await packageProcessingService
+                    .AddPackageAsync(newPackage: package);
+
+                foreach (PackageItem packageItem in package.Items ?? [])
+                {
+                    packageItem.Id = Guid.Empty;
+                    packageItem.PackageId = savedPackage.Id;
+                    packageItem.Package = null;
+                }
+
+                if (package.Items?.Count > 0)
+                {
+                    _ = await packageItemProcessingService
+                        .AddOrUpdatePackageItemsAsync(packageItems: package.Items);
+                }
+
+                return;
+            }
+
+            await packageEventProcessingService
                 .RaisePackageImportEventAsync(appId: appId, package: package);
         });
 

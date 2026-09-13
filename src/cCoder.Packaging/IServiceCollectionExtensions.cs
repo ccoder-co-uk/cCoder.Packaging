@@ -6,6 +6,7 @@ using cCoder.Data.Models.Packaging;
 using cCoder.Eventing;
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Brokers.Events;
+using cCoder.Packaging.Brokers.HttpContexts;
 using cCoder.Packaging.Brokers.Metadata;
 using cCoder.Packaging.Brokers.OData;
 using cCoder.Packaging.Brokers.Storages;
@@ -180,7 +181,6 @@ public static class IServiceCollectionExtensions
         services.AddEventingForType<PackageItem>();
         services.AddEventingForType<PackageImportEvent>();
         services.TryAddTransient<IPackageManager, PackageManager>();
-        services.TryAddTransient<IPackagingLoggingManager, PackagingLoggingManager>();
         services.TryAddTransient<
             IPackageTransferManager,
             PackageTransferManager>();
@@ -202,7 +202,7 @@ public static class IServiceCollectionExtensions
         this IServiceCollection services,
         PackagingConfiguration configuration)
     {
-        services.TryAddTransient<IAppDomainManager, AppDomainManager>();
+        services.TryAddTransient<IHttpContextBroker, HttpContextBroker>();
         services.AddAspNet();
         services.AddApiDocumentation(configuration: configuration);
 

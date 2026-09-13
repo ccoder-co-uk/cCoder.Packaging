@@ -3,15 +3,23 @@
 // ---------------------------------------------------------------
 
 using cCoder.Data.Models.Packaging;
+using cCoder.Packaging.Brokers.Loggings;
 using cCoder.Packaging.Services.Aggregations;
 
 namespace cCoder.Packaging.Exposures;
 
 internal sealed class PackageManager(
     IPackageAggregationService packageAggregationService,
-    IPackagingLoggingManager packagingLoggingManager)
+    ILoggingBroker loggingBroker)
     : IPackageManager
 {
+    public IEnumerable<Package> ExportPackages(
+        int? appId,
+        string[] packageNames = null) =>
+        packageAggregationService.ExportPackages(
+            appId: appId,
+            packageNames: packageNames);
+
     public Package GetPackage(Guid packageId) =>
         packageAggregationService.GetPackage(packageId: packageId);
 
@@ -34,7 +42,5 @@ internal sealed class PackageManager(
         packageAggregationService.DeletePackageAsync(packageId: packageId);
 
     public void LogError(Exception exception, string message) =>
-        packagingLoggingManager.LogError(
-            exception: exception,
-            message: message);
+        loggingBroker.LogError(exception: exception, message: message);
 }

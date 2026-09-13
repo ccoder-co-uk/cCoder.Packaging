@@ -4,6 +4,7 @@
 
 using cCoder.Data;
 using cCoder.Data.Extensions;
+using cCoder.Data.Models;
 using cCoder.Data.Models.CMS;
 using cCoder.Data.Models.DMS;
 using cCoder.Data.Models.Packaging;
@@ -19,6 +20,7 @@ namespace cCoder.Packaging.Brokers.Storages;
 
 public interface IPackageBroker
 {
+    CommonObject[] GetLatestCommonObjects();
     IQueryable<Package> GetAllPackages();
     IQueryable<Package> GetAllPackages(bool ignoreFilters);
     IQueryable<Package> GetAllPackagesIgnoringFilters();
@@ -41,6 +43,27 @@ public interface IPackageBroker
 
 internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBroker
 {
+
+    public CommonObject[] GetLatestCommonObjects()
+    {
+        using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
+
+        return coreDataContext.CommonObjects
+            .IgnoreQueryFilters()
+            .AsNoTracking()
+            .GroupBy(keySelector: commonObject => new
+            {
+                commonObject.Name,
+                Culture = commonObject.Culture ?? string.Empty,
+                commonObject.Key,
+                commonObject.Type
+            })
+            .Select(selector: versions => versions
+                .OrderByDescending(keySelector: version => version.Version)
+                .ThenByDescending(keySelector: version => version.Id)
+                .First())
+            .ToArray();
+    }
 
     public IQueryable<Package> GetAllPackages()
     {
