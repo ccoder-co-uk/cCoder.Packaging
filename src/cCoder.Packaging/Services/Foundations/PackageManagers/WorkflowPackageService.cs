@@ -4,7 +4,7 @@
 
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Models;
-using cCoder.Packaging.Exposures.PackageManagers;
+using cCoder.Packaging.Brokers.PackageManagers;
 using cCoder.Data.Models.Packaging;
 
 
@@ -18,7 +18,7 @@ internal interface IWorkflowPackageService
 }
 
 internal sealed partial class WorkflowPackageService(
-    IWorkflowPackageManager workflowPackageManager)
+    IWorkflowPackageBroker workflowPackageBroker)
     : IWorkflowPackageService
 {
     public ValueTask ImportPackageAsync(int appId, Package package) =>
@@ -26,7 +26,7 @@ internal sealed partial class WorkflowPackageService(
         {
             ValidatePackageOnImport(appId: appId, package: package);
 
-            return workflowPackageManager
+            return workflowPackageBroker
                 .ImportPackageAsync(appId: appId, package: package);
         });
 
@@ -35,7 +35,7 @@ internal sealed partial class WorkflowPackageService(
         {
             ValidatePackageOnExport(appId: appId, packageName: packageName);
 
-            return workflowPackageManager
+            return workflowPackageBroker
                 .ExportPackage(appId: appId, packageName: packageName);
         });
 }

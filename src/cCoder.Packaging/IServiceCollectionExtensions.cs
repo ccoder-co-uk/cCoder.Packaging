@@ -9,6 +9,7 @@ using cCoder.Packaging.Brokers.Events;
 using cCoder.Packaging.Brokers.HttpContexts;
 using cCoder.Packaging.Brokers.Metadata;
 using cCoder.Packaging.Brokers.OData;
+using cCoder.Packaging.Brokers.PackageManagers;
 using cCoder.Packaging.Brokers.PackageTransfers;
 using cCoder.Packaging.Brokers.Storages;
 using cCoder.Packaging.Exposures;
@@ -119,6 +120,11 @@ public static class IServiceCollectionExtensions
         if (includePackageManagerServices)
         {
             services.TryAddTransient<IPackageLoggerBroker, PackageLoggerBroker>();
+            services.TryAddTransient<IAppSecurityPackageBroker, AppSecurityPackageBroker>();
+            services.TryAddTransient<IContentManagementPackageBroker, ContentManagementPackageBroker>();
+            services.TryAddTransient<IDocumentManagementPackageBroker, DocumentManagementPackageBroker>();
+            services.TryAddTransient<ISchedulingPackageBroker, SchedulingPackageBroker>();
+            services.TryAddTransient<IWorkflowPackageBroker, WorkflowPackageBroker>();
         }
     }
 

@@ -19,7 +19,7 @@ internal sealed partial class PackageItemProcessingService
     private static void ValidatePackageItemOnGet(Guid packageItemId) =>
         Validate(inputs: packageItemId);
 
-    private static void ValidatePackageItemsOnGet(bool ignoreFilters) =>
+    private static void ValidateAllPackageItemsOnGet(bool ignoreFilters) =>
         Validate(inputs: ignoreFilters);
 
     private static void ValidatePackageItemOnAdd(PackageItem newPackageItem) =>
@@ -31,11 +31,11 @@ internal sealed partial class PackageItemProcessingService
     private static void ValidatePackageItemOnDelete(Guid packageItemId) =>
         Validate(inputs: packageItemId);
 
-    private static void ValidatePackageItemsOnAddOrUpdate(
+    private static void ValidateOrUpdatePackageItemsOnAdd(
         IEnumerable<PackageItem> packageItems) =>
         Validate(inputs: packageItems);
 
-    private static void ValidatePackageItemsOnDelete(
+    private static void ValidateAllPackageItemsOnDelete(
         IEnumerable<PackageItem> deletedPackageItems) =>
         Validate(inputs: deletedPackageItems);
 }

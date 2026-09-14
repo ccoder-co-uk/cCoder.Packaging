@@ -26,7 +26,7 @@ internal sealed partial class PackageItemOrchestrationService(
     public IQueryable<PackageItem> GetAllPackageItems(bool ignoreFilters = false) =>
         TryCatch(operation: () =>
         {
-            ValidatePackageItemsOnGet(ignoreFilters: ignoreFilters);
+            ValidateAllPackageItemsOnGet(ignoreFilters: ignoreFilters);
 
             return packageItemProcessingService
                 .GetAllPackageItems(ignoreFilters: ignoreFilters);
@@ -79,7 +79,7 @@ internal sealed partial class PackageItemOrchestrationService(
         IEnumerable<PackageItem> packageItems) =>
         TryCatch(operation: async () =>
         {
-            ValidatePackageItemsOnAddOrUpdate(packageItems: packageItems);
+            ValidateOrUpdatePackageItemsOnAdd(packageItems: packageItems);
 
             IEnumerable<Result<PackageItem>> results =
                 await packageItemProcessingService
@@ -92,7 +92,7 @@ internal sealed partial class PackageItemOrchestrationService(
         IEnumerable<PackageItem> deletedPackageItems) =>
         TryCatch(operation: () =>
         {
-            ValidatePackageItemsOnDelete(deletedPackageItems: deletedPackageItems);
+            ValidateAllPackageItemsOnDelete(deletedPackageItems: deletedPackageItems);
 
             return packageItemProcessingService
                 .DeleteAllPackageItemsAsync(deletedPackageItems: deletedPackageItems);

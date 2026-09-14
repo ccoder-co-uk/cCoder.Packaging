@@ -86,7 +86,7 @@ internal sealed partial class PackageAggregationService(
     public IQueryable<Package> GetAllPackages(bool ignoreFilters = false) =>
         TryCatch(operation: () =>
         {
-            ValidatePackagesOnGet(ignoreFilters: ignoreFilters);
+            ValidateAllPackagesOnGet(ignoreFilters: ignoreFilters);
 
             return packageProcessingService
                 .GetAllPackages(ignoreFilters: ignoreFilters);
@@ -160,7 +160,7 @@ internal sealed partial class PackageAggregationService(
         IEnumerable<Package> packages) =>
         TryCatch(operation: async () =>
         {
-            ValidatePackagesOnAddOrUpdate(packages: packages);
+            ValidateOrUpdatePackagesOnAdd(packages: packages);
             List<Result<Package>> results = [];
 
             foreach (Package package in packages)
@@ -201,7 +201,7 @@ internal sealed partial class PackageAggregationService(
     public ValueTask DeleteAllPackagesAsync(IEnumerable<Package> deletedPackages) =>
         TryCatch(operation: async () =>
         {
-            ValidatePackagesOnDelete(deletedPackages: deletedPackages);
+            ValidateAllPackagesOnDelete(deletedPackages: deletedPackages);
 
             foreach (Package deletedPackage in deletedPackages)
             {

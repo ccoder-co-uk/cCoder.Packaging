@@ -4,7 +4,9 @@
 
 namespace cCoder.Packaging.Brokers;
 
-internal interface IAuthInfoBroker
+using cCoder.CodeAnalysis.Exposures;
+
+internal interface IAuthInfoBroker : IUtilityBroker
 {
     string GetSSOUserId();
 }

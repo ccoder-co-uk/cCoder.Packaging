@@ -24,7 +24,7 @@ internal sealed partial class PackageItemProcessingService(
     public IQueryable<PackageItem> GetAllPackageItems(bool ignoreFilters = false) =>
         TryCatch(operation: () =>
         {
-            ValidatePackageItemsOnGet(ignoreFilters: ignoreFilters);
+            ValidateAllPackageItemsOnGet(ignoreFilters: ignoreFilters);
 
             return packageItemService.GetAllPackageItems(ignoreFilters: ignoreFilters);
         });
@@ -60,7 +60,7 @@ internal sealed partial class PackageItemProcessingService(
         IEnumerable<PackageItem> packageItems) =>
         TryCatch(operation: async () =>
         {
-            ValidatePackageItemsOnAddOrUpdate(packageItems: packageItems);
+            ValidateOrUpdatePackageItemsOnAdd(packageItems: packageItems);
             List<Result<PackageItem>> results = [];
 
             foreach (PackageItem packageItem in packageItems)
@@ -101,7 +101,7 @@ internal sealed partial class PackageItemProcessingService(
     public ValueTask DeleteAllPackageItemsAsync(IEnumerable<PackageItem> deletedPackageItems) =>
         TryCatch(operation: async () =>
         {
-            ValidatePackageItemsOnDelete(deletedPackageItems: deletedPackageItems);
+            ValidateAllPackageItemsOnDelete(deletedPackageItems: deletedPackageItems);
 
             foreach (PackageItem packageItem in deletedPackageItems)
             {

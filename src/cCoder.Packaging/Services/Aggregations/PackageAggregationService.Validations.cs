@@ -25,7 +25,7 @@ internal sealed partial class PackageAggregationService
     private static void ValidatePackageOnGet(Guid packageId) =>
         Validate(inputs: packageId);
 
-    private static void ValidatePackagesOnGet(bool ignoreFilters) =>
+    private static void ValidateAllPackagesOnGet(bool ignoreFilters) =>
         Validate(inputs: ignoreFilters);
 
     private static void ValidatePackageOnAdd(Package newPackage) =>
@@ -37,11 +37,11 @@ internal sealed partial class PackageAggregationService
     private static void ValidatePackageOnDelete(Guid packageId) =>
         Validate(inputs: packageId);
 
-    private static void ValidatePackagesOnAddOrUpdate(
+    private static void ValidateOrUpdatePackagesOnAdd(
         IEnumerable<Package> packages) =>
         Validate(inputs: packages);
 
-    private static void ValidatePackagesOnDelete(
+    private static void ValidateAllPackagesOnDelete(
         IEnumerable<Package> deletedPackages) =>
         Validate(inputs: deletedPackages);
 }
