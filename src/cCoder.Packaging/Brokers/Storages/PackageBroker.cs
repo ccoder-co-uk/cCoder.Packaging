@@ -4,6 +4,7 @@
 
 using cCoder.Data;
 using cCoder.Data.Extensions;
+using cCoder.Data.Models;
 using cCoder.Data.Models.CMS;
 using cCoder.Data.Models.DMS;
 using cCoder.Data.Models.Packaging;
@@ -12,13 +13,13 @@ using cCoder.Data.Models.Security;
 using cCoder.Data.Models.Workflow;
 using cCoder.Packaging.Models;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 
 namespace cCoder.Packaging.Brokers.Storages;
 
 public interface IPackageBroker
 {
+    CommonObject[] GetLatestCommonObjects();
     IQueryable<Package> GetAllPackages();
     IQueryable<Package> GetAllPackages(bool ignoreFilters);
     IQueryable<Package> GetAllPackagesIgnoringFilters();
@@ -41,6 +42,28 @@ public interface IPackageBroker
 
 internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IPackageBroker
 {
+
+    public CommonObject[] GetLatestCommonObjects()
+    {
+        using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
+
+
+        return coreDataContext.CommonObjects
+            .IgnoreQueryFilters()
+            .AsNoTracking()
+            .GroupBy(keySelector: commonObject => new
+            {
+                commonObject.Name,
+                Culture = commonObject.Culture ?? string.Empty,
+                commonObject.Key,
+                commonObject.Type
+            })
+            .Select(selector: versions => versions
+                .OrderByDescending(keySelector: version => version.Version)
+                .ThenByDescending(keySelector: version => version.Id)
+                .First())
+            .ToArray();
+    }
 
     public IQueryable<Package> GetAllPackages()
     {
@@ -71,6 +94,7 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
 
+
         Package result =
             (await coreDataContext.Packages.AddAsync(entity: newPackage)).Entity;
 
@@ -82,6 +106,7 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
 
+
         Package result = coreDataContext.Packages.Update(entity: updatedPackage)
                              .Entity;
 
@@ -92,6 +117,7 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
     public async ValueTask<int> DeletePackageAsync(Package deletedPackage)
     {
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
+
         coreDataContext.Packages.Remove(entity: deletedPackage);
         return await coreDataContext.SaveChangesAsync();
     }
@@ -103,8 +129,8 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
 
     public Package ExportRoles(int appId)
     {
+
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         Role[] roles = coreDataContext.Roles
             .Where(predicate: role => role.AppId == appId)
@@ -121,7 +147,7 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
                 {
                     Type = "AppSecurity/Role",
                     Data = roles.Select(selector:role => new { role.Name, role.Privs })
-                               .ToJson(settings:serializerSettings),
+                               .ToJson(),
                 },
             ],
         };
@@ -129,8 +155,8 @@ internal sealed class PackageBroker(ICoreContextFactory coreContextFactory) : IP
 
     public Package ExportFolderRoles(int appId)
     {
+
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         Folder[] folders = coreDataContext.Folders
             .Where(predicate: folder => folder.AppId == appId)
@@ -151,7 +177,7 @@ collectionSelector:                        folder => folder.Roles,
 resultSelector:                        (folder, folderRole) => new { folder.Path, folderRole.Role.Name }
                     )
                     .ToArray()
-                    .ToJson(settings:serializerSettings),
+                    .ToJson(),
                 },
             ],
         };
@@ -159,8 +185,8 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
 
     public Package ExportLayouts(int appId)
     {
+
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         return new Package()
         {
@@ -181,7 +207,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
                             layout.Script,
                             layout.LastUpdated,
                         })
-                        .ToJson(settings:serializerSettings),
+                        .ToJson(),
                 },
             ],
         };
@@ -189,8 +215,8 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
 
     public Package ExportTemplates(int appId)
     {
+
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         return new Package()
         {
@@ -210,7 +236,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
                             template.RawString,
                             template.LastUpdated,
                         })
-                        .ToJson(settings:serializerSettings),
+                        .ToJson(),
                 },
             ],
         };
@@ -218,8 +244,8 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
 
     public Package ExportComponents(int appId)
     {
+
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         return new Package()
         {
@@ -241,7 +267,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
                             component.Content,
                             component.LastUpdated,
                         })
-                        .ToJson(settings:serializerSettings),
+                        .ToJson(),
                 },
             ],
         };
@@ -249,8 +275,8 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
 
     public Package ExportScripts(int appId)
     {
+
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         return new Package()
         {
@@ -269,7 +295,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
                             script.Content,
                             script.LastUpdated,
                         })
-                        .ToJson(settings:serializerSettings),
+                        .ToJson(),
                 },
             ],
         };
@@ -277,8 +303,8 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
 
     public Package ExportResources(int appId)
     {
+
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         return new Package()
         {
@@ -301,7 +327,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
                             resource.Description,
                             resource.LastUpdated,
                         })
-                        .ToJson(settings:serializerSettings),
+                        .ToJson(),
                 },
             ],
         };
@@ -309,8 +335,8 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
 
     public Package ExportPages(int appId)
     {
+
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         List<Page> appPages = coreDataContext.Pages
             .Where(predicate: page => page.AppId == appId)
@@ -384,7 +410,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
                                     .ToArray(),
                             };
                         })
-                        .ToJson(settings:serializerSettings),
+                        .ToJson(),
                 },
             ],
         };
@@ -392,8 +418,8 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
 
     public Package ExportFlowDefinitions(int appId)
     {
+
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         return new Package()
         {
@@ -418,7 +444,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
                             flow.ConfigJson,
                             flow.LastUpdated,
                         })
-                        .ToJson(settings:serializerSettings),
+                        .ToJson(),
                 },
             ],
         };
@@ -426,8 +452,8 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
 
     public Package ExportPageRoles(int appId)
     {
+
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         Role[] roleData = coreDataContext.Roles
             .Where(predicate: role => role.AppId == appId)
@@ -461,7 +487,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
                 new PackageItem
                 {
                     Type = "ContentManagement/PageRole",
-                    Data = pageRoles.ToJson(settings:serializerSettings),
+                    Data = pageRoles.ToJson(),
                 },
             ],
         };
@@ -469,8 +495,8 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
 
     public Package ExportCalendars(int appId)
     {
+
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         return new Package()
         {
@@ -484,7 +510,7 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
                         .Calendars
                         .Where(predicate:calendar => calendar.AppId == appId)
                         .Select(selector:calendar => new { calendar.Name, calendar.Description })
-                        .ToJson(settings:serializerSettings),
+                        .ToJson(),
                 },
             ],
         };
@@ -492,8 +518,8 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
 
     public Package ExportCalendarEvents(int appId)
     {
+
         using CoreDataContext coreDataContext = coreContextFactory.CreateCoreContext();
-        JsonSerializerSettings serializerSettings = CreateSerializerSettings();
 
         return new Package()
         {
@@ -515,17 +541,10 @@ resultSelector:                        (folder, folderRole) => new { folder.Path
                             calendarEvent.Description,
                             calendarEvent.DurationInTicks,
                         })
-                        .ToJson(settings:serializerSettings),
+                        .ToJson(),
                 },
             ],
         };
-    }
-
-    private static JsonSerializerSettings CreateSerializerSettings()
-    {
-        JsonSerializerSettings serializerSettings = ObjectExtensions.GetJSONSettings();
-        serializerSettings.TypeNameHandling = TypeNameHandling.None;
-        return serializerSettings;
     }
 
 }

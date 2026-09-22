@@ -4,8 +4,10 @@
 
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using cCoder.Packaging.Api.OData;
+using cCoder.Packaging.Dependencies.OData;
 
 namespace cCoder.Packaging.Brokers.Metadata;
 
@@ -73,10 +75,10 @@ internal sealed class MetadataBroker : IMetadataBroker
             DisplayName = type.Name,
             Description = type.Name,
             ServerType = type.AssemblyQualifiedName,
-            ServerTypeName = type.GetCSharpTypeName(),
+            ServerTypeName = GetCSharpTypeName(type: type),
             Properties = properties,
             IsEntity = isEntity,
-            IsJoinEntity = isEntity & type.IsJoinType(),
+            IsJoinEntity = isEntity & IsJoinType(type: type),
             HasEndpoint = hasEndpoint,
         };
     }
@@ -98,7 +100,7 @@ internal sealed class MetadataBroker : IMetadataBroker
             Name = property.Name,
             Type = GetTypeName(type: property.PropertyType),
             ServerType = property.PropertyType.ToString(),
-            ServerTypeName = property.PropertyType.GetCSharpTypeName(),
+            ServerTypeName = GetCSharpTypeName(type: property.PropertyType),
             IsValueType = property.PropertyType.IsValueType | property.PropertyType == typeof(string),
             DisplayName = property.Name,
             ShortDisplayName = property.Name,
@@ -132,5 +134,37 @@ internal sealed class MetadataBroker : IMetadataBroker
         selectorIndex += Convert.ToInt32(value: isEnumerable & !isString);
 
         return typeNameSelectors[selectorIndex].Invoke();
+    }
+
+    private static string GetCSharpTypeName(Type type)
+    {
+        Func<string>[] typeNameSelectors =
+        [
+            () => type.Name,
+            () =>
+            {
+                IEnumerable<string> genericNames = type.GenericTypeArguments
+                    .Select(selector: argument => GetCSharpTypeName(type: argument));
+
+                return $"{type.Name.Split(separator: '`')[0]}<{string.Join(separator: ",", values: genericNames)}>"
+                    .Replace(oldValue: "System.Object", newValue: "dynamic");
+            },
+        ];
+
+        return typeNameSelectors[Convert.ToInt32(value: type.IsGenericType)]();
+    }
+
+    private static bool IsJoinType(Type type)
+    {
+        TableAttribute table = type.GetCustomAttribute<TableAttribute>();
+
+        return table != null
+            && type.GetProperties().Length == 4
+            && type.GetProperties()
+                .Where(predicate: property =>
+                    property.PropertyType.IsValueType
+                    || property.PropertyType == typeof(string))
+                .All(predicate: property =>
+                    property.GetCustomAttribute<ForeignKeyAttribute>() != null);
     }
 }

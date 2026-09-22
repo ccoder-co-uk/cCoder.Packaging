@@ -12,6 +12,12 @@ internal sealed partial class PackageProcessingService(
     IPackageService packageService)
     : IPackageProcessingService
 {
+    public Package[] ExportCommonCachePackages() =>
+        TryCatch(operation: () =>
+        {
+            return packageService.ExportCommonCachePackages();
+        });
+
     public Package ExportPackage(int appId, string packageName) =>
         TryCatch(operation: () =>
         {
@@ -58,7 +64,7 @@ internal sealed partial class PackageProcessingService(
     public IQueryable<Package> GetAllPackages(bool ignoreFilters = false) =>
         TryCatch(operation: () =>
         {
-            ValidatePackagesOnGet(ignoreFilters: ignoreFilters);
+            ValidateAllPackagesOnGet(ignoreFilters: ignoreFilters);
 
             return packageService.GetAllPackages(ignoreFilters: ignoreFilters);
         });

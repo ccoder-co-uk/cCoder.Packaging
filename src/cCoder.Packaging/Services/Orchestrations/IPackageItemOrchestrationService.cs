@@ -8,7 +8,7 @@ using cCoder.Packaging.Models;
 
 namespace cCoder.Packaging.Services.Orchestrations;
 
-internal interface IPackageItemOrchestrationService
+public interface IPackageItemOrchestrationService
 {
     PackageItem GetPackageItem(Guid packageItemId);
     IQueryable<PackageItem> GetAllPackageItems(bool ignoreFilters = false);

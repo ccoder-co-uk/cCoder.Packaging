@@ -10,6 +10,7 @@ internal interface IPackageProcessingService
 {
     Package ExportPackage(int appId, string packageName);
     Package[] ExportPackages(int appId, string[] packageNames);
+    Package[] ExportCommonCachePackages();
     Package GetPackage(Guid packageId);
     IQueryable<Package> GetAllPackages(bool ignoreFilters = false);
     ValueTask<Package> AddPackageAsync(Package newPackage);

@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using System.Security;
+using cCoder.CodeAnalysis.Exposures;
 using cCoder.Data;
 using cCoder.Data.Models.CMS;
 using cCoder.Data.Models.Security;
@@ -11,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace cCoder.Packaging.Brokers;
 
-public interface IAuthorizationBroker
+public interface IAuthorizationBroker : IUtilityBroker
 {
     User GetCurrentUser();
     bool IsAdminOfApp(int? appId);

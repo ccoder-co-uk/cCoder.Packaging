@@ -4,14 +4,14 @@
 
 using cCoder.Data.Models.Packaging;
 
-namespace cCoder.Packaging.Services.Foundations.PackageExports;
+namespace cCoder.Packaging.Brokers.PackageTransfers;
 
-internal interface IPackageExportService
+public interface IPackageTransferBroker
 {
+    string GetRequestDomain();
+
     ValueTask<Package[]> ExportPackagesAsync(
         int appId,
         string[] packageNames,
         string sourceApi);
-
-    string GetPackageSourceApi(int appId);
 }

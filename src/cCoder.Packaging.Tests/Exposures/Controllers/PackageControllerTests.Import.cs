@@ -3,8 +3,9 @@
 // ---------------------------------------------------------------
 
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Exposures;
+using cCoder.Packaging.Brokers.Loggings;
 using cCoder.Packaging.Exposures.Controllers;
+using cCoder.Packaging.Services.Aggregations;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
@@ -21,15 +22,20 @@ public sealed partial class PackageControllerTests
     {
         // Given
         Package package = new() { Name = "Acceptance", Items = [] };
-        Mock<IPackageManager> packageManager = new(MockBehavior.Strict);
 
-        packageManager.Setup(expression: manager => manager.ImportPackageAsync(
+        Mock<IPackageAggregationService> packageAggregationService =
+            new(MockBehavior.Strict);
+
+        Mock<ILoggingBroker> loggingBroker = new(MockBehavior.Strict);
+
+        packageAggregationService.Setup(expression: service => service.ImportPackageAsync(
                 appId: appId,
                 package: package))
             .Returns(value: ValueTask.CompletedTask);
 
         PackageController controller = new(
-            packageOrchestrationService: packageManager.Object);
+            packageAggregationService: packageAggregationService.Object,
+            loggingBroker: loggingBroker.Object);
 
         // When
         IActionResult result = await controller.PostImport(
@@ -39,12 +45,13 @@ public sealed partial class PackageControllerTests
         // Then
         Assert.IsType<AcceptedResult>(@object: result);
 
-        packageManager.Verify(
-            expression: manager => manager.ImportPackageAsync(
+        packageAggregationService.Verify(
+            expression: service => service.ImportPackageAsync(
                 appId: appId,
                 package: package),
             times: Times.Once);
 
-        packageManager.VerifyNoOtherCalls();
+        packageAggregationService.VerifyNoOtherCalls();
+        loggingBroker.VerifyNoOtherCalls();
     }
 }

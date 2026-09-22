@@ -17,4 +17,10 @@ internal sealed partial class PackageExportService
 
     private static void ValidatePackageSourceApiOnGet(int appId) =>
         Validate(inputs: appId);
+
+    private static void ValidatePackagesOnExport(
+        int appId,
+        string[] packageNames,
+        string sourceApi) =>
+        Validate(inputs: [appId, packageNames, sourceApi]);
 }

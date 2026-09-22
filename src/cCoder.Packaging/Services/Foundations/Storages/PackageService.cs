@@ -14,6 +14,30 @@ internal sealed partial class PackageService(
     IAuthorizationBroker authorizationBroker)
     : IPackageService
 {
+    public Package[] ExportCommonCachePackages() =>
+        TryCatch(operation: () => packageBroker
+            .GetLatestCommonObjects()
+            .GroupBy(keySelector: commonObject => commonObject.Type)
+            .Select(selector: commonObjects => new Package
+            {
+                Name = GetCommonCachePackageName(type: commonObjects.Key),
+                Description = "Generated from the Common Cache.",
+                Category = "CommonCache",
+                SourceApi = string.Empty,
+                Items =
+                [
+                    new PackageItem
+                    {
+                        Type = commonObjects.Key,
+                        Data = $"[{string.Join(
+                            separator: ",",
+                            values: commonObjects.Select(
+                                selector: commonObject => commonObject.Json))}]"
+                    }
+                ]
+            })
+            .ToArray());
+
     public Package GetPackage(Guid packageId) =>
         TryCatch(operation: () =>
         {
@@ -208,5 +232,17 @@ internal sealed partial class PackageService(
         {
             throw new SecurityException("Access Denied!");
         }
+    }
+
+    private static string GetCommonCachePackageName(string type)
+    {
+        string name = type?
+            .Split(separator: '/')
+            .LastOrDefault()
+            ?? "CommonCache";
+
+        return name.EndsWith(value: "s", comparisonType: StringComparison.OrdinalIgnoreCase)
+            ? name
+            : $"{name}s";
     }
 }

@@ -4,7 +4,8 @@
 
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Api.OData;
-using cCoder.Packaging.Exposures;
+using cCoder.Packaging.Brokers.Loggings;
+using cCoder.Packaging.Services.Foundations.Metadata;
 using cCoder.Packaging.Models.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +13,8 @@ namespace cCoder.Packaging.Exposures.Controllers;
 
 [ApiController]
 public sealed class PackageMetadataController(
-    IPackageMetadataManager metadataService)
+    IMetadataService metadataService,
+    ILoggingBroker loggingBroker)
     : ControllerBase
 {
     [HttpGet("Api/Packaging/Package/GetMetadata")]
@@ -29,13 +31,13 @@ public sealed class PackageMetadataController(
         }
         catch (PackagingValidationException exception)
         {
-            metadataService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return BadRequest(error: "The package metadata request is invalid.");
         }
         catch (Exception exception)
         {
-            metadataService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
         }

@@ -25,7 +25,7 @@ internal sealed partial class PackageProcessingService
     private static void ValidatePackageOnGet(Guid packageId) =>
         Validate(inputs: packageId);
 
-    private static void ValidatePackagesOnGet(bool ignoreFilters) =>
+    private static void ValidateAllPackagesOnGet(bool ignoreFilters) =>
         Validate(inputs: ignoreFilters);
 
     private static void ValidatePackageOnAdd(Package newPackage) =>
