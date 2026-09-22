@@ -6,10 +6,8 @@ using cCoder.Data.Models.Packaging;
 using cCoder.Eventing;
 using cCoder.Packaging.Brokers;
 using cCoder.Packaging.Brokers.Events;
-using cCoder.Packaging.Brokers.HttpContexts;
 using cCoder.Packaging.Brokers.Metadata;
 using cCoder.Packaging.Brokers.OData;
-using cCoder.Packaging.Brokers.PackageManagers;
 using cCoder.Packaging.Brokers.PackageTransfers;
 using cCoder.Packaging.Brokers.Storages;
 using cCoder.Packaging.Exposures;
@@ -21,7 +19,6 @@ using cCoder.Packaging.Services.Foundations.Events;
 using cCoder.Packaging.Services.Foundations.Metadata;
 using cCoder.Packaging.Services.Foundations.Loggings;
 using cCoder.Packaging.Services.Foundations.PackageExports;
-using cCoder.Packaging.Services.Foundations.PackageManagers;
 using cCoder.Packaging.Services.Foundations.Storages;
 using cCoder.Packaging.Services.Orchestrations;
 using cCoder.Packaging.Services.Processings;
@@ -53,11 +50,11 @@ public static class IServiceCollectionExtensions
         PackagingConfiguration configuration)
     {
         services.AddConfiguration(configuration: configuration);
-        services.AddBrokers(includePackageManagerServices: false);
-        services.AddFoundations(includePackageManagerServices: false);
+        services.AddBrokers();
+        services.AddFoundations();
         services.AddProcessings();
         services.AddOrchestrations();
-        services.AddAggregations(includePackageManagerServices: false);
+        services.AddAggregations();
         services.AddExposures(includeRouteContributor: false);
         services.AddWebExposures(configuration: configuration);
 
@@ -79,11 +76,11 @@ public static class IServiceCollectionExtensions
         PackagingConfiguration configuration)
     {
         services.AddConfiguration(configuration: configuration);
-        services.AddBrokers(includePackageManagerServices: true);
-        services.AddFoundations(includePackageManagerServices: true);
+        services.AddBrokers();
+        services.AddFoundations();
         services.AddProcessings();
         services.AddOrchestrations();
-        services.AddAggregations(includePackageManagerServices: true);
+        services.AddAggregations();
         services.AddExposures(includeRouteContributor: true);
 
         return services;
@@ -102,9 +99,7 @@ public static class IServiceCollectionExtensions
         services.TryAddSingleton(instance: configuration);
     }
 
-    private static void AddBrokers(
-        this IServiceCollection services,
-        bool includePackageManagerServices)
+    private static void AddBrokers(this IServiceCollection services)
     {
         services.AddTransient<Brokers.Loggings.ILoggingBroker, Brokers.Loggings.LoggingBroker>();
         services.TryAddTransient<IAuthorizationBroker, AuthorizationBroker>();
@@ -114,23 +109,13 @@ public static class IServiceCollectionExtensions
         services.TryAddTransient<IPackageBroker, PackageBroker>();
         services.TryAddTransient<IPackageItemBroker, PackageItemBroker>();
         services.TryAddTransient<IMetadataBroker, MetadataBroker>();
-        services.TryAddTransient<IHttpContextBroker, HttpContextBroker>();
-        services.TryAddTransient<IPackageTransferBroker, PackageTransferBroker>();
+        services.TryAddTransient<
+            IPackageTransferBroker,
+            UnavailablePackageTransferBroker>();
 
-        if (includePackageManagerServices)
-        {
-            services.TryAddTransient<IPackageLoggerBroker, PackageLoggerBroker>();
-            services.TryAddTransient<IAppSecurityPackageBroker, AppSecurityPackageBroker>();
-            services.TryAddTransient<IContentManagementPackageBroker, ContentManagementPackageBroker>();
-            services.TryAddTransient<IDocumentManagementPackageBroker, DocumentManagementPackageBroker>();
-            services.TryAddTransient<ISchedulingPackageBroker, SchedulingPackageBroker>();
-            services.TryAddTransient<IWorkflowPackageBroker, WorkflowPackageBroker>();
-        }
     }
 
-    private static void AddFoundations(
-        this IServiceCollection services,
-        bool includePackageManagerServices)
+    private static void AddFoundations(this IServiceCollection services)
     {
         services.TryAddTransient<IPackageEventService, PackageEventService>();
         services.TryAddTransient<IPackageItemEventService, PackageItemEventService>();
@@ -141,15 +126,6 @@ public static class IServiceCollectionExtensions
         services.TryAddTransient<IMetadataService, MetadataService>();
         services.TryAddTransient<ILoggingFoundationService, LoggingFoundationService>();
 
-        if (includePackageManagerServices)
-        {
-            services.TryAddTransient<IAppSecurityPackageService, AppSecurityPackageService>();
-            services.TryAddTransient<IContentManagementPackageService, ContentManagementPackageService>();
-            services.TryAddTransient<IDocumentManagementPackageService, DocumentManagementPackageService>();
-            services.TryAddTransient<ISchedulingPackageService, SchedulingPackageService>();
-            services.TryAddTransient<IWorkflowPackageService, WorkflowPackageService>();
-            services.TryAddTransient<IPackageManagerTelemetryService, PackageManagerTelemetryService>();
-        }
     }
 
     private static void AddProcessings(
@@ -168,18 +144,9 @@ public static class IServiceCollectionExtensions
             IPackageItemOrchestrationService,
             PackageItemOrchestrationService>();
 
-    private static void AddAggregations(
-        this IServiceCollection services,
-        bool includePackageManagerServices)
+    private static void AddAggregations(this IServiceCollection services)
     {
         services.TryAddTransient<IPackageAggregationService, PackageAggregationService>();
-
-        if (includePackageManagerServices)
-        {
-            services.TryAddTransient<
-                IPackageManagerAggregationService,
-                PackageManagerAggregationService>();
-        }
     }
 
     private static void AddExposures(
@@ -189,15 +156,6 @@ public static class IServiceCollectionExtensions
         services.AddEventingForType<Package>();
         services.AddEventingForType<PackageItem>();
         services.AddEventingForType<PackageImportEvent>();
-        services.TryAddTransient<IPackageManager, PackageManager>();
-        services.TryAddTransient<
-            IPackageTransferManager,
-            UnavailablePackageTransferManager>();
-        services.TryAddTransient<IPackageItemManager, PackageItemManager>();
-        services.TryAddTransient<
-            IPackageMetadataManager,
-            PackageMetadataManager>();
-
         if (includeRouteContributor)
         {
             services.AddSingleton<Action<ODataConventionModelBuilder>>(

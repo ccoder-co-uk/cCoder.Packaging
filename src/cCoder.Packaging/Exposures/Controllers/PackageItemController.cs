@@ -6,9 +6,10 @@ using System.Security;
 using cCoder.Packaging.Api.OData;
 using cCoder.Packaging.Models;
 using cCoder.Packaging.Models.Exceptions;
-using cCoder.Packaging.Exposures;
+using cCoder.Packaging.Brokers.Loggings;
 using cCoder.Data.Extensions;
 using cCoder.Data.Models.Packaging;
+using cCoder.Packaging.Services.Orchestrations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -17,7 +18,8 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 namespace cCoder.Packaging.Exposures.Controllers;
 
 public partial class PackageItemController(
-    IPackageItemManager packageItemOrchestrationService)
+    IPackageItemOrchestrationService packageItemOrchestrationService,
+    ILoggingBroker loggingBroker)
     : ODataController
 {
 
@@ -39,19 +41,19 @@ public partial class PackageItemController(
         }
         catch (PackagingOrchestrationValidationException exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return BadRequest(error: "The package-item request is invalid.");
         }
         catch (SecurityException exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status403Forbidden);
         }
         catch (Exception exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
         }
@@ -86,19 +88,19 @@ public partial class PackageItemController(
         }
         catch (PackagingOrchestrationValidationException exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return BadRequest(error: "The package-item request is invalid.");
         }
         catch (SecurityException exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status403Forbidden);
         }
         catch (Exception exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
         }
@@ -129,19 +131,19 @@ public partial class PackageItemController(
         }
         catch (PackagingOrchestrationValidationException exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return BadRequest(error: "The package-item request is invalid.");
         }
         catch (SecurityException exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status403Forbidden);
         }
         catch (Exception exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
         }
@@ -174,19 +176,19 @@ public partial class PackageItemController(
         }
         catch (PackagingOrchestrationValidationException exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return BadRequest(error: "The package-item request is invalid.");
         }
         catch (SecurityException exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status403Forbidden);
         }
         catch (Exception exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
         }
@@ -204,19 +206,19 @@ public partial class PackageItemController(
         }
         catch (PackagingOrchestrationValidationException exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return BadRequest(error: "The package-item request is invalid.");
         }
         catch (SecurityException exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status403Forbidden);
         }
         catch (Exception exception)
         {
-            packageItemOrchestrationService.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
         }

@@ -3,20 +3,20 @@
 // ---------------------------------------------------------------
 
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Exposures;
 
 namespace cCoder.Packaging.Brokers.PackageTransfers;
 
-internal sealed class PackageTransferBroker(
-    IPackageTransferManager packageTransferManager)
+internal sealed class UnavailablePackageTransferBroker
     : IPackageTransferBroker
 {
+    public string GetRequestDomain() =>
+        throw new NotSupportedException(
+            "App package export requires a composition-root package transfer broker.");
+
     public ValueTask<Package[]> ExportPackagesAsync(
         int appId,
         string[] packageNames,
         string sourceApi) =>
-        packageTransferManager.ExportPackagesAsync(
-            appId: appId,
-            packageNames: packageNames,
-            sourceApi: sourceApi);
+        throw new NotSupportedException(
+            "App package export requires a composition-root package transfer broker.");
 }

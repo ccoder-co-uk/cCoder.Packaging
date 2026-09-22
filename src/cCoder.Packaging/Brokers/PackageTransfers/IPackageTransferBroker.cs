@@ -6,8 +6,10 @@ using cCoder.Data.Models.Packaging;
 
 namespace cCoder.Packaging.Brokers.PackageTransfers;
 
-internal interface IPackageTransferBroker
+public interface IPackageTransferBroker
 {
+    string GetRequestDomain();
+
     ValueTask<Package[]> ExportPackagesAsync(
         int appId,
         string[] packageNames,

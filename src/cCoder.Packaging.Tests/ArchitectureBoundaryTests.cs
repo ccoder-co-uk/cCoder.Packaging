@@ -22,7 +22,6 @@ public sealed partial class ArchitectureBoundaryTests
             typeof(IAuthInfoBroker),
             typeof(IAuthorizationBroker),
             typeof(ILoggingBroker),
-            typeof(IPackageLoggerBroker),
         ];
 
         // When

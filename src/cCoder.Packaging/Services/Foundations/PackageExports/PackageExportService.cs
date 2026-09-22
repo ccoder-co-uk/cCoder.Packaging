@@ -4,14 +4,12 @@
 
 using cCoder.Packaging.Brokers;
 using cCoder.Data.Models.Packaging;
-using cCoder.Packaging.Brokers.HttpContexts;
 using cCoder.Packaging.Brokers.PackageTransfers;
 using cCoder.Packaging.Models;
 
 namespace cCoder.Packaging.Services.Foundations.PackageExports;
 
 internal sealed partial class PackageExportService(
-    IHttpContextBroker httpContextBroker,
     IPackageTransferBroker packageTransferBroker,
     PackagingConfiguration configuration)
     : IPackageExportService
@@ -37,7 +35,7 @@ internal sealed partial class PackageExportService(
         TryCatch(operation: () =>
         {
             ValidatePackageSourceApiOnGet(appId: appId);
-            string domain = httpContextBroker.GetRequestDomain();
+            string domain = packageTransferBroker.GetRequestDomain();
             string sslPort = configuration.PackageSourceSslPort;
 
             return $"https://{domain}:{sslPort}/Api/";

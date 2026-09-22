@@ -6,9 +6,10 @@ using System.Security;
 using cCoder.Packaging.Api.OData;
 using cCoder.Packaging.Models;
 using cCoder.Packaging.Models.Exceptions;
-using cCoder.Packaging.Exposures;
+using cCoder.Packaging.Brokers.Loggings;
 using cCoder.Data.Extensions;
 using cCoder.Data.Models.Packaging;
+using cCoder.Packaging.Services.Aggregations;
 using cCoder.Packaging.Services.Orchestrations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,8 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 namespace cCoder.Packaging.Exposures.Controllers;
 
 public partial class PackageController(
-    IPackageManager packageManager)
+    IPackageAggregationService packageAggregationService,
+    ILoggingBroker loggingBroker)
     : ODataController
 {
     [HttpGet("/Api/Packaging/Package/Export")]
@@ -28,13 +30,13 @@ public partial class PackageController(
     {
         try
         {
-            return Ok(value: await packageManager.ExportPackagesAsync(
+            return Ok(value: await packageAggregationService.ExportPackagesAsync(
                 appId: appId,
                 packageNames: packageNames));
         }
         catch (PackagingOrchestrationValidationException exception)
         {
-            packageManager.LogError(
+            loggingBroker.LogError(
                 exception: exception,
                 message: "Controller request failed.");
 
@@ -42,7 +44,7 @@ public partial class PackageController(
         }
         catch (SecurityException exception)
         {
-            packageManager.LogError(
+            loggingBroker.LogError(
                 exception: exception,
                 message: "Controller request failed.");
 
@@ -50,7 +52,7 @@ public partial class PackageController(
         }
         catch (Exception exception)
         {
-            packageManager.LogError(
+            loggingBroker.LogError(
                 exception: exception,
                 message: "Controller request failed.");
 
@@ -72,23 +74,23 @@ public partial class PackageController(
     {
         try
         {
-            return Ok(value: packageManager.GetAllPackages());
+            return Ok(value: packageAggregationService.GetAllPackages());
         }
         catch (PackagingOrchestrationValidationException exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return BadRequest(error: "The package request is invalid.");
         }
         catch (SecurityException exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status403Forbidden);
         }
         catch (Exception exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
         }
@@ -108,7 +110,7 @@ public partial class PackageController(
     {
         try
         {
-            IQueryable<Package> result = packageManager.GetAllPackages()
+            IQueryable<Package> result = packageAggregationService.GetAllPackages()
                                              .Where(predicate: package => package.Id == key);
 
             Package package = result.FirstOrDefault();
@@ -122,19 +124,19 @@ public partial class PackageController(
         }
         catch (PackagingOrchestrationValidationException exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return BadRequest(error: "The package request is invalid.");
         }
         catch (SecurityException exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status403Forbidden);
         }
         catch (Exception exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
         }
@@ -160,24 +162,24 @@ public partial class PackageController(
 
             return StatusCode(
                 statusCode: StatusCodes.Status201Created,
-                value: await packageManager
+                value: await packageAggregationService
                     .AddPackageAsync(newPackage: newPackage));
         }
         catch (PackagingOrchestrationValidationException exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return BadRequest(error: "The package request is invalid.");
         }
         catch (SecurityException exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status403Forbidden);
         }
         catch (Exception exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
         }
@@ -195,7 +197,7 @@ public partial class PackageController(
                 return BadRequest(modelState: ModelState);
             }
 
-            await packageManager.ImportPackageAsync(
+            await packageAggregationService.ImportPackageAsync(
                 appId: appId,
                 package: newPackage);
 
@@ -203,7 +205,7 @@ public partial class PackageController(
         }
         catch (PackagingOrchestrationValidationException exception)
         {
-            packageManager.LogError(
+            loggingBroker.LogError(
                 exception: exception,
                 message: "Controller request failed.");
 
@@ -211,7 +213,7 @@ public partial class PackageController(
         }
         catch (Exception exception)
         {
-            packageManager.LogError(
+            loggingBroker.LogError(
                 exception: exception,
                 message: "Controller request failed.");
 
@@ -242,24 +244,24 @@ public partial class PackageController(
 
             updatedPackage.Id = key;
 
-            return Ok(value: await packageManager
+            return Ok(value: await packageAggregationService
                 .UpdatePackageAsync(updatedPackage: updatedPackage));
         }
         catch (PackagingOrchestrationValidationException exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return BadRequest(error: "The package request is invalid.");
         }
         catch (SecurityException exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status403Forbidden);
         }
         catch (Exception exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
         }
@@ -270,25 +272,25 @@ public partial class PackageController(
     {
         try
         {
-            await packageManager.DeletePackageAsync(packageId: key);
+            await packageAggregationService.DeletePackageAsync(packageId: key);
 
             return NoContent();
         }
         catch (PackagingOrchestrationValidationException exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return BadRequest(error: "The package request is invalid.");
         }
         catch (SecurityException exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status403Forbidden);
         }
         catch (Exception exception)
         {
-            packageManager.LogError(exception: exception, message: "Controller request failed.");
+            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
 
             return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
         }
