@@ -50,7 +50,7 @@ public partial class PackageAggregationServiceTests
     }
 
     [Fact]
-    public async Task ShouldPersistPackageWithoutRaisingEventWhenCommonCacheImportAsync()
+    public async Task ShouldPersistPackageAndRaiseImportEventWhenCommonCacheImportAsync()
     {
         // Given
         Package package = new() { Name = "CommonCache", Items = [] };
@@ -58,6 +58,12 @@ public partial class PackageAggregationServiceTests
         packageProcessingServiceMock.Setup(expression: service =>
                 service.AddPackageAsync(newPackage: package))
             .Returns(value: ValueTask.FromResult(result: package));
+
+        packageEventProcessingServiceMock.Setup(expression: service =>
+                service.RaisePackageImportEventAsync(
+                    appId: null,
+                    package: package))
+            .Returns(value: ValueTask.CompletedTask);
 
         // When
         await aggregationService.ImportPackageAsync(
@@ -71,6 +77,13 @@ public partial class PackageAggregationServiceTests
 
         packageProcessingServiceMock.VerifyNoOtherCalls();
         packageItemProcessingServiceMock.VerifyNoOtherCalls();
+
+        packageEventProcessingServiceMock.Verify(expression: service =>
+                service.RaisePackageImportEventAsync(
+                    appId: null,
+                    package: package),
+            times: Times.Once);
+
         packageEventProcessingServiceMock.VerifyNoOtherCalls();
         packageExportProcessingServiceMock.VerifyNoOtherCalls();
 

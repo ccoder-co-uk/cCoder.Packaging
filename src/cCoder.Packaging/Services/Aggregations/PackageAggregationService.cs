@@ -68,6 +68,11 @@ internal sealed partial class PackageAggregationService(
                         .AddOrUpdatePackageItemsAsync(packageItems: package.Items);
                 }
 
+                await packageEventProcessingService
+                    .RaisePackageImportEventAsync(
+                        appId: null,
+                        package: package);
+
                 return;
             }
 
