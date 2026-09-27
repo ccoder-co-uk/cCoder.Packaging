@@ -3313,7 +3313,7 @@
     {
       "Name": "cCoder.Packaging.Exposures.Controllers.PackageController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 21,
+      "LineNumber": 22,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -3326,13 +3326,24 @@
         "IsInCurrentProject": false,
         "StandardElementType": "Dependency"
       },
-      "Interfaces": [],
+      "Interfaces": [
+        {
+          "Id": "cCoder.CodeAnalysis.Contracts:cCoder.CodeAnalysis.Exposures.ICompositionExposure",
+          "FullName": "cCoder.CodeAnalysis.Exposures.ICompositionExposure",
+          "Name": "ICompositionExposure",
+          "Namespace": "cCoder.CodeAnalysis.Exposures",
+          "AssemblyName": "cCoder.CodeAnalysis.Contracts",
+          "Kind": "Interface",
+          "IsInCurrentProject": false,
+          "StandardElementType": "Dependency"
+        }
+      ],
       "Properties": [],
       "Methods": [
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Delete(System.Guid)",
           "Name": "Delete",
-          "LineNumber": 271,
+          "LineNumber": 272,
           "Inputs": [
             {
               "Name": "key",
@@ -3452,7 +3463,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 109,
+          "LineNumber": 110,
           "Inputs": [
             {
               "Name": "key",
@@ -3601,7 +3612,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Get(System.Int32?,System.String[])",
           "Name": "Get",
-          "LineNumber": 27,
+          "LineNumber": 28,
           "Inputs": [
             {
               "Name": "appId",
@@ -3724,7 +3735,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.GetAll()",
           "Name": "GetAll",
-          "LineNumber": 73,
+          "LineNumber": 74,
           "Inputs": [],
           "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult",
           "Implements": [],
@@ -3837,7 +3848,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Post(cCoder.Data.Models.Packaging.Package)",
           "Name": "Post",
-          "LineNumber": 154,
+          "LineNumber": 155,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -3974,7 +3985,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.PostImport(cCoder.Data.Models.Packaging.Package,System.Int32?)",
           "Name": "PostImport",
-          "LineNumber": 189,
+          "LineNumber": 190,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -4105,7 +4116,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Put(System.Guid,cCoder.Data.Models.Packaging.Package)",
           "Name": "Put",
-          "LineNumber": 234,
+          "LineNumber": 235,
           "Inputs": [
             {
               "Name": "key",
