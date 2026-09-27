@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------
 
 using System.Security;
+using cCoder.CodeAnalysis.Exposures;
 using cCoder.Packaging.Api.OData;
 using cCoder.Packaging.Models;
 using cCoder.Packaging.Models.Exceptions;
@@ -21,7 +22,7 @@ namespace cCoder.Packaging.Exposures.Controllers;
 public partial class PackageController(
     IPackageAggregationService packageAggregationService,
     ILoggingBroker loggingBroker)
-    : ODataController
+    : ODataController, ICompositionExposure
 {
     [HttpGet("/Api/Packaging/Package/Export")]
     public async Task<IActionResult> Get(
