@@ -2,6 +2,10 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Xunit;
 using System.Net;
 using System.Net.Http.Json;
 using cCoder.Data.Models.Packaging;

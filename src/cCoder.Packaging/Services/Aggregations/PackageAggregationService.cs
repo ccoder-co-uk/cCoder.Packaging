@@ -2,6 +2,10 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
 using cCoder.Data.Extensions;
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Models.Results;

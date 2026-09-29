@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
 using cCoder.Packaging.Api.OData;
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Brokers.Metadata;

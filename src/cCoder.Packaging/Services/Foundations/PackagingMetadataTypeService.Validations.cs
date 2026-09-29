@@ -3,6 +3,8 @@
 // ---------------------------------------------------------------
 
 
+using System;
+
 namespace cCoder.Packaging.Services.Foundations;
 
 internal sealed partial class PackagingMetadataTypeService

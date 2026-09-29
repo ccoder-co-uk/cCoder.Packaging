@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Linq;
 using cCoder.Packaging.Testing;
 using cCoder.Packaging.Brokers;
 using cCoder.Data.Models.Security;

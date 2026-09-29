@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
+using System.Linq;
 using System.Security;
 using cCoder.Packaging.Api.OData;
 using cCoder.Packaging.Models;
@@ -11,6 +14,7 @@ using cCoder.Data.Extensions;
 using cCoder.Data.Models.Packaging;
 using cCoder.Packaging.Services.Orchestrations;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;

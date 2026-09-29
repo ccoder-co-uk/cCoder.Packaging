@@ -1,0 +1,93 @@
+// ---------------------------------------------------------------
+// Copyright (c) Paul.Ward@ccoder.co.uk
+// ---------------------------------------------------------------
+
+using System;
+using Microsoft.Data.SqlClient;
+
+namespace cCoder.Packaging.Testing;
+
+internal sealed class AcceptanceTestConfiguration
+{
+    private AcceptanceTestConfiguration(
+        string packagingConnectionString,
+        string securityConnectionString,
+        string securityDecryptionKey)
+    {
+        PackagingConnectionString = packagingConnectionString;
+        SecurityConnectionString = securityConnectionString;
+        SecurityDecryptionKey = securityDecryptionKey;
+    }
+
+    internal string PackagingConnectionString { get; }
+    internal string SecurityConnectionString { get; }
+    internal string SecurityDecryptionKey { get; }
+
+    internal static AcceptanceTestConfiguration Load()
+    {
+        string suffix = $"-acceptance-{Guid.NewGuid():N}";
+
+        AcceptanceTestConfiguration configuration = new(
+            packagingConnectionString: AddDatabaseSuffix(
+                connectionString: ReadRequiredValue(
+                    variableName: "CoreData__ConnectionString"),
+                suffix: suffix),
+            securityConnectionString: AddDatabaseSuffix(
+                connectionString: ReadRequiredValue(
+                    variableName: "SecurityData__ConnectionString"),
+                suffix: suffix),
+            securityDecryptionKey: ReadRequiredValue(
+                variableName: "Security__DecryptionKey"));
+
+        Environment.SetEnvironmentVariable(
+            variable: "CoreData__ConnectionString",
+            value: configuration.PackagingConnectionString);
+
+        Environment.SetEnvironmentVariable(
+            variable: "SecurityData__ConnectionString",
+            value: configuration.SecurityConnectionString);
+
+        return configuration;
+    }
+
+    private static string ReadRequiredValue(string variableName)
+    {
+        string value =
+            Environment.GetEnvironmentVariable(variable: variableName)
+            ?? Environment.GetEnvironmentVariable(
+                variable: variableName,
+                target: EnvironmentVariableTarget.User)
+            ?? Environment.GetEnvironmentVariable(
+                variable: variableName,
+                target: EnvironmentVariableTarget.Machine);
+
+        if (!string.IsNullOrWhiteSpace(value: value))
+        {
+            return value;
+        }
+
+        throw new InvalidOperationException(
+            $"Required configuration environment variable '{variableName}' was not found.");
+    }
+
+    private static string AddDatabaseSuffix(
+        string connectionString,
+        string suffix)
+    {
+        SqlConnectionStringBuilder builder =
+            new(connectionString: connectionString)
+            {
+                Encrypt = true,
+                TrustServerCertificate = true
+            };
+
+        if (string.IsNullOrWhiteSpace(value: builder.InitialCatalog))
+        {
+            throw new InvalidOperationException(
+                "Acceptance test connection strings must name a database.");
+        }
+
+        builder.InitialCatalog = $"{builder.InitialCatalog}{suffix}";
+        return builder.ConnectionString;
+    }
+}

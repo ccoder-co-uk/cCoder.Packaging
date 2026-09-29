@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+
 namespace cCoder.Packaging.Api.OData;
 
 public class MetadataContainer

@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
 using cCoder.Packaging.Brokers.Loggings;
 
 namespace cCoder.Packaging.Services.Foundations.Loggings;

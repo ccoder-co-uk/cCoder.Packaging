@@ -2,6 +2,7 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
 using cCoder.Packaging.Models.Exceptions;
 
 namespace cCoder.Packaging.Services.Foundations.Loggings;
