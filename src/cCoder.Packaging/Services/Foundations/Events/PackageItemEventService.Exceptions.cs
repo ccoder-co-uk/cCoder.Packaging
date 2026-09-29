@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
 using cCoder.Packaging.Models.Exceptions;
 
 namespace cCoder.Packaging.Services.Foundations.Events;

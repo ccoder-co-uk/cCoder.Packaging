@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Linq;
 using System.Security;
 using cCoder.CodeAnalysis.Exposures;
 using cCoder.Data;

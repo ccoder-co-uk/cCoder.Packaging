@@ -2,17 +2,21 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using cCoder.Packaging.Brokers.Metadata;
 using cCoder.Packaging.Api.OData;
+using cCoder.Packaging.Brokers.Metadata;
+using cCoder.Packaging.Services.Foundations.Metadata;
 using FluentAssertions;
 using Xunit;
 
-namespace cCoder.Packaging.Tests.Brokers.Metadata;
+namespace cCoder.Packaging.Tests.Foundations.Metadata;
 
-public sealed partial class MetadataBrokerTests
+public sealed partial class MetadataServiceTests
 {
-    private readonly MetadataBroker metadataBroker = new();
+    private readonly MetadataService metadataService = new(
+        metadataBroker: new MetadataBroker());
 
     [Fact]
     public void CreateMetadataContainer_WhenTypeIsGeneric_PreservesTheCSharpTypeName()
@@ -21,7 +25,7 @@ public sealed partial class MetadataBrokerTests
         Type genericType = typeof(Dictionary<string, object>);
 
         // When
-        MetadataContainer result = metadataBroker.CreateMetadataContainer(
+        MetadataContainer result = metadataService.CreateMetadataContainer(
             type: genericType,
             isEntity: false,
             hasEndpoint: false);
@@ -38,7 +42,7 @@ public sealed partial class MetadataBrokerTests
         Type joinType = typeof(TestJoinEntity);
 
         // When
-        MetadataContainer result = metadataBroker.CreateMetadataContainer(
+        MetadataContainer result = metadataService.CreateMetadataContainer(
             type: joinType,
             isEntity: true,
             hasEndpoint: true);

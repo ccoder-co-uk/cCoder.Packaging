@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
+using System.Linq;
 using cCoder.Data;
 using cCoder.Data.Models.Packaging;
 using Microsoft.EntityFrameworkCore;

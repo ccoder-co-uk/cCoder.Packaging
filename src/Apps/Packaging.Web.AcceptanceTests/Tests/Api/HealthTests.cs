@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System.Net.Http;
+using Xunit;
 using Packaging.Web.AcceptanceTests.Infrastructure;
 
 namespace Packaging.Web.AcceptanceTests.Tests.Api;

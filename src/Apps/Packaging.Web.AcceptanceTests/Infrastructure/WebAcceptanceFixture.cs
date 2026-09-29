@@ -2,6 +2,9 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
+using System.Net.Http;
 using cCoder.Data;
 using cCoder.Security.Data.EF.Interfaces;
 using Microsoft.AspNetCore.Mvc.Testing;

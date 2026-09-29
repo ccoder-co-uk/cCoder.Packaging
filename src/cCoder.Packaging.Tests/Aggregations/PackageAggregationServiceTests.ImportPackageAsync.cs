@@ -2,6 +2,8 @@
 // Copyright (c) Paul.Ward@ccoder.co.uk
 // ---------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
 using cCoder.Packaging.Models;
 using cCoder.Data.Models.Packaging;
 using System.Linq.Expressions;
