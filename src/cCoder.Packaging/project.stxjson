@@ -9,7 +9,7 @@
     {
       "Name": "cCoder.Packaging.Api.OData.ExtendedMetadataContainer",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -34,7 +34,7 @@
     {
       "Name": "cCoder.Packaging.Api.OData.IEnumerableExtensions",
       "StandardElementType": "Exposure",
-      "LineNumber": 7,
+      "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -45,7 +45,7 @@
     {
       "Name": "cCoder.Packaging.Api.OData.MetadataContainer",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -157,7 +157,7 @@
     {
       "Name": "cCoder.Packaging.Api.OData.OperationContainer",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -197,7 +197,7 @@
     {
       "Name": "cCoder.Packaging.Api.OData.PropertyContainer",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -306,7 +306,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.AuthorizationBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 23,
+      "LineNumber": 25,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -327,7 +327,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.AuthorizationBroker.Authorize(System.Int32?,System.String)",
           "Name": "Authorize",
-          "LineNumber": 52,
+          "LineNumber": 54,
           "Inputs": [
             {
               "Name": "appId",
@@ -393,7 +393,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.AuthorizationBroker.GetCurrentUser()",
           "Name": "GetCurrentUser",
-          "LineNumber": 26,
+          "LineNumber": 28,
           "Inputs": [],
           "ReturnType": "cCoder.Data.Models.Security.User",
           "Implements": [
@@ -423,7 +423,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.AuthorizationBroker.IsAdmin(System.Int32,System.String)",
           "Name": "IsAdmin",
-          "LineNumber": 38,
+          "LineNumber": 40,
           "Inputs": [
             {
               "Name": "appId",
@@ -476,7 +476,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.AuthorizationBroker.IsAdminOfApp(System.Int32?)",
           "Name": "IsAdminOfApp",
-          "LineNumber": 32,
+          "LineNumber": 34,
           "Inputs": [
             {
               "Name": "appId",
@@ -513,7 +513,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Events.PackageEventBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 13,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -534,7 +534,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.PackageEventBroker.RaisePackageAddEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "RaisePackageAddEventAsync",
-          "LineNumber": 18,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "message",
@@ -569,7 +569,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.PackageEventBroker.RaisePackageDeleteEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "RaisePackageDeleteEventAsync",
-          "LineNumber": 24,
+          "LineNumber": 25,
           "Inputs": [
             {
               "Name": "message",
@@ -604,7 +604,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.PackageEventBroker.RaisePackageImportEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Packaging.Models.PackageImportEvent\u003E)",
           "Name": "RaisePackageImportEventAsync",
-          "LineNumber": 15,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "message",
@@ -639,7 +639,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.PackageEventBroker.RaisePackageUpdateEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "RaisePackageUpdateEventAsync",
-          "LineNumber": 21,
+          "LineNumber": 22,
           "Inputs": [
             {
               "Name": "message",
@@ -676,7 +676,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Events.PackageItemEventBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 12,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -697,7 +697,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.PackageItemEventBroker.RaisePackageItemAddEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "RaisePackageItemAddEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "message",
@@ -732,7 +732,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.PackageItemEventBroker.RaisePackageItemDeleteEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "RaisePackageItemDeleteEventAsync",
-          "LineNumber": 20,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "message",
@@ -767,7 +767,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.PackageItemEventBroker.RaisePackageItemUpdateEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "RaisePackageItemUpdateEventAsync",
-          "LineNumber": 17,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "message",
@@ -804,7 +804,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Loggings.LoggingBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -825,7 +825,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Loggings.LoggingBroker.LogError(System.Exception,System.String,System.Object[])",
           "Name": "LogError",
-          "LineNumber": 11,
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "exception",
@@ -870,7 +870,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Metadata.MetadataBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 14,
+      "LineNumber": 17,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -891,7 +891,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Metadata.MetadataBroker.CreateMetadataContainer(System.Type,System.Boolean,System.Boolean)",
           "Name": "CreateMetadataContainer",
-          "LineNumber": 51,
+          "LineNumber": 54,
           "Inputs": [
             {
               "Name": "type",
@@ -1029,7 +1029,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.PackageTransfers.UnavailablePackageTransferBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1050,7 +1050,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.PackageTransfers.UnavailablePackageTransferBroker.ExportPackagesAsync(System.Int32,System.String[],System.String)",
           "Name": "ExportPackagesAsync",
-          "LineNumber": 16,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "appId",
@@ -1099,7 +1099,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.PackageTransfers.UnavailablePackageTransferBroker.GetRequestDomain()",
           "Name": "GetRequestDomain",
-          "LineNumber": 12,
+          "LineNumber": 14,
           "Inputs": [],
           "ReturnType": "System.String",
           "Implements": [
@@ -1137,7 +1137,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Storages.PackageBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 43,
+      "LineNumber": 48,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -1158,7 +1158,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.AddPackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "AddPackageAsync",
-          "LineNumber": 93,
+          "LineNumber": 98,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -1213,7 +1213,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.DeletePackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "DeletePackageAsync",
-          "LineNumber": 117,
+          "LineNumber": 122,
           "Inputs": [
             {
               "Name": "deletedPackage",
@@ -1268,7 +1268,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportCalendarEvents(System.Int32)",
           "Name": "ExportCalendarEvents",
-          "LineNumber": 519,
+          "LineNumber": 524,
           "Inputs": [
             {
               "Name": "appId",
@@ -1345,7 +1345,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportCalendars(System.Int32)",
           "Name": "ExportCalendars",
-          "LineNumber": 496,
+          "LineNumber": 501,
           "Inputs": [
             {
               "Name": "appId",
@@ -1415,7 +1415,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportComponents(System.Int32)",
           "Name": "ExportComponents",
-          "LineNumber": 245,
+          "LineNumber": 250,
           "Inputs": [
             {
               "Name": "appId",
@@ -1485,7 +1485,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportFlowDefinitions(System.Int32)",
           "Name": "ExportFlowDefinitions",
-          "LineNumber": 419,
+          "LineNumber": 424,
           "Inputs": [
             {
               "Name": "appId",
@@ -1562,7 +1562,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportFolderRoles(System.Int32)",
           "Name": "ExportFolderRoles",
-          "LineNumber": 156,
+          "LineNumber": 161,
           "Inputs": [
             {
               "Name": "appId",
@@ -1653,7 +1653,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportLayouts(System.Int32)",
           "Name": "ExportLayouts",
-          "LineNumber": 186,
+          "LineNumber": 191,
           "Inputs": [
             {
               "Name": "appId",
@@ -1723,7 +1723,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportPageRoles(System.Int32)",
           "Name": "ExportPageRoles",
-          "LineNumber": 453,
+          "LineNumber": 458,
           "Inputs": [
             {
               "Name": "appId",
@@ -1835,7 +1835,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportPages(System.Int32)",
           "Name": "ExportPages",
-          "LineNumber": 336,
+          "LineNumber": 341,
           "Inputs": [
             {
               "Name": "appId",
@@ -1989,7 +1989,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportResources(System.Int32)",
           "Name": "ExportResources",
-          "LineNumber": 304,
+          "LineNumber": 309,
           "Inputs": [
             {
               "Name": "appId",
@@ -2059,7 +2059,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportRoles(System.Int32)",
           "Name": "ExportRoles",
-          "LineNumber": 130,
+          "LineNumber": 135,
           "Inputs": [
             {
               "Name": "appId",
@@ -2150,7 +2150,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportScripts(System.Int32)",
           "Name": "ExportScripts",
-          "LineNumber": 276,
+          "LineNumber": 281,
           "Inputs": [
             {
               "Name": "appId",
@@ -2220,7 +2220,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.ExportTemplates(System.Int32)",
           "Name": "ExportTemplates",
-          "LineNumber": 216,
+          "LineNumber": 221,
           "Inputs": [
             {
               "Name": "appId",
@@ -2290,7 +2290,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.GetAllPackages()",
           "Name": "GetAllPackages",
-          "LineNumber": 68,
+          "LineNumber": 73,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.Package\u003E",
           "Implements": [
@@ -2320,7 +2320,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.GetAllPackages(System.Boolean)",
           "Name": "GetAllPackages",
-          "LineNumber": 75,
+          "LineNumber": 80,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -2362,7 +2362,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.GetAllPackagesIgnoringFilters()",
           "Name": "GetAllPackagesIgnoringFilters",
-          "LineNumber": 86,
+          "LineNumber": 91,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.Package\u003E",
           "Implements": [
@@ -2399,7 +2399,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.GetAppId(cCoder.Data.Models.Packaging.Package)",
           "Name": "GetAppId",
-          "LineNumber": 125,
+          "LineNumber": 130,
           "Inputs": [
             {
               "Name": "package",
@@ -2424,7 +2424,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.GetLatestCommonObjects()",
           "Name": "GetLatestCommonObjects",
-          "LineNumber": 46,
+          "LineNumber": 51,
           "Inputs": [],
           "ReturnType": "cCoder.Data.Models.CommonObject[]",
           "Implements": [
@@ -2510,7 +2510,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageBroker.UpdatePackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "UpdatePackageAsync",
-          "LineNumber": 105,
+          "LineNumber": 110,
           "Inputs": [
             {
               "Name": "updatedPackage",
@@ -2567,7 +2567,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Storages.PackageItemBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 23,
+      "LineNumber": 26,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -2588,7 +2588,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageItemBroker.AddPackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "AddPackageItemAsync",
-          "LineNumber": 51,
+          "LineNumber": 54,
           "Inputs": [
             {
               "Name": "newPackageItem",
@@ -2643,7 +2643,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageItemBroker.DeletePackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "DeletePackageItemAsync",
-          "LineNumber": 73,
+          "LineNumber": 76,
           "Inputs": [
             {
               "Name": "deletedPackageItem",
@@ -2698,7 +2698,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageItemBroker.GetAllPackageItems()",
           "Name": "GetAllPackageItems",
-          "LineNumber": 26,
+          "LineNumber": 29,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E",
           "Implements": [
@@ -2728,7 +2728,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageItemBroker.GetAllPackageItems(System.Boolean)",
           "Name": "GetAllPackageItems",
-          "LineNumber": 33,
+          "LineNumber": 36,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -2770,7 +2770,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageItemBroker.GetAllPackageItemsIgnoringFilters()",
           "Name": "GetAllPackageItemsIgnoringFilters",
-          "LineNumber": 44,
+          "LineNumber": 47,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E",
           "Implements": [
@@ -2807,7 +2807,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageItemBroker.GetAppId(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "GetAppId",
-          "LineNumber": 80,
+          "LineNumber": 83,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -2834,7 +2834,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.PackageItemBroker.UpdatePackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "UpdatePackageItemAsync",
-          "LineNumber": 62,
+          "LineNumber": 65,
           "Inputs": [
             {
               "Name": "updatedPackageItem",
@@ -2891,7 +2891,7 @@
     {
       "Name": "cCoder.Packaging.Dependencies.OData.CompositePropertyInfo",
       "StandardElementType": "Dependency",
-      "LineNumber": 10,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -2939,7 +2939,7 @@
         {
           "Id": "cCoder.Packaging.Dependencies.OData.CompositePropertyInfo.GetAccessors(System.Boolean)",
           "Name": "GetAccessors",
-          "LineNumber": 20,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "nonPublic",
@@ -2978,7 +2978,7 @@
         {
           "Id": "cCoder.Packaging.Dependencies.OData.CompositePropertyInfo.GetCustomAttributes(System.Boolean)",
           "Name": "GetCustomAttributes",
-          "LineNumber": 21,
+          "LineNumber": 22,
           "Inputs": [
             {
               "Name": "inherit",
@@ -3011,7 +3011,7 @@
         {
           "Id": "cCoder.Packaging.Dependencies.OData.CompositePropertyInfo.GetCustomAttributes(System.Type,System.Boolean)",
           "Name": "GetCustomAttributes",
-          "LineNumber": 22,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "attributeType",
@@ -3048,7 +3048,7 @@
         {
           "Id": "cCoder.Packaging.Dependencies.OData.CompositePropertyInfo.GetGetMethod(System.Boolean)",
           "Name": "GetGetMethod",
-          "LineNumber": 24,
+          "LineNumber": 25,
           "Inputs": [
             {
               "Name": "nonPublic",
@@ -3087,7 +3087,7 @@
         {
           "Id": "cCoder.Packaging.Dependencies.OData.CompositePropertyInfo.GetIndexParameters()",
           "Name": "GetIndexParameters",
-          "LineNumber": 25,
+          "LineNumber": 26,
           "Inputs": [],
           "ReturnType": "System.Reflection.ParameterInfo[]",
           "Implements": [],
@@ -3121,7 +3121,7 @@
         {
           "Id": "cCoder.Packaging.Dependencies.OData.CompositePropertyInfo.GetSetMethod(System.Boolean)",
           "Name": "GetSetMethod",
-          "LineNumber": 26,
+          "LineNumber": 27,
           "Inputs": [
             {
               "Name": "nonPublic",
@@ -3160,7 +3160,7 @@
         {
           "Id": "cCoder.Packaging.Dependencies.OData.CompositePropertyInfo.GetValue(System.Object,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)",
           "Name": "GetValue",
-          "LineNumber": 27,
+          "LineNumber": 28,
           "Inputs": [
             {
               "Name": "obj",
@@ -3215,7 +3215,7 @@
         {
           "Id": "cCoder.Packaging.Dependencies.OData.CompositePropertyInfo.IsDefined(System.Type,System.Boolean)",
           "Name": "IsDefined",
-          "LineNumber": 29,
+          "LineNumber": 30,
           "Inputs": [
             {
               "Name": "attributeType",
@@ -3252,7 +3252,7 @@
         {
           "Id": "cCoder.Packaging.Dependencies.OData.CompositePropertyInfo.SetValue(System.Object,System.Object,System.Reflection.BindingFlags,System.Reflection.Binder,System.Object[],System.Globalization.CultureInfo)",
           "Name": "SetValue",
-          "LineNumber": 30,
+          "LineNumber": 31,
           "Inputs": [
             {
               "Name": "obj",
@@ -3313,7 +3313,7 @@
     {
       "Name": "cCoder.Packaging.Exposures.Controllers.PackageController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 22,
+      "LineNumber": 26,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -3343,7 +3343,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Delete(System.Guid)",
           "Name": "Delete",
-          "LineNumber": 272,
+          "LineNumber": 276,
           "Inputs": [
             {
               "Name": "key",
@@ -3463,7 +3463,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 110,
+          "LineNumber": 114,
           "Inputs": [
             {
               "Name": "key",
@@ -3612,7 +3612,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Get(System.Int32?,System.String[])",
           "Name": "Get",
-          "LineNumber": 28,
+          "LineNumber": 32,
           "Inputs": [
             {
               "Name": "appId",
@@ -3735,7 +3735,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.GetAll()",
           "Name": "GetAll",
-          "LineNumber": 74,
+          "LineNumber": 78,
           "Inputs": [],
           "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult",
           "Implements": [],
@@ -3848,7 +3848,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Post(cCoder.Data.Models.Packaging.Package)",
           "Name": "Post",
-          "LineNumber": 155,
+          "LineNumber": 159,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -3985,7 +3985,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.PostImport(cCoder.Data.Models.Packaging.Package,System.Int32?)",
           "Name": "PostImport",
-          "LineNumber": 190,
+          "LineNumber": 194,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -4116,7 +4116,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageController.Put(System.Guid,cCoder.Data.Models.Packaging.Package)",
           "Name": "Put",
-          "LineNumber": 235,
+          "LineNumber": 239,
           "Inputs": [
             {
               "Name": "key",
@@ -4259,7 +4259,7 @@
     {
       "Name": "cCoder.Packaging.Exposures.Controllers.PackageItemController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 20,
+      "LineNumber": 24,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -4278,7 +4278,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageItemController.Delete(System.Guid)",
           "Name": "Delete",
-          "LineNumber": 198,
+          "LineNumber": 202,
           "Inputs": [
             {
               "Name": "key",
@@ -4398,7 +4398,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageItemController.Get(System.Guid)",
           "Name": "Get",
-          "LineNumber": 72,
+          "LineNumber": 76,
           "Inputs": [
             {
               "Name": "key",
@@ -4547,7 +4547,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageItemController.GetAll()",
           "Name": "GetAll",
-          "LineNumber": 36,
+          "LineNumber": 40,
           "Inputs": [],
           "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult",
           "Implements": [],
@@ -4660,7 +4660,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageItemController.Post(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "Post",
-          "LineNumber": 118,
+          "LineNumber": 122,
           "Inputs": [
             {
               "Name": "newPackageItem",
@@ -4797,7 +4797,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageItemController.Put(System.Guid,cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "Put",
-          "LineNumber": 161,
+          "LineNumber": 165,
           "Inputs": [
             {
               "Name": "key",
@@ -4940,7 +4940,7 @@
     {
       "Name": "cCoder.Packaging.Exposures.Controllers.PackageItemMetadataController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 14,
+      "LineNumber": 16,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -4959,7 +4959,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageItemMetadataController.GetPackageItemMetadata()",
           "Name": "GetPackageItemMetadata",
-          "LineNumber": 21,
+          "LineNumber": 23,
           "Inputs": [],
           "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult",
           "Implements": [],
@@ -5058,7 +5058,7 @@
     {
       "Name": "cCoder.Packaging.Exposures.Controllers.PackageMetadataController",
       "StandardElementType": "HttpExposure",
-      "LineNumber": 14,
+      "LineNumber": 16,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": {
@@ -5077,7 +5077,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.Controllers.PackageMetadataController.GetPackageMetadata()",
           "Name": "GetPackageMetadata",
-          "LineNumber": 21,
+          "LineNumber": 23,
           "Inputs": [],
           "ReturnType": "Microsoft.AspNetCore.Mvc.IActionResult",
           "Implements": [],
@@ -5176,7 +5176,7 @@
     {
       "Name": "cCoder.Packaging.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 36,
+      "LineNumber": 41,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -5186,7 +5186,7 @@
         {
           "Id": "cCoder.Packaging.IServiceCollectionExtensions.AddPackaging(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Packaging.Models.PackagingConfiguration\u003E)",
           "Name": "AddPackaging",
-          "LineNumber": 64,
+          "LineNumber": 69,
           "Inputs": [
             {
               "Name": "services",
@@ -5230,7 +5230,7 @@
         {
           "Id": "cCoder.Packaging.IServiceCollectionExtensions.AddPackaging(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Packaging.Models.PackagingConfiguration)",
           "Name": "AddPackaging",
-          "LineNumber": 74,
+          "LineNumber": 79,
           "Inputs": [
             {
               "Name": "services",
@@ -5259,7 +5259,7 @@
         {
           "Id": "cCoder.Packaging.IServiceCollectionExtensions.AddPackagingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action\u003CcCoder.Packaging.Models.PackagingConfiguration\u003E)",
           "Name": "AddPackagingWeb",
-          "LineNumber": 38,
+          "LineNumber": 43,
           "Inputs": [
             {
               "Name": "services",
@@ -5303,7 +5303,7 @@
         {
           "Id": "cCoder.Packaging.IServiceCollectionExtensions.AddPackagingWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,cCoder.Packaging.Models.PackagingConfiguration)",
           "Name": "AddPackagingWeb",
-          "LineNumber": 48,
+          "LineNumber": 53,
           "Inputs": [
             {
               "Name": "services",
@@ -5470,7 +5470,7 @@
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingDependencyException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5490,7 +5490,7 @@
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationDependencyException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5510,7 +5510,7 @@
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationServiceException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5530,7 +5530,7 @@
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingOrchestrationValidationException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5550,7 +5550,7 @@
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingProcessingDependencyException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5570,7 +5570,7 @@
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingProcessingServiceException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5590,7 +5590,7 @@
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingProcessingValidationException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5610,7 +5610,7 @@
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingServiceException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5630,7 +5630,7 @@
     {
       "Name": "cCoder.Packaging.Models.Exceptions.PackagingValidationException",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": {
@@ -5650,7 +5650,7 @@
     {
       "Name": "cCoder.Packaging.Models.ExportPageRoleInfo",
       "StandardElementType": "Model",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -5670,7 +5670,7 @@
     {
       "Name": "cCoder.Packaging.Models.ODataCollection\u003CTCollectionType\u003E",
       "StandardElementType": "Model",
-      "LineNumber": 9,
+      "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -5787,7 +5787,7 @@
     {
       "Name": "cCoder.Packaging.Services.Aggregations.PackageAggregationService",
       "StandardElementType": "AggregationService",
-      "LineNumber": 13,
+      "LineNumber": 17,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -5808,7 +5808,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.AddOrUpdatePackagesAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "AddOrUpdatePackagesAsync",
-          "LineNumber": 164,
+          "LineNumber": 168,
           "Inputs": [
             {
               "Name": "packages",
@@ -5881,7 +5881,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.AddPackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "AddPackageAsync",
-          "LineNumber": 100,
+          "LineNumber": 104,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -5944,7 +5944,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.DeleteAllPackagesAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "DeleteAllPackagesAsync",
-          "LineNumber": 206,
+          "LineNumber": 210,
           "Inputs": [
             {
               "Name": "deletedPackages",
@@ -6000,7 +6000,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.DeletePackageAsync(System.Guid)",
           "Name": "DeletePackageAsync",
-          "LineNumber": 149,
+          "LineNumber": 153,
           "Inputs": [
             {
               "Name": "packageId",
@@ -6070,7 +6070,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.ExportPackagesAsync(System.Int32?,System.String[])",
           "Name": "ExportPackagesAsync",
-          "LineNumber": 20,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "appId",
@@ -6143,7 +6143,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.GetAllPackages(System.Boolean)",
           "Name": "GetAllPackages",
-          "LineNumber": 91,
+          "LineNumber": 95,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -6197,7 +6197,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.GetPackage(System.Guid)",
           "Name": "GetPackage",
-          "LineNumber": 83,
+          "LineNumber": 87,
           "Inputs": [
             {
               "Name": "packageId",
@@ -6252,7 +6252,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.ImportPackageAsync(System.Int32?,cCoder.Data.Models.Packaging.Package)",
           "Name": "ImportPackageAsync",
-          "LineNumber": 44,
+          "LineNumber": 48,
           "Inputs": [
             {
               "Name": "appId",
@@ -6326,7 +6326,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.PackageAggregationService.UpdatePackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "UpdatePackageAsync",
-          "LineNumber": 114,
+          "LineNumber": 118,
           "Inputs": [
             {
               "Name": "updatedPackage",
@@ -6440,7 +6440,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.Events.PackageEventService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 14,
+      "LineNumber": 15,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -6461,7 +6461,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.PackageEventService.RaisePackageAddEventAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageAddEventAsync",
-          "LineNumber": 37,
+          "LineNumber": 38,
           "Inputs": [
             {
               "Name": "package",
@@ -6529,7 +6529,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.PackageEventService.RaisePackageDeleteEventAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageDeleteEventAsync",
-          "LineNumber": 65,
+          "LineNumber": 66,
           "Inputs": [
             {
               "Name": "package",
@@ -6597,7 +6597,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.PackageEventService.RaisePackageImportEventAsync(System.Int32?,cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageImportEventAsync",
-          "LineNumber": 19,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "appId",
@@ -6669,7 +6669,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.PackageEventService.RaisePackageUpdateEventAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageUpdateEventAsync",
-          "LineNumber": 51,
+          "LineNumber": 52,
           "Inputs": [
             {
               "Name": "package",
@@ -6739,7 +6739,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.Events.PackageItemEventService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 13,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -6760,7 +6760,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.PackageItemEventService.RaisePackageItemAddEventAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "RaisePackageItemAddEventAsync",
-          "LineNumber": 18,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -6828,7 +6828,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.PackageItemEventService.RaisePackageItemDeleteEventAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "RaisePackageItemDeleteEventAsync",
-          "LineNumber": 46,
+          "LineNumber": 47,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -6896,7 +6896,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.PackageItemEventService.RaisePackageItemUpdateEventAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "RaisePackageItemUpdateEventAsync",
-          "LineNumber": 32,
+          "LineNumber": 33,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -6966,7 +6966,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.Loggings.LoggingFoundationService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 9,
+      "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -6987,7 +6987,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Loggings.LoggingFoundationService.LogError(System.Exception,System.String)",
           "Name": "LogError",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "exception",
@@ -7035,7 +7035,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.Metadata.MetadataService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 10,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -7056,7 +7056,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Metadata.MetadataService.CreateMetadataContainer(System.Type,System.Boolean,System.Boolean)",
           "Name": "CreateMetadataContainer",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "type",
@@ -7113,7 +7113,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 12,
+      "LineNumber": 13,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -7134,7 +7134,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService.ExportPackagesAsync(System.Int32,System.String[],System.String)",
           "Name": "ExportPackagesAsync",
-          "LineNumber": 17,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "appId",
@@ -7191,7 +7191,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.PackageExports.PackageExportService.GetPackageSourceApi(System.Int32)",
           "Name": "GetPackageSourceApi",
-          "LineNumber": 34,
+          "LineNumber": 35,
           "Inputs": [
             {
               "Name": "appId",
@@ -7242,7 +7242,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.PackagingMetadataTypeService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 12,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -7263,7 +7263,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.PackagingMetadataTypeService.GetKnownMetadata()",
           "Name": "GetKnownMetadata",
-          "LineNumber": 15,
+          "LineNumber": 17,
           "Inputs": [],
           "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Api.OData.MetadataContainerSet\u003E",
           "Implements": [
@@ -7299,7 +7299,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.Storages.PackageItemService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 12,
+      "LineNumber": 15,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -7320,7 +7320,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageItemService.AddPackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "AddPackageItemAsync",
-          "LineNumber": 33,
+          "LineNumber": 36,
           "Inputs": [
             {
               "Name": "newPackageItem",
@@ -7392,7 +7392,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageItemService.DeletePackageItemAsync(System.Guid)",
           "Name": "DeletePackageItemAsync",
-          "LineNumber": 89,
+          "LineNumber": 92,
           "Inputs": [
             {
               "Name": "packageItemId",
@@ -7457,7 +7457,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageItemService.GetAllPackageItems(System.Boolean)",
           "Name": "GetAllPackageItems",
-          "LineNumber": 25,
+          "LineNumber": 28,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -7504,7 +7504,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageItemService.GetPackageItem(System.Guid)",
           "Name": "GetPackageItem",
-          "LineNumber": 17,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "packageItemId",
@@ -7545,7 +7545,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageItemService.UpdatePackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "UpdatePackageItemAsync",
-          "LineNumber": 60,
+          "LineNumber": 63,
           "Inputs": [
             {
               "Name": "updatedPackageItem",
@@ -7619,7 +7619,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.Storages.PackageService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 12,
+      "LineNumber": 15,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -7640,7 +7640,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.AddPackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "AddPackageAsync",
-          "LineNumber": 73,
+          "LineNumber": 76,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -7705,7 +7705,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.DeletePackageAsync(System.Guid)",
           "Name": "DeletePackageAsync",
-          "LineNumber": 124,
+          "LineNumber": 127,
           "Inputs": [
             {
               "Name": "packageId",
@@ -7763,7 +7763,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.ExportCommonCachePackages()",
           "Name": "ExportCommonCachePackages",
-          "LineNumber": 17,
+          "LineNumber": 20,
           "Inputs": [],
           "ReturnType": "cCoder.Data.Models.Packaging.Package[]",
           "Implements": [
@@ -7847,7 +7847,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.ExportPackageComponents(System.Int32)",
           "Name": "ExportPackageComponents",
-          "LineNumber": 160,
+          "LineNumber": 163,
           "Inputs": [
             {
               "Name": "appId",
@@ -7896,7 +7896,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.ExportPackageLayouts(System.Int32)",
           "Name": "ExportPackageLayouts",
-          "LineNumber": 142,
+          "LineNumber": 145,
           "Inputs": [
             {
               "Name": "appId",
@@ -7945,7 +7945,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.ExportPackagePageRoles(System.Int32)",
           "Name": "ExportPackagePageRoles",
-          "LineNumber": 196,
+          "LineNumber": 199,
           "Inputs": [
             {
               "Name": "appId",
@@ -7994,7 +7994,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.ExportPackagePages(System.Int32)",
           "Name": "ExportPackagePages",
-          "LineNumber": 187,
+          "LineNumber": 190,
           "Inputs": [
             {
               "Name": "appId",
@@ -8043,7 +8043,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.ExportPackageResources(System.Int32)",
           "Name": "ExportPackageResources",
-          "LineNumber": 178,
+          "LineNumber": 181,
           "Inputs": [
             {
               "Name": "appId",
@@ -8092,7 +8092,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.ExportPackageRoles(System.Int32)",
           "Name": "ExportPackageRoles",
-          "LineNumber": 133,
+          "LineNumber": 136,
           "Inputs": [
             {
               "Name": "appId",
@@ -8141,7 +8141,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.ExportPackageScripts(System.Int32)",
           "Name": "ExportPackageScripts",
-          "LineNumber": 169,
+          "LineNumber": 172,
           "Inputs": [
             {
               "Name": "appId",
@@ -8190,7 +8190,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.ExportPackageTemplates(System.Int32)",
           "Name": "ExportPackageTemplates",
-          "LineNumber": 151,
+          "LineNumber": 154,
           "Inputs": [
             {
               "Name": "appId",
@@ -8239,7 +8239,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.GetAllPackages(System.Boolean)",
           "Name": "GetAllPackages",
-          "LineNumber": 65,
+          "LineNumber": 68,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -8278,7 +8278,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.GetPackage(System.Guid)",
           "Name": "GetPackage",
-          "LineNumber": 41,
+          "LineNumber": 44,
           "Inputs": [
             {
               "Name": "packageId",
@@ -8334,7 +8334,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.PackageService.UpdatePackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "UpdatePackageAsync",
-          "LineNumber": 97,
+          "LineNumber": 100,
           "Inputs": [
             {
               "Name": "updatedPackage",
@@ -8401,7 +8401,7 @@
     {
       "Name": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService",
       "StandardElementType": "OrchestrationService",
-      "LineNumber": 12,
+      "LineNumber": 16,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -8422,7 +8422,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService.AddOrUpdatePackageItemsAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "AddOrUpdatePackageItemsAsync",
-          "LineNumber": 78,
+          "LineNumber": 82,
           "Inputs": [
             {
               "Name": "packageItems",
@@ -8473,7 +8473,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService.AddPackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "AddPackageItemAsync",
-          "LineNumber": 35,
+          "LineNumber": 39,
           "Inputs": [
             {
               "Name": "newPackageItem",
@@ -8536,7 +8536,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService.DeleteAllPackageItemsAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "DeleteAllPackageItemsAsync",
-          "LineNumber": 91,
+          "LineNumber": 95,
           "Inputs": [
             {
               "Name": "deletedPackageItems",
@@ -8592,7 +8592,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService.DeletePackageItemAsync(System.Guid)",
           "Name": "DeletePackageItemAsync",
-          "LineNumber": 63,
+          "LineNumber": 67,
           "Inputs": [
             {
               "Name": "packageItemId",
@@ -8662,7 +8662,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService.GetAllPackageItems(System.Boolean)",
           "Name": "GetAllPackageItems",
-          "LineNumber": 26,
+          "LineNumber": 30,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -8716,7 +8716,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService.GetPackageItem(System.Guid)",
           "Name": "GetPackageItem",
-          "LineNumber": 17,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "packageItemId",
@@ -8771,7 +8771,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.PackageItemOrchestrationService.UpdatePackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "UpdatePackageItemAsync",
-          "LineNumber": 49,
+          "LineNumber": 53,
           "Inputs": [
             {
               "Name": "updatedPackageItem",
@@ -8836,7 +8836,7 @@
     {
       "Name": "cCoder.Packaging.Services.Processings.PackageEventProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 10,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -8857,7 +8857,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageEventProcessingService.RaisePackageAddEventAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageAddEventAsync",
-          "LineNumber": 23,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "package",
@@ -8908,7 +8908,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageEventProcessingService.RaisePackageDeleteEventAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageDeleteEventAsync",
-          "LineNumber": 41,
+          "LineNumber": 42,
           "Inputs": [
             {
               "Name": "package",
@@ -8959,7 +8959,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageEventProcessingService.RaisePackageImportEventAsync(System.Int32?,cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageImportEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "appId",
@@ -9014,7 +9014,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageEventProcessingService.RaisePackageUpdateEventAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageUpdateEventAsync",
-          "LineNumber": 32,
+          "LineNumber": 33,
           "Inputs": [
             {
               "Name": "package",
@@ -9067,7 +9067,7 @@
     {
       "Name": "cCoder.Packaging.Services.Processings.PackageExportProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 10,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -9088,7 +9088,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageExportProcessingService.ExportPackagesAsync(System.Int32,System.String[],System.String)",
           "Name": "ExportPackagesAsync",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "appId",
@@ -9148,7 +9148,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageExportProcessingService.GetPackageSourceApi(System.Int32)",
           "Name": "GetPackageSourceApi",
-          "LineNumber": 31,
+          "LineNumber": 32,
           "Inputs": [
             {
               "Name": "appId",
@@ -9202,7 +9202,7 @@
     {
       "Name": "cCoder.Packaging.Services.Processings.PackageItemEventProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 10,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -9223,7 +9223,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageItemEventProcessingService.RaisePackageItemAddEventAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "RaisePackageItemAddEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -9274,7 +9274,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageItemEventProcessingService.RaisePackageItemDeleteEventAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "RaisePackageItemDeleteEventAsync",
-          "LineNumber": 32,
+          "LineNumber": 33,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -9325,7 +9325,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageItemEventProcessingService.RaisePackageItemUpdateEventAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "RaisePackageItemUpdateEventAsync",
-          "LineNumber": 23,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -9378,7 +9378,7 @@
     {
       "Name": "cCoder.Packaging.Services.Processings.PackageItemProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 12,
+      "LineNumber": 16,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -9399,7 +9399,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageItemProcessingService.AddOrUpdatePackageItemsAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "AddOrUpdatePackageItemsAsync",
-          "LineNumber": 59,
+          "LineNumber": 63,
           "Inputs": [
             {
               "Name": "packageItems",
@@ -9469,7 +9469,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageItemProcessingService.AddPackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "AddPackageItemAsync",
-          "LineNumber": 32,
+          "LineNumber": 36,
           "Inputs": [
             {
               "Name": "newPackageItem",
@@ -9522,7 +9522,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageItemProcessingService.DeleteAllPackageItemsAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "DeleteAllPackageItemsAsync",
-          "LineNumber": 101,
+          "LineNumber": 105,
           "Inputs": [
             {
               "Name": "deletedPackageItems",
@@ -9575,7 +9575,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageItemProcessingService.DeletePackageItemAsync(System.Guid)",
           "Name": "DeletePackageItemAsync",
-          "LineNumber": 50,
+          "LineNumber": 54,
           "Inputs": [
             {
               "Name": "packageItemId",
@@ -9628,7 +9628,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageItemProcessingService.GetAllPackageItems(System.Boolean)",
           "Name": "GetAllPackageItems",
-          "LineNumber": 24,
+          "LineNumber": 28,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -9679,7 +9679,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageItemProcessingService.GetPackageItem(System.Guid)",
           "Name": "GetPackageItem",
-          "LineNumber": 16,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "packageItemId",
@@ -9731,7 +9731,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageItemProcessingService.UpdatePackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "UpdatePackageItemAsync",
-          "LineNumber": 41,
+          "LineNumber": 45,
           "Inputs": [
             {
               "Name": "updatedPackageItem",
@@ -9786,7 +9786,7 @@
     {
       "Name": "cCoder.Packaging.Services.Processings.PackageProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 11,
+      "LineNumber": 14,
       "IsPublic": false,
       "Kind": "Class",
       "BaseType": null,
@@ -9807,7 +9807,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageProcessingService.AddPackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "AddPackageAsync",
-          "LineNumber": 72,
+          "LineNumber": 75,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -9860,7 +9860,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageProcessingService.DeletePackageAsync(System.Guid)",
           "Name": "DeletePackageAsync",
-          "LineNumber": 89,
+          "LineNumber": 92,
           "Inputs": [
             {
               "Name": "packageId",
@@ -9913,7 +9913,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageProcessingService.ExportCommonCachePackages()",
           "Name": "ExportCommonCachePackages",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [],
           "ReturnType": "cCoder.Data.Models.Packaging.Package[]",
           "Implements": [
@@ -9959,7 +9959,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageProcessingService.ExportPackage(System.Int32,System.String)",
           "Name": "ExportPackage",
-          "LineNumber": 21,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "appId",
@@ -10071,7 +10071,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageProcessingService.ExportPackages(System.Int32,System.String[])",
           "Name": "ExportPackages",
-          "LineNumber": 44,
+          "LineNumber": 47,
           "Inputs": [
             {
               "Name": "appId",
@@ -10134,7 +10134,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageProcessingService.GetAllPackages(System.Boolean)",
           "Name": "GetAllPackages",
-          "LineNumber": 64,
+          "LineNumber": 67,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -10185,7 +10185,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageProcessingService.GetPackage(System.Guid)",
           "Name": "GetPackage",
-          "LineNumber": 56,
+          "LineNumber": 59,
           "Inputs": [
             {
               "Name": "packageId",
@@ -10237,7 +10237,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.PackageProcessingService.UpdatePackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "UpdatePackageAsync",
-          "LineNumber": 81,
+          "LineNumber": 84,
           "Inputs": [
             {
               "Name": "updatedPackage",
@@ -10292,7 +10292,7 @@
     {
       "Name": "cCoder.Packaging.WebApplicationExtensions",
       "StandardElementType": "App",
-      "LineNumber": 13,
+      "LineNumber": 16,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -10302,7 +10302,7 @@
         {
           "Id": "cCoder.Packaging.WebApplicationExtensions.UsePackagingExposure(Microsoft.AspNetCore.Builder.WebApplication,Microsoft.Extensions.Logging.ILogger)",
           "Name": "UsePackagingExposure",
-          "LineNumber": 17,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "app",
@@ -10355,7 +10355,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Events.IPackageEventBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 12,
+      "LineNumber": 13,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -10365,7 +10365,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.IPackageEventBroker.RaisePackageAddEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "RaisePackageAddEventAsync",
-          "LineNumber": 15,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "message",
@@ -10390,7 +10390,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.IPackageEventBroker.RaisePackageDeleteEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "RaisePackageDeleteEventAsync",
-          "LineNumber": 17,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "message",
@@ -10415,7 +10415,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.IPackageEventBroker.RaisePackageImportEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Packaging.Models.PackageImportEvent\u003E)",
           "Name": "RaisePackageImportEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "message",
@@ -10440,7 +10440,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.IPackageEventBroker.RaisePackageUpdateEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "RaisePackageUpdateEventAsync",
-          "LineNumber": 16,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "message",
@@ -10467,7 +10467,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Events.IPackageItemEventBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 11,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -10477,7 +10477,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.IPackageItemEventBroker.RaisePackageItemAddEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "RaisePackageItemAddEventAsync",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "message",
@@ -10502,7 +10502,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.IPackageItemEventBroker.RaisePackageItemDeleteEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "RaisePackageItemDeleteEventAsync",
-          "LineNumber": 15,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "message",
@@ -10527,7 +10527,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Events.IPackageItemEventBroker.RaisePackageItemUpdateEventAsync(cCoder.Eventing.Models.EventMessage\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "RaisePackageItemUpdateEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "message",
@@ -10597,7 +10597,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.IAuthorizationBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 15,
+      "LineNumber": 17,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -10618,7 +10618,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.IAuthorizationBroker.Authorize(System.Int32?,System.String)",
           "Name": "Authorize",
-          "LineNumber": 20,
+          "LineNumber": 22,
           "Inputs": [
             {
               "Name": "appId",
@@ -10647,7 +10647,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.IAuthorizationBroker.GetCurrentUser()",
           "Name": "GetCurrentUser",
-          "LineNumber": 17,
+          "LineNumber": 19,
           "Inputs": [],
           "ReturnType": "cCoder.Data.Models.Security.User",
           "Implements": [],
@@ -10667,7 +10667,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.IAuthorizationBroker.IsAdmin(System.Int32,System.String)",
           "Name": "IsAdmin",
-          "LineNumber": 19,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "appId",
@@ -10696,7 +10696,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.IAuthorizationBroker.IsAdminOfApp(System.Int32?)",
           "Name": "IsAdminOfApp",
-          "LineNumber": 18,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "appId",
@@ -10723,7 +10723,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Loggings.ILoggingBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -10744,7 +10744,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Loggings.ILoggingBroker.LogError(System.Exception,System.String,System.Object[])",
           "Name": "LogError",
-          "LineNumber": 11,
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "exception",
@@ -10779,7 +10779,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Metadata.IMetadataBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -10789,7 +10789,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Metadata.IMetadataBroker.CreateMetadataContainer(System.Type,System.Boolean,System.Boolean)",
           "Name": "CreateMetadataContainer",
-          "LineNumber": 11,
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "type",
@@ -10861,7 +10861,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.PackageTransfers.IPackageTransferBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 9,
+      "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -10871,7 +10871,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.PackageTransfers.IPackageTransferBroker.ExportPackagesAsync(System.Int32,System.String[],System.String)",
           "Name": "ExportPackagesAsync",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "appId",
@@ -10904,7 +10904,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.PackageTransfers.IPackageTransferBroker.GetRequestDomain()",
           "Name": "GetRequestDomain",
-          "LineNumber": 11,
+          "LineNumber": 12,
           "Inputs": [],
           "ReturnType": "System.String",
           "Implements": [],
@@ -10926,7 +10926,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Storages.IPackageBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 20,
+      "LineNumber": 25,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -10936,7 +10936,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.AddPackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "AddPackageAsync",
-          "LineNumber": 26,
+          "LineNumber": 31,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -10961,7 +10961,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.DeletePackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "DeletePackageAsync",
-          "LineNumber": 28,
+          "LineNumber": 33,
           "Inputs": [
             {
               "Name": "deletedPackage",
@@ -10986,7 +10986,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.ExportCalendarEvents(System.Int32)",
           "Name": "ExportCalendarEvents",
-          "LineNumber": 40,
+          "LineNumber": 45,
           "Inputs": [
             {
               "Name": "appId",
@@ -11011,7 +11011,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.ExportCalendars(System.Int32)",
           "Name": "ExportCalendars",
-          "LineNumber": 39,
+          "LineNumber": 44,
           "Inputs": [
             {
               "Name": "appId",
@@ -11036,7 +11036,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.ExportComponents(System.Int32)",
           "Name": "ExportComponents",
-          "LineNumber": 33,
+          "LineNumber": 38,
           "Inputs": [
             {
               "Name": "appId",
@@ -11061,7 +11061,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.ExportFlowDefinitions(System.Int32)",
           "Name": "ExportFlowDefinitions",
-          "LineNumber": 37,
+          "LineNumber": 42,
           "Inputs": [
             {
               "Name": "appId",
@@ -11086,7 +11086,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.ExportFolderRoles(System.Int32)",
           "Name": "ExportFolderRoles",
-          "LineNumber": 30,
+          "LineNumber": 35,
           "Inputs": [
             {
               "Name": "appId",
@@ -11111,7 +11111,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.ExportLayouts(System.Int32)",
           "Name": "ExportLayouts",
-          "LineNumber": 31,
+          "LineNumber": 36,
           "Inputs": [
             {
               "Name": "appId",
@@ -11136,7 +11136,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.ExportPageRoles(System.Int32)",
           "Name": "ExportPageRoles",
-          "LineNumber": 38,
+          "LineNumber": 43,
           "Inputs": [
             {
               "Name": "appId",
@@ -11161,7 +11161,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.ExportPages(System.Int32)",
           "Name": "ExportPages",
-          "LineNumber": 36,
+          "LineNumber": 41,
           "Inputs": [
             {
               "Name": "appId",
@@ -11186,7 +11186,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.ExportResources(System.Int32)",
           "Name": "ExportResources",
-          "LineNumber": 35,
+          "LineNumber": 40,
           "Inputs": [
             {
               "Name": "appId",
@@ -11211,7 +11211,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.ExportRoles(System.Int32)",
           "Name": "ExportRoles",
-          "LineNumber": 29,
+          "LineNumber": 34,
           "Inputs": [
             {
               "Name": "appId",
@@ -11236,7 +11236,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.ExportScripts(System.Int32)",
           "Name": "ExportScripts",
-          "LineNumber": 34,
+          "LineNumber": 39,
           "Inputs": [
             {
               "Name": "appId",
@@ -11261,7 +11261,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.ExportTemplates(System.Int32)",
           "Name": "ExportTemplates",
-          "LineNumber": 32,
+          "LineNumber": 37,
           "Inputs": [
             {
               "Name": "appId",
@@ -11286,7 +11286,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.GetAllPackages()",
           "Name": "GetAllPackages",
-          "LineNumber": 23,
+          "LineNumber": 28,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.Package\u003E",
           "Implements": [],
@@ -11306,7 +11306,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.GetAllPackages(System.Boolean)",
           "Name": "GetAllPackages",
-          "LineNumber": 24,
+          "LineNumber": 29,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -11331,7 +11331,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.GetAllPackagesIgnoringFilters()",
           "Name": "GetAllPackagesIgnoringFilters",
-          "LineNumber": 25,
+          "LineNumber": 30,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.Package\u003E",
           "Implements": [],
@@ -11351,7 +11351,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.GetLatestCommonObjects()",
           "Name": "GetLatestCommonObjects",
-          "LineNumber": 22,
+          "LineNumber": 27,
           "Inputs": [],
           "ReturnType": "cCoder.Data.Models.CommonObject[]",
           "Implements": [],
@@ -11371,7 +11371,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageBroker.UpdatePackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "UpdatePackageAsync",
-          "LineNumber": 27,
+          "LineNumber": 32,
           "Inputs": [
             {
               "Name": "updatedPackage",
@@ -11398,7 +11398,7 @@
     {
       "Name": "cCoder.Packaging.Brokers.Storages.IPackageItemBroker",
       "StandardElementType": "Broker",
-      "LineNumber": 12,
+      "LineNumber": 15,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -11408,7 +11408,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageItemBroker.AddPackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "AddPackageItemAsync",
-          "LineNumber": 17,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "newPackageItem",
@@ -11433,7 +11433,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageItemBroker.DeletePackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "DeletePackageItemAsync",
-          "LineNumber": 19,
+          "LineNumber": 22,
           "Inputs": [
             {
               "Name": "deletedPackageItem",
@@ -11458,7 +11458,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageItemBroker.GetAllPackageItems()",
           "Name": "GetAllPackageItems",
-          "LineNumber": 14,
+          "LineNumber": 17,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E",
           "Implements": [],
@@ -11478,7 +11478,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageItemBroker.GetAllPackageItems(System.Boolean)",
           "Name": "GetAllPackageItems",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -11503,7 +11503,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageItemBroker.GetAllPackageItemsIgnoringFilters()",
           "Name": "GetAllPackageItemsIgnoringFilters",
-          "LineNumber": 16,
+          "LineNumber": 19,
           "Inputs": [],
           "ReturnType": "System.Linq.IQueryable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E",
           "Implements": [],
@@ -11523,7 +11523,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageItemBroker.GetAppId(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "GetAppId",
-          "LineNumber": 20,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -11548,7 +11548,7 @@
         {
           "Id": "cCoder.Packaging.Brokers.Storages.IPackageItemBroker.UpdatePackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "UpdatePackageItemAsync",
-          "LineNumber": 18,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "updatedPackageItem",
@@ -11575,7 +11575,7 @@
     {
       "Name": "cCoder.Packaging.Exposures.PackageManagers.IAppSecurityPackageManager",
       "StandardElementType": "Exposure",
-      "LineNumber": 11,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -11585,7 +11585,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.PackageManagers.IAppSecurityPackageManager.ExportPackage(System.Int32,System.String)",
           "Name": "ExportPackage",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "appId",
@@ -11614,7 +11614,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.PackageManagers.IAppSecurityPackageManager.ImportPackageAsync(System.Int32,cCoder.Data.Models.Packaging.Package)",
           "Name": "ImportPackageAsync",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "appId",
@@ -11645,7 +11645,7 @@
     {
       "Name": "cCoder.Packaging.Exposures.PackageManagers.IContentManagementPackageManager",
       "StandardElementType": "Exposure",
-      "LineNumber": 11,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -11655,7 +11655,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.PackageManagers.IContentManagementPackageManager.ExportPackage(System.Int32,System.String)",
           "Name": "ExportPackage",
-          "LineNumber": 15,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "appId",
@@ -11684,7 +11684,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.PackageManagers.IContentManagementPackageManager.ImportPackageAsync(System.Int32,cCoder.Data.Models.Packaging.Package)",
           "Name": "ImportPackageAsync",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "appId",
@@ -11715,7 +11715,7 @@
     {
       "Name": "cCoder.Packaging.Exposures.PackageManagers.IDocumentManagementPackageManager",
       "StandardElementType": "Exposure",
-      "LineNumber": 11,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -11725,7 +11725,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.PackageManagers.IDocumentManagementPackageManager.ExportPackage(System.Int32,System.String)",
           "Name": "ExportPackage",
-          "LineNumber": 15,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "appId",
@@ -11754,7 +11754,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.PackageManagers.IDocumentManagementPackageManager.ImportPackageAsync(System.Int32,cCoder.Data.Models.Packaging.Package)",
           "Name": "ImportPackageAsync",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "appId",
@@ -11785,7 +11785,7 @@
     {
       "Name": "cCoder.Packaging.Exposures.PackageManagers.ISchedulingPackageManager",
       "StandardElementType": "Exposure",
-      "LineNumber": 11,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -11795,7 +11795,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.PackageManagers.ISchedulingPackageManager.ExportPackage(System.Int32,System.String)",
           "Name": "ExportPackage",
-          "LineNumber": 15,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "appId",
@@ -11824,7 +11824,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.PackageManagers.ISchedulingPackageManager.ImportPackageAsync(System.Int32,cCoder.Data.Models.Packaging.Package)",
           "Name": "ImportPackageAsync",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "appId",
@@ -11855,7 +11855,7 @@
     {
       "Name": "cCoder.Packaging.Exposures.PackageManagers.IWorkflowPackageManager",
       "StandardElementType": "Exposure",
-      "LineNumber": 11,
+      "LineNumber": 12,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -11865,7 +11865,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.PackageManagers.IWorkflowPackageManager.ExportPackage(System.Int32,System.String)",
           "Name": "ExportPackage",
-          "LineNumber": 15,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "appId",
@@ -11894,7 +11894,7 @@
         {
           "Id": "cCoder.Packaging.Exposures.PackageManagers.IWorkflowPackageManager.ImportPackageAsync(System.Int32,cCoder.Data.Models.Packaging.Package)",
           "Name": "ImportPackageAsync",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "appId",
@@ -11925,7 +11925,7 @@
     {
       "Name": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService",
       "StandardElementType": "AggregationService",
-      "LineNumber": 11,
+      "LineNumber": 15,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -11935,7 +11935,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.AddOrUpdatePackagesAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "AddOrUpdatePackagesAsync",
-          "LineNumber": 23,
+          "LineNumber": 27,
           "Inputs": [
             {
               "Name": "packages",
@@ -11960,7 +11960,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.AddPackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "AddPackageAsync",
-          "LineNumber": 19,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -11985,7 +11985,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.DeleteAllPackagesAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.Package\u003E)",
           "Name": "DeleteAllPackagesAsync",
-          "LineNumber": 26,
+          "LineNumber": 30,
           "Inputs": [
             {
               "Name": "deletedPackages",
@@ -12010,7 +12010,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.DeletePackageAsync(System.Guid)",
           "Name": "DeletePackageAsync",
-          "LineNumber": 21,
+          "LineNumber": 25,
           "Inputs": [
             {
               "Name": "packageId",
@@ -12035,7 +12035,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.ExportPackagesAsync(System.Int32?,System.String[])",
           "Name": "ExportPackagesAsync",
-          "LineNumber": 13,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "appId",
@@ -12064,7 +12064,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.GetAllPackages(System.Boolean)",
           "Name": "GetAllPackages",
-          "LineNumber": 18,
+          "LineNumber": 22,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -12089,7 +12089,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.GetPackage(System.Guid)",
           "Name": "GetPackage",
-          "LineNumber": 17,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "packageId",
@@ -12114,7 +12114,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.ImportPackageAsync(System.Int32?,cCoder.Data.Models.Packaging.Package)",
           "Name": "ImportPackageAsync",
-          "LineNumber": 16,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "appId",
@@ -12143,7 +12143,7 @@
         {
           "Id": "cCoder.Packaging.Services.Aggregations.IPackageAggregationService.UpdatePackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "UpdatePackageAsync",
-          "LineNumber": 20,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "updatedPackage",
@@ -12170,7 +12170,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.Events.IPackageEventService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 10,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -12180,7 +12180,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.IPackageEventService.RaisePackageAddEventAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageAddEventAsync",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "package",
@@ -12205,7 +12205,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.IPackageEventService.RaisePackageDeleteEventAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageDeleteEventAsync",
-          "LineNumber": 15,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "package",
@@ -12230,7 +12230,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.IPackageEventService.RaisePackageImportEventAsync(System.Int32?,cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageImportEventAsync",
-          "LineNumber": 12,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "appId",
@@ -12259,7 +12259,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.IPackageEventService.RaisePackageUpdateEventAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageUpdateEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "package",
@@ -12286,7 +12286,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.Events.IPackageItemEventService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 10,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -12296,7 +12296,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.IPackageItemEventService.RaisePackageItemAddEventAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "RaisePackageItemAddEventAsync",
-          "LineNumber": 12,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -12321,7 +12321,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.IPackageItemEventService.RaisePackageItemDeleteEventAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "RaisePackageItemDeleteEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -12346,7 +12346,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Events.IPackageItemEventService.RaisePackageItemUpdateEventAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "RaisePackageItemUpdateEventAsync",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -12373,7 +12373,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.IPackagingMetadataTypeService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 10,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -12383,7 +12383,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.IPackagingMetadataTypeService.GetKnownMetadata()",
           "Name": "GetKnownMetadata",
-          "LineNumber": 12,
+          "LineNumber": 13,
           "Inputs": [],
           "ReturnType": "System.Collections.Generic.IEnumerable\u003CcCoder.Packaging.Api.OData.MetadataContainerSet\u003E",
           "Implements": [],
@@ -12405,7 +12405,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.Loggings.ILoggingFoundationService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -12415,7 +12415,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Loggings.ILoggingFoundationService.LogError(System.Exception,System.String)",
           "Name": "LogError",
-          "LineNumber": 9,
+          "LineNumber": 11,
           "Inputs": [
             {
               "Name": "exception",
@@ -12446,7 +12446,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.Metadata.IMetadataService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 9,
+      "LineNumber": 10,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -12456,7 +12456,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Metadata.IMetadataService.CreateMetadataContainer(System.Type,System.Boolean,System.Boolean)",
           "Name": "CreateMetadataContainer",
-          "LineNumber": 11,
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "type",
@@ -12491,7 +12491,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.PackageExports.IPackageExportService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 9,
+      "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -12501,7 +12501,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.PackageExports.IPackageExportService.ExportPackagesAsync(System.Int32,System.String[],System.String)",
           "Name": "ExportPackagesAsync",
-          "LineNumber": 11,
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "appId",
@@ -12534,7 +12534,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.PackageExports.IPackageExportService.GetPackageSourceApi(System.Int32)",
           "Name": "GetPackageSourceApi",
-          "LineNumber": 16,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "appId",
@@ -12561,7 +12561,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.Storages.IPackageItemService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -12571,7 +12571,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageItemService.AddPackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "AddPackageItemAsync",
-          "LineNumber": 13,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "newPackageItem",
@@ -12596,7 +12596,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageItemService.DeletePackageItemAsync(System.Guid)",
           "Name": "DeletePackageItemAsync",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "packageItemId",
@@ -12621,7 +12621,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageItemService.GetAllPackageItems(System.Boolean)",
           "Name": "GetAllPackageItems",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -12646,7 +12646,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageItemService.GetPackageItem(System.Guid)",
           "Name": "GetPackageItem",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "packageItemId",
@@ -12671,7 +12671,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageItemService.UpdatePackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "UpdatePackageItemAsync",
-          "LineNumber": 14,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "updatedPackageItem",
@@ -12698,7 +12698,7 @@
     {
       "Name": "cCoder.Packaging.Services.Foundations.Storages.IPackageService",
       "StandardElementType": "FoundationService",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -12708,7 +12708,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.AddPackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "AddPackageAsync",
-          "LineNumber": 13,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -12733,7 +12733,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.DeletePackageAsync(System.Guid)",
           "Name": "DeletePackageAsync",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "packageId",
@@ -12758,7 +12758,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.ExportCommonCachePackages()",
           "Name": "ExportCommonCachePackages",
-          "LineNumber": 16,
+          "LineNumber": 19,
           "Inputs": [],
           "ReturnType": "cCoder.Data.Models.Packaging.Package[]",
           "Implements": [],
@@ -12778,7 +12778,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.ExportPackageComponents(System.Int32)",
           "Name": "ExportPackageComponents",
-          "LineNumber": 20,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "appId",
@@ -12803,7 +12803,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.ExportPackageLayouts(System.Int32)",
           "Name": "ExportPackageLayouts",
-          "LineNumber": 18,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "appId",
@@ -12828,7 +12828,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.ExportPackagePageRoles(System.Int32)",
           "Name": "ExportPackagePageRoles",
-          "LineNumber": 24,
+          "LineNumber": 27,
           "Inputs": [
             {
               "Name": "appId",
@@ -12853,7 +12853,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.ExportPackagePages(System.Int32)",
           "Name": "ExportPackagePages",
-          "LineNumber": 23,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "appId",
@@ -12878,7 +12878,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.ExportPackageResources(System.Int32)",
           "Name": "ExportPackageResources",
-          "LineNumber": 22,
+          "LineNumber": 25,
           "Inputs": [
             {
               "Name": "appId",
@@ -12903,7 +12903,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.ExportPackageRoles(System.Int32)",
           "Name": "ExportPackageRoles",
-          "LineNumber": 17,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "appId",
@@ -12928,7 +12928,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.ExportPackageScripts(System.Int32)",
           "Name": "ExportPackageScripts",
-          "LineNumber": 21,
+          "LineNumber": 24,
           "Inputs": [
             {
               "Name": "appId",
@@ -12953,7 +12953,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.ExportPackageTemplates(System.Int32)",
           "Name": "ExportPackageTemplates",
-          "LineNumber": 19,
+          "LineNumber": 22,
           "Inputs": [
             {
               "Name": "appId",
@@ -12978,7 +12978,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.GetAllPackages(System.Boolean)",
           "Name": "GetAllPackages",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -13003,7 +13003,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.GetPackage(System.Guid)",
           "Name": "GetPackage",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "packageId",
@@ -13028,7 +13028,7 @@
         {
           "Id": "cCoder.Packaging.Services.Foundations.Storages.IPackageService.UpdatePackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "UpdatePackageAsync",
-          "LineNumber": 14,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "updatedPackage",
@@ -13055,7 +13055,7 @@
     {
       "Name": "cCoder.Packaging.Services.Orchestrations.IPackageItemOrchestrationService",
       "StandardElementType": "OrchestrationService",
-      "LineNumber": 11,
+      "LineNumber": 15,
       "IsPublic": true,
       "Kind": "Interface",
       "BaseType": null,
@@ -13065,7 +13065,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.IPackageItemOrchestrationService.AddOrUpdatePackageItemsAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "AddOrUpdatePackageItemsAsync",
-          "LineNumber": 19,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "packageItems",
@@ -13090,7 +13090,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.IPackageItemOrchestrationService.AddPackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "AddPackageItemAsync",
-          "LineNumber": 15,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "newPackageItem",
@@ -13115,7 +13115,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.IPackageItemOrchestrationService.DeleteAllPackageItemsAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "DeleteAllPackageItemsAsync",
-          "LineNumber": 22,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "deletedPackageItems",
@@ -13140,7 +13140,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.IPackageItemOrchestrationService.DeletePackageItemAsync(System.Guid)",
           "Name": "DeletePackageItemAsync",
-          "LineNumber": 17,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "packageItemId",
@@ -13165,7 +13165,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.IPackageItemOrchestrationService.GetAllPackageItems(System.Boolean)",
           "Name": "GetAllPackageItems",
-          "LineNumber": 14,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -13190,7 +13190,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.IPackageItemOrchestrationService.GetPackageItem(System.Guid)",
           "Name": "GetPackageItem",
-          "LineNumber": 13,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "packageItemId",
@@ -13215,7 +13215,7 @@
         {
           "Id": "cCoder.Packaging.Services.Orchestrations.IPackageItemOrchestrationService.UpdatePackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "UpdatePackageItemAsync",
-          "LineNumber": 16,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "updatedPackageItem",
@@ -13242,7 +13242,7 @@
     {
       "Name": "cCoder.Packaging.Services.Processings.IPackageEventProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 10,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -13252,7 +13252,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageEventProcessingService.RaisePackageAddEventAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageAddEventAsync",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "package",
@@ -13277,7 +13277,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageEventProcessingService.RaisePackageDeleteEventAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageDeleteEventAsync",
-          "LineNumber": 15,
+          "LineNumber": 16,
           "Inputs": [
             {
               "Name": "package",
@@ -13302,7 +13302,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageEventProcessingService.RaisePackageImportEventAsync(System.Int32?,cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageImportEventAsync",
-          "LineNumber": 12,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "appId",
@@ -13331,7 +13331,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageEventProcessingService.RaisePackageUpdateEventAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "RaisePackageUpdateEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "package",
@@ -13358,7 +13358,7 @@
     {
       "Name": "cCoder.Packaging.Services.Processings.IPackageExportProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 9,
+      "LineNumber": 10,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -13368,7 +13368,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageExportProcessingService.ExportPackagesAsync(System.Int32,System.String[],System.String)",
           "Name": "ExportPackagesAsync",
-          "LineNumber": 11,
+          "LineNumber": 12,
           "Inputs": [
             {
               "Name": "appId",
@@ -13401,7 +13401,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageExportProcessingService.GetPackageSourceApi(System.Int32)",
           "Name": "GetPackageSourceApi",
-          "LineNumber": 16,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "appId",
@@ -13428,7 +13428,7 @@
     {
       "Name": "cCoder.Packaging.Services.Processings.IPackageItemEventProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 10,
+      "LineNumber": 11,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -13438,7 +13438,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageItemEventProcessingService.RaisePackageItemAddEventAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "RaisePackageItemAddEventAsync",
-          "LineNumber": 12,
+          "LineNumber": 13,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -13463,7 +13463,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageItemEventProcessingService.RaisePackageItemDeleteEventAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "RaisePackageItemDeleteEventAsync",
-          "LineNumber": 14,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -13488,7 +13488,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageItemEventProcessingService.RaisePackageItemUpdateEventAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "RaisePackageItemUpdateEventAsync",
-          "LineNumber": 13,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "packageItem",
@@ -13515,7 +13515,7 @@
     {
       "Name": "cCoder.Packaging.Services.Processings.IPackageItemProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 11,
+      "LineNumber": 15,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -13525,7 +13525,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageItemProcessingService.AddOrUpdatePackageItemsAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "AddOrUpdatePackageItemsAsync",
-          "LineNumber": 19,
+          "LineNumber": 23,
           "Inputs": [
             {
               "Name": "packageItems",
@@ -13550,7 +13550,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageItemProcessingService.AddPackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "AddPackageItemAsync",
-          "LineNumber": 15,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "newPackageItem",
@@ -13575,7 +13575,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageItemProcessingService.DeleteAllPackageItemsAsync(System.Collections.Generic.IEnumerable\u003CcCoder.Data.Models.Packaging.PackageItem\u003E)",
           "Name": "DeleteAllPackageItemsAsync",
-          "LineNumber": 22,
+          "LineNumber": 26,
           "Inputs": [
             {
               "Name": "deletedPackageItems",
@@ -13600,7 +13600,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageItemProcessingService.DeletePackageItemAsync(System.Guid)",
           "Name": "DeletePackageItemAsync",
-          "LineNumber": 17,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "packageItemId",
@@ -13625,7 +13625,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageItemProcessingService.GetAllPackageItems(System.Boolean)",
           "Name": "GetAllPackageItems",
-          "LineNumber": 14,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -13650,7 +13650,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageItemProcessingService.GetPackageItem(System.Guid)",
           "Name": "GetPackageItem",
-          "LineNumber": 13,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "packageItemId",
@@ -13675,7 +13675,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageItemProcessingService.UpdatePackageItemAsync(cCoder.Data.Models.Packaging.PackageItem)",
           "Name": "UpdatePackageItemAsync",
-          "LineNumber": 16,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "updatedPackageItem",
@@ -13702,7 +13702,7 @@
     {
       "Name": "cCoder.Packaging.Services.Processings.IPackageProcessingService",
       "StandardElementType": "ProcessingService",
-      "LineNumber": 9,
+      "LineNumber": 12,
       "IsPublic": false,
       "Kind": "Interface",
       "BaseType": null,
@@ -13712,7 +13712,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageProcessingService.AddPackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "AddPackageAsync",
-          "LineNumber": 16,
+          "LineNumber": 19,
           "Inputs": [
             {
               "Name": "newPackage",
@@ -13737,7 +13737,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageProcessingService.DeletePackageAsync(System.Guid)",
           "Name": "DeletePackageAsync",
-          "LineNumber": 18,
+          "LineNumber": 21,
           "Inputs": [
             {
               "Name": "packageId",
@@ -13762,7 +13762,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageProcessingService.ExportCommonCachePackages()",
           "Name": "ExportCommonCachePackages",
-          "LineNumber": 13,
+          "LineNumber": 16,
           "Inputs": [],
           "ReturnType": "cCoder.Data.Models.Packaging.Package[]",
           "Implements": [],
@@ -13782,7 +13782,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageProcessingService.ExportPackage(System.Int32,System.String)",
           "Name": "ExportPackage",
-          "LineNumber": 11,
+          "LineNumber": 14,
           "Inputs": [
             {
               "Name": "appId",
@@ -13811,7 +13811,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageProcessingService.ExportPackages(System.Int32,System.String[])",
           "Name": "ExportPackages",
-          "LineNumber": 12,
+          "LineNumber": 15,
           "Inputs": [
             {
               "Name": "appId",
@@ -13840,7 +13840,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageProcessingService.GetAllPackages(System.Boolean)",
           "Name": "GetAllPackages",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "ignoreFilters",
@@ -13865,7 +13865,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageProcessingService.GetPackage(System.Guid)",
           "Name": "GetPackage",
-          "LineNumber": 14,
+          "LineNumber": 17,
           "Inputs": [
             {
               "Name": "packageId",
@@ -13890,7 +13890,7 @@
         {
           "Id": "cCoder.Packaging.Services.Processings.IPackageProcessingService.UpdatePackageAsync(cCoder.Data.Models.Packaging.Package)",
           "Name": "UpdatePackageAsync",
-          "LineNumber": 17,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "updatedPackage",

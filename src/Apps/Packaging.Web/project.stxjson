@@ -9,7 +9,7 @@
     {
       "Name": "Packaging.Web.IServiceCollectionExtensions",
       "StandardElementType": "App",
-      "LineNumber": 13,
+      "LineNumber": 16,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -19,7 +19,7 @@
         {
           "Id": "Packaging.Web.IServiceCollectionExtensions.AddWeb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration,System.Action\u003CPackaging.Web.Models.AppConfiguration\u003E)",
           "Name": "AddWeb",
-          "LineNumber": 15,
+          "LineNumber": 18,
           "Inputs": [
             {
               "Name": "services",
@@ -136,7 +136,7 @@
     {
       "Name": "Packaging.Web.Program",
       "StandardElementType": "App",
-      "LineNumber": 7,
+      "LineNumber": 9,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -146,7 +146,7 @@
         {
           "Id": "Packaging.Web.Program.Main(System.String[])",
           "Name": "Main",
-          "LineNumber": 9,
+          "LineNumber": 11,
           "Inputs": [
             {
               "Name": "args",
@@ -209,7 +209,7 @@
     {
       "Name": "Packaging.Web.WebApplicationExtensions",
       "StandardElementType": "App",
-      "LineNumber": 12,
+      "LineNumber": 18,
       "IsPublic": true,
       "Kind": "Class",
       "BaseType": null,
@@ -219,7 +219,7 @@
         {
           "Id": "Packaging.Web.WebApplicationExtensions.UsePackagingWeb(Microsoft.AspNetCore.Builder.WebApplication)",
           "Name": "UsePackagingWeb",
-          "LineNumber": 14,
+          "LineNumber": 20,
           "Inputs": [
             {
               "Name": "app",
