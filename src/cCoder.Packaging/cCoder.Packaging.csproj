@@ -5,7 +5,7 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <OutputType>Library</OutputType>
     <IsPackable>true</IsPackable>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>$(NoWarn);1591;NU1510</NoWarn>
     <AssemblyName>cCoder.Packaging</AssemblyName>
     <RootNamespace>cCoder.Packaging</RootNamespace>
     <PackageId>cCoder.Packaging</PackageId>
@@ -41,11 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="cCoder.CodeAnalysis.Contracts" Version="2026.10.8.1211" />
-    <PackageReference Include="cCoder.Data" Version="2026.10.8.1248" Condition="'$(UseLocalData)' != 'true'" />
-    <PackageReference Include="cCoder.Eventing" Version="2026.10.8.1222" Condition="'$(UseLocalEventing)' != 'true'" />
+    <PackageReference Include="cCoder.Data" Version="2026.10.14.1440" Condition="'$(UseLocalData)' != 'true'" />
+    <PackageReference Include="cCoder.Eventing" Version="2026.10.28.1123" Condition="'$(UseLocalEventing)' != 'true'" />
     <PackageReference Include="Microsoft.AspNetCore.OData" Version="9.5.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.11" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.2.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.14" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.3.1" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.14" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.14" />
   </ItemGroup>
 </Project>
