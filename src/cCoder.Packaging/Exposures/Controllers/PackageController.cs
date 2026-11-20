@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using System.Security.Authentication;
 
 namespace cCoder.Packaging.Exposures.Controllers;
 
@@ -35,35 +36,56 @@ public partial class PackageController(
     {
         try
         {
-            return Ok(value: await packageAggregationService.ExportPackagesAsync(
-                appId: appId,
-                packageNames: packageNames));
+
+            {
+                var actionValue = await packageAggregationService.ExportPackagesAsync(appId: appId, packageNames: packageNames);
+                loggingBroker.LogInformation(message: "Controller action completed successfully.");
+                return Ok(value: actionValue);
+            }
         }
+
         catch (PackagingOrchestrationValidationException exception)
-        {
-            loggingBroker.LogError(
-                exception: exception,
-                message: "Controller request failed.");
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
 
-            return BadRequest(error: "The package request is invalid.");
-        }
+        catch (PackagingValidationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (ArgumentException exception)
+{
+    loggingBroker.LogWarning(message: "Controller argument validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (AuthenticationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authentication failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status401Unauthorized, value: "Authentication failed.");
+}
+
+        catch (UnauthorizedAccessException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authorization failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
+
         catch (SecurityException exception)
-        {
-            loggingBroker.LogError(
-                exception: exception,
-                message: "Controller request failed.");
+{
+    loggingBroker.LogWarning(message: "Controller security check failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
 
-            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
-        }
         catch (Exception exception)
-        {
-            loggingBroker.LogError(
-                exception: exception,
-                message: "Controller request failed.");
-
-            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+{
+    loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+    return StatusCode(statusCode: StatusCodes.Status500InternalServerError, value: "The packaging operation failed.");
+}
         }
-    }
 
     [HttpGet]
     [EnableQuery(
@@ -79,27 +101,56 @@ public partial class PackageController(
     {
         try
         {
-            return Ok(value: packageAggregationService.GetAllPackages());
+
+            {
+                var actionValue = packageAggregationService.GetAllPackages();
+                loggingBroker.LogInformation(message: "Controller action completed successfully.");
+                return Ok(value: actionValue);
+            }
         }
+
         catch (PackagingOrchestrationValidationException exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
 
-            return BadRequest(error: "The package request is invalid.");
-        }
+        catch (PackagingValidationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (ArgumentException exception)
+{
+    loggingBroker.LogWarning(message: "Controller argument validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (AuthenticationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authentication failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status401Unauthorized, value: "Authentication failed.");
+}
+
+        catch (UnauthorizedAccessException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authorization failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
+
         catch (SecurityException exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+{
+    loggingBroker.LogWarning(message: "Controller security check failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
 
-            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
-        }
         catch (Exception exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
-
-            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+{
+    loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+    return StatusCode(statusCode: StatusCodes.Status500InternalServerError, value: "The packaging operation failed.");
+}
         }
-    }
 
     [HttpGet]
     [AllowAnonymous]
@@ -122,30 +173,65 @@ public partial class PackageController(
 
             if (package is null)
             {
-                return NotFound();
+
+                {
+                    loggingBroker.LogWarning(message: "Controller action returned a client error.");
+                    return NotFound();
+                }
             }
 
-            return Ok(value: package);
+
+            {
+
+                loggingBroker.LogInformation(message: "Controller action completed successfully.");
+
+                return Ok(value: package);
+
+            }
         }
+
         catch (PackagingOrchestrationValidationException exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
 
-            return BadRequest(error: "The package request is invalid.");
-        }
+        catch (PackagingValidationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (ArgumentException exception)
+{
+    loggingBroker.LogWarning(message: "Controller argument validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (AuthenticationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authentication failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status401Unauthorized, value: "Authentication failed.");
+}
+
+        catch (UnauthorizedAccessException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authorization failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
+
         catch (SecurityException exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+{
+    loggingBroker.LogWarning(message: "Controller security check failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
 
-            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
-        }
         catch (Exception exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
-
-            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+{
+    loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+    return StatusCode(statusCode: StatusCodes.Status500InternalServerError, value: "The packaging operation failed.");
+}
         }
-    }
 
     [HttpPost]
     [EnableQuery(
@@ -162,33 +248,67 @@ public partial class PackageController(
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(modelState: ModelState);
+
+                {
+                    loggingBroker.LogWarning(message: "Controller action returned a client error.");
+                    return BadRequest(modelState: ModelState);
+                }
             }
 
-            return StatusCode(
-                statusCode: StatusCodes.Status201Created,
-                value: await packageAggregationService
-                    .AddPackageAsync(newPackage: newPackage));
+
+            {
+
+                var actionValue = await packageAggregationService.AddPackageAsync(newPackage: newPackage);
+
+                loggingBroker.LogInformation(message: "Controller action completed successfully.");
+
+                return StatusCode(statusCode: StatusCodes.Status201Created, value: actionValue);
+
+            }
         }
+
         catch (PackagingOrchestrationValidationException exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
 
-            return BadRequest(error: "The package request is invalid.");
-        }
+        catch (PackagingValidationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (ArgumentException exception)
+{
+    loggingBroker.LogWarning(message: "Controller argument validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (AuthenticationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authentication failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status401Unauthorized, value: "Authentication failed.");
+}
+
+        catch (UnauthorizedAccessException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authorization failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
+
         catch (SecurityException exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+{
+    loggingBroker.LogWarning(message: "Controller security check failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
 
-            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
-        }
         catch (Exception exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
-
-            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+{
+    loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+    return StatusCode(statusCode: StatusCodes.Status500InternalServerError, value: "The packaging operation failed.");
+}
         }
-    }
 
     [HttpPost("/Api/Packaging/Package/Import")]
     public async Task<IActionResult> PostImport(
@@ -199,33 +319,69 @@ public partial class PackageController(
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(modelState: ModelState);
+
+                {
+                    loggingBroker.LogWarning(message: "Controller action returned a client error.");
+                    return BadRequest(modelState: ModelState);
+                }
             }
 
             await packageAggregationService.ImportPackageAsync(
                 appId: appId,
                 package: newPackage);
 
-            return Accepted();
+
+            {
+
+                loggingBroker.LogInformation(message: "Controller action completed successfully.");
+
+                return Accepted();
+
+            }
         }
+
         catch (PackagingOrchestrationValidationException exception)
-        {
-            loggingBroker.LogError(
-                exception: exception,
-                message: "Controller request failed.");
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
 
-            return BadRequest(error: "The package request is invalid.");
-        }
+        catch (PackagingValidationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (ArgumentException exception)
+{
+    loggingBroker.LogWarning(message: "Controller argument validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (AuthenticationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authentication failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status401Unauthorized, value: "Authentication failed.");
+}
+
+        catch (UnauthorizedAccessException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authorization failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
+
+        catch (SecurityException exception)
+{
+    loggingBroker.LogWarning(message: "Controller security check failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
+
         catch (Exception exception)
-        {
-            loggingBroker.LogError(
-                exception: exception,
-                message: "Controller request failed.");
-
-            return StatusCode(
-                statusCode: StatusCodes.Status500InternalServerError);
+{
+    loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+    return StatusCode(statusCode: StatusCodes.Status500InternalServerError, value: "The packaging operation failed.");
+}
         }
-    }
 
     [HttpPut]
     [EnableQuery(
@@ -244,33 +400,69 @@ public partial class PackageController(
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(modelState: ModelState);
+
+                {
+                    loggingBroker.LogWarning(message: "Controller action returned a client error.");
+                    return BadRequest(modelState: ModelState);
+                }
             }
 
             updatedPackage.Id = key;
 
-            return Ok(value: await packageAggregationService
-                .UpdatePackageAsync(updatedPackage: updatedPackage));
+
+            {
+
+                var actionValue = await packageAggregationService.UpdatePackageAsync(updatedPackage: updatedPackage);
+
+                loggingBroker.LogInformation(message: "Controller action completed successfully.");
+
+                return Ok(value: actionValue);
+
+            }
         }
+
         catch (PackagingOrchestrationValidationException exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
 
-            return BadRequest(error: "The package request is invalid.");
-        }
+        catch (PackagingValidationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (ArgumentException exception)
+{
+    loggingBroker.LogWarning(message: "Controller argument validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (AuthenticationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authentication failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status401Unauthorized, value: "Authentication failed.");
+}
+
+        catch (UnauthorizedAccessException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authorization failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
+
         catch (SecurityException exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+{
+    loggingBroker.LogWarning(message: "Controller security check failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
 
-            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
-        }
         catch (Exception exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
-
-            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+{
+    loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+    return StatusCode(statusCode: StatusCodes.Status500InternalServerError, value: "The packaging operation failed.");
+}
         }
-    }
 
     [HttpDelete]
     public async Task<IActionResult> Delete([FromRoute] Guid key)
@@ -279,25 +471,56 @@ public partial class PackageController(
         {
             await packageAggregationService.DeletePackageAsync(packageId: key);
 
-            return NoContent();
+
+            {
+
+                loggingBroker.LogInformation(message: "Controller action completed successfully.");
+
+                return NoContent();
+
+            }
         }
+
         catch (PackagingOrchestrationValidationException exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
 
-            return BadRequest(error: "The package request is invalid.");
-        }
+        catch (PackagingValidationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (ArgumentException exception)
+{
+    loggingBroker.LogWarning(message: "Controller argument validation failed.", args: exception);
+    return BadRequest(error: "The packaging request is invalid.");
+}
+
+        catch (AuthenticationException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authentication failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status401Unauthorized, value: "Authentication failed.");
+}
+
+        catch (UnauthorizedAccessException exception)
+{
+    loggingBroker.LogWarning(message: "Controller authorization failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
+
         catch (SecurityException exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+{
+    loggingBroker.LogWarning(message: "Controller security check failed.", args: exception);
+    return StatusCode(statusCode: StatusCodes.Status403Forbidden, value: "The packaging operation is forbidden.");
+}
 
-            return StatusCode(statusCode: StatusCodes.Status403Forbidden);
-        }
         catch (Exception exception)
-        {
-            loggingBroker.LogError(exception: exception, message: "Controller request failed.");
-
-            return StatusCode(statusCode: StatusCodes.Status500InternalServerError);
+{
+    loggingBroker.LogError(exception: exception, message: "Controller request failed.");
+    return StatusCode(statusCode: StatusCodes.Status500InternalServerError, value: "The packaging operation failed.");
+}
         }
-    }
 }
