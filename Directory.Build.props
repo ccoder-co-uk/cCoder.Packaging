@@ -4,7 +4,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.10.28.1133" IncludeAssets="analyzers;build;buildTransitive" PrivateAssets="all" />
+    <PackageReference Include="cCoder.CodeAnalysis" Version="2026.11.20.1604" IncludeAssets="analyzers;build;buildTransitive" PrivateAssets="all" />
     <PackageReference Include="System.Security.Cryptography.Pkcs" Version="10.0.14" />
   </ItemGroup>
 </Project>
